@@ -6,9 +6,6 @@
 This tool generates JSON data from XDita files
 
 ---
-## Requirements
-
-For development, you will only need Node.js and a node package manager, like Yarn, to be installed in your environement.
 
 ## Usage
 
@@ -40,4 +37,40 @@ If you want to ignore any errors and work with whatever data the function could 
 
 ```javascript
 xditaToJson(xml, false)
+```
+
+## Development
+
+For development, you will only need Node.js and a node package manager, like Yarn, to be installed in your environement.
+
+* Minimal Node version: v12
+* Optional: This project uses Yarn as a package manager, but you're still able to use only npm. The used version of Yarn is v1.22.21.
+
+### Build
+
+```shell
+yarn build
+```
+
+will create a `/lib` folder in the root of the project, which contains binaries and can be copied to your own project.
+
+### Test
+
+Run the tests with
+
+```shell
+// Using Mocha
+yarn test
+
+// Code coverage
+yarn coverage
+```
+
+### Example
+
+We have an example file to test the conversion: `src/example.ts`.
+Test it with:
+
+```shell
+yarn run ts-node ./src/example.ts
 ```
