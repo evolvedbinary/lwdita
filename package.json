@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ccheraa/jdita.git"
+    "url": "git+https://github.com/evolvedbinary/jdita.git"
   },
   "keywords": [
     "LwDITA",
@@ -28,9 +28,9 @@
   "author": "Evolved Binary",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/ccheraa/jdita/issues"
+    "url": "https://github.com/evolvedbinary/jdita/issues"
   },
-  "homepage": "https://github.com/ccheraa/jdita#readme",
+  "homepage": "https://github.com/evolvedbinary/jdita#readme",
   "directories": {
     "src": "./src",
     "test": "./test"
