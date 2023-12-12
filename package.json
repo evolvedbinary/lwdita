@@ -4,6 +4,10 @@
   "description": "Converts LwDITA XDITA format into JSON (a.k.a JDITA)",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "engines": {
+    "node": ">=12.13.1 <13",
+    "yarn": ">=1.22.21 <2"
+  },
   "scripts": {
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
