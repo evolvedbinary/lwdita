@@ -1,0 +1,15 @@
+version: 2.1
+orbs:
+  node: circleci/node@5.1.0
+jobs:
+  build-and-test:
+    docker:
+     - image: cimg/node:12.13.1
+    steps:
+      - checkout
+      - run: yarn install
+      - run: yarn coverage
+workflows:
+  build-and-test:
+    jobs:
+      - build-and-test
