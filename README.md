@@ -1,5 +1,6 @@
 # JDita
-[![Version](https://img.shields.io/npm/v/jdita)](https://www.npmjs.com/package/jdita)
+[![Node.js Version](https://img.shields.io/node/v-lts/jdita)](https://nodejs.org)
+[![Npm Package Version](https://img.shields.io/npm/v/jdita)](https://www.npmjs.com/package/jdita)
 [![Build Status](https://circleci.com/gh/evolvedbinary/jdita.svg?style=svg)](https://circleci.com/gh/evolvedbinary/jdita)
 [![Coverage Status](https://coveralls.io/repos/github/evolvedbinary/jdita/badge.svg?branch=main)](https://coveralls.io/github/evolvedbinary/jdita?branch=main)
 
