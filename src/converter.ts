@@ -5,6 +5,13 @@ import { JDita } from "./classes";
 
 // TODO: add tests
 
+/**
+ * Converts XML to a JDita document tree
+ * 
+ * @param xml - XML string
+ * @param abortOnError - If true, abort on error
+ * @returns - Promise of a DocumentNode
+ */
 export async function xditaToJdita(xml: string, abortOnError = true): Promise<DocumentNode> {
   return new Promise((resolve, reject) => {
     const errors: Error[] = [];

@@ -128,7 +128,7 @@ export function isChildTypeSingle(childType: string | ChildType | ChildTypes): b
     }
 }
 export function isChildTypeRequired(childType: string | ChildType | ChildTypes): boolean {
-    console.log(childType);
+    // console.log(childType);
     if (Array.isArray(childType)) {
         let result = true;
         childType.some(type => {

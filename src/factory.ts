@@ -45,6 +45,12 @@ import { UnknownNodeError, XMLNode } from "./classes";
 
 // TODO: add tests
 
+/**
+ * getNodeClass - Get the Node class constructor based on the node type
+ * 
+ * @param name - string type of node
+ * @returns - the node class constructor
+ */
 export function getNodeClass(name: string): Constructor {
   switch (name) {
     case 'alt': return AltNode;
@@ -94,10 +100,24 @@ export function getNodeClass(name: string): Constructor {
   }
 }
 
+// this function is never used
+// do we need it
+// TODO: remove this function if not needed
 export function getNodeClassType(name: string): typeof BaseNode {
   return getNodeClass(name) as unknown as typeof BaseNode;
 }
 
+/**
+ * createNode - Creates a new node based on node type
+ * based on the input node it checks if the node is a string or an XMLNode
+ * and creates a new node based on the type
+ * TextNode if string
+ * or the node type if XMLNode you can see the definition for each one below
+ * also there's a generic input type as long as it's inherits from BaseNode
+ *  
+ * @param content - The content of the node
+ * @returns - A new node
+ */
 export function createNode(content: string): TextNode;
 export function createNode(node: XMLNode<'audio'>): AudioNode;
 export function createNode(node: XMLNode<'alt'>): AltNode;
@@ -143,7 +163,10 @@ export function createNode(node: XMLNode<'video-poster'>): VideoPosterNode;
 export function createNode(node: XMLNode<'xref'>): XRefNode;
 export function createNode<T extends BaseNode = BaseNode>(node: XMLNode): T;
 export function createNode<T extends BaseNode>(node: XMLNode | string): T {
+  //this function will always return a BaseNode type even if it's null or undefined !!!
+  // does BaseNode type accepts null or undefined ??
   let nodeObject: BaseNode;
+
   if (typeof node === 'string') {
     nodeObject = new TextNode(node);
   } else {
