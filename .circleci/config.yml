@@ -11,6 +11,7 @@ jobs:
         version: 1.22.21
       - node/install-packages:
           pkg-manager: yarn 
+      - run: yarn lint
       - run: yarn coverage
 workflows:
   build-and-test:
