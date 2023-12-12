@@ -8,6 +8,8 @@ jobs:
     steps:
       - checkout
       - run: yarn install
+      - run: yarn build
+      - run: yarn lint
       - run: yarn coverage
 workflows:
   build-and-test:
