@@ -165,11 +165,14 @@ export function createNode<T extends BaseNode = BaseNode>(node: XMLNode): T;
 export function createNode<T extends BaseNode>(node: XMLNode | string): T {
   //this function will always return a BaseNode type even if it's null or undefined !!!
   // does BaseNode type accepts null or undefined ??
+
   let nodeObject: BaseNode;
 
   if (typeof node === 'string') {
     nodeObject = new TextNode(node);
   } else {
+    // getNodeClass can thorw an error if the node type is unknown
+    // does this protect us from creating a node with an unknown type ??
     const classType = getNodeClass(node.name);
     return new classType(node.attributes) as T;
   }
