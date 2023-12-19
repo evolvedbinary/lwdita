@@ -1,5 +1,6 @@
 # JDita
-![Version 0.1.0](https://img.shields.io/badge/version-0.1.0-blue)
+[![Node.js Version](https://img.shields.io/node/v-lts/jdita)](https://nodejs.org)
+[![Npm Package Version](https://img.shields.io/npm/v/jdita)](https://www.npmjs.com/package/jdita)
 [![Build Status](https://circleci.com/gh/evolvedbinary/jdita.svg?style=svg)](https://circleci.com/gh/evolvedbinary/jdita)
 [![Coverage Status](https://coveralls.io/repos/github/evolvedbinary/jdita/badge.svg?branch=main)](https://coveralls.io/github/evolvedbinary/jdita?branch=main)
 
@@ -43,7 +44,7 @@ xditaToJson(xml, false)
 
 For development, you will need Node.js and a node package manager, like Yarn, to be installed in your environement.
 
-* Minimal Node version: v12
+* Minimal Node version: v12.13.1
 * Optional: This project uses Yarn as its build system. Although we don't support it, if you prefer, it should also be possible to use npm instead of Yarn. The version of Yarn that we have used is v1.22.21.
 
 ### Build
