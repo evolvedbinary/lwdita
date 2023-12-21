@@ -1,19 +1,53 @@
 version: 2.1
+
+parameters:
+  node-image-tag:
+    type: string
+    default: "12.13.1"
+  yarn-version:
+    type: string
+    default: "1.22.21"
+  resource-class:
+    type: string
+    default: "small"
+
 orbs:
-  node: circleci/node@5.1.0
+  node: circleci/node@5.1.1
+
 jobs:
-  build-and-test:
+  clone-and-install:
     docker:
-     - image: cimg/node:12.13.1
+     - image: cimg/node:<< pipeline.parameters.node-image-tag >>
+    resource_class: << pipeline.parameters.resource-class >>
     steps:
       - checkout
       - node/install-yarn:
-        version: 1.22.21
+          version: << pipeline.parameters.yarn-version >>
       - node/install-packages:
           pkg-manager: yarn 
-      - run: yarn lint
-      - run: yarn coverage
 workflows:
   build-and-test:
     jobs:
-      - build-and-test
+      - clone-and-install
+      - node/run:
+          name: lint
+          requires:
+            - clone-and-install
+          version: << pipeline.parameters.node-image-tag >>
+          resource_class: << pipeline.parameters.resource-class >>
+          pkg-manager: yarn
+          setup:
+            - node/install-yarn:
+                version: << pipeline.parameters.yarn-version >>
+          yarn-run: lint
+      - node/run:
+          name: coverage
+          requires:
+            - clone-and-install
+          version: << pipeline.parameters.node-image-tag >>
+          resource_class: << pipeline.parameters.resource-class >>
+          pkg-manager: yarn
+          setup:
+            - node/install-yarn:
+                version: << pipeline.parameters.yarn-version >>
+          yarn-run: coverage
