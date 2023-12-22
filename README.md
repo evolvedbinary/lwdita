@@ -44,7 +44,7 @@ xditaToJson(xml, false)
 
 For development, you will need Node.js and a node package manager, like Yarn, to be installed in your environement.
 
-* Minimal Node version: v12.13.1
+* Minimal Node version: v20.1.0
 * Optional: This project uses Yarn as its build system. Although we don't support it, if you prefer, it should also be possible to use npm instead of Yarn. The version of Yarn that we have used is v1.22.21.
 
 ### Build
