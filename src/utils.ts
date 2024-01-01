@@ -8,8 +8,9 @@ export function isOrUndefined<T extends BasicValue>(check: (value?: BasicValue) 
     return typeof value === 'undefined' || check(value);
 }
 
-export const isReferenceContentScope = (value?: BasicValue): value is ReferenceContentScope =>
-    has(['local', 'peer', 'external'], value);
+export const isReferenceContentScope = (value?: BasicValue): value is ReferenceContentScope => has(['local', 'peer', 'external'], value);
+
+
 const phGroup = ['ph', 'b', 'i', 'u', 'sub', 'sup'];
 const dataGroup = ['data'];
 export const nodeGroups: Record<string, Array<string>> = {

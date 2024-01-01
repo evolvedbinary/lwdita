@@ -108,15 +108,23 @@ export function getNodeClassType(name: string): typeof BaseNode {
 }
 
 /**
- * createNode - Creates a new node based on node type
- * based on the input node it checks if the node is a string or an XMLNode
- * and creates a new node based on the type
- * TextNode if string
- * or the node type if XMLNode you can see the definition for each one below
- * also there's a generic input type as long as it's inherits from BaseNode
- *  
- * @param content - The content of the node
- * @returns - A new node
+ * Overloaded function `createNode` that creates different types of nodes based on the input XMLNode type.
+ * 
+ * @param node - The XMLNode object or string to be converted into a node.
+ * 
+ * @returns A node of the type corresponding to the input XMLNode type or a TextNode if the input is a string.
+ * 
+ * @throws Will throw an error if the node type is unknown.
+ * 
+ * The function has multiple signatures for different XMLNode types like 'pre', 'prolog', 'section', etc.
+ * Each signature returns a different type of node corresponding to the input XMLNode type.
+ * 
+ * The function also has a generic signature that accepts any XMLNode and returns a node of type BaseNode or derived from BaseNode.
+ * 
+ * If the input is a string, the function creates a TextNode.
+ * 
+ * If the input is an XMLNode, the function uses the `getNodeClass` function to create a node of the appropriate type.
+ * If the node type is unknown, `getNodeClass` will throw an error.
  */
 export function createNode(content: string): TextNode;
 export function createNode(node: XMLNode<'audio'>): AudioNode;

@@ -1,10 +1,17 @@
 import { acceptsNodeName, isChildTypeRequired, stringToChildTypes, isChildTypeSingle } from "../utils";
 import { ChildTypes, ChildType, OrArray, BasicValue, Attributes, NonAcceptedChildError, WrongAttributeTypeError, UnknownAttributeError, JDita } from "../classes";
 
+/**
+ * BaseNode - Base class for all nodes
+ */
 export abstract class BaseNode {
+    // node name means node type (e.g. "image", "alt", "body", etc.)
     static nodeName = 'node';
+
     static inline?: boolean;
+    // fields are attributes of the node eg <node field="value" />
     static fields: Array<string>;
+    // childTypes are allowed child nodes
     static childTypes: ChildTypes[];
     public _children?: BaseNode[];
     protected _props!: Record<string, BasicValue>;
@@ -14,11 +21,19 @@ export abstract class BaseNode {
             this._props = this.static.attributesToProps(attributes);
         }
     }
-
+    /**
+     * attributesToProps - converts attributes to props
+     * loops through all of the node fields and gets their values from attributes
+     * 
+     * @param attributes - Attributes attributes of the node
+     * @returns A record of props
+     */
     static attributesToProps<T extends Record<string, BasicValue>>(attributes: Attributes = {}): T {
         const result: Record<string, BasicValue> = {};
+        // loop through all node fields and get their values from attributes
         this.fields.forEach(field => {
             const attr = attributes[field];
+            // att can be a string or an object with value 
             result[field] = typeof attr === 'string' ? attr : attr?.value;
         });
         return result as T;
@@ -43,10 +58,19 @@ export abstract class BaseNode {
             children: this._children?.map(child => child.json),
         };
     }
+
+    /**
+     * canAdd - checks if a node can be added as a child
+     * Also insure it can be added in the right order
+     * 
+     * @param child - BaseNode node to be added
+     * @returns true if the node can be added as a child
+     */
     canAdd(child: BaseNode): boolean {
         const childNodeName = child.static.nodeName;
         let childType: ChildType | undefined;
         let iChild = -1;
+        // loop through all of the allowed child types and check if the child node name is accepted
         this.static.childTypes.some((type, i) => {
             childType = acceptsNodeName(childNodeName, type);
             if (childType) {
@@ -57,27 +81,32 @@ export abstract class BaseNode {
         if (!childType) {
             return false;
         }
+
         const last = this.children?.length ? this.children[this.children.length - 1].static.nodeName : '';
         let iLast = -1;
         if (last) {
             iLast = this.static.childTypes.findIndex(type => acceptsNodeName(last, type));
+            // if child index is less than last index, it can't be added
             if (iLast > iChild) {
                 return false;
             }
+            // if child index is equal to last index, it can't be added if the child type is single
             if (iLast === iChild) {
+                // TODO figure out what childType.single 
                 if (isChildTypeSingle(this.static.childTypes[iChild])) {
                     return false;
                 }
                 return true;
             }
         }
+        // if child index is greater than last index, it can't be added if there are required child types between them
         const typesBetween = this.static.childTypes.slice(iLast + 1, iChild);
         if (typesBetween.find(isChildTypeRequired)) {
             return false;
         }
         return true;
     }
-        add(child: BaseNode, breakOnError = true): void {
+    add(child: BaseNode, breakOnError = true): void {
         if (!this._children) {
             this._children = [];
         }
@@ -89,13 +118,25 @@ export abstract class BaseNode {
         }
         this._children.push(child)
     }
+    /**
+     * Get the value of a field, if the field is not defined, throw an error
+     * 
+     * @param field - string name of the field
+     * @returns the value of the field
+     */
     readProp<T = BasicValue>(field: string): T {
         if (this.static.fields.indexOf(field) < 0) {
             throw new UnknownAttributeError('unknown attribute "' + field + '"');
         }
         return this._props[field] as T;
     }
-    writeProp<T = BasicValue>(field: string, value: T): void {
+    /**
+     * set the value of a field, if the field is accepted by the element throw an error
+     * 
+     * @param field - string name of the field
+     * @param value - value to be set
+     */
+    writeProp<T extends BasicValue>(field: string, value: T): void {
         if (this.static.fields.indexOf(field) < 0) {
             throw new UnknownAttributeError('unknown attribute "' + field + '"');
         }
@@ -114,6 +155,15 @@ export function makeAll<T extends { new(...args: any[]): BaseNode }>(constructor
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+/**
+ * a functions that results the constructor of a node
+ * @param decorator 
+ * @param nodeName 
+ * @param fieldValidator 
+ * @param fields 
+ * @param childTypes 
+ * @returns 
+ */
 export function makeComponent<T extends { new(...args: any[]): BaseNode }>(
     decorator: (constructor: T) => T,
     nodeName: string,
