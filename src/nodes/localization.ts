@@ -2,6 +2,9 @@ import { isOrUndefined, areFieldsValid } from "../utils";
 import { BaseNode } from "./base";
 import { BasicValue, isCDATA, CDATA } from "../classes";
 
+/**
+ * LocalizationFields are dir, xml:lang, and translate
+ */
 export const LocalizationFields = ['dir', 'xml:lang', 'translate'];
 export interface LocalizationNode {
   'dir'?: CDATA;

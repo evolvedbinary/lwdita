@@ -7,6 +7,7 @@ import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
 // define all of the fields that are valid for the alt node
+// There's no custom fields
 export const AltFields = [...LocalizationFields, ...FiltersFields, ...VariableContentFields, ...ClassFields];
 
 // define the type of a valid alt node
@@ -19,9 +20,9 @@ export const isValidAltField = (field: string, value: BasicValue): boolean => is
   || isValidClassField(field, value);
 
 /**
- * 
- * @param value 
- * @returns //TODO
+ * Test if Alt Node is valid
+ * @param value - Alt Node to test
+ * @returns Boolean
  */
 export const isAltNode = (value?: {}): value is AltNode =>
   typeof value === 'object' && areFieldsValid(AltFields, value, isValidAltField);
@@ -29,10 +30,19 @@ export const isAltNode = (value?: {}): value is AltNode =>
 /**
  * Create an Alt Node 
  * @param constructor 
- * @returns //TODO
+ * @returns Alt Node
  */
 export function makeAlt<T extends Constructor>(constructor: T): T {
   return makeAll(constructor, makeLocalization, makeFilters, makeVariableContent, makeClass);
 }
-@makeComponent(makeAlt, 'alt', isValidAltField, AltFields, [['text*', '%ph*', '%data*']])
+
+/**
+ * Create an Alt Node
+ * @param AltNode - Alt Node Constructor
+ * @param name - Node name
+ * @param isValidField - Function to test if a field is valid
+ * @param fields - List of valid fields
+ * @param content - allowed child types
+ */
+@makeComponent(makeAlt, 'alt', isValidAltField, AltFields, [['text*', '%ph*', '%data*']]) // TODO what is ph and data and does text* mean it can have text?
 export class AltNode extends BaseNode { }

@@ -2,6 +2,9 @@ import { isOrUndefined, areFieldsValid } from "../utils";
 import { BaseNode } from "./base";
 import { BasicValue, isCDATA, CDATA } from "../classes";
 
+/**
+ * VariableContentFields are keyref
+ */
 export const VariableContentFields = ['keyref'];
 
 export interface VariableContentNode {

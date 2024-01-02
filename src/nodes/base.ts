@@ -25,6 +25,7 @@ export abstract class BaseNode {
     /**
      * attributesToProps - converts attributes to props
      * loops through all of the node fields and gets their values from attributes
+     * the validation happens in the constructor
      * 
      * @param attributes - Attributes attributes of the node
      * @returns A record of props
