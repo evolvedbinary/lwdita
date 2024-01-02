@@ -13,6 +13,7 @@ parameters:
 
 orbs:
   node: circleci/node@5.1.1
+  coveralls: coveralls/coveralls@2.2.1
 
 jobs:
   clone-and-install:
@@ -24,7 +25,26 @@ jobs:
       - node/install-yarn:
           version: << pipeline.parameters.yarn-version >>
       - node/install-packages:
-          pkg-manager: yarn 
+          pkg-manager: yarn
+  coverage:
+    docker:
+    - image: cimg/node:<< pipeline.parameters.node-image-tag >>
+    resource_class: << pipeline.parameters.resource-class >>
+    steps:
+      - checkout
+      - node/install-yarn:
+          version: << pipeline.parameters.yarn-version >>
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Run Code Coverage
+          command: yarn run coverage
+      - run:
+          name: Create Code Coverage lcov file
+          command: yarn run nyc --reporter=text-lcov report > coverage.lcov
+      - coveralls/upload:
+          coverage_file: coverage.lcov
+
 workflows:
   build-and-test:
     jobs:
@@ -40,14 +60,6 @@ workflows:
             - node/install-yarn:
                 version: << pipeline.parameters.yarn-version >>
           yarn-run: lint
-      - node/run:
-          name: coverage
+      - coverage:
           requires:
             - clone-and-install
-          version: << pipeline.parameters.node-image-tag >>
-          resource_class: << pipeline.parameters.resource-class >>
-          pkg-manager: yarn
-          setup:
-            - node/install-yarn:
-                version: << pipeline.parameters.yarn-version >>
-          yarn-run: coverage
