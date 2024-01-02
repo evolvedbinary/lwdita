@@ -10,7 +10,7 @@ export function isOrUndefined<T extends BasicValue>(check: (value?: BasicValue) 
 
 export const isReferenceContentScope = (value?: BasicValue): value is ReferenceContentScope => has(['local', 'peer', 'external'], value);
 
-
+// when a node is a group we use this list to check if a node name is valid
 const phGroup = ['ph', 'b', 'i', 'u', 'sub', 'sup'];
 const dataGroup = ['data'];
 export const nodeGroups: Record<string, Array<string>> = {
@@ -64,6 +64,7 @@ export function childTypesToString(type: ChildTypes, topLevel = true): string {
     return customChildTypesToString(type, undefined, topLevel);
 }
 
+
 export function stringToChildTypes(value: OrArray<string>, topLevel = true): ChildTypes[] {
     if (typeof value === 'string') {
         if (value === '') {
@@ -96,6 +97,7 @@ export function stringToChildTypes(value: OrArray<string>, topLevel = true): Chi
     }
 }
 
+//
 export function acceptsNodeName(value: string, childType: ChildTypes): ChildType | undefined {
     if (Array.isArray(childType)) {
         let result: ChildType | undefined;
@@ -107,12 +109,15 @@ export function acceptsNodeName(value: string, childType: ChildTypes): ChildType
         });
         return result;
     } else {
+        // if child type is not a group 
+        // then check if the child type name is equal to the value 
         return !childType.isGroup
-            ? (childType.name === value ? childType : undefined)
+            ? (childType.name === value ? childType : undefined) 
             : (has(nodeGroups[childType.name], value) ? childType : undefined);
     }
 }
 
+// TODO
 export function isChildTypeSingle(childType: string | ChildType | ChildTypes): boolean {
     if (Array.isArray(childType)) {
         let result = true;
@@ -128,6 +133,12 @@ export function isChildTypeSingle(childType: string | ChildType | ChildTypes): b
         return !!childType.single;
     }
 }
+
+/**
+ * Check if a child is required
+ * @param childType 
+ * @returns 
+ */
 export function isChildTypeRequired(childType: string | ChildType | ChildTypes): boolean {
     // console.log(childType);
     if (Array.isArray(childType)) {
@@ -149,6 +160,13 @@ export function childTypesArray(childTypes: ChildTypes): ChildTypes[] {
     return Array.isArray(childTypes) ? childTypes : [childTypes];
 }
 
+/**
+ * 
+ * @param fields 
+ * @param value 
+ * @param validations 
+ * @returns 
+ */
 export function areFieldsValid(fields: string[], value: Record<string, BasicValue>, ...validations: ((field: string, value: BasicValue) => boolean)[]): boolean {
     for (const field of fields) {
         let valid = false;

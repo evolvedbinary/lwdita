@@ -1,5 +1,6 @@
 import { acceptsNodeName, isChildTypeRequired, stringToChildTypes, isChildTypeSingle } from "../utils";
 import { ChildTypes, ChildType, OrArray, BasicValue, Attributes, NonAcceptedChildError, WrongAttributeTypeError, UnknownAttributeError, JDita } from "../classes";
+import { BodyNode } from "./body";
 
 /**
  * BaseNode - Base class for all nodes
@@ -51,6 +52,7 @@ export abstract class BaseNode {
         return this._children || [];
     }
 
+    // this is not real json it needs to be stringified to be converted to actual json
     get json(): JDita {
         return {
             nodeName: this.static.nodeName,
@@ -66,6 +68,8 @@ export abstract class BaseNode {
      * @param child - BaseNode node to be added
      * @returns true if the node can be added as a child
      */
+    // this function tells you whether a child node can be added to this node
+    // this is done by checking the child node name against the child types of this node
     canAdd(child: BaseNode): boolean {
         const childNodeName = child.static.nodeName;
         let childType: ChildType | undefined;

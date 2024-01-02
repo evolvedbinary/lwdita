@@ -9,6 +9,8 @@ import { OrArray, UnknownAttributeError, NonAcceptedChildError, WrongAttributeTy
 // TODO: add a test to get attributes as a property
 // TODO: add a test for checking invalid node
 
+
+// this feels like it's missing 
 export function doNodeTest(
   classType: typeof BaseNode,
   nodeName: string,
@@ -21,6 +23,7 @@ export function doNodeTest(
 ): void {
   describe('Node: ' + nodeName, () => {
     it('should have correct fields', () => {
+      console.log(classType.fields);
       assert.sameMembers(classType.fields, fields);
     });
     it('should have correct node name', () => {
