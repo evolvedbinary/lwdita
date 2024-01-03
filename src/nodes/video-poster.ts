@@ -34,7 +34,7 @@ export const isValidVideoPosterField = (field: string, value: BasicValue): boole
  * @remarks
  * Assert that the node is an object and has valid attributes
  *
- * @param value - The `video` node to test
+ * @param value - The `video-poster` node to test
  * @returns Boolean
  */
 export const isVideoPosterNode = (value?: {}): value is VideoPosterNode =>
