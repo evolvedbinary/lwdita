@@ -3,7 +3,7 @@ import { BaseNode } from "./base";
 import { BasicValue, isCDATA, CDATA } from "../classes";
 
 /**
- * Define all allowed `video-content` fields:
+ * Define all allowed `variable-content` fields:
  * The only allowed field is 'keyref'
  */
 export const VariableContentFields = ['keyref'];
@@ -16,7 +16,7 @@ export interface VariableContentNode {
 }
 
 /**
- * Check if the field 'key-ref' of the `video-content` node is valid
+ * Check if the field 'key-ref' of the `variable-content` node is valid
  *
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
@@ -30,25 +30,25 @@ export function isValidVariableContentField(field: string, value: BasicValue): b
 }
 
 /**
- * Check if the `video-content` node is valid
+ * Check if the `variable-content` node is valid
  *
  * @remarks
  * Assert that the node is an object and has a valid attribute
  *
- * @param value - The `video-content` node to test
+ * @param value - The `variable-content` node to test
  * @returns Boolean
  */
 export const isVariableContentNode = (value?: {}): value is VariableContentNode =>
   typeof value === 'object' && areFieldsValid(VariableContentFields, value, isValidVariableContentField);
 
 /**
- * Create a `video-content` node with a `key-ref` attribute
+ * Create a `variable-content` node with a `key-ref` attribute
  *
  * @remarks
  * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
  *
  * @param constructor - The constructor
- * @returns The `video-content`
+ * @returns The `variable-content`
  */
 export function makeVariableContent<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements VariableContentNode {
