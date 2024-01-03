@@ -59,7 +59,7 @@ export function makeXRef<T extends Constructor>(constructor: T): T {
  *
  * @decorator `@makeComponent`
  * @param makeXRef - The `xref` node constructor
- * @param nodeName - The Node name
+ * @param nodeName - A string containing the node name
  * @param isValidXRefField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields
  * @param childTypes - An Array of allowed child types

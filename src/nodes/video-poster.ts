@@ -55,7 +55,7 @@ export function makeVideoPoster<T extends Constructor>(constructor: T): T {
  *
  * @decorator `@makeComponent`
  * @param makeVideoPoster - The `video-poster` node constructor
- * @param nodeName - The node name
+ * @param nodeName - A string containing the node name
  * @param isValidVideoPosterField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields
  * @param childTypes - An Array of allowed child types
