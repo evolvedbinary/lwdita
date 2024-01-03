@@ -60,7 +60,7 @@ export function makeUl<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidUlField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child nodes
+ * @param childNodes - An Array of allowed child nodes: `li+`
  */
 @makeComponent(makeUl, 'ul', isValidUlField, UlFields, ['li+'])
 export class UlNode extends BaseNode {

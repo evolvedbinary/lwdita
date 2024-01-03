@@ -64,7 +64,7 @@ export function makeUnderlined<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidUnderlinedField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child nodes
+ * @param childNodes - An Array of allowed child node `%all-inline*`
  */
 @makeComponent(makeUnderlined, 'u', isValidUnderlinedField, UnderlinedFields, ['%all-inline*'])
 export class UnderlinedNode extends BaseNode {
