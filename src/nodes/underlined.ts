@@ -60,7 +60,7 @@ export function makeUnderlined<T extends Constructor>(constructor: T): T {
  * Create an `underlined` node and map the `underlined` node with the HTML tag name `u`
  *
  * @decorator `@makeComponent`
- * @param XRefNode - The `underlined` node constructor
+ * @param makeUnderlined - The `underlined` node constructor
  * @param nodeName - The Node name
  * @param isValidUnderlinedField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields

@@ -54,7 +54,7 @@ export function makeVideoPoster<T extends Constructor>(constructor: T): T {
  * Create a video-poster node
  *
  * @decorator `@makeComponent`
- * @param XRefNode - The `video-poster` node constructor
+ * @param makeVideoPoster - The `video-poster` node constructor
  * @param nodeName - The node name
  * @param isValidVideoPosterField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields

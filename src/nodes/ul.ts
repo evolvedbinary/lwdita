@@ -56,7 +56,7 @@ export function makeUl<T extends Constructor>(constructor: T): T {
  * Create an `ul` node and map the `ul` node with the HTML tag name `ul`
  *
  * @decorator `@makeComponent`
- * @param XRefNode - The `ul` node constructor
+ * @param makeUl - The `ul` node constructor
  * @param nodeName - The Node name
  * @param isValidUlField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields

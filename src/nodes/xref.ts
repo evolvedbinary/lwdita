@@ -58,7 +58,7 @@ export function makeXRef<T extends Constructor>(constructor: T): T {
  * Create an xref node and map the `xref` node with the HTML tag name `a`
  *
  * @decorator `@makeComponent`
- * @param XRefNode - The `xref` node constructor
+ * @param makeXRef - The `xref` node constructor
  * @param nodeName - The Node name
  * @param isValidXRefField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields

@@ -60,7 +60,7 @@ export function makeSuperscript<T extends Constructor>(constructor: T): T {
  * Create a `superscript` node and map the `superscript` node with the HTML tag name `sup`
  *
  * @decorator `@makeComponent`
- * @param XRefNode - The `superscript` node constructor
+ * @param makeSuperscript - The `superscript` node constructor
  * @param nodeName - The Node name
  * @param isValidSuperscriptField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields
