@@ -85,5 +85,6 @@ export function makeProlog<T extends { new(...args: any[]): BaseNode }>(construc
  */
 @makeComponent(makeProlog, 'prolog', isValidPrologField, PrologFields, ['%data*'])
 export class PrologNode extends BaseNode {
+  /** @override */
   static domNodeName = '';
 }
