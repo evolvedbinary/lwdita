@@ -4,14 +4,33 @@ import { isOrUndefined, areFieldsValid } from "../utils";
 import { BaseNode, makeComponent, makeAll } from "./base";
 import { BasicValue, isCDATA, CDATA, ID } from "../classes";
 
+/**
+ * Define all allowed `topic` fields:
+ * 'dir', 'xml:lang', 'translate', 'class', 'outputclass', 'id', 'xmlns:ditaarch', 'ditaarch:DITAArchVersion', 'domains'
+ */
 export const TopicFields = [...LocalizationFields, ...ClassFields, 'id', 'xmlns:ditaarch', 'ditaarch:DITAArchVersion', 'domains'];
+
+/**
+ * Interface TopicNode defines the attribute types for `topic`:
+ * 'CDATA', 'ID'
+ *
+ * @privateRemarks
+ * TODO: Implement type "&xdita-constraint; &included-domains;"
+ */
 export interface TopicNode extends LocalizationNode, ClassNode {
   'id': ID;
   'xmlns:ditaarch': CDATA;
   'ditaarch:DITAArchVersion'?: CDATA;
-  // TODO: "&xdita-constraint; &included-domains;"
   'domains'?: CDATA;
 }
+
+/**
+ * Check if the given fields of the `topic` node are valid
+ *
+ * @param field - A string containing the name of the field
+ * @param value - A BasicValue-typed value containing the field value
+ * @returns Boolean
+ */
 export function isValidTopicField(field: string, value: BasicValue): boolean {
   if (isValidLocalizationField(field, value) || isValidClassField(field, value)) {
     return true;
@@ -24,10 +43,28 @@ export function isValidTopicField(field: string, value: BasicValue): boolean {
     default: return false;
   }
 }
+
+/**
+ * Check if the `topic` node is valid
+ *
+ * @remarks
+ * Assert that the node is an object and has valid attributes
+ *
+ * @param value - The `topic` node to test
+ * @returns Boolean
+ */
 export const isTopicNode = (value?: {}): value is TopicNode =>
   typeof value === 'object' && areFieldsValid(TopicFields, value, isValidTopicField);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/**
+ * Construct a `topic` node with all available attributes
+ *
+ * @privateRemarks
+ * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
+ *
+ * @param constructor - The constructor
+ * @returns A `topic` node
+ */
 export function makeTopic<T extends { new(...args: any[]): BaseNode }>(constructor: T): T  {
   return makeAll(class extends constructor {
     get 'id'(): ID {
@@ -49,7 +86,18 @@ export function makeTopic<T extends { new(...args: any[]): BaseNode }>(construct
   }, makeLocalization, makeClass,);
 }
 
+/**
+ * Create a `topic` node and map the `topic` node with the HTML tag name `article`
+ *
+ * @decorator `@makeComponent`
+ * @param makeTopic - The `topic` node constructor
+ * @param nodeName - A string containing the node name
+ * @param isValidTopicField - A boolean value, if the field is valid or not
+ * @param fields - A List of valid fields
+ * @param childNodes - An Array of allowed child nodes
+ */
 @makeComponent(makeTopic, 'topic', isValidTopicField, TopicFields, ['title', 'shortdesc?', 'prolog?', 'body?'])
 export class TopicNode extends BaseNode {
+  /** @override */
   static domNodeName = 'article';
 }
