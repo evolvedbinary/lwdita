@@ -2,6 +2,9 @@ import { isOrUndefined, areFieldsValid } from "../utils";
 import { BaseNode, Constructor } from "./base";
 import { CDATA, BasicValue, isCDATA } from "../classes";
 
+/**
+ * FieldFields: `name`, `value`
+ */
 export const FieldFields = ['name', 'value'];
 export interface FieldNode<T = CDATA> {
   'name'?: CDATA;

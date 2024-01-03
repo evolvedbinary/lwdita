@@ -2,6 +2,9 @@ import { isOrUndefined, isReferenceContentScope, areFieldsValid } from "../utils
 import { BaseNode } from "./base";
 import { BasicValue, isCDATA, ReferenceContentScope, CDATA } from "../classes";
 
+/**
+ * ReferenceContentFields: `href`, `format`, `scope`
+ */
 export const ReferenceContentFields = ['href', 'format', 'scope'];
 export interface ReferenceContentNode {
   'href'?: CDATA;
