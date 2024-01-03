@@ -9,13 +9,13 @@ import { BasicValue } from "../classes";
 
 /**
  * Define all allowed `xref` (cross-reference) fields:
- * 'keyref', 'href', 'format', 'scope', 'outputclass', 'class', 'dir', 'xml:lang', 'translate', 'props'
+ * `keyref`, `href`, `format`, `scope`, `outputclass`, `class`, `dir`, `xml:lang`, `translate`, `props`
  */
 export const XRefFields = [...FiltersFields, ...LocalizationFields, ...ClassFields, ...ReferenceContentFields, ...VariableContentFields];
 
 /**
  * Interface XRefNode defines the attribute types for `xref`:
- * 'CDATA', 'local' | 'peer' | 'external'
+ * `CDATA`, `local` | `peer` | `external`
  */
 export interface XRefNode extends FiltersNode, LocalizationNode, ClassNode, ReferenceContentNode, VariableContentNode { }
 
@@ -55,7 +55,7 @@ export function makeXRef<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create an xref node and map the `xref` node with the HTML tag name `a`
+ * Create an xref node (link) and map the `xref` node with the HTML tag name `a`
  *
  * @decorator `@makeComponent`
  * @param makeXRef - The `xref` node constructor

@@ -6,13 +6,13 @@ import { BasicValue, isCDATA, CDATA, ID } from "../classes";
 
 /**
  * Define all allowed `topic` fields:
- * 'dir', 'xml:lang', 'translate', 'class', 'outputclass', 'id', 'xmlns:ditaarch', 'ditaarch:DITAArchVersion', 'domains'
+ * `dir`, `xml:lang`, `translate`, `class`, `outputclass`, `id`, `xmlns:ditaarch`, `ditaarch:DITAArchVersion`, `domains`
  */
 export const TopicFields = [...LocalizationFields, ...ClassFields, 'id', 'xmlns:ditaarch', 'ditaarch:DITAArchVersion', 'domains'];
 
 /**
  * Interface TopicNode defines the attribute types for `topic`:
- * 'CDATA', 'ID'
+ * `CDATA`, `ID`
  *
  * @privateRemarks
  * TODO: Implement type "&xdita-constraint; &included-domains;"
@@ -87,7 +87,7 @@ export function makeTopic<T extends { new(...args: any[]): BaseNode }>(construct
 }
 
 /**
- * Create a `topic` node and map the `topic` node with the HTML tag name `article`
+ * Create a `topic` node (article) and map the `topic` node with the HTML tag name `article`
  *
  * @decorator `@makeComponent`
  * @param makeTopic - The `topic` node constructor

@@ -9,7 +9,7 @@ import { BasicValue } from "../classes";
 
 /**
  * Define all allowed `underlined` fields:
- * 'dir', 'xml:lang', 'translate', 'keyref', 'class', 'outputclass'
+ * `dir`, `xml:lang`, `translate`, `keyref`, `class`, `outputclass`
  *
  * @privateRemarks
  *
@@ -19,7 +19,7 @@ export const UnderlinedFields = [...LocalizationFields, ...VariableContentFields
 
 /**
  * Interface UnderlinedNode defines the attribute types for `underlined`:
- * 'CDATA', 'NMTOKEN'
+ * `CDATA`, `NMTOKEN`
  */
 export interface UnderlinedNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 

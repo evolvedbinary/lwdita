@@ -8,13 +8,13 @@ import { BasicValue } from "../classes";
 
 /**
  * Define all allowed `ul` fields:
- * 'props', 'dir', 'xml:lang', 'translate', 'id', 'conref', 'outputclass', 'class'
+ * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `outputclass`, `class`
  */
 export const UlFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
 /**
  * Interface UlNode defines the attribute types for `ul`:
- * 'CDATA', 'NMTOKEN'
+ * `CDATA`, `NMTOKEN`
  */
 export interface UlNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
@@ -53,7 +53,7 @@ export function makeUl<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create an `ul` node and map the `ul` node with the HTML tag name `ul`
+ * Create an `ul` node (unordered-list) and map the `ul` node with the HTML tag name `ul`
  *
  * @decorator `@makeComponent`
  * @param makeUl - The `ul` node constructor

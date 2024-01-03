@@ -9,17 +9,16 @@ import { BasicValue } from "../classes";
 
 /**
  * Define all allowed `superscript` fields:
- * 'dir', 'xml:lang', 'translate', 'keyref', 'class', 'outputclass'
+ * `dir`, `xml:lang`, `translate`, `keyref`, `class`, `outputclass`
  *
  * @privateRemarks
- *
  * TODO:  "+ topic/ph hi-d/sup "
  */
 export const SuperscriptFields = [...LocalizationFields, ...VariableContentFields, ...ClassFields];
 
 /**
  * Interface SuperscriptNode defines the attribute types for `superscript`:
- * 'CDATA', 'NMTOKEN'
+ * `CDATA`, `NMTOKEN`
  */
 export interface SuperscriptNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
@@ -68,5 +67,6 @@ export function makeSuperscript<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeSuperscript, 'sup', isValidSuperscriptField, SuperscriptFields, ['%all-inline*'])
 export class SuperscriptNode extends BaseNode {
+  /** @override */
   static domNodeName = 'sup';
 }

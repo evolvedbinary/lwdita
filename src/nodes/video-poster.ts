@@ -7,13 +7,13 @@ import { BasicValue } from "../classes";
 
 /**
  * Define all allowed `video-poster` fields:
- * 'dir', 'xml:lang', 'translate', 'name', 'value','class', 'outputclass'
+ * `dir`, `xml:lang`, `translate`, `name`, `value`,`class`, `outputclass`
  */
 export const VideoPosterFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
 
 /**
  * The interface `VideoPosterNode` defines all attribute types for `video-poster`:
- * 'CDATA', 'T'
+ * `CDATA`, `T`
  */
 export interface VideoPosterNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
 

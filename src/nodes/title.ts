@@ -6,13 +6,13 @@ import { BasicValue } from "../classes";
 
 /**
  * Define all allowed `title` fields:
- * 'dir', 'xml:lang', 'translate', 'class', 'outputclass'
+ * `dir`, `xml:lang`, `translate`, `class`, `outputclass`
  */
 export const TitleFields = [...LocalizationFields, ...ClassFields];
 
 /**
  * Interface TitleNode defines the attribute types for `title`:
- * 'CDATA'
+ * `CDATA`
  */
 export interface TitleNode extends LocalizationNode, ClassNode {}
 

@@ -9,13 +9,13 @@ import { BasicValue } from "../classes";
 
 /**
  * Define all allowed `video` fields:
- * 'props', 'dir', 'xml:lang', 'translate', 'id', 'conref', 'outputclass', 'class', 'width', 'height'
+ * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `outputclass`, `class`, `width`, `height`
  */
 export const VideoFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields, ...SizeFields];
 
 /**
  * The interface `VideoNode` defines all attribute types for `video`:
- * 'CDATA', 'NMTOKEN'
+ * `CDATA`, `NMTOKEN`
  */
 export interface VideoNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode, SizeNode { }
 

@@ -4,7 +4,7 @@ import { BasicValue, isCDATA, CDATA } from "../classes";
 
 /**
  * Define all allowed `variable-content` fields:
- * The only allowed field is 'keyref'
+ * The only allowed field is `keyref`
  */
 export const VariableContentFields = ['keyref'];
 
