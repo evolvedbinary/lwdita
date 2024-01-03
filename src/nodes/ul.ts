@@ -6,23 +6,64 @@ import { areFieldsValid, } from "../utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
+/**
+ * Define all allowed `ul` fields:
+ * 'props', 'dir', 'xml:lang', 'translate', 'id', 'conref', 'outputclass', 'class'
+ */
 export const UlFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
+/**
+ * Interface UlNode defines the attribute types for `ul`:
+ * 'CDATA', 'NMTOKEN'
+ */
 export interface UlNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
+/**
+ * Check if the given fields of the `ul` node are valid
+ *
+ * @param field - A string containing the name of the field
+ * @param value - A BasicValue-typed value containing the field value
+ * @returns Boolean
+ */
 export const isValidUlField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
   || isValidLocalizationField(field, value)
   || isValidReuseField(field, value)
   || isValidClassField(field, value);
 
+/**
+ * Check if the `ul` node is valid
+ *
+ * @remarks
+ * Assert that the node is an object and has valid attributes
+ *
+ * @param value - The `ul` node to test
+ * @returns Boolean
+ */
 export const isUlNode = (value?: {}): value is UlNode =>
   typeof value === 'object' && areFieldsValid(UlFields, value, isValidUlField);
 
+/**
+ * Construct an `ul` node with all available attributes
+ *
+ * @param constructor - The constructor
+ * @returns An `ul` node
+ */
 export function makeUl<T extends Constructor>(constructor: T): T {
   return makeAll(constructor, makeLocalization, makeFilters, makeReuse, makeClass);
 }
 
+/**
+ * Create an `ul` node and map the `ul` node with the HTML tag name `ul`
+ *
+ * @decorator `@makeComponent`
+ * @param XRefNode - The `ul` node constructor
+ * @param nodeName - The Node name
+ * @param isValidUlField - A boolean value, if the field is valid or not
+ * @param fields - A List of valid fields
+ * @param childTypes - An Array of allowed child types
+ */
 @makeComponent(makeUl, 'ul', isValidUlField, UlFields, ['li+'])
 export class UlNode extends BaseNode {
+  /** @override */
   static domNodeName = 'ul';
 }
