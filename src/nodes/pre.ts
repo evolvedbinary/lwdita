@@ -6,11 +6,28 @@ import { areFieldsValid, isOrUndefined } from "../utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
 import { BasicValue, isCDATA, CDATA } from "../classes";
 
+/**
+ * Define all allowed `pre` fields:
+ * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `class`, `outputclass`, `xml:space`
+ */
 export const PreFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields, 'xml:space'];
 
+/**
+ * Interface PreNode defines the attribute types for `pre`:
+ * `CDATA`, `NMTOKEN`
+ */
 export interface PreNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
-// TODO: 'xml:space' (preserve)
+/**
+ * Check if the given fields of the `pre` node are valid
+ *
+ * @privateRemarks
+ * TODO: Implement field validation for `xml:space` (preserve)
+ *
+ * @param field - A string containing the name of the field
+ * @param value - A BasicValue-typed value containing the field value
+ * @returns Boolean
+ */
 export const isValidPreField = (field: string, value: BasicValue): boolean => {
   if (isValidFiltersField(field, value)
   || isValidLocalizationField(field, value)
@@ -24,10 +41,28 @@ export const isValidPreField = (field: string, value: BasicValue): boolean => {
   }
 };
 
+/**
+ * Check if the `pre` node is valid
+ *
+ * @remarks
+ * Assert that the node is an object and has valid attributes
+ *
+ * @param value - The `pre` node to test
+ * @returns Boolean
+ */
 export const isPreNode = (value?: {}): value is PreNode =>
   typeof value === 'object' && areFieldsValid(PreFields, value, isValidPreField);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+/**
+ * Construct a `pre` node with all available attributes
+ *
+ * @remarks
+ * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
+ *
+ * @param constructor - The constructor
+ * @returns An `pre` node
+ */
 export function makePre<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return makeAll(class extends constructor {
     get 'xmlns:space'(): CDATA {
@@ -37,7 +72,21 @@ export function makePre<T extends { new(...args: any[]): BaseNode }>(constructor
   }, makeLocalization, makeFilters, makeReuse, makeClass);
 }
 
+/**
+ * Create a `pre` node (preformatted code) and map the `pre` node with the HTML tag name `pre`
+ *
+ * @privateRemarks
+ * Is the syntax of the child nodes array [[...]] really correct?
+ *
+ * @decorator `@makeComponent`
+ * @param makePre - The `pre` node constructor
+ * @param nodeName - A string containing the node name
+ * @param isValidPreField - A boolean value, if the field is valid or not
+ * @param fields - A List of valid fields
+ * @param childNodes - An Array of allowed child node `text*`, `%ph*`, `xref*`, `%data*`
+ */
 @makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', '%data*']])
 export class PreNode extends BaseNode {
+  /** @override */
   static domNodeName = 'pre';
 }
