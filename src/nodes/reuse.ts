@@ -2,12 +2,28 @@ import { isOrUndefined, areFieldsValid } from "../utils";
 import { BaseNode } from "./base";
 import { NMTOKEN, CDATA, BasicValue, isNMTOKEN, isCDATA } from "../classes";
 
+/**
+ * Define all allowed `reuse` fields:
+ * `id`, `conref`
+ */
 export const ReuseFields = ['id', 'conref'];
+
+/**
+ * Interface reuseNode defines the attribute types for `reuse`:
+ * `CDATA`, `NMTOKEN`
+ */
 export interface ReuseNode {
   'id'?: NMTOKEN;
   'conref'?: CDATA;
 }
 
+/**
+ * Check if the given fields of the `reuse` node are valid
+ *
+ * @param field - A string containing the name of the field
+ * @param value - A BasicValue-typed value containing the field value
+ * @returns Boolean
+ */
 export function isValidReuseField(field: string, value: BasicValue): boolean {
   switch (field) {
     case 'id': return isOrUndefined(isNMTOKEN, value);
@@ -16,10 +32,27 @@ export function isValidReuseField(field: string, value: BasicValue): boolean {
   }
 }
 
+/**
+ * Check if the `reuse` node is valid
+ *
+ * @remarks
+ * Assert that the node is an object and has valid attributes
+ *
+ * @param value - The `reuse` node to test
+ * @returns Boolean
+ */
 export const isReuseNode = (value?: {}): value is ReuseNode =>
   typeof value === 'object' && areFieldsValid(ReuseFields, value, isValidReuseField);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/**
+ * Create a `reuse` node with an `id` and `conref` attribute
+ *
+ * @remarks
+ * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
+ *
+ * @param constructor - The constructor
+ * @returns The `reuse` node with an `id` and `conref` attribute and their values
+ */
 export function makeReuse<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements ReuseNode {
     get 'id'(): NMTOKEN | undefined {
