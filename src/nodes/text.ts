@@ -2,19 +2,56 @@ import { BaseNode, makeComponent } from "./base";
 import { isOrUndefined } from "../utils";
 import { BasicValue, JDita } from "../classes";
 
+/**
+ * Define the allowed `text` field:
+ * The only allowed field is `content`
+ */
 export const TextFields = ['content'];
+
+/**
+ * Interface TextNode defines the `content` field type for node `text`: `string`
+ */
 export interface TextNode {
   'content'?: string;
 }
-export const isTextNode = (value?: BasicValue): value is TextNode => typeof value === 'object' && 'content' in value && typeof value.content === 'string';
 
+/**
+ * Check if the field `content` of the `text` node is valid
+ *
+ * @param field - A string containing the name of the field
+ * @param value - A BasicValue-typed value containing the field value
+ * @returns Boolean
+ */
 export function isValidTextField(field: string, value: BasicValue): boolean {
   switch (field) {
     case 'content': return isOrUndefined(content => typeof content === 'string', value);
     default: return false;
   }
 }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+/**
+ * Check if the `text` node is valid
+ *
+ * @remarks
+ * Assert that the text node is an object, has content,
+ * and that the content meets the required type `string`.
+ *
+ * @param value - A BasicValue-typed value containing the field value
+ * @returns
+ */
+export const isTextNode = (value?: BasicValue): value is TextNode =>
+  typeof value === 'object' && 'content' in value && typeof value.content === 'string';
+
+
+/**
+ * Construct a `text` node containing a `content` property
+ *
+ * @remarks
+ * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
+ *
+ * @param constructor - The constructor
+ * @returns The `text` node
+ */
 export function makeText<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements TextNode {
     get 'content'(): string {
@@ -26,6 +63,15 @@ export function makeText<T extends { new(...args: any[]): BaseNode }>(constructo
   }
 }
 
+/**
+ * Create a `text` node containing a text content
+ *
+ * @decorator `@makeComponent`
+ * @param makeText - The `text` node constructor
+ * @param nodeName - A string containing the node name
+ * @param isValidTextField - A boolean value, if the field is valid or not
+ * @param fields - The valid field `content` of type string
+ */
 @makeComponent(makeText, 'text', isValidTextField, TextFields)
 export class TextNode extends BaseNode {
   constructor(content: string) {
