@@ -48,7 +48,7 @@ export const isVariableContentNode = (value?: {}): value is VariableContentNode 
  * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
  *
  * @param constructor - The constructor
- * @returns The `variable-content`
+ * @returns The `variable-content` node with a `keyref` attribute and its value
  */
 export function makeVariableContent<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements VariableContentNode {
