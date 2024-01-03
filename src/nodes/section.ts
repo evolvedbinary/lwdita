@@ -8,13 +8,13 @@ import { BasicValue } from "../classes";
 
 /**
  * Define all allowed `section` fields:
- * 'props', 'dir', 'xml:lang', 'translate', 'id', 'conref', 'class', 'outputclass'
+ * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `class`, `outputclass`
  */
 export const SectionFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
 /**
  * Interface SectionNode defines the attribute types for `section`:
- * 'CDATA', 'NMTOKEN'
+ * `CDATA`, `NMTOKEN`
  */
 export interface SectionNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
