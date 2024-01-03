@@ -11,7 +11,7 @@ import { BasicValue, isCDATA, CDATA } from "../classes";
 export const PrologFields = [...FiltersFields, ...LocalizationFields, 'class'];
 
 /**
- * Interface prologNode defines the attribute type for `prolog`: `CDATA`
+ * Interface PrologNode defines the attribute type for `prolog`: `CDATA`
  */
 export interface PrologNode extends FiltersNode, LocalizationNode {
   'class'?: CDATA;
