@@ -53,7 +53,6 @@ export const isValidPreField = (field: string, value: BasicValue): boolean => {
 export const isPreNode = (value?: {}): value is PreNode =>
   typeof value === 'object' && areFieldsValid(PreFields, value, isValidPreField);
 
-
 /**
  * Construct a `pre` node with all available attributes
  *
@@ -83,7 +82,7 @@ export function makePre<T extends { new(...args: any[]): BaseNode }>(constructor
  * @param nodeName - A string containing the node name
  * @param isValidPreField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child node `text*`, `%ph*`, `xref*`, `%data*`
+ * @param childNodes - An Array of allowed child nodes `text*`, `%ph*`, `xref*`, `%data*`
  */
 @makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', '%data*']])
 export class PreNode extends BaseNode {
