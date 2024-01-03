@@ -3,7 +3,7 @@ import { BaseNode } from "./base";
 import { CDATA, BasicValue, isCDATA } from "../classes";
 
 /**
- * ClassFields are outputclass and class
+ * ClassFields: `outputclass`, `class`
  */
 export const ClassFields = ['outputclass', 'class'];
 export interface ClassNode {

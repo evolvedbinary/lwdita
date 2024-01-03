@@ -40,6 +40,11 @@ export const isValidDdField = (field: string, value: BasicValue): boolean => isV
 export const isDdNode = (value?: {}): value is DdNode =>
   typeof value === 'object' && areFieldsValid(DdFields, value, isValidDdField);
 
+/**
+ * Construct an `dd` node with all available attributes
+ * @param constructor - The constructor
+ * @returns An `dd` node
+ */
 export function makeDd<T extends Constructor>(constructor: T): T {
   return makeAll(constructor, makeLocalization, makeFilters, makeReuse, makeClass);
 }

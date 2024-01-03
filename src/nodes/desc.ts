@@ -5,21 +5,56 @@ import { areFieldsValid } from "../utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
+/**
+ * Define all allowed `desc` fields: `props`, `dir`, `xml:lang`, `translate`, `outputclass`, `class`,
+ */
 export const DescFields = [...FiltersFields, ...LocalizationFields, ...ClassFields];
 
+/**
+ * Interface DescNode defines the attribute types for `desc`
+ */
 export interface DescNode extends FiltersNode, LocalizationNode, ClassNode { }
 
+/**
+ * Check if the given fields of the `desc` node are valid and matches this list:
+ * See {@link DescFields}
+ * @param field - A string containing the name of the field
+ * @param value - A BasicValue-typed value containing the field value
+ * @returns Boolean
+ */
 export const isValidDescField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
   || isValidLocalizationField(field, value)
   || isValidClassField(field, value);
 
+/**
+ * Check if the `desc` node is valid
+ * @remarks
+ * Assert that the node is an object and has valid attributes
+ * 
+ * @param value - The `desc` node to test
+ * @returns Boolean
+ */
 export const isDescNode = (value?: {}): value is DescNode =>
   typeof value === 'object' && areFieldsValid(DescFields, value, isValidDescField);
 
+/**
+ * Construct an `desc` node with all available attributes
+ * @param constructor - The constructor
+ * @returns An `desc` node
+ */
 export function makeDesc<T extends Constructor>(constructor: T): T {
   return makeAll(constructor, makeLocalization, makeFilters, makeClass);
 }
-
+/**
+ * Create an desc node
+ * @decorator `@makeComponent`
+ * @param makeDesc - The `Desc` node constructor
+ * @param nodeName - A string containing the node name
+ * @param isValidDescField - A boolean value, if the field is valid or not
+ * @param DescFields - An array containing all valid field names See {@link DescFields}
+ * @param childNodes - An array containing all valid child node names: `%common-inline*`
+ * @returns An `desc` node
+ */
 @makeComponent(makeDesc, 'desc', isValidDescField, DescFields, ['%common-inline*'])
 export class DescNode extends BaseNode {
   // TODO: caption/figcaption

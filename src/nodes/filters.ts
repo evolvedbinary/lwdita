@@ -4,7 +4,7 @@ import { BaseNode } from "./base";
 import { BasicValue, isCDATA, CDATA } from "../classes";
 
 /**
- * FiltersFields are 'props'
+ * FiltersFields: `props`
  */
 export const FiltersFields = [...FiltersAddsFields, 'props'];
 export interface FiltersNode extends FiltersAddsNode {
