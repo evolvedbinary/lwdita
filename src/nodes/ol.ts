@@ -6,23 +6,65 @@ import { areFieldsValid } from "../utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
+/**
+ * Define all allowed `ol` fields:
+ * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `outputclass`, `class`
+ */
 export const OlFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
+/**
+ * Interface olNode defines the attribute type for `ol`:
+ * `CDATA`, `NMTOKEN`
+ */
 export interface OlNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
+/**
+ * Check if the given fields of the `ol` node are valid
+ *
+ * @param field - A string containing the name of the field
+ * @param value - A BasicValue-typed value containing the field value
+ * @returns Boolean
+ */
 export const isValidOlField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
   || isValidLocalizationField(field, value)
   || isValidReuseField(field, value)
   || isValidClassField(field, value);
 
+
+/**
+ * Check if the `ol` node is valid
+ *
+ * @remarks
+ * Assert that the node is an object and has valid attributes
+ *
+ * @param value - The `ol` node to test
+ * @returns Boolean
+ */
 export const isOlNode = (value?: {}): value is OlNode =>
   typeof value === 'object' && areFieldsValid(OlFields, value, isValidOlField);
 
+/**
+ * Construct an `ol` node with all available attributes
+ *
+ * @param constructor - The constructor
+ * @returns An `ol` node
+ */
 export function makeOl<T extends Constructor>(constructor: T): T {
   return makeAll(constructor, makeLocalization, makeFilters, makeReuse, makeClass);
 }
 
+/**
+ * Create an `ol` (ordered list) node and map the `ol` node with the HTML tag name `ol`
+ *
+ * @decorator `@makeComponent`
+ * @param makeOl - The `ol` node constructor
+ * @param nodeName - A string containing the node name
+ * @param isValidOlField - A boolean value, if the field is valid or not
+ * @param fields - A List of valid fields
+ * @param childNodes - An Array of allowed child nodes: `li+`
+ */
 @makeComponent(makeOl, 'ol', isValidOlField, OlFields, ['li+'])
 export class OlNode extends BaseNode {
+  /** @override */
   static domNodeName = 'ol';
 }
