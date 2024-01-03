@@ -9,14 +9,14 @@ import { BasicValue, isCDATA, CDATA } from "../classes";
 export const VariableContentFields = ['keyref'];
 
 /**
- * The interface `VariableContentNode` defines the attribute type for `video-content`: 'CDATA'
+ * The interface `VariableContentNode` defines the attribute type for `variable-content`: 'CDATA'
  */
 export interface VariableContentNode {
   'keyref'?: CDATA;
 }
 
 /**
- * Check if the field 'key-ref' of the `variable-content` node is valid
+ * Check if the field `keyref` of the `variable-content` node is valid
  *
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
@@ -42,7 +42,7 @@ export const isVariableContentNode = (value?: {}): value is VariableContentNode 
   typeof value === 'object' && areFieldsValid(VariableContentFields, value, isValidVariableContentField);
 
 /**
- * Create a `variable-content` node with a `key-ref` attribute
+ * Create a `variable-content` node with a `keyref` attribute
  *
  * @remarks
  * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
