@@ -64,7 +64,7 @@ export function makeSuperscript<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidSuperscriptField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields
- * @param childTypes - An Array of allowed child types
+ * @param childNodes - An Array of allowed child nodes
  */
 @makeComponent(makeSuperscript, 'sup', isValidSuperscriptField, SuperscriptFields, ['%all-inline*'])
 export class SuperscriptNode extends BaseNode {

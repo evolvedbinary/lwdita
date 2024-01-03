@@ -62,7 +62,7 @@ export function makeXRef<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidXRefField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields
- * @param childTypes - An Array of allowed child types
+ * @param childNodes - An Array of allowed child nodes
  */
 @makeComponent(makeXRef, 'xref', isValidXRefField, XRefFields, ['%common-inline*'])
 export class XRefNode extends BaseNode {
