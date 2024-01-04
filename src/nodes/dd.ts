@@ -8,7 +8,7 @@ import { BasicValue } from "../classes";
 
 /**
  * Define all allowed `dd` fields:
- * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `outputclass`, `class`,
+ * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `outputclass`, `class`
  */
 export const DdFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
