@@ -19,7 +19,8 @@ export interface AudioNode extends FiltersNode, LocalizationNode, ReuseNode, Cla
 
 /**
  * Check if the given fields of the `audio` node are valid and matches this list:
- * `props`, `dir`, `xml:lang`, `translate`, `keyref`, `id`, `conref`, `outputclass`, `class`, 
+ * `props`, `dir`, `xml:lang`, `translate`, `keyref`, `id`, `conref`, `outputclass`, `class`
+ * 
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
  * @returns Boolean
@@ -42,7 +43,8 @@ export const isAudioNode = (value?: {}): value is AudioNode =>
   typeof value === 'object' && areFieldsValid(AudioFields, value, isValidAudioField);
 
 /**
- * Construct an `audio` node with all available attributes
+ * Construct an `audio` node with all available 
+ * 
  * @param constructor - The constructor
  * @returns An `audio` node
  * */
@@ -52,6 +54,7 @@ export function makeAudio<T extends Constructor>(constructor: T): T {
 
 /**
  * Create an audio node 
+ * 
  * @decorator `@makeComponent`
  * @param makeAudio - The `Audio` node constructor
  * @param nodeName - A string containing the node name
@@ -59,5 +62,5 @@ export function makeAudio<T extends Constructor>(constructor: T): T {
  * @param AudioFields - An array containing all valid field names
  * @param childNodes - An array containing all valid child node names: `desc?`, `media-controls?`, `media-autoplay?`, `media-loop?`, `media-muted?`, `media-source*`, `media-track*`
  */
-@makeComponent(makeAudio, 'audio', isValidAudioField, AudioFields, ['desc?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'media-source*', 'media-track*'])
+@makeComponent(makeAudio, 'audio', isValidAudioField, AudioFields, ['desc?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'omedia-surce*', 'media-track*'])
 export class AudioNode extends BaseNode {}

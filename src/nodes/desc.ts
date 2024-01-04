@@ -18,6 +18,7 @@ export interface DescNode extends FiltersNode, LocalizationNode, ClassNode { }
 /**
  * Check if the given fields of the `desc` node are valid and matches this list:
  * See {@link DescFields}
+ * 
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
  * @returns Boolean
@@ -28,6 +29,7 @@ export const isValidDescField = (field: string, value: BasicValue): boolean => i
 
 /**
  * Check if the `desc` node is valid
+ * 
  * @remarks
  * Assert that the node is an object and has valid attributes
  * 
@@ -39,6 +41,7 @@ export const isDescNode = (value?: {}): value is DescNode =>
 
 /**
  * Construct an `desc` node with all available attributes
+ * 
  * @param constructor - The constructor
  * @returns An `desc` node
  */
@@ -47,6 +50,7 @@ export function makeDesc<T extends Constructor>(constructor: T): T {
 }
 /**
  * Create an desc node
+ * 
  * @decorator `@makeComponent`
  * @param makeDesc - The `Desc` node constructor
  * @param nodeName - A string containing the node name

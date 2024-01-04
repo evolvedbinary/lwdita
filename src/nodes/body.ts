@@ -17,6 +17,7 @@ export interface BodyNode extends LocalizationNode, ClassNode { }
 /**
  * Check if the given fields of the `body` node are valid and matches this list:
  * `dir`, `xml:lang`, `translate`, `outputclass`, `class`
+ * 
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
  * @returns Boolean
@@ -38,6 +39,7 @@ export const isBodyNode = (value?: {}): value is BodyNode =>
 
 /**
  * Construct an `body` node with all available attributes
+ * 
  * @param constructor - The constructor
  * @returns An `body` node
  * */
@@ -47,6 +49,7 @@ export function makeBody<T extends Constructor>(constructor: T): T {
 
 /**
  * Create an body node (link) and map the `body` node with the HTML tag name `div`
+ * 
  * @decorator `@makeComponent`
  * @param makeBody - The `Body` node constructor
  * @param nodeName - A string containing the node name

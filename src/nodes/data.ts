@@ -21,7 +21,8 @@ export interface DataNode extends FiltersNode, LocalizationNode, ReferenceConten
 
 /**
  * Check if the given fields of the `data` node are valid and matches this list:
- * `props`, `dir`, `xml:lang`, `translate`, `href`, `format`, `scope`, `outputclass`, `class`, `keyref`, `name`, `value`
+ * @See {@link DataFields}
+ * 
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
  * @returns Boolean
@@ -35,8 +36,10 @@ export const isValidDataField = (field: string, value: BasicValue): boolean => i
 
 /**
  * Check if the `data` node is valid
+ * 
  * @remarks
  * Assert that the node is an object and has valid attributes
+ * 
  * @param value - The `data` node to test
  * @returns Boolean
  */
@@ -45,6 +48,7 @@ export const isDataNode = (value?: {}): value is DataNode =>
 
 /**
  * Construct an `data` node with all available attributes
+ * 
  * @param constructor - The constructor
  * @returns An `data` node
  */
@@ -54,6 +58,7 @@ export function makeData<T extends Constructor>(constructor: T): T {
 
 /**
  * Create an data node
+ * 
  * @decorator `@makeComponent`
  * @param makeData - The `Data` node constructor
  * @param nodeName - A string containing the node name

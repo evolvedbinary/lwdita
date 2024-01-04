@@ -18,6 +18,7 @@ export interface DisplayNode {
 /**
  * Check if the given fields of the `Display` node are valid and matches this list:
  * See {@link DisplayFields}
+ * 
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
  * @returns Boolean
@@ -33,6 +34,7 @@ export function isValidDisplayField(field: string, value: BasicValue): boolean {
 
 /**
  * Check if the `Display` node is valid
+ * 
  * @remarks
  * Assert that the node is an object and has valid attributes
  * 
@@ -42,8 +44,15 @@ export function isValidDisplayField(field: string, value: BasicValue): boolean {
 export const isDisplayNode = (value?: {}): value is DisplayNode =>
   typeof value === 'object' && areFieldsValid(DisplayFields, value, isValidDisplayField);
 
-//TODO
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/**
+ * Create a `display` node
+ *
+ * @remarks
+ * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
+ *
+ * @param constructor - The constructor
+ * @returns The `display` node 
+ */
 export function makeDisplay<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements DisplayNode {
     get 'scale'(): DisplayScale | undefined {

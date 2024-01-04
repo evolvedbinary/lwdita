@@ -20,6 +20,7 @@ export interface AltNode extends LocalizationNode, FiltersNode, VariableContentN
 /**
  * Check if the given fields of the `alt` node are valid and matches this list:
  * `keyref`, `outputclass`, `class`, `dir`, `xml:lang`, `translate`, `props`
+ * 
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
  * @returns Boolean

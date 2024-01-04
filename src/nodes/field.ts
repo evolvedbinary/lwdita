@@ -11,6 +11,14 @@ export interface FieldNode<T = CDATA> {
   'value'?: T;
 }
 
+/**
+ * Check if the given fields of the `field` node are valid and matches this list:
+ * @See {@link FieldFields}
+ * 
+ * @param field - A string containing the name of the field
+ * @param value - A BasicValue-typed value containing the field value
+ * @returns Boolean
+ */
 export const isValidFieldField = (validator: (val: BasicValue) => boolean = isCDATA): (field: string, value: BasicValue) => boolean =>
   (field: string, value: BasicValue): boolean => {
     switch (field) {
@@ -20,10 +28,28 @@ export const isValidFieldField = (validator: (val: BasicValue) => boolean = isCD
     }
   }
 
+/**
+ * Check if the `field` node is valid
+ *
+ * @remarks
+ * Assert that the node is an object and has valid attributes
+ *
+ * @param value - The `field` node to test
+ * @returns Boolean
+ */
 export const isFieldNode = (value?: {}): value is FieldNode =>
   typeof value === 'object' && areFieldsValid(FieldFields, value, isValidFieldField());
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+/**
+ * Create a `field` node
+ *
+ * @remarks
+ * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
+ *
+ * @param constructor - The constructor
+ * @returns The `field` node 
+ */
 export function makeField<ValueType, T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements FieldNode<ValueType> {
     get 'name'(): CDATA | undefined {

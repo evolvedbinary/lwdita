@@ -84,7 +84,7 @@ export function makePre<T extends { new(...args: any[]): BaseNode }>(constructor
  * @param fields - A List of valid fields
  * @param childNodes - An Array of allowed child nodes `text*`, `%ph*`, `xref*`, `%data*`
  */
-@makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', '%data*']])
+@makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', '%data*']]) //TODO does text* mean can have text
 export class PreNode extends BaseNode {
   /** @override */
   static domNodeName = 'pre';

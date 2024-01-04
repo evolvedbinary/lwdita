@@ -7,6 +7,10 @@ import { BasicValue, isCDATA, CDATA } from "../classes";
  * FiltersFields: `props`
  */
 export const FiltersFields = [...FiltersAddsFields, 'props'];
+
+/**
+ * FiltersNode: `props`
+ */
 export interface FiltersNode extends FiltersAddsNode {
   'props'?: CDATA;
 }
