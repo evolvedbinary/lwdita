@@ -53,6 +53,9 @@ export function makeMediaMuted<T extends Constructor>(constructor: T): T {
 /**
  * Create a `media-muted` node
  *
+ * @remarks
+ * Muted indicates if the audio of a media object will be silenced or not.
+ *
  * @decorator `@makeComponent`
  * @param makeMediaMuted - The `media-muted` node constructor
  * @param nodeName - A string containing the node name

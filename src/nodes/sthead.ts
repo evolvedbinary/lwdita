@@ -53,7 +53,7 @@ export function makeStHead<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create a `sthead` node (table-head) and map the `sthead` node with the HTML tag name `thead`
+ * Create a `sthead` node (simple table header) and map the `sthead` node with the HTML tag name `thead`
  *
  * @decorator `@makeComponent`
  * @param makeStHead - The `sthead` node constructor

@@ -53,7 +53,7 @@ export function makeStRow<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create a `strow` node (table-row) and map the `strow` node with the HTML tag name `tr`
+ * Create a `strow` node (simple table row) and map the `strow` node with the HTML tag name `tr`
  *
  * @decorator `@makeComponent`
  * @param makeStRow - The `strow` node constructor

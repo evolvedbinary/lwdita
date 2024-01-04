@@ -53,6 +53,9 @@ export function makeMediaLoop<T extends Constructor>(constructor: T): T {
 /**
  * Create a `media-loop` node
  *
+ * @remarks
+ * Loop automatically returns to the start of audio or video content upon reaching its end.
+ *
  * @decorator `@makeComponent`
  * @param makeMediaLoop - The `media-loop` node constructor
  * @param nodeName - A string containing the node name

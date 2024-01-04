@@ -68,6 +68,9 @@ export function makeMediaTrack<T extends { new(...args: any[]): BaseNode }>(cons
 /**
  * Create a `media-track` node
  *
+ * @remarks
+ * Track is a link to time-based text data relevant to audio or video content.
+ *
  * @decorator `@makeComponent`
  * @param makeMediaTrack - The `media-track` node constructor
  * @param nodeName - A string containing the node name

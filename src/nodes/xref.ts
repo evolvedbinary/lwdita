@@ -55,7 +55,7 @@ export function makeXRef<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create an xref node (link) and map the `xref` node with the HTML tag name `a`
+ * Create an xref node (cross reference) and map the `xref` node with the HTML tag name `a`
  *
  * @decorator `@makeComponent`
  * @param makeXRef - The `xref` node constructor
