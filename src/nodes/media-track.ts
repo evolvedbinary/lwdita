@@ -5,10 +5,25 @@ import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } fr
 import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
 import { BasicValue, isCDATA, CDATA } from "../classes";
 
+/**
+ * Define all allowed `media-track` fields:
+ * `dir`, `xml:lang`, `translate`, `name`, `value`, `class`, `outputclass`, `type`
+ */
 export const MediaTrackFields = [...LocalizationFields, ...FieldFields, ...ClassFields, 'type'];
 
+/**
+ * Interface MediaTrackNode defines the attribute types for `media-track`:
+ * `CDATA`, `T`
+ */
 export interface MediaTrackNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
 
+/**
+ * Check if the given fields of the `media-track` node are valid
+ *
+ * @param field - A string containing the name of the field
+ * @param value - A BasicValue-typed value containing the field value
+ * @returns Boolean
+ */
 export const isValidMediaTrackField = (field: string, value: BasicValue): boolean => {
   if (isValidLocalizationField(field, value)
   || isValidBooleanFieldField(field, value)
@@ -21,10 +36,26 @@ export const isValidMediaTrackField = (field: string, value: BasicValue): boolea
   }
 }
 
+/**
+ * Check if the `media-track` node is valid
+ *
+ * @remarks
+ * Assert that the node is an object and has valid attributes
+ *
+ * @param value - The `media-track` node to test
+ * @returns Boolean
+ */
 export const isMediaTrackNode = (value?: {}): value is MediaTrackNode =>
   typeof value === 'object' && areFieldsValid(MediaTrackFields, value, isValidMediaTrackField);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+/**
+ * Construct a `media-track` node with all available attributes
+ *
+ * @param constructor - The constructor
+ * @returns A `media-track` node
+ */
 export function makeMediaTrack<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return makeAll(class extends constructor {
     get 'type'(): CDATA {
@@ -34,5 +65,14 @@ export function makeMediaTrack<T extends { new(...args: any[]): BaseNode }>(cons
   }, makeLocalization, makeBooleanField, makeClass);
 }
 
+/**
+ * Create a `media-track` node
+ *
+ * @decorator `@makeComponent`
+ * @param makeMediaTrack - The `media-track` node constructor
+ * @param nodeName - A string containing the node name
+ * @param isValidMediaTrackField - A boolean value, if the field is valid or not
+ * @param fields - A List of valid fields
+ */
 @makeComponent(makeMediaTrack, 'media-track', isValidMediaTrackField, MediaTrackFields)
 export class MediaTrackNode extends BaseNode { }
