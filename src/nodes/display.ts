@@ -3,13 +3,12 @@ import { BaseNode } from "./base";
 import { DisplayScale, DisplayFrame, DisplayExpanse, BasicValue, isDisplayScale, isDisplayFrame, isDisplayExpanse } from "../classes";
 
 /**
- * Define all allowed `display` attributes:
- * `scale`, `frame`, `expanse`
+ * DisplayFields (display attributes): `scale`, `frame`, `expanse`
  */
 export const DisplayFields = ['scale', 'frame', 'expanse'];
 
 /**
- * Interface DisplayNode defines the attribute types for `display`
+ * Interface DisplayNode defines the attribute types
  */
 export interface DisplayNode {
   'scale'?: DisplayScale;
@@ -18,7 +17,8 @@ export interface DisplayNode {
 }
 
 /**
- * Check if the given attributes of the `display` node are valid and match this list:
+ * Check if the attributes `scale`, `frame`, `expanse` are valid
+ *
  * See {@link DisplayFields}
  *
  * @param field - A string containing the name of the attribute
@@ -35,10 +35,7 @@ export function isValidDisplayField(field: string, value: BasicValue): boolean {
 }
 
 /**
- * Check if the `display` node is valid
- *
- * @remarks
- * Assert that the node is an object and has valid attributes
+ * Check if the `display` attribute is valid
  *
  * @param value - The `display` node to test
  * @returns Boolean
@@ -47,7 +44,9 @@ export const isDisplayNode = (value?: {}): value is DisplayNode =>
   typeof value === 'object' && areFieldsValid(DisplayFields, value, isValidDisplayField);
 
 /**
- * Create a `display` node
+ * Create a `display` node (display attribute)
+ *
+ * @see {@link https://dita-lang.org/lwdita/commonspec/specification/langref/attributes/attribute-groups#attribute-groups__display-attributes}
  *
  * @remarks
  * eslint-disable-next-line `@typescript-eslint/no-explicit-any`

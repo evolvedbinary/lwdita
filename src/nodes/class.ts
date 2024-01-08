@@ -2,22 +2,24 @@ import { isOrUndefined, areFieldsValid } from "../utils";
 import { BaseNode } from "./base";
 import { CDATA, BasicValue, isCDATA } from "../classes";
 
-//? how is this different from a normal nodes
-
-
 /**
- * ClassFields: `outputclass`, `class`
+ * ClassFields (universal attributes): `outputclass`, `class`
  */
 export const ClassFields = ['outputclass', 'class'];
+
+/**
+ * Interface ClassNode defines the attribute types
+ */
 export interface ClassNode {
   'outputclass'?: CDATA;
   'class'?: CDATA;
 }
 
 /**
- * Check if the given fields of the `class` node are valid and matches this list:
+ * Check if the attributes `outputclass`, `class` are valid
+ *
  * @See {@link ClassFields}
- * 
+ *
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
  * @returns Boolean
@@ -31,10 +33,7 @@ export function isValidClassField(field: string, value: BasicValue): boolean {
 }
 
 /**
- * Check if the `class` node is valid
- *
- * @remarks
- * Assert that the node is an object and has valid attributes
+ * Check if the `class` attribute is valid
  *
  * @param value - The `class` node to test
  * @returns Boolean
@@ -44,13 +43,16 @@ export const isClassNode = (value?: {}): value is ClassNode =>
 
 
 /**
- * Create a `class` node
+ * Create a `class` node (universal attribute)
+ * This will be transformed to an HTML attribute e.g. `class=""`
+ *
+ * @see {@link https://dita-lang.org/lwdita/commonspec/specification/langref/attributes/attribute-groups#attribute-groups__universal-attributes}
  *
  * @remarks
  * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
  *
  * @param constructor - The constructor
- * @returns The `class` node 
+ * @returns The `class` node
  */
 export function makeClass<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements ClassNode {
