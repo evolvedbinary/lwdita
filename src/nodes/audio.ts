@@ -7,8 +7,8 @@ import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `audio` fields:
- * `props`, `dir`, `xml:lang`, `translate`, `keyref`, `id`, `conref`, `outputclass`, `class`, 
+ * Define all allowed `audio` attributes:
+ * `props`, `dir`, `xml:lang`, `translate`, `keyref`, `id`, `conref`, `outputclass`, `class`
  */
 export const AudioFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
@@ -18,11 +18,11 @@ export const AudioFields = [...FiltersFields, ...LocalizationFields, ...ReuseFie
 export interface AudioNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
- * Check if the given fields of the `audio` node are valid and matches this list:
+ * Check if the given attributes of the `audio` node are valid and match this list:
  * `props`, `dir`, `xml:lang`, `translate`, `keyref`, `id`, `conref`, `outputclass`, `class`
- * 
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ *
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidAudioField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
@@ -43,8 +43,8 @@ export const isAudioNode = (value?: {}): value is AudioNode =>
   typeof value === 'object' && areFieldsValid(AudioFields, value, isValidAudioField);
 
 /**
- * Construct an `audio` node with all available 
- * 
+ * Construct an `audio` node with all available
+ *
  * @param constructor - The constructor
  * @returns An `audio` node
  * */
@@ -53,13 +53,13 @@ export function makeAudio<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create an audio node 
- * 
+ * Create an `audio` node
+ *
  * @decorator `@makeComponent`
- * @param makeAudio - The `Audio` node constructor
+ * @param makeAudio - The `audio` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidAudioField - A boolean value, if the field is valid or not
- * @param AudioFields - An array containing all valid field names
+ * @param isValidAudioField - A boolean value, if the attribute is valid or not
+ * @param AudioFields - An array containing all valid attribute names
  * @param childNodes - An array containing all valid child node names: `desc?`, `media-controls?`, `media-autoplay?`, `media-loop?`, `media-muted?`, `media-source*`, `media-track*`
  */
 @makeComponent(makeAudio, 'audio', isValidAudioField, AudioFields, ['desc?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'omedia-surce*', 'media-track*'])

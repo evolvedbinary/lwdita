@@ -3,9 +3,11 @@ import { BaseNode } from "./base";
 import { DisplayScale, DisplayFrame, DisplayExpanse, BasicValue, isDisplayScale, isDisplayFrame, isDisplayExpanse } from "../classes";
 
 /**
- * Define all allowed `display` fields: `scale`, `frame`, `expanse`
+ * Define all allowed `display` attributes:
+ * `scale`, `frame`, `expanse`
  */
 export const DisplayFields = ['scale', 'frame', 'expanse'];
+
 /**
  * Interface DisplayNode defines the attribute types for `display`
  */
@@ -16,11 +18,11 @@ export interface DisplayNode {
 }
 
 /**
- * Check if the given fields of the `Display` node are valid and matches this list:
+ * Check if the given attributes of the `display` node are valid and match this list:
  * See {@link DisplayFields}
- * 
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ *
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export function isValidDisplayField(field: string, value: BasicValue): boolean {
@@ -33,12 +35,12 @@ export function isValidDisplayField(field: string, value: BasicValue): boolean {
 }
 
 /**
- * Check if the `Display` node is valid
- * 
+ * Check if the `display` node is valid
+ *
  * @remarks
  * Assert that the node is an object and has valid attributes
- * 
- * @param value - The `Display` node to test
+ *
+ * @param value - The `display` node to test
  * @returns Boolean
  */
 export const isDisplayNode = (value?: {}): value is DisplayNode =>
@@ -51,7 +53,7 @@ export const isDisplayNode = (value?: {}): value is DisplayNode =>
  * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
  *
  * @param constructor - The constructor
- * @returns The `display` node 
+ * @returns The `display` node
  */
 export function makeDisplay<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements DisplayNode {

@@ -9,7 +9,7 @@ import { FieldFields, FieldNode, isValidCDATAFieldField, makeCDATAField } from "
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `data` fields:
+ * Define all allowed `data` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `href`, `format`, `scope`, `outputclass`, `class`, `keyref`, `name`, `value`
  */
 export const DataFields = [...FiltersFields, ...LocalizationFields, ...ReferenceContentFields, ...ClassFields, ...VariableContentFields, ...FieldFields];
@@ -20,11 +20,11 @@ export const DataFields = [...FiltersFields, ...LocalizationFields, ...Reference
 export interface DataNode extends FiltersNode, LocalizationNode, ReferenceContentNode, ClassNode, VariableContentNode, FieldNode { }
 
 /**
- * Check if the given fields of the `data` node are valid and matches this list:
+ * Check if the given attributes of the `data` node are valid and match this list:
  * @See {@link DataFields}
- * 
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ *
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidDataField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
@@ -36,10 +36,10 @@ export const isValidDataField = (field: string, value: BasicValue): boolean => i
 
 /**
  * Check if the `data` node is valid
- * 
+ *
  * @remarks
  * Assert that the node is an object and has valid attributes
- * 
+ *
  * @param value - The `data` node to test
  * @returns Boolean
  */
@@ -47,26 +47,27 @@ export const isDataNode = (value?: {}): value is DataNode =>
   typeof value === 'object' && areFieldsValid(DataFields, value, isValidDataField);
 
 /**
- * Construct an `data` node with all available attributes
- * 
+ * Construct a `data` node with all available attributes
+ *
  * @param constructor - The constructor
- * @returns An `data` node
+ * @returns A `data` node
  */
 export function makeData<T extends Constructor>(constructor: T): T {
   return makeAll(constructor, makeLocalization, makeFilters, makeReferenceContent, makeClass, makeVariableContent, makeCDATAField);
 }
 
 /**
- * Create an data node
- * 
+ * Create a `data` node
+ *
  * @decorator `@makeComponent`
- * @param makeData - The `Data` node constructor
+ * @param makeData - The `data` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidDataField - A boolean value, if the field is valid or not
- * @param DataFields - An array containing all valid field names
+ * @param isValidDataField - A boolean value, if the attribute is valid or not
+ * @param DataFields - An array containing all valid attribute names
  * @param childNodes - An array containing all valid child node names: `text*`, `%data*`
  */
 @makeComponent(makeData, 'data', isValidDataField, DataFields, [['text*', '%data*']])
 export class DataNode extends BaseNode {
+  /** @override */
   static domNodeName = 'data';
 }

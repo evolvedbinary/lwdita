@@ -9,7 +9,8 @@ import { BasicValue } from "../classes";
 
 // TODO:  "+ topic/ph hi-d/b "
 /**
- * Define all allowed `bold` fields: `dir`, `xml:lang`, `translate`, `keyref`, `outputclass`, `class`
+ * Define all allowed `bold` attributes:
+ * `dir`, `xml:lang`, `translate`, `keyref`, `outputclass`, `class`
  */
 export const BoldFields = [...LocalizationFields, ...VariableContentFields, ...ClassFields];
 
@@ -19,11 +20,11 @@ export const BoldFields = [...LocalizationFields, ...VariableContentFields, ...C
 export interface BoldNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
- * Check if the given fields of the `bold` node are valid and matches this list:
+ * Check if the given attributes of the `bold` node are valid and match this list:
  * @See {@link BoldFields}
- * 
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ *
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidBoldField = (field: string, value: BasicValue): boolean => isValidVariableContentField(field, value)
@@ -43,26 +44,28 @@ export const isBoldNode = (value?: {}): value is BoldNode =>
   typeof value === 'object' && areFieldsValid(BoldFields, value, isValidBoldField);
 
 /**
- * Construct an `bold` node with all available attributes
- * 
+ * Construct a `bold` node with all available attributes
+ *
  * @param constructor - The constructor
- * @returns An `bold` node
+ * @returns A `bold` node
  * */
 export function makeBold<T extends Constructor>(constructor: T): T {
   return makeAll(constructor, makeLocalization, makeVariableContent, makeClass);
 }
 
 /**
- * Create an Bold node (link) and map the `Bold` node with the HTML tag name `b`
- * 
+ * Create a `bold` node (link) and map the `bold` node with the HTML tag name `b`
+ *
  * @decorator `@makeComponent`
  * @param makeBold - The `Bold` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidBodyField - A boolean value, if the field is valid or not
- * @param BodyFields - An array containing all valid field names
- * @param childNodes - An array containing all valid child node names: `%all-inline*`
- */
+ * @param isValidBodyField - A boolean value, if the attribute is valid or not
+ * @param BodyFields - An array containing all valid attribute names
+ * @param childNodes - An array containing all valid child node names: `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
+*/
 @makeComponent(makeBold, 'b', isValidBoldField, BoldFields, ['%all-inline*'])
 export class BoldNode extends BaseNode {
+  /** @override */
   static domNodeName = 'b';
+
 }
