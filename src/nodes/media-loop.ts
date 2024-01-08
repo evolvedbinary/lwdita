@@ -8,6 +8,7 @@ import { BasicValue } from "../classes";
 /**
  * Define all allowed `media-loop` attributes:
  * `dir`, `xml:lang`, `translate`, `class`, `outputclass`
+ * Custom attributes are `name`, `value`
  */
 export const MediaLoopFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
 

@@ -8,6 +8,7 @@ import { BasicValue, isCDATA, CDATA } from "../classes";
 /**
  * Define all allowed `media-track` attributes:
  * `dir`, `xml:lang`, `translate`, `class`, `outputclass`, `type`
+ * Custom attributes are `name`, `value`
  */
 export const MediaTrackFields = [...LocalizationFields, ...FieldFields, ...ClassFields, 'type'];
 

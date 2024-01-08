@@ -8,6 +8,7 @@ import { BasicValue } from "../classes";
 /**
  * Define all allowed `media-source` attributes:
  * `dir`, `xml:lang`, `translate`, `class`, `outputclass`
+ * Custom attributes are `name`, `value`
  */
 export const MediaSourceFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
 
