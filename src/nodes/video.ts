@@ -8,7 +8,7 @@ import { SizeNode, SizeFields, isValidSizeField, makeSize } from "./size";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `video` fields:
+ * Define all allowed `video` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `outputclass`, `class`, `width`, `height`
  */
 export const VideoFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields, ...SizeFields];
@@ -20,7 +20,7 @@ export const VideoFields = [...FiltersFields, ...LocalizationFields, ...ReuseFie
 export interface VideoNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode, SizeNode { }
 
 /**
- * Check if the given fields of the `video` node are valid
+ * Check if the given attributes of the `video` node are valid
  *
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
@@ -61,7 +61,7 @@ export function makeVideo<T extends Constructor>(constructor: T): T {
  * @param makeVideo - The `video` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidVideoField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param fields - A List of valid fields See {@link VideoFields}
  * @param childNodes - An Array of allowed child nodes: desc?', `video-poster?`, `media-controls?`, `media-autoplay?`, `media-loop?`, `media-muted?`, `media-source*`, `media-track*`
  */
 @makeComponent(makeVideo, 'video', isValidVideoField, VideoFields, ['desc?', 'video-poster?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'media-source*', 'media-track*'])

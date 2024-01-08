@@ -6,7 +6,7 @@ import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `video-poster` fields:
+ * Define all allowed `video-poster` attributes:
  * `dir`, `xml:lang`, `translate`, `name`, `value`,`class`, `outputclass`
  */
 export const VideoPosterFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
@@ -18,7 +18,7 @@ export const VideoPosterFields = [...LocalizationFields, ...FieldFields, ...Clas
 export interface VideoPosterNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
 
 /**
- * Check if the given fields of the `video-poster` node are valid
+ * Check if the given attributes of the `video-poster` node are valid
  *
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
@@ -57,7 +57,7 @@ export function makeVideoPoster<T extends Constructor>(constructor: T): T {
  * @param makeVideoPoster - The `video-poster` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidVideoPosterField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param fields - A List of valid fields See {@link VideoPosterFields}
  */
 @makeComponent(makeVideoPoster, 'video-poster', isValidVideoPosterField, VideoPosterFields)
 export class VideoPosterNode extends BaseNode { }

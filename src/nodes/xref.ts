@@ -8,7 +8,7 @@ import { VariableContentFields, VariableContentNode, isValidVariableContentField
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `xref` (cross-reference) fields:
+ * Define all allowed `xref` (cross-reference) attributes:
  * `keyref`, `href`, `format`, `scope`, `outputclass`, `class`, `dir`, `xml:lang`, `translate`, `props`
  */
 export const XRefFields = [...FiltersFields, ...LocalizationFields, ...ClassFields, ...ReferenceContentFields, ...VariableContentFields];
@@ -20,7 +20,7 @@ export const XRefFields = [...FiltersFields, ...LocalizationFields, ...ClassFiel
 export interface XRefNode extends FiltersNode, LocalizationNode, ClassNode, ReferenceContentNode, VariableContentNode { }
 
 /**
- * Check if the given fields of the `xref` node are valid
+ * Check if the given attributes of the `xref` node are valid
  *
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
@@ -60,9 +60,9 @@ export function makeXRef<T extends Constructor>(constructor: T): T {
  * @decorator `@makeComponent`
  * @param makeXRef - The `xref` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidXRefField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child node `%common-inline*`
+ * @param isValidXRefField - A boolean value, if the attributes is valid or not
+ * @param fields - A List of valid attributes @see {@link XRefFields}
+ * @param childNodes - An Array of allowed child node `%common-inline*`: `text`, `ph`, `b`, `i`, `u`, `sub`, `sup` , `image`, `data`
  */
 @makeComponent(makeXRef, 'xref', isValidXRefField, XRefFields, ['%common-inline*'])
 export class XRefNode extends BaseNode {
