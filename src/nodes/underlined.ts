@@ -11,9 +11,6 @@ import { BasicValue } from "../classes";
  * Define all allowed `underlined` fields:
  * `dir`, `xml:lang`, `translate`, `keyref`, `class`, `outputclass`
  *
- * @privateRemarks
- *
- * TODO:  "+ topic/ph hi-d/u "
  */
 export const UnderlinedFields = [...LocalizationFields, ...VariableContentFields, ...ClassFields];
 
@@ -58,6 +55,9 @@ export function makeUnderlined<T extends Constructor>(constructor: T): T {
 
 /**
  * Create an `underlined` node and map the `underlined` node with the HTML tag name `u`
+ *
+ * @privateRemarks
+ * TODO:  "+ topic/ph hi-d/u "
  *
  * @decorator `@makeComponent`
  * @param makeUnderlined - The `underlined` node constructor

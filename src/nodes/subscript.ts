@@ -10,9 +10,6 @@ import { BasicValue } from "../classes";
 /**
  * Define all allowed `subscript` fields:
  * `dir`, `xml:lang`, `translate`, `keyref`, `class`, `outputclass`
- *
- * @privateRemarks
- * TODO:  "+ topic/ph hi-d/sub "
  */
 export const SubscriptFields = [...LocalizationFields, ...VariableContentFields, ...ClassFields];
 
@@ -58,7 +55,9 @@ export function makeSubscript<T extends Constructor>(constructor: T): T {
 /**
  * Create a `subscript` node and map the `subscript` node with the HTML tag name `sb`
  *
- * @decorator `@makeComponent`
+ * @privateRemarks
+ * TODO:  "+ topic/ph hi-d/sub " * @decorator `@makeComponent`
+ *
  * @param makeSubscript - The `subscript` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidSubscriptField - A boolean value, if the field is valid or not
