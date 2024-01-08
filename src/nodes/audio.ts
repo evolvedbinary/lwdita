@@ -62,5 +62,5 @@ export function makeAudio<T extends Constructor>(constructor: T): T {
  * @param AudioFields - An array containing all valid attribute names
  * @param childNodes - An array containing all valid child node names: `desc?`, `media-controls?`, `media-autoplay?`, `media-loop?`, `media-muted?`, `media-source*`, `media-track*`
  */
-@makeComponent(makeAudio, 'audio', isValidAudioField, AudioFields, ['desc?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'omedia-surce*', 'media-track*'])
+@makeComponent(makeAudio, 'audio', isValidAudioField, AudioFields, ['desc?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'media-source*', 'media-track*'])
 export class AudioNode extends BaseNode {}
