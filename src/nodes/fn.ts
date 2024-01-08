@@ -6,11 +6,27 @@ import { areFieldsValid, isOrUndefined } from "../utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
 import { BasicValue, isCDATA, ID, CDATA } from "../classes";
 
+// TODO: 'xml:space' (preserve)
+
+/**
+ * Define all allowed `fn` fields:
+ * `id`, `callout`, `props`, `dir`, `xml:lang`, `translate`, `conref`, `outputclass`, `class`
+ */
 export const FnFields = [...FiltersFields, ...LocalizationFields, ...FnReuseFields, ...ClassFields, 'id', 'callout'];
 
-// TODO: 'xml:space' (preserve)
+/**
+ * Interface FnNode defines the attribute types for `fn`
+ */
 export interface FnNode extends FiltersNode, LocalizationNode, FnReuseNode, ClassNode { }
 
+/**
+ * Check if the given fields of the `fn` node are valid and matches this list:
+ * @See {@link FnFields}
+ * 
+ * @param field - A string containing the name of the field
+ * @param value - A BasicValue-typed value containing the field value
+ * @returns Boolean
+ */
 export const isValidFnField = (field: string, value: BasicValue): boolean => {
   if (isValidFiltersField(field, value)
   || isValidLocalizationField(field, value)
@@ -25,10 +41,27 @@ export const isValidFnField = (field: string, value: BasicValue): boolean => {
   }
 }
 
+/**
+ * Check if the `fn` node is valid
+ * 
+ * @remarks
+ * Assert that the node is an object and has valid attributes
+ * 
+ * @param value - The `fn` node to test
+ * @returns Boolean
+ */
 export const isFnNode = (value?: {}): value is FnNode =>
   typeof value === 'object' && areFieldsValid(FnFields, value, isValidFnField);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/**
+ * Create a `fn` node with an `id` and `callout` attribute
+ *
+ * @remarks
+ * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
+ *
+ * @param constructor - The constructor
+ * @returns The `fn` node with an `id` and `callout` attribute and their values
+ */
 export function makeFn<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return makeAll(class extends constructor {
     get 'id'(): ID {
@@ -42,6 +75,17 @@ export function makeFn<T extends { new(...args: any[]): BaseNode }>(constructor:
   }, makeLocalization, makeFilters, makeFnReuse, makeClass);
 }
 
+/**
+ * Create an `fn` node
+ * 
+ * @decorator `@makeComponent`
+ * @param makeFn - The `Fn` node constructor
+ * @param nodeName - A string containing the node name
+ * @param isValidFnField - A boolean value, if the field is valid or not
+ * @param FnFields - An array containing all valid fields See {@link FnFields}
+ * @param FnContent - An array containing all valid content
+ * @returns A `fn` node
+ */
 @makeComponent(makeFn, 'fn', isValidFnField, FnFields, ['%fn-blocks*'])
 export class FnNode extends BaseNode {
   static domNodeName = 'span';

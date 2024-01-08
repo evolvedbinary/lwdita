@@ -12,6 +12,14 @@ export interface LocalizationNode {
   'translate'?: CDATA;
 }
 
+/**
+ * Check if the given fields of the `localization` node are valid and matches this list:
+ * @See {@link LocalizationFields}
+ * 
+ * @param field - A string containing the name of the field
+ * @param value - A BasicValue-typed value containing the field value
+ * @returns Boolean
+ */
 export function isValidLocalizationField(field: string, value: BasicValue): boolean {
   switch (field) {
     case 'dir': return isOrUndefined(isCDATA, value);
@@ -21,10 +29,27 @@ export function isValidLocalizationField(field: string, value: BasicValue): bool
   }
 }
 
+/**
+ * Check if the `localization` node is valid
+ * 
+ * @remarks
+ * Assert that the node is an object and has valid attributes
+ * 
+ * @param value - The `localization` node to test
+ * @returns Boolean
+ */
 export const isLocalizationNode = (value?: {}): value is LocalizationNode =>
   typeof value === 'object' && areFieldsValid(LocalizationFields, value, isValidLocalizationField);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/**
+ * Create a `localization` node with an `dir`, `xml:lang`, `translate` attribute
+ *
+ * @remarks
+ * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
+ *
+ * @param constructor - The constructor
+ * @returns The `localization` node with an `dir`, `xml:lang`, `translate` attribute and their values
+ */
 export function makeLocalization<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements LocalizationNode {
     get 'dir'(): CDATA | undefined {
