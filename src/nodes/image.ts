@@ -9,7 +9,7 @@ import { SizeFields, SizeNode, isSizeNode, isValidSizeField, makeSize } from "./
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `image` fields:
+ * Define all allowed `image` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `keyref`, `outputclass`, `class`, `scale`, `href`, `format`, `scope`, `width`, `height`
  */
 export const ImageFields = [...FiltersFields, ...LocalizationFields, ...VariableContentFields, ...ReferenceContentFields, ...ClassFields, ...SizeFields];
@@ -22,10 +22,10 @@ export interface ImageNode extends FiltersNode, LocalizationNode, VariableConten
 /**
 /**
  * Check if the `image` node is valid
- * 
+ *
  * @remarks
  * Assert that the node is an object and has valid attributes
- * 
+ *
  * @param value - The `image` node to test
  * @returns Boolean
  */
@@ -40,11 +40,11 @@ export const isImageNodes = (value?: {}): value is ImageNode =>
 
 
 /**
- * Check if the given fields of the `image` node are valid and matches this list:
+ * Check if the given attributes of the `image` node are valid and match this list:
  * @See {@link ImageFields}
- * 
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ *
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the field attribute
  * @returns Boolean
  */
 export const isValidImageField = (field: string, value: BasicValue): boolean => isValidLocalizationField(field, value)
@@ -60,24 +60,26 @@ export const isImageNode = (value?: {}): value is ImageNode =>
 
 /**
  * Construct an `image` node with all available attributes
- * 
+ *
+ * @privateRemarks
+ * TODO: add properties
+ *
  * @param constructor - The constructor
  * @returns An `image` node
  */
 export function makeImage<T extends Constructor>(constructor: T): T {
-  // TODO: add properties
   return makeAll(constructor, makeLocalization, makeFilters, makeVariableContent, makeClass, makeReferenceContent, makeSize);
 }
 
 
 /**
- * Create an image node
- * 
+ * Create an `image` node
+ *
  * @decorator `@makeComponent`
  * @param makeImage - The `image` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidImageField - A boolean value, if the field is valid or not
- * @param ImageFields - An array containing all valid field names See {@link ImageFields}
+ * @param isValidImageField - A boolean value, if the attribute is valid or not
+ * @param ImageFields - An array containing all valid attribute names, @see {@link ImageFields}
  * @param childNodes - An array containing all valid child node names: `alt?`
  * @returns An `image` node
  */

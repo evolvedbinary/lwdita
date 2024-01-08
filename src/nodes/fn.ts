@@ -6,11 +6,13 @@ import { areFieldsValid, isOrUndefined } from "../utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
 import { BasicValue, isCDATA, ID, CDATA } from "../classes";
 
-// TODO: 'xml:space' (preserve)
 
 /**
  * Define all allowed `fn` fields:
  * `id`, `callout`, `props`, `dir`, `xml:lang`, `translate`, `conref`, `outputclass`, `class`
+ *
+ * @privateRemarks
+ * TODO: 'xml:space' (preserve)
  */
 export const FnFields = [...FiltersFields, ...LocalizationFields, ...FnReuseFields, ...ClassFields, 'id', 'callout'];
 
@@ -20,11 +22,11 @@ export const FnFields = [...FiltersFields, ...LocalizationFields, ...FnReuseFiel
 export interface FnNode extends FiltersNode, LocalizationNode, FnReuseNode, ClassNode { }
 
 /**
- * Check if the given fields of the `fn` node are valid and matches this list:
+ * Check if the given attributes of the `fn` node are valid and match this list:
  * @See {@link FnFields}
- * 
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ *
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidFnField = (field: string, value: BasicValue): boolean => {
@@ -43,10 +45,10 @@ export const isValidFnField = (field: string, value: BasicValue): boolean => {
 
 /**
  * Check if the `fn` node is valid
- * 
+ *
  * @remarks
  * Assert that the node is an object and has valid attributes
- * 
+ *
  * @param value - The `fn` node to test
  * @returns Boolean
  */
@@ -77,16 +79,17 @@ export function makeFn<T extends { new(...args: any[]): BaseNode }>(constructor:
 
 /**
  * Create an `fn` node
- * 
+ *
  * @decorator `@makeComponent`
  * @param makeFn - The `Fn` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidFnField - A boolean value, if the field is valid or not
  * @param FnFields - An array containing all valid fields See {@link FnFields}
- * @param FnContent - An array containing all valid content
+ * @param FnContent - An array containing all valid child nodes: '%fn-blocks*' (`p`, `ul`, `ol`, `dl`, `data`)
  * @returns A `fn` node
  */
 @makeComponent(makeFn, 'fn', isValidFnField, FnFields, ['%fn-blocks*'])
 export class FnNode extends BaseNode {
+  /** @override */
   static domNodeName = 'span';
 }

@@ -6,6 +6,10 @@ import { BasicValue, isCDATA, CDATA } from "../classes";
  * LocalizationFields: `dir`, `xml:lang`, `translate`
  */
 export const LocalizationFields = ['dir', 'xml:lang', 'translate'];
+
+/**
+ *
+ */
 export interface LocalizationNode {
   'dir'?: CDATA;
   'xml:lang'?: CDATA;
@@ -13,11 +17,11 @@ export interface LocalizationNode {
 }
 
 /**
- * Check if the given fields of the `localization` node are valid and matches this list:
+ * Check if the given attributes of the `localization` node are valid and match this list:
  * @See {@link LocalizationFields}
- * 
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ *
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export function isValidLocalizationField(field: string, value: BasicValue): boolean {
@@ -31,10 +35,10 @@ export function isValidLocalizationField(field: string, value: BasicValue): bool
 
 /**
  * Check if the `localization` node is valid
- * 
+ *
  * @remarks
  * Assert that the node is an object and has valid attributes
- * 
+ *
  * @param value - The `localization` node to test
  * @returns Boolean
  */

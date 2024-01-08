@@ -6,7 +6,7 @@ import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `media-loop` fields:
+ * Define all allowed `media-loop` attributes:
  * `dir`, `xml:lang`, `translate`, `name`, `value`, `class`, `outputclass`
  */
 export const MediaLoopFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
@@ -18,10 +18,10 @@ export const MediaLoopFields = [...LocalizationFields, ...FieldFields, ...ClassF
 export interface MediaLoopNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
 
 /**
- * Check if the given fields of the `media-loop` node are valid
+ * Check if the given attributes of the `media-loop` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidMediaLoopField = (field: string, value: BasicValue): boolean => isValidLocalizationField(field, value)

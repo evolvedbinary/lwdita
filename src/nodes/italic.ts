@@ -8,7 +8,7 @@ import { VariableContentFields, isValidVariableContentField, makeVariableContent
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `i` fields:
+ * Define all allowed `i` attributes:
  * `dir`, `xml:lang`, `translate`, `keyref`, `outputclass`, `class`
  */
 export const ItalicFields = [...LocalizationFields, ...VariableContentFields, ...ClassFields];
@@ -19,7 +19,7 @@ export const ItalicFields = [...LocalizationFields, ...VariableContentFields, ..
 export interface ItalicNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
- * Check if the given fields of the `italic` node are valid and matches this list:
+ * Check if the given attributes of the `italic` node are valid and match this list:
  * @See {@link ItalicFields}
  *
  * @param field - A string containing the name of the field

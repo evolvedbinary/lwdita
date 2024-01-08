@@ -3,7 +3,7 @@ import { BaseNode } from "./base";
 import { BasicValue, isCDATA, CDATA } from "../classes";
 
 /**
- * FnReuseFields: `conref` 
+ * FnReuseFields: `conref`
  */
 export const FnReuseFields = ['conref'];
 
@@ -15,9 +15,9 @@ export interface FnReuseNode {
 }
 
 /**
- * Check if the given fields of the `fn-reuse` node are valid and matches this list:
+ * Check if the given attributes of the `fn-reuse` node are valid and match this list:
  * @See {@link FnReuseFields}
- * 
+ *
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
  * @returns Boolean
@@ -31,10 +31,10 @@ export function isValidFnReuseField(field: string, value: BasicValue): boolean {
 
 /**
  * Check if the `fn-reuse` node is valid
- * 
+ *
  * @remarks
  * Assert that the node is an object and has valid attributes
- * 
+ *
  * @param value - The `fn-reuse` node to test
  * @returns Boolean
  */
@@ -42,13 +42,13 @@ export const isFnReuseNode = (value?: {}): value is FnReuseNode =>
   typeof value === 'object' && areFieldsValid(FnReuseFields, value, isValidFnReuseField);
 
 /**
- * Create a `fn-reuse` node with an `conref` attribute
+ * Create a `fn-reuse` node with a `conref` attribute
  *
  * @remarks
  * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
  *
  * @param constructor - The constructor
- * @returns The `fn-reuse` node with an `conref` attribute and their values
+ * @returns The `fn-reuse` node with a `conref` attribute and its value
  */
 export function makeFnReuse<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements FnReuseNode {

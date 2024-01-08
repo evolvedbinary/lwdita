@@ -6,7 +6,7 @@ import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `media-autoplay` fields:
+ * Define all allowed `media-autoplay` attributes:
  * `dir`, `xml:lang`, `translate`, `name`, `value`, `class`, `outputclass`
  */
 export const MediaAutoplayFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
@@ -18,10 +18,10 @@ export const MediaAutoplayFields = [...LocalizationFields, ...FieldFields, ...Cl
 export interface MediaAutoplayNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
 
 /**
- * Check if the given fields of the `media-autoplay` node are valid
+ * Check if the given attributes of the `media-autoplay` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidMediaAutoplayField = (field: string, value: BasicValue): boolean => isValidLocalizationField(field, value)
@@ -59,8 +59,8 @@ export function makeMediaAutoplay<T extends Constructor>(constructor: T): T {
  * @decorator `@makeComponent`
  * @param makeMediaAutoplay - The `media-autoplay` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidMediaAutoplayField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param isValidMediaAutoplayField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes
  */
 @makeComponent(makeMediaAutoplay, 'media-autoplay', isValidMediaAutoplayField, MediaAutoplayFields)
 export class MediaAutoplayNode extends BaseNode { }
