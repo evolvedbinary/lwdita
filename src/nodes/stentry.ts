@@ -7,7 +7,7 @@ import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `stentry` fields:
+ * Define all allowed `stentry` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `class`, `outputclass`
  */
 export const StEntryFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
@@ -19,10 +19,10 @@ export const StEntryFields = [...FiltersFields, ...LocalizationFields, ...ReuseF
 export interface StEntryNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
- * Check if the given fields of the `stentry` node are valid
+ * Check if the given attributes of the `stentry` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidStEntryField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
@@ -62,8 +62,8 @@ export function makeStEntry<T extends Constructor>(constructor: T): T {
  * @param makeStEntry - The `stentry` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidStEntryField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child node `%simple-blocks*`
+ * @param fields - A List of valid attributes see {@link StEntryFields}
+ * @param childNodes - An Array of allowed child node `%simple-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `fn`, `note`, `data`)
  */
 @makeComponent(makeStEntry, 'stentry', isValidStEntryField, StEntryFields, ['%simple-blocks*'])
 export class StEntryNode extends BaseNode {

@@ -7,7 +7,7 @@ import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `strow` fields:
+ * Define all allowed `strow` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `class`, `outputclass`
  */
 export const StRowFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
@@ -19,10 +19,10 @@ export const StRowFields = [...FiltersFields, ...LocalizationFields, ...ReuseFie
 export interface StRowNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
- * Check if the given fields of the `strow` node are valid
+ * Check if the given attributes of the `strow` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidStRowField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
@@ -58,8 +58,8 @@ export function makeStRow<T extends Constructor>(constructor: T): T {
  * @decorator `@makeComponent`
  * @param makeStRow - The `strow` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidStRowField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param isValidStRowField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes see {@link StRowFields}
  * @param childNodes - An Array of allowed child node `stentry*`
  */
 @makeComponent(makeStRow, 'strow', isValidStRowField, StRowFields, ['stentry*'])

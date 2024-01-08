@@ -7,7 +7,7 @@ import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `sthead` fields:
+ * Define all allowed `sthead` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `class`, `outputclass`
  */
 export const StHeadFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
@@ -19,10 +19,10 @@ export const StHeadFields = [...FiltersFields, ...LocalizationFields, ...ReuseFi
 export interface StHeadNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
- * Check if the given fields of the `sthead` node are valid
+ * Check if the given attributes of the `sthead` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidStHeadField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
@@ -58,8 +58,8 @@ export function makeStHead<T extends Constructor>(constructor: T): T {
  * @decorator `@makeComponent`
  * @param makeStHead - The `sthead` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidStHeadField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param isValidStHeadField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes
  * @param childNodes - An Array of allowed child node `stentry+`
  */
 @makeComponent(makeStHead, 'sthead', isValidStHeadField, StHeadFields, ['stentry+'])

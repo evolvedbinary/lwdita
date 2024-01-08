@@ -8,7 +8,7 @@ import { VariableContentFields, isValidVariableContentField, makeVariableContent
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `subscript` fields:
+ * Define all allowed `subscript` attributes:
  * `dir`, `xml:lang`, `translate`, `keyref`, `class`, `outputclass`
  */
 export const SubscriptFields = [...LocalizationFields, ...VariableContentFields, ...ClassFields];
@@ -20,10 +20,10 @@ export const SubscriptFields = [...LocalizationFields, ...VariableContentFields,
 export interface SubscriptNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
- * Check if the given fields of the `subscript` node are valid
+ * Check if the given attributes of the `subscript` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidSubscriptField = (field: string, value: BasicValue): boolean => isValidVariableContentField(field, value)
@@ -60,9 +60,9 @@ export function makeSubscript<T extends Constructor>(constructor: T): T {
  *
  * @param makeSubscript - The `subscript` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidSubscriptField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child nodes: `%all-inline*`
+ * @param isValidSubscriptField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes see {@link SubscriptFields}
+ * @param childNodes - An Array of allowed child nodes: `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makeSubscript, 'sub', isValidSubscriptField, SubscriptFields, ['%all-inline*'])
 export class SubscriptNode extends BaseNode {
