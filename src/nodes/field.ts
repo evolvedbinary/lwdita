@@ -8,7 +8,7 @@ import { CDATA, BasicValue, isCDATA } from "../classes";
 export const FieldFields = ['name', 'value'];
 
 /**
- *
+ * Interface FieldNode defines the attribute types
  */
 export interface FieldNode<T = CDATA> {
   'name'?: CDATA;
@@ -16,12 +16,12 @@ export interface FieldNode<T = CDATA> {
 }
 
 /**
- * Check if the given attributes of the `field` node are valid and match this list:
+ * Check if the attributes `name`, `value` are valid.
+ *
  * @See {@link FieldFields}
  *
- * @param field - A string containing the name of the attribute
- * @param value - A BasicValue-typed value containing the attribute value
- * @returns Boolean
+ * @param validator - a function that takes a BasicValue and returns a boolean
+ * @returns function - The return function takes two parameters `name`, `value` and returns a boolean
  */
 export const isValidFieldField = (validator: (val: BasicValue) => boolean = isCDATA): (field: string, value: BasicValue) => boolean =>
   (field: string, value: BasicValue): boolean => {
@@ -43,7 +43,6 @@ export const isValidFieldField = (validator: (val: BasicValue) => boolean = isCD
  */
 export const isFieldNode = (value?: {}): value is FieldNode =>
   typeof value === 'object' && areFieldsValid(FieldFields, value, isValidFieldField());
-
 
 /**
  * Create a `field` node
@@ -94,8 +93,8 @@ export type BooleanFieldNode = FieldNode<boolean>;
 export const isValidBooleanFieldField = isValidFieldField(val => typeof val === 'boolean');
 
 /**
- * 
- * @param constructor 
- * @returns 
+ *
+ * @param constructor
+ * @returns
  */
 export const makeBooleanField = <T extends Constructor>(constructor: T): T => makeField<boolean, T>(constructor);
