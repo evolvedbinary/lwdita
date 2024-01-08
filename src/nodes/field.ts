@@ -71,10 +71,10 @@ export function makeField<ValueType, T extends { new(...args: any[]): BaseNode }
 }
 
 /**
- * isValidCDATAFieldField 
- * 
- * checks if the field is a CDATA
- * 
+ * isValidCDATAFieldField
+ *
+ * Checks if the field is a CDATA
+ *
  * @param field - the field to check
  * @param value - the value to check
  * @returns boolean
@@ -83,9 +83,9 @@ export const isValidCDATAFieldField = isValidFieldField();
 
 /**
  * Make a CDATA field
- * 
+ *
  * a function that takes a constructor and returns calls makeField with that constructor
- * @param constructor 
+ * @param constructor - The contructor
  * @returns a CDATA field
  */
 export const makeCDATAField = <T extends Constructor>(constructor: T): T => makeField<CDATA, T>(constructor);
@@ -96,17 +96,16 @@ export const makeCDATAField = <T extends Constructor>(constructor: T): T => make
 export type BooleanFieldNode = FieldNode<boolean>;
 
 /**
- * isValidBooleanFieldField checks if boolean field node is valid
+ * isValidBooleanFieldField checks if the boolean field node is valid
  * by calling isValidFieldField with a function that checks if the value is a boolean
- * 
  */
 export const isValidBooleanFieldField = isValidFieldField(val => typeof val === 'boolean');
 
 /**
  * Make a boolean field
- * 
+ *
  * a function that takes a constructor and returns calls makeField with that constructor
- * @param constructor 
- * @returns a boolean field
+ * @param constructor - The contructor
+ * @returns A boolean field
  */
 export const makeBooleanField = <T extends Constructor>(constructor: T): T => makeField<boolean, T>(constructor);
