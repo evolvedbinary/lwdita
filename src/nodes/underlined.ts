@@ -8,7 +8,7 @@ import { VariableContentFields, isValidVariableContentField, makeVariableContent
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `underlined` fields:
+ * Define all allowed `underlined` attributes:
  * `dir`, `xml:lang`, `translate`, `keyref`, `class`, `outputclass`
  *
  */
@@ -21,10 +21,10 @@ export const UnderlinedFields = [...LocalizationFields, ...VariableContentFields
 export interface UnderlinedNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
- * Check if the given fields of the `underlined` node are valid
+ * Check if the given attributes of the `underlined` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attributes
+ * @param value - A BasicValue-typed value containing the attributes value
  * @returns Boolean
  */
 export const isValidUnderlinedField = (field: string, value: BasicValue): boolean => isValidVariableContentField(field, value)
@@ -62,8 +62,8 @@ export function makeUnderlined<T extends Constructor>(constructor: T): T {
  * @decorator `@makeComponent`
  * @param makeUnderlined - The `underlined` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidUnderlinedField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param isValidUnderlinedField - A boolean value, if the attributes is valid or not
+ * @param fields - A List of valid attributes See {@link UnderlinedFields}
  * @param childNodes - An Array of allowed child node `%all-inline*`
  */
 @makeComponent(makeUnderlined, 'u', isValidUnderlinedField, UnderlinedFields, ['%all-inline*'])

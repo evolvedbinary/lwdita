@@ -5,7 +5,7 @@ import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `title` fields:
+ * Define all allowed `title` attributes:
  * `dir`, `xml:lang`, `translate`, `class`, `outputclass`
  */
 export const TitleFields = [...LocalizationFields, ...ClassFields];
@@ -17,10 +17,10 @@ export const TitleFields = [...LocalizationFields, ...ClassFields];
 export interface TitleNode extends LocalizationNode, ClassNode {}
 
 /**
- * Check if the given fields of the `title` node are valid
+ * Check if the given attributes of the `title` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidTitleField = (field: string, value: BasicValue): boolean => isValidLocalizationField(field, value)
@@ -54,9 +54,9 @@ export function makeTitle<T extends Constructor>(constructor: T): T  {
  * @decorator `@makeComponent`
  * @param makeTitle - The `title` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidTitleField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child nodes: `%common-inline*`
+ * @param isValidTitleField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes See {@link TitleFields}
+ * @param childNodes - An Array of allowed child nodes: `%common-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `data`)
  */
 @makeComponent(makeTitle, 'title', isValidTitleField, TitleFields, ['%common-inline*'])
 export class TitleNode extends BaseNode {

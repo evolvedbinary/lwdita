@@ -3,7 +3,7 @@ import { isOrUndefined } from "../utils";
 import { BasicValue, JDita } from "../classes";
 
 /**
- * Define the allowed `text` field:
+ * Define the allowed `text` attribute:
  * The only allowed field is `content`
  */
 export const TextFields = ['content'];
@@ -16,10 +16,10 @@ export interface TextNode {
 }
 
 /**
- * Check if the field `content` of the `text` node is valid
+ * Check if the attribute `content` of the `text` node is valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export function isValidTextField(field: string, value: BasicValue): boolean {
@@ -69,8 +69,8 @@ export function makeText<T extends { new(...args: any[]): BaseNode }>(constructo
  * @decorator `@makeComponent`
  * @param makeText - The `text` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidTextField - A boolean value, if the field is valid or not
- * @param fields - The valid field `content` of type string
+ * @param isValidTextField - A boolean value, if the attribute is valid or not
+ * @param fields - The valid attribute `content` of type string See {@link TextFields}
  */
 @makeComponent(makeText, 'text', isValidTextField, TextFields)
 export class TextNode extends BaseNode {

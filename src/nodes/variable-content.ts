@@ -3,7 +3,7 @@ import { BaseNode } from "./base";
 import { BasicValue, isCDATA, CDATA } from "../classes";
 
 /**
- * Define all allowed `variable-content` fields:
+ * Define all allowed `variable-content` attributes:
  * The only allowed field is `keyref`
  */
 export const VariableContentFields = ['keyref'];
@@ -16,10 +16,10 @@ export interface VariableContentNode {
 }
 
 /**
- * Check if the field `keyref` of the `variable-content` node is valid
+ * Check if the attributes `keyref` of the `variable-content` node is valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attributes
+ * @param value - A BasicValue-typed value containing the attributes value
  * @returns Boolean
  */
 export function isValidVariableContentField(field: string, value: BasicValue): boolean {

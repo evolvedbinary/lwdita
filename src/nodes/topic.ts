@@ -5,7 +5,7 @@ import { BaseNode, makeComponent, makeAll } from "./base";
 import { BasicValue, isCDATA, CDATA, ID } from "../classes";
 
 /**
- * Define all allowed `topic` fields:
+ * Define all allowed `topic` attributes:
  * `dir`, `xml:lang`, `translate`, `class`, `outputclass`, `id`, `xmlns:ditaarch`, `ditaarch:DITAArchVersion`, `domains`
  */
 export const TopicFields = [...LocalizationFields, ...ClassFields, 'id', 'xmlns:ditaarch', 'ditaarch:DITAArchVersion', 'domains'];
@@ -25,10 +25,10 @@ export interface TopicNode extends LocalizationNode, ClassNode {
 }
 
 /**
- * Check if the given fields of the `topic` node are valid
+ * Check if the given attributes of the `topic` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attributes
+ * @param value - A BasicValue-typed value containing the attributes value
  * @returns Boolean
  */
 export function isValidTopicField(field: string, value: BasicValue): boolean {
@@ -92,8 +92,8 @@ export function makeTopic<T extends { new(...args: any[]): BaseNode }>(construct
  * @decorator `@makeComponent`
  * @param makeTopic - The `topic` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidTopicField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param isValidTopicField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes see {@link TopicFields}
  * @param childNodes - An Array of allowed child nodes: `title`, `shortdesc?`, `prolog?`, `body?`
  */
 @makeComponent(makeTopic, 'topic', isValidTopicField, TopicFields, ['title', 'shortdesc?', 'prolog?', 'body?'])

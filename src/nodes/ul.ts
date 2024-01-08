@@ -11,7 +11,7 @@ import { BasicValue } from "../classes";
  ****************************/
 
 /**
- * Define all allowed `ul` fields:
+ * Define all allowed `ul` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `outputclass`, `class`
  */
 export const UlFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
@@ -23,10 +23,10 @@ export const UlFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields
 export interface UlNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
- * Check if the given fields of the `ul` node are valid
+ * Check if the given attributes of the `ul` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attributes
+ * @param value - A BasicValue-typed value containing the attributes value
  * @returns Boolean
  */
 export const isValidUlField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
@@ -62,8 +62,8 @@ export function makeUl<T extends Constructor>(constructor: T): T {
  * @decorator `@makeComponent`
  * @param makeUl - The `ul` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidUlField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param isValidUlField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes See {@link UlFields}
  * @param childNodes - An Array of allowed child nodes: `li+`
  */
 @makeComponent(makeUl, 'ul', isValidUlField, UlFields, ['li+'])
