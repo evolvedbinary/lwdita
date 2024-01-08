@@ -60,7 +60,7 @@ export function makeMediaLoop<T extends Constructor>(constructor: T): T {
  * @param makeMediaLoop - The `media-loop` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidMediaLoopField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param fields - A List of valid attributes @See {@link MediaLoopFields}
  */
 @makeComponent(makeMediaLoop, 'media-loop', isValidMediaLoopField, MediaLoopFields)
 export class MediaLoopNode extends BaseNode { }

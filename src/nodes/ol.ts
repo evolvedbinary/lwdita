@@ -60,7 +60,7 @@ export function makeOl<T extends Constructor>(constructor: T): T {
  * @param makeOl - The `ol` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidOlField - A boolean value, if the attribute is valid or not
- * @param fields - A List of valid attributes
+ * @param fields - A List of valid attributes @See {@link OlFields}
  * @param childNodes - An Array of allowed child nodes: `li+`
  */
 @makeComponent(makeOl, 'ol', isValidOlField, OlFields, ['li+'])

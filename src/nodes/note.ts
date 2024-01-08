@@ -78,7 +78,7 @@ export function makeNote<T extends { new(...args: any[]): BaseNode }>(constructo
  * @param makeNote - The `note` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidNoteField - A boolean value, if the attribute is valid or not
- * @param fields - A List of valid attributes
+ * @param fields - A List of valid attributes @See {@link NoteFields}
  * @param childNodes - An Array of allowed child nodes: `%simple-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `note`, `data`)
  */
 @makeComponent(makeNote, 'note', isValidNoteField, NoteFields, ['%simple-blocks*'])

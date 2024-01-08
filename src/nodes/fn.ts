@@ -84,7 +84,7 @@ export function makeFn<T extends { new(...args: any[]): BaseNode }>(constructor:
  * @param makeFn - The `Fn` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidFnField - A boolean value, if the field is valid or not
- * @param FnFields - An array containing all valid fields See {@link FnFields}
+ * @param FnFields - An array containing all valid attributes @See {@link FnFields}
  * @param FnContent - An array containing all valid child nodes: '%fn-blocks*' (`p`, `ul`, `ol`, `dl`, `data`)
  * @returns A `fn` node
  */

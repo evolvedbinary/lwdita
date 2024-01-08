@@ -59,7 +59,7 @@ export function makeSection<T extends Constructor>(constructor: T): T {
  * @param makeSection - The `section` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidSectionField - A boolean value, if the attribute is valid or not
- * @param fields - A List of valid attributes see {@link SectionFields}
+ * @param fields - A List of valid attributes @See {@link SectionFields}
  * @param childNodes - An Array of allowed child nodes: `title?`, `%all-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `fn`, `note`, `data`)
  */
 @makeComponent(makeSection, 'section', isValidSectionField, SectionFields, ['title?', '%all-blocks*'])

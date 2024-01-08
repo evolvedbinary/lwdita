@@ -5,7 +5,7 @@ import { makeComponent, BaseNode, makeAll } from "./base";
 import { BasicValue, isCDATA, CDATA } from "../classes";
 
 /**
- * Define all allowed `prolog` fields:
+ * Define all allowed `prolog` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `class`
  */
 export const PrologFields = [...FiltersFields, ...LocalizationFields, 'class'];
@@ -18,10 +18,10 @@ export interface PrologNode extends FiltersNode, LocalizationNode {
 }
 
 /**
- * Check if the given fields of the `prolog` node are valid
+ * Check if the given attributes of the `prolog` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attributes value
  * @returns Boolean
  */
 export function isValidPrologField(field: string, value: BasicValue): boolean {
@@ -80,8 +80,8 @@ export function makeProlog<T extends { new(...args: any[]): BaseNode }>(construc
  * @param makeProlog - The `prolog` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidPrologField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child nodes: `t%data*`
+ * @param fields - A List of valid attributes @See {@link PrologFields}
+ * @param childNodes - An Array of allowed child nodes: `%data*`
  */
 @makeComponent(makeProlog, 'prolog', isValidPrologField, PrologFields, ['%data*'])
 export class PrologNode extends BaseNode {

@@ -61,8 +61,8 @@ export function makeItalic<T extends Constructor>(constructor: T): T {
  * @decorator `@makeComponent`
  * @param makeItalic - The `italic` node constructor
  * @param nodeName - A string containing the node name 'i'
- * @param isValidItalicField - A function to check if the field is valid
- * @param ItalicFields - A list of valid fields `%all-inline*`
+ * @param isValidItalicField - A function to check if the field is valid see {@link isValidItalicField}
+ * @param ItalicFields - A list of valid fields `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  * @returns A decorator
  */
 @makeComponent(makeItalic, 'i', isValidItalicField, ItalicFields, ['%all-inline*'])

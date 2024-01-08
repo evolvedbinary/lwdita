@@ -59,7 +59,7 @@ export function makeSimpleTable<T extends Constructor>(constructor: T): T {
  * @param makeSimpleTable - The `simpletable` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidSimpleTableField - A boolean value, if the attribute is valid or not
- * @param fields - A List of valid attributes see {@link SimpleTableFields}
+ * @param fields - A List of valid attributes @See {@link SimpleTableFields}
  * @param childNodes - An Array of allowed child nodes `sthead?`, `strow+`
  */
 @makeComponent(makeSimpleTable, 'simpletable', isValidSimpleTableField, SimpleTableFields, ['sthead?', 'strow+'])

@@ -60,7 +60,7 @@ export function makeMediaMuted<T extends Constructor>(constructor: T): T {
  * @param makeMediaMuted - The `media-muted` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidMediaMutedField - A boolean value, if the attribute is valid or not
- * @param fields - A List of valid attributes
+ * @param fields - A List of valid attributes @See {@link MediaMutedFields}
  */
 @makeComponent(makeMediaMuted, 'media-muted', isValidMediaMutedField, MediaMutedFields)
 export class MediaMutedNode extends BaseNode { }

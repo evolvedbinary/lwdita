@@ -61,7 +61,7 @@ export function makeVideo<T extends Constructor>(constructor: T): T {
  * @param makeVideo - The `video` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidVideoField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields See {@link VideoFields}
+ * @param fields - A List of valid attributes @See {@link VideoFields}
  * @param childNodes - An Array of allowed child nodes: desc?', `video-poster?`, `media-controls?`, `media-autoplay?`, `media-loop?`, `media-muted?`, `media-source*`, `media-track*`
  */
 @makeComponent(makeVideo, 'video', isValidVideoField, VideoFields, ['desc?', 'video-poster?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'media-source*', 'media-track*'])

@@ -3,7 +3,7 @@ import { BaseNode } from "./base";
 import { NMTOKEN, CDATA, BasicValue, isNMTOKEN, isCDATA } from "../classes";
 
 /**
- * Define all allowed `reuse` fields:
+ * Define all allowed `reuse` attributes:
  * `id`, `conref`
  */
 export const ReuseFields = ['id', 'conref'];
@@ -18,10 +18,10 @@ export interface ReuseNode {
 }
 
 /**
- * Check if the given fields of the `reuse` node are valid
+ * Check if the given attributes of the `reuse` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export function isValidReuseField(field: string, value: BasicValue): boolean {

@@ -57,7 +57,7 @@ export function makeMediaSource<T extends Constructor>(constructor: T): T {
  * @param makeMediaSource - The `media-source` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidMediaSourceField - A boolean value, if the attribute is valid or not
- * @param fields - A List of valid attributes
+ * @param fields - A List of valid attributes @See {@link MediaSourceFields}
  */
 @makeComponent(makeMediaSource, 'media-source', isValidMediaSourceField, MediaSourceFields)
 export class MediaSourceNode extends BaseNode {

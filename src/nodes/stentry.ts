@@ -62,7 +62,7 @@ export function makeStEntry<T extends Constructor>(constructor: T): T {
  * @param makeStEntry - The `stentry` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidStEntryField - A boolean value, if the field is valid or not
- * @param fields - A List of valid attributes see {@link StEntryFields}
+ * @param fields - A List of valid attributes @See {@link StEntryFields}
  * @param childNodes - An Array of allowed child node `%simple-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `fn`, `note`, `data`)
  */
 @makeComponent(makeStEntry, 'stentry', isValidStEntryField, StEntryFields, ['%simple-blocks*'])

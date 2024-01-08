@@ -59,7 +59,7 @@ export function makeDl<T extends Constructor>(constructor: T): T {
  * @param makeDl - The `dl` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidDlField - A boolean value, if the attribute is valid or not
- * @param DlFields - An array containing all valid attribute names See {@link DlFields}
+ * @param DlFields - An array containing all valid attribute names @See {@link DlFields}
  * @param childNodes - An array containing all valid child node names: `dlentry+`
  * @returns A `dl` node
  */

@@ -55,7 +55,7 @@ export function makeTitle<T extends Constructor>(constructor: T): T  {
  * @param makeTitle - The `title` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidTitleField - A boolean value, if the attribute is valid or not
- * @param fields - A List of valid attributes See {@link TitleFields}
+ * @param fields - A List of valid attributes @See {@link TitleFields}
  * @param childNodes - An Array of allowed child nodes: `%common-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `data`)
  */
 @makeComponent(makeTitle, 'title', isValidTitleField, TitleFields, ['%common-inline*'])

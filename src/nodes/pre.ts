@@ -76,12 +76,13 @@ export function makePre<T extends { new(...args: any[]): BaseNode }>(constructor
  *
  * @privateRemarks
  * Is the syntax of the child nodes array [[...]] really correct?
+ * // TODO Alex is correct and this needs to be fixed
  *
  * @decorator `@makeComponent`
  * @param makePre - The `pre` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidPreField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param fields - A List of valid attributes @See {@link PreFields}
  * @param childNodes - An Array of allowed child nodes `text*`, `%ph*`, `xref*`, `%data*`
  */
 @makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', '%data*']]) //TODO does text* mean can have text

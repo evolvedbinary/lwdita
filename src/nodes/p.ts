@@ -62,7 +62,7 @@ export function makeP<T extends Constructor>(constructor: T): T {
  * @param makeP - The `p` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidPField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param fields - A List of valid attributes @See {@link PFields}
  * @param childNodes - An Array of allowed child nodes `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makeP, 'p', isValidPField, PFields, ['%all-inline*'])

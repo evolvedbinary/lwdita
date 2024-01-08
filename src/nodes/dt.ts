@@ -59,7 +59,7 @@ export function makeDt<T extends Constructor>(constructor: T): T {
  * @param makeDt - The `dt` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidDtField - A boolean value, if the attribute is valid or not
- * @param DtFields - An array containing all valid attribute names See {@link DtFields}
+ * @param DtFields - An array containing all valid attribute names @See {@link DtFields}
  * @param childNodes - An array containing all valid child node names: `%common-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `data`)
  * @returns A `dt` node
  */
