@@ -7,7 +7,8 @@ import { BasicValue } from "../classes";
 
 /**
  * Define all allowed `media-autoplay` attributes:
- * `dir`, `xml:lang`, `translate`, `name`, `value`, `class`, `outputclass`
+ * `dir`, `xml:lang`, `translate`, `class`, `outputclass`
+ * Custom attributes are `name`, `value`
  */
 export const MediaAutoplayFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
 
