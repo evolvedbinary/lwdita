@@ -3,7 +3,7 @@ import { BaseNode } from "./base";
 import { BasicValue, isNMTOKEN, NMTOKEN } from "../classes";
 
 /**
- * Define all allowed `size` fields:
+ * Define all allowed `size` attributes:
  * `width`, `height`
  */
 export const SizeFields = ['width', 'height'];
@@ -17,10 +17,10 @@ export interface SizeNode {
 }
 
 /**
- * Check if the given fields of the `size` node are valid
+ * Check if the given attributes of the `size` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export function isValidSizeField(field: string, value: BasicValue): boolean {

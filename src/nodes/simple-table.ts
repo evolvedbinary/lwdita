@@ -7,7 +7,7 @@ import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `simpletable` fields:
+ * Define all allowed `simpletable` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `class`, `outputclass`
  */
 export const SimpleTableFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
@@ -19,10 +19,10 @@ export const SimpleTableFields = [...FiltersFields, ...LocalizationFields, ...Re
 export interface SimpleTableNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
- * Check if the given fields of the `simpletable` node are valid
+ * Check if the given attributes of the `simpletable` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidSimpleTableField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
@@ -58,8 +58,8 @@ export function makeSimpleTable<T extends Constructor>(constructor: T): T {
  * @decorator `@makeComponent`
  * @param makeSimpleTable - The `simpletable` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidSimpleTableField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param isValidSimpleTableField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes see {@link SimpleTableFields}
  * @param childNodes - An Array of allowed child nodes `sthead?`, `strow+`
  */
 @makeComponent(makeSimpleTable, 'simpletable', isValidSimpleTableField, SimpleTableFields, ['sthead?', 'strow+'])

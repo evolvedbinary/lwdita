@@ -6,7 +6,7 @@ import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `shortdesc` fields:
+ * Define all allowed `shortdesc` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `class`, `outputclass`
  */
 export const ShortDescFields = [...FiltersFields, ...LocalizationFields, ...ClassFields];
@@ -17,10 +17,10 @@ export const ShortDescFields = [...FiltersFields, ...LocalizationFields, ...Clas
 export interface ShortDescNode extends FiltersNode, LocalizationNode, ClassNode { }
 
 /**
- * Check if the given fields of the `shortdesc` node are valid
+ * Check if the given attributes of the `shortdesc` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidShortDescField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
@@ -55,9 +55,9 @@ export function makeShortDesc<T extends Constructor>(constructor: T): T {
  * @decorator `@makeComponent`
  * @param makeshortdesc - The `shortdesc` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidSimpleTableField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child node `%all-inline*`
+ * @param isValidSimpleTableField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes
+ * @param childNodes - An Array of allowed child node `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makeShortDesc, 'shortdesc', isValidShortDescField, ShortDescFields, ['%all-inline*'])
 export class ShortDescNode extends BaseNode {

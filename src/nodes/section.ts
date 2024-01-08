@@ -7,7 +7,7 @@ import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `section` fields:
+ * Define all allowed `section` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `class`, `outputclass`
  */
 export const SectionFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
@@ -19,10 +19,10 @@ export const SectionFields = [...FiltersFields, ...LocalizationFields, ...ReuseF
 export interface SectionNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
- * Check if the given fields of the `section` node are valid
+ * Check if the given attributes of the `section` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidSectionField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
@@ -58,9 +58,9 @@ export function makeSection<T extends Constructor>(constructor: T): T {
  * @decorator `@makeComponent`
  * @param makeSection - The `section` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidSectionField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child nodes: `title?`, `%all-blocks*`
+ * @param isValidSectionField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes see {@link SectionFields}
+ * @param childNodes - An Array of allowed child nodes: `title?`, `%all-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `fn`, `note`, `data`)
  */
 @makeComponent(makeSection, 'section', isValidSectionField, SectionFields, ['title?', '%all-blocks*'])
 export class SectionNode extends BaseNode {
