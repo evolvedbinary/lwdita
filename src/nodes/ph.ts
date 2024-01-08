@@ -7,7 +7,7 @@ import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `ph` fields:
+ * Define all allowed `ph` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `keyref`, `class`, `outputclass`
  */
 export const PhFields = [...FiltersFields, ...LocalizationFields, ...VariableContentFields, ...ClassFields];
@@ -18,10 +18,10 @@ export const PhFields = [...FiltersFields, ...LocalizationFields, ...VariableCon
 export interface PhNode extends FiltersNode, LocalizationNode, VariableContentNode, ClassNode { }
 
 /**
- * Check if the given fields of the `ph` node are valid
+ * Check if the given attributes of the `ph` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidPhField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
@@ -48,7 +48,7 @@ export const isPhNode = (value?: {}): value is PhNode =>
  * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
  *
  * @param constructor - The constructor
- * @returns An `ph` node
+ * @returns A `ph` node
  */
 export function makePh<T extends Constructor>(constructor: T): T {
   return makeAll(constructor, makeLocalization, makeFilters, makeVariableContent, makeClass);
@@ -60,9 +60,9 @@ export function makePh<T extends Constructor>(constructor: T): T {
  * @decorator `@makeComponent`
  * @param makePh - The `ph` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidPhField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child node `%all-inline*`
+ * @param isValidPhField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes
+ * @param childNodes - An Array of allowed child node `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makePh, 'ph', isValidPhField, PhFields, ['%all-inline*'])
 export class PhNode extends BaseNode {

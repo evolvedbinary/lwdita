@@ -6,7 +6,7 @@ import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `media-source` fields:
+ * Define all allowed `media-source` attributes:
  * `dir`, `xml:lang`, `translate`, `name`, `value`, `class`, `outputclass`
  */
 export const MediaSourceFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
@@ -18,10 +18,10 @@ export const MediaSourceFields = [...LocalizationFields, ...FieldFields, ...Clas
 export interface MediaSourceNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
 
 /**
- * Check if the given fields of the `media-source` node are valid
+ * Check if the given attributes of the `media-source` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidMediaSourceField = (field: string, value: BasicValue): boolean => isValidLocalizationField(field, value)
@@ -56,8 +56,8 @@ export function makeMediaSource<T extends Constructor>(constructor: T): T {
  * @decorator `@makeComponent`
  * @param makeMediaSource - The `media-source` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidMediaSourceField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param isValidMediaSourceField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes
  */
 @makeComponent(makeMediaSource, 'media-source', isValidMediaSourceField, MediaSourceFields)
 export class MediaSourceNode extends BaseNode {

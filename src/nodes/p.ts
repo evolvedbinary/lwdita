@@ -7,7 +7,7 @@ import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `p` fields:
+ * Define all allowed `p` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `'id`, `conref'`, `class`, `outputclass`
  */
 export const PFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
@@ -19,10 +19,10 @@ export const PFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields,
 export interface PNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
- * Check if the given fields of the `p` node are valid
+ * Check if the given attributes of the `p` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidPField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
@@ -63,7 +63,7 @@ export function makeP<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidPField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child node `%all-inline*`
+ * @param childNodes - An Array of allowed child nodes `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makeP, 'p', isValidPField, PFields, ['%all-inline*'])
 export class PNode extends BaseNode {

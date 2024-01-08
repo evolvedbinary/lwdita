@@ -7,7 +7,7 @@ import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `ol` fields:
+ * Define all allowed `ol` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `outputclass`, `class`
  */
 export const OlFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
@@ -19,10 +19,10 @@ export const OlFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields
 export interface OlNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
- * Check if the given fields of the `ol` node are valid
+ * Check if the given attributes of the `ol` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidOlField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
@@ -59,8 +59,8 @@ export function makeOl<T extends Constructor>(constructor: T): T {
  * @decorator `@makeComponent`
  * @param makeOl - The `ol` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidOlField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param isValidOlField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes
  * @param childNodes - An Array of allowed child nodes: `li+`
  */
 @makeComponent(makeOl, 'ol', isValidOlField, OlFields, ['li+'])

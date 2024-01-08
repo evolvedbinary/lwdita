@@ -93,7 +93,7 @@ export function makeTopic<T extends { new(...args: any[]): BaseNode }>(construct
  * @param makeTopic - The `topic` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidTopicField - A boolean value, if the attribute is valid or not
- * @param fields - A List of valid attributes see {@link TopicFields}
+ * @param fields - A List of valid attributes, @see {@link TopicFields}
  * @param childNodes - An Array of allowed child nodes: `title`, `shortdesc?`, `prolog?`, `body?`
  */
 @makeComponent(makeTopic, 'topic', isValidTopicField, TopicFields, ['title', 'shortdesc?', 'prolog?', 'body?'])

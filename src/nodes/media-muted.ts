@@ -6,7 +6,7 @@ import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "../classes";
 
 /**
- * Define all allowed `media-muted` fields:
+ * Define all allowed `media-muted` attributes:
  * `dir`, `xml:lang`, `translate`, `name`, `value`, `class`, `outputclass`
  */
 export const MediaMutedFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
@@ -18,10 +18,10 @@ export const MediaMutedFields = [...LocalizationFields, ...FieldFields, ...Class
 export interface MediaMutedNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
 
 /**
- * Check if the given fields of the `media-muted` node are valid
+ * Check if the given attributes of the `media-muted` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export const isValidMediaMutedField = (field: string, value: BasicValue): boolean => isValidLocalizationField(field, value)
@@ -59,8 +59,8 @@ export function makeMediaMuted<T extends Constructor>(constructor: T): T {
  * @decorator `@makeComponent`
  * @param makeMediaMuted - The `media-muted` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidMediaMutedField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
+ * @param isValidMediaMutedField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes
  */
 @makeComponent(makeMediaMuted, 'media-muted', isValidMediaMutedField, MediaMutedFields)
 export class MediaMutedNode extends BaseNode { }

@@ -7,7 +7,7 @@ import { makeComponent, BaseNode, makeAll } from "./base";
 import { BasicValue, CDATA, isCDATA } from "../classes";
 
 /**
- * Define all allowed `note` fields:
+ * Define all allowed `note` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `class`, `outputclass`, `type`
  */
 export const NoteFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields, 'type'];
@@ -20,10 +20,10 @@ export interface NoteNode extends FiltersNode, LocalizationNode, ReuseNode, Clas
 }
 
 /**
- * Check if the given fields of the `note` node are valid
+ * Check if the given attributes of the `note` node are valid
  *
- * @param field - A string containing the name of the field
- * @param value - A BasicValue-typed value containing the field value
+ * @param field - A string containing the name of the attribute
+ * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
 export function isValidNoteField(field: string, value: BasicValue): boolean {
@@ -77,9 +77,9 @@ export function makeNote<T extends { new(...args: any[]): BaseNode }>(constructo
  * @decorator `@makeComponent`
  * @param makeNote - The `note` node constructor
  * @param nodeName - A string containing the node name
- * @param isValidNoteField - A boolean value, if the field is valid or not
- * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child nodes: `%simple-blocks*`
+ * @param isValidNoteField - A boolean value, if the attribute is valid or not
+ * @param fields - A List of valid attributes
+ * @param childNodes - An Array of allowed child nodes: `%simple-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `note`, `data`)
  */
 @makeComponent(makeNote, 'note', isValidNoteField, NoteFields, ['%simple-blocks*'])
 export class NoteNode extends BaseNode {
