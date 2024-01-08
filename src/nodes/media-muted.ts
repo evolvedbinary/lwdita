@@ -7,7 +7,7 @@ import { BasicValue } from "../classes";
 
 /**
  * Define all allowed `media-muted` attributes:
- * `dir`, `xml:lang`, `translate`, `name`, `value`, `class`, `outputclass`
+ * `dir`, `xml:lang`, `translate`, `class`, `outputclass`
  */
 export const MediaMutedFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
 

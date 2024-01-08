@@ -7,7 +7,7 @@ import { BasicValue } from "../classes";
 
 /**
  * Define all allowed `video-poster` attributes:
- * `dir`, `xml:lang`, `translate`, `name`, `value`,`class`, `outputclass`
+ * `dir`, `xml:lang`, `translate`, `class`, `outputclass`
  */
 export const VideoPosterFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
 

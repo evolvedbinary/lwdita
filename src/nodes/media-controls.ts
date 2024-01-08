@@ -7,7 +7,7 @@ import { BasicValue } from "../classes";
 
 /**
  * Define all allowed `media-controls` attributes:
- * `dir`, `xml:lang`, `translate`, `name`, `value`, `class`, `outputclass`
+ * `dir`, `xml:lang`, `translate`, `class`, `outputclass`
  */
 export const MediaControlsFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
 

@@ -10,7 +10,7 @@ import { BasicValue } from "../classes";
 
 /**
  * Define all allowed `data` attributes:
- * `props`, `dir`, `xml:lang`, `translate`, `href`, `format`, `scope`, `outputclass`, `class`, `keyref`, `name`, `value`
+ * `props`, `dir`, `xml:lang`, `translate`, `href`, `format`, `scope`, `outputclass`, `class`, `keyref`
  */
 export const DataFields = [...FiltersFields, ...LocalizationFields, ...ReferenceContentFields, ...ClassFields, ...VariableContentFields, ...FieldFields];
 
