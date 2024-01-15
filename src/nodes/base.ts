@@ -14,47 +14,71 @@ export abstract class BaseNode {
     static fields: Array<string>;
     // childTypes are allowed child nodes
     static childTypes: ChildTypes[];
+    // _children are already validated child elements
     public _children?: BaseNode[];
     protected _props!: Record<string, BasicValue>;
 
     constructor(attributes?: Attributes) {
         if (attributes) {
+            // these are the attributes provided by the parser
             this._props = this.static.attributesToProps(attributes);
         }
     }
 
     /**
-     * attributesToProps - converts attributes to props
-     * loops through all of the node fields and gets their values from attributes
-     * the validation happens in the constructor
+     * attributesToProps - Converts attributes to properties
+     * Loops through all of the node attributes retrieved from the parser,
+     * then gets their values from attributes,
+     * and returns an object with all attributes an values.
      *
-     * @param attributes - Attributes attributes of the node
-     * @returns A record of props
+     * @param attributes - Attributes of the node
+     * @returns An object with the record of properties
      */
     static attributesToProps<T extends Record<string, BasicValue>>(attributes: Attributes = {}): T {
         const result: Record<string, BasicValue> = {};
-        // loop through all node fields and get their values from attributes
+        // loop through all node attributes and get their values
         this.fields.forEach(field => {
             const attr = attributes[field];
-            // att can be a string or an object with value
+            // `attr` can be a string or an object with value
             result[field] = typeof attr === 'string' ? attr : attr?.value;
         });
         return result as T;
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+    /**
+     * isValidField - This is a function template for validation of attributes
+     *
+     * @privateRemarks
+     * eslint-disable-next-line `@typescript-eslint/no-unused-vars`s
+     *
+     * @param field - A string containing the attribute name
+     * @param value - A BasicValue-typed value containing the attribute value
+     * @returns Boolean
+     */
     static isValidField(field: string, value: BasicValue): boolean {
         return true;
     }
 
+    /**
+     * TODO: Add documentation
+     */
     public get static(): typeof BaseNode {
         return this.constructor as typeof BaseNode;
     }
 
+    /**
+     * Getter for children
+     */
     get children(): BaseNode[] {
         return this._children || [];
     }
 
-    // this is not real json it needs to be stringified to be converted to actual json
+    /**
+     * Getter for json
+     *
+     * @privateRemarks
+     * this is not real json it needs to be stringified to be converted to actual json
+     */
     get json(): JDita {
         return {
             nodeName: this.static.nodeName,
@@ -134,24 +158,42 @@ export abstract class BaseNode {
         return true;
     }
 
+    /**
+     * Add a child node to the document tree
+     *
+     * @remarks
+     * If there is a child that cannot be added, throw a new error
+     *
+     * @param child - The child node to be added
+     * @param breakOnError - Boolean, if true, exit
+     * @returns void
+     */
     add(child: BaseNode, breakOnError = true): void {
+        // If there are no children, initialize an empty array
         if (!this._children) {
             this._children = [];
         }
+
+        // If there is a child that cannot be added, throw a new error
         if (!this.canAdd(child)) {
             if (breakOnError) {
                 throw new NonAcceptedChildError(`"${child.static.nodeName}" node can't be a child of "${this.static.nodeName}" node`);
             }
             return;
         }
+        // Else add the child to the document tree
         this._children.push(child)
     }
-    
+
     /**
-     * Get the value of a field, if the field is not defined, throw an error
+     * Get the value of an attribute, if the attribute is not defined, throw an error
      *
-     * @param field - string name of the field
-     * @returns the value of the field
+     * @privateRemarks
+     * This function is never executed in the context of the converter,
+     * therefore the attributes are never validated.
+     *
+     * @param field - String name of the attribute
+     * @returns The value of the attribute
      */
     readProp<T = BasicValue>(field: string): T {
         if (this.static.fields.indexOf(field) < 0) {
@@ -159,39 +201,66 @@ export abstract class BaseNode {
         }
         return this._props[field] as T;
     }
+
     /**
-     * set the value of a field, if the field is accepted by the element throw an error
+     * Set the value of an attribute,
+     * if the attribute is not valid, throw an error
      *
-     * @param field - string name of the field
-     * @param value - value to be set
+     * @privateRemarks
+     * This function is never executed in the context of the converter,
+     * therefore the attributes are never validated.
+     *
+     * @param field - String name of the attribute
+     * @param value - Value to be set
      */
     writeProp<T extends BasicValue>(field: string, value: T): void {
+        // If the attribute is identified as false then return error message
         if (this.static.fields.indexOf(field) < 0) {
             throw new UnknownAttributeError('unknown attribute "' + field + '"');
         }
+        // If the attribute is known but doesn't match the element, return error message
         if (!this.static.isValidField(field, value)) {
             throw new WrongAttributeTypeError('wrong attribute type "' + typeof (value) + '" for field"' + field + '"');
         }
+        // Else add attribute to element and document tree
         this._props[field] = value;
     }
 }
 
+/**
+ * This is a type definition for the constructor
+ */
 export type Constructor = { new(attributes: Attributes): BaseNode };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/**
+ * This is a template function for all nodes
+ *
+ * @remarks
+ * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
+ *
+ * @param constructor - The constructor
+ * @param decorators - The decorator
+ * @returns Instance of BaseNode
+ */
 export function makeAll<T extends { new(...args: any[]): BaseNode }>(constructor: T, ...decorators: ((constructor: T) => T)[]): T {
     return decorators.reduce((result, decorator) => decorator(result), constructor);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 /**
- * a functions that results the constructor of a node
- * @param decorator
- * @param nodeName
- * @param fieldValidator
- * @param fields
- * @param childTypes
- * @returns
+ * A function that returns the constructor of a node
+ *
+ * @remarks
+ * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
+ *
+ * @privateRemarks
+ * The concept or processing of `decorator` is not yet fully understood
+ *
+ * @param decorator - The decorator
+ * @param nodeName - A string containing the node name
+ * @param fieldValidator -
+ * @param fields - A List of attributes
+ * @param childTypes - An Array of allowed child nodes
+ * @returns The constructor function of an instance of BaseNode
  */
 export function makeComponent<T extends { new(...args: any[]): BaseNode }>(
     decorator: (constructor: T) => T,
@@ -204,6 +273,7 @@ export function makeComponent<T extends { new(...args: any[]): BaseNode }>(
     return (constructor: T): T => decorator(class extends constructor {
         static nodeName = nodeName;
         static fields = fields;
+        // These will get parsed when being set in the constructor
         static childTypes = stringToChildTypes(childTypes);
         static isValidField = fieldValidator;
     });
