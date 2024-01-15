@@ -22,6 +22,7 @@ export abstract class BaseNode {
             this._props = this.static.attributesToProps(attributes);
         }
     }
+
     /**
      * attributesToProps - converts attributes to props
      * loops through all of the node fields and gets their values from attributes
@@ -73,7 +74,6 @@ export abstract class BaseNode {
      * @param child - BaseNode node to be added
      * @returns true if the node can be added as a child
      */
-
     canAdd(child: BaseNode): boolean {
         // we are e.g. in a `<body>` node and we are trying to add an `<audio`> node
         const childNodeName = child.static.nodeName;
@@ -81,7 +81,6 @@ export abstract class BaseNode {
         let iChild = -1;
 
         // loop through all of the allowed child types and check if the child node name is accepted
-
         // `this.static.childTypes`, e.g. allowed children: `['%list-blocks*', 'section*', 'fn*']`
         this.static.childTypes.some((type, i) => {
             childType = acceptsNodeName(childNodeName, type);
@@ -97,7 +96,7 @@ export abstract class BaseNode {
             return false;
         }
 
-        // get the last child of the parent nodename,
+        // get the last child of the parent nodename
         const last = this.children?.length ? this.children[this.children.length - 1].static.nodeName : '';
         let iLast = -1;
 
@@ -110,7 +109,6 @@ export abstract class BaseNode {
             if (iLast > iChild) {
                 return false;
             }
-
 
             // if the child index is equal to the last index, it can't be added if the child type is single
             // this ensure that there will be no duplication in an invalid manner
@@ -148,6 +146,7 @@ export abstract class BaseNode {
         }
         this._children.push(child)
     }
+    
     /**
      * Get the value of a field, if the field is not defined, throw an error
      *
