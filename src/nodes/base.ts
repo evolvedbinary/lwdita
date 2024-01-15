@@ -64,7 +64,7 @@ export abstract class BaseNode {
 
     /**
      * canAdd - checks if a node can be added as a child
-     * Also insure it can be added in the right order
+     * Also ensure it can be added in the right order
      * 
      * @param child - BaseNode node to be added
      * @returns true if the node can be added as a child
@@ -79,11 +79,11 @@ export abstract class BaseNode {
         let iChild = -1;
         // loop through all of the allowed child types and check if the child node name is accepted
         
-        // ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', 'fig', 'note', data, section, fn]
+        // ['p', 'ul', 'ol, 'simpletable',', 'dl', 'pre', 'audio', 'video' 'fig', 'note', data, section, fn]
         this.static.childTypes.some((type, i) => {
             childType = acceptsNodeName(childNodeName, type); // it will find that audio is accepted
             if (childType) {
-                iChild = i; // set the index of child audio to 5
+                iChild = i; // set the index of child audio to 0
                 return true;
             }
         });
@@ -107,8 +107,9 @@ export abstract class BaseNode {
 
 
             // if child index is equal to last index, it can't be added if the child type is single
-            if (iLast === iChild) { // eg compare of audio and video nodes
-                // TODO figure out what childType.single 
+            if (iLast === iChild) {
+                // if we have two of the same elements it can't be added eg <body> and <body> under the same parent
+                // you can tell if the element is single by checking the allowed children list `childNodes` and look for ? symbol
                 if (isChildTypeSingle(this.static.childTypes[iChild])) {
                     return false;
                 }
@@ -117,6 +118,8 @@ export abstract class BaseNode {
         }
         // if child index is greater than last index, it can't be added if there are required child types between them
         const typesBetween = this.static.childTypes.slice(iLast + 1, iChild);
+        // to check if a child type is required, check the allowed children list `childNodes` 
+        // and look for a child without `?` symbols at the end eg 'title'
         if (typesBetween.find(isChildTypeRequired)) {
             return false;
         }

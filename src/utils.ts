@@ -118,7 +118,7 @@ export function acceptsNodeName(value: string, childType: ChildTypes): ChildType
 }
 
 // TODO
-// input example
+// input example  one of these elements['%list-blocks*', 'section*', 'fn*']
 // 
 export function isChildTypeSingle(childType: string | ChildType | ChildTypes): boolean {
     if (Array.isArray(childType)) {
