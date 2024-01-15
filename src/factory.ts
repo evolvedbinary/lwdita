@@ -43,13 +43,14 @@ import { SubscriptNode } from "./nodes/subscript";
 import { SuperscriptNode } from "./nodes/superscript";
 import { UnknownNodeError, XMLNode } from "./classes";
 
-// TODO: add tests
+/** TODO: Add tests */
 
 /**
  * getNodeClass - Get the Node class constructor based on the node type
- * 
+ *
  * @param name - string type of node
  * @returns - the node class constructor
+ * @throws - UnknownNodeError
  */
 export function getNodeClass(name: string): Constructor {
   switch (name) {
@@ -100,31 +101,35 @@ export function getNodeClass(name: string): Constructor {
   }
 }
 
-// this function is never used
-// do we need it
-// TODO: remove this function if not needed
+/**
+ * getNodeClassType
+ *
+ * @privateRemarks
+ * This function is never used, remove this function if not needed
+ *
+ * @param name - String
+ * @returns A node of type BaseNode
+ */
 export function getNodeClassType(name: string): typeof BaseNode {
   return getNodeClass(name) as unknown as typeof BaseNode;
 }
 
 /**
- * Overloaded function `createNode` that creates different types of nodes based on the input XMLNode type.
- * 
- * @param node - The XMLNode object or string to be converted into a node.
- * 
- * @returns A node of the type corresponding to the input XMLNode type or a TextNode if the input is a string.
- * 
- * @throws Will throw an error if the node type is unknown.
- * 
- * The function has multiple signatures for different XMLNode types like 'pre', 'prolog', 'section', etc.
+ * createNode - Overloaded function `createNode` that creates different types of nodes based on the input XMLNode type.
+ *
+ * @remarks
+ * The function has multiple signatures for different XMLNode types like `'pre', 'prolog', 'section'`, etc.
  * Each signature returns a different type of node corresponding to the input XMLNode type.
- * 
  * The function also has a generic signature that accepts any XMLNode and returns a node of type BaseNode or derived from BaseNode.
- * 
  * If the input is a string, the function creates a TextNode.
- * 
  * If the input is an XMLNode, the function uses the `getNodeClass` function to create a node of the appropriate type.
  * If the node type is unknown, `getNodeClass` will throw an error.
+ *
+ * @param node - The XMLNode object or string to be converted into a node.
+ *
+ * @returns A node of the type corresponding to the input XMLNode type or a TextNode if the input is a string.
+ *
+ * @throws Will throw an error if the node type is unknown.
  */
 export function createNode(content: string): TextNode;
 export function createNode(node: XMLNode<'audio'>): AudioNode;
@@ -171,16 +176,12 @@ export function createNode(node: XMLNode<'video-poster'>): VideoPosterNode;
 export function createNode(node: XMLNode<'xref'>): XRefNode;
 export function createNode<T extends BaseNode = BaseNode>(node: XMLNode): T;
 export function createNode<T extends BaseNode>(node: XMLNode | string): T {
-  //this function will always return a BaseNode type even if it's null or undefined !!!
-  // does BaseNode type accepts null or undefined ??
 
   let nodeObject: BaseNode;
 
   if (typeof node === 'string') {
     nodeObject = new TextNode(node);
   } else {
-    // getNodeClass can thorw an error if the node type is unknown
-    // does this protect us from creating a node with an unknown type ??
     const classType = getNodeClass(node.name);
     return new classType(node.attributes) as T;
   }

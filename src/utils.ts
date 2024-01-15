@@ -1,18 +1,47 @@
 import { BasicValue, OrArray, ChildTypes, ChildType, ReferenceContentScope } from "./classes";
 
+/**
+ * has - TODO
+ *
+ * @param array - TODO
+ * @param value - TODO
+ * @returns Boolean
+ */
 export function has<T>(array: Array<T>, value: T): boolean {
     return array.indexOf(value) >= 0;
 }
 
+/**
+ * isOrUndefined - TODO
+ *
+ * @param check - TODO
+ * @param value - TODO
+ * @returns - TODO
+ */
 export function isOrUndefined<T extends BasicValue>(check: (value?: BasicValue) => boolean, value?: BasicValue): value is T {
     return typeof value === 'undefined' || check(value);
 }
 
+/**
+ * isReferenceContentScope - TODO
+ *
+ * @param value - TODO
+ * @returns - TODO
+ */
 export const isReferenceContentScope = (value?: BasicValue): value is ReferenceContentScope => has(['local', 'peer', 'external'], value);
 
-// when a node is a group we use this list to check if a node name is valid
+/**
+ * TODO
+ *
+ * @remarks
+ * When a node is a group we use this list to check if a node name is valid
+ */
 const phGroup = ['ph', 'b', 'i', 'u', 'sub', 'sup'];
 const dataGroup = ['data'];
+
+/**
+ *  TODO
+ */
 export const nodeGroups: Record<string, Array<string>> = {
     'ph': phGroup,
     'data': dataGroup,
@@ -25,7 +54,12 @@ export const nodeGroups: Record<string, Array<string>> = {
     'fig-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', ...dataGroup],
 }
 
-export function splitTypenames(value: string): string[] { 
+/**
+ * splitTypenames - TODO
+ * @param value - TODO
+ * @returns - TODO
+ */
+export function splitTypenames(value: string): string[] {
     if (value[0] !== '(') {
         return value.split('|');
     }
@@ -35,6 +69,13 @@ export function splitTypenames(value: string): string[] {
         : value.slice(1, -1).split('|');
 }
 
+/**
+ * childTypeToString - TODO
+ *
+ * @param type - TODO
+ * @param getNodeName - TODO
+ * @returns - TODO
+ */
 function childTypeToString(type: ChildType, getNodeName?: (nodeName: string) => string): string {
     return (type.isGroup
         ? nodeGroups[type.name].length === 1
@@ -52,6 +93,14 @@ function childTypeToString(type: ChildType, getNodeName?: (nodeName: string) => 
         : type.required ? '+' : '*');
 }
 
+/**
+ * customChildTypesToString - TODO
+ *
+ * @param type - TODO
+ * @param getNodeName - TODO
+ * @param topLevel - TODO
+ * @returns TODO
+ */
 export function customChildTypesToString(type: ChildTypes, getNodeName?: (nodeName: string) => string, topLevel = true): string {
     if (Array.isArray(type)) {
         const types = type.map(subType => customChildTypesToString(subType, getNodeName, false)).join('|');
@@ -60,11 +109,25 @@ export function customChildTypesToString(type: ChildTypes, getNodeName?: (nodeNa
         return childTypeToString(type, getNodeName)
     }
 }
+
+/**
+ * childTypesToString - TODO
+ *
+ * @param type - TODO
+ * @param topLevel - TODO
+ * @returns TODO
+ */
 export function childTypesToString(type: ChildTypes, topLevel = true): string {
     return customChildTypesToString(type, undefined, topLevel);
 }
 
-
+/**
+ * stringToChildTypes - TODO
+ *
+ * @param value - TODO
+ * @param topLevel - TODO
+ * @returns TODO
+ */
 export function stringToChildTypes(value: OrArray<string>, topLevel = true): ChildTypes[] {
     if (typeof value === 'string') {
         if (value === '') {
@@ -97,7 +160,13 @@ export function stringToChildTypes(value: OrArray<string>, topLevel = true): Chi
     }
 }
 
-//
+/**
+ * acceptsNodeName - TODO
+ *
+ * @param value - TODO
+ * @param childType - TODO
+ * @returns TODO
+ */
 export function acceptsNodeName(value: string, childType: ChildTypes): ChildType | undefined {
     if (Array.isArray(childType)) {
         let result: ChildType | undefined;
@@ -109,17 +178,23 @@ export function acceptsNodeName(value: string, childType: ChildTypes): ChildType
         });
         return result;
     } else {
-        // if child type is not a group 
-        // then check if the child type name is equal to the value 
+        // if child type is not a group
+        // then check if the child type name is equal to the value
         return !childType.isGroup
-            ? (childType.name === value ? childType : undefined) 
+            ? (childType.name === value ? childType : undefined)
             : (has(nodeGroups[childType.name], value) ? childType : undefined);
     }
 }
 
-// TODO
-// input example  one of these elements['%list-blocks*', 'section*', 'fn*']
-// 
+/**
+ * isChildTypeSingle - TODO
+ *
+ * @privateRemarks
+ * TODO: input example  one of these elements['%list-blocks*', 'section*', 'fn*']
+ *
+ * @param childType -  TODO
+ * @returns Boolean
+ */
 export function isChildTypeSingle(childType: string | ChildType | ChildTypes): boolean {
     if (Array.isArray(childType)) {
         let result = true;
@@ -137,9 +212,10 @@ export function isChildTypeSingle(childType: string | ChildType | ChildTypes): b
 }
 
 /**
- * Check if a child is required
- * @param childType 
- * @returns 
+ * isChildTypeRequired - Check if a child is required
+ *
+ * @param childType -  TODO
+ * @returns Boolean
  */
 export function isChildTypeRequired(childType: string | ChildType | ChildTypes): boolean {
     // console.log(childType);
@@ -158,16 +234,23 @@ export function isChildTypeRequired(childType: string | ChildType | ChildTypes):
     }
 }
 
+/**
+ * childTypesArray - TODO
+ *
+ * @param childTypes - TODO
+ * @returns - TODO
+ */
 export function childTypesArray(childTypes: ChildTypes): ChildTypes[] {
     return Array.isArray(childTypes) ? childTypes : [childTypes];
 }
 
 /**
- * 
- * @param fields 
- * @param value 
- * @param validations 
- * @returns 
+ * areFieldsValid - TODO
+ *
+ * @param fields - TODO
+ * @param value - TODO
+ * @param validations - TODO
+ * @returns Boolean
  */
 export function areFieldsValid(fields: string[], value: Record<string, BasicValue>, ...validations: ((field: string, value: BasicValue) => boolean)[]): boolean {
     for (const field of fields) {

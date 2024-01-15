@@ -3,11 +3,11 @@ import { BaseNode, DocumentNode } from "./nodes";
 import { createNode } from "./factory";
 import { JDita } from "./classes";
 
-// TODO: add tests
+/** TODO: add tests */
 
 /**
  * Converts XML to a JDita document tree
- * 
+ *
  * @param xml - XML string
  * @param abortOnError - If true, abort on error
  * @returns - Promise of a DocumentNode
@@ -67,7 +67,13 @@ export async function xditaToJdita(xml: string, abortOnError = true): Promise<Do
   });
 }
 
-// Convert document tree to json
+/**
+ * xditaToJson - Convert the document tree to json
+ *
+ * @param xml - The XML input as string
+ * @param abortOnError - Boolean, if true, stop execution and report errors
+ * @returns The XML document tree object
+ */
 export async function xditaToJson(xml: string, abortOnError = true): Promise<JDita> {
   return xditaToJdita(xml, abortOnError).then(doc => doc.json);
 }

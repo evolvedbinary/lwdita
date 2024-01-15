@@ -166,6 +166,7 @@ export abstract class BaseNode {
      *
      * @param child - The child node to be added
      * @param breakOnError - Boolean, if true, exit
+     * @throws NonAcceptedChildError
      * @returns void
      */
     add(child: BaseNode, breakOnError = true): void {
@@ -193,6 +194,7 @@ export abstract class BaseNode {
      * therefore the attributes are never validated.
      *
      * @param field - String name of the attribute
+     * @throws UnknownAttributeError
      * @returns The value of the attribute
      */
     readProp<T = BasicValue>(field: string): T {
@@ -212,6 +214,7 @@ export abstract class BaseNode {
      *
      * @param field - String name of the attribute
      * @param value - Value to be set
+     * @throws UnknownAttributeError, WrongAttributeTypeError
      */
     writeProp<T extends BasicValue>(field: string, value: T): void {
         // If the attribute is identified as false then return error message
