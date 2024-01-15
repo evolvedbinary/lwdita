@@ -26,7 +26,7 @@ export abstract class BaseNode {
      * attributesToProps - converts attributes to props
      * loops through all of the node fields and gets their values from attributes
      * the validation happens in the constructor
-     * 
+     *
      * @param attributes - Attributes attributes of the node
      * @returns A record of props
      */
@@ -35,7 +35,7 @@ export abstract class BaseNode {
         // loop through all node fields and get their values from attributes
         this.fields.forEach(field => {
             const attr = attributes[field];
-            // att can be a string or an object with value 
+            // att can be a string or an object with value
             result[field] = typeof attr === 'string' ? attr : attr?.value;
         });
         return result as T;
@@ -63,36 +63,41 @@ export abstract class BaseNode {
     }
 
     /**
-     * canAdd - checks if a node can be added as a child
+     * canAdd - Checks if a node can be added as a child
      * Also ensure it can be added in the right order
-     * 
+     *
+     * @remarks
+     * This function tells you whether a child node can be added to this node.
+     * This is done by checking the child node name against the child types of this node
+     *
      * @param child - BaseNode node to be added
      * @returns true if the node can be added as a child
      */
-    // this function tells you whether a child node can be added to this node
-    // this is done by checking the child node name against the child types of this node
-    canAdd(child: BaseNode): boolean {
-        // we are in a body node and we are trying to add a audio node
 
-        const childNodeName = child.static.nodeName; // audio
-        let childType: ChildType | undefined; //body node allowed children['%list-blocks*', 'section*', 'fn*']
+    canAdd(child: BaseNode): boolean {
+        // we are e.g. in a `<body>` node and we are trying to add an `<audio`> node
+        const childNodeName = child.static.nodeName;
+        let childType: ChildType | undefined;
         let iChild = -1;
+
         // loop through all of the allowed child types and check if the child node name is accepted
-        
-        // ['p', 'ul', 'ol, 'simpletable',', 'dl', 'pre', 'audio', 'video' 'fig', 'note', data, section, fn]
+
+        // `this.static.childTypes`, e.g. allowed children: `['%list-blocks*', 'section*', 'fn*']`
         this.static.childTypes.some((type, i) => {
-            childType = acceptsNodeName(childNodeName, type); // it will find that audio is accepted
+            childType = acceptsNodeName(childNodeName, type);
             if (childType) {
-                iChild = i; // set the index of child audio to 0
+
+                iChild = i;
                 return true;
             }
         });
 
-        if (!childType) { // if we didn't find it in the last list then it's not accepted
-            return false; 
+        // If the child is not contained in the list `childTypes` it will be rejected
+        if (!childType) {
+            return false;
         }
 
-        // get the last child of the body node nodename,
+        // get the last child of the parent nodename,
         const last = this.children?.length ? this.children[this.children.length - 1].static.nodeName : '';
         let iLast = -1;
 
@@ -100,15 +105,18 @@ export abstract class BaseNode {
         if (last) {
             // get the index of the last child in the list of allowed children
             iLast = this.static.childTypes.findIndex(type => acceptsNodeName(last, type));
-            // if child index is less than last index, it can't be added
+            // if the child index is less than the last index, it can't be added
+            // this ensures the correct and valid outline
             if (iLast > iChild) {
                 return false;
             }
 
 
-            // if child index is equal to last index, it can't be added if the child type is single
+            // if the child index is equal to the last index, it can't be added if the child type is single
+            // this ensure that there will be no duplication in an invalid manner
             if (iLast === iChild) {
-                // if we have two of the same elements it can't be added eg <body> and <body> under the same parent
+                // if we have two of the same elements they can't be added
+                // e.g. `<body>` and `<body>` within parent `<topic>`
                 // you can tell if the element is single by checking the allowed children list `childNodes` and look for ? symbol
                 if (isChildTypeSingle(this.static.childTypes[iChild])) {
                     return false;
@@ -118,13 +126,16 @@ export abstract class BaseNode {
         }
         // if child index is greater than last index, it can't be added if there are required child types between them
         const typesBetween = this.static.childTypes.slice(iLast + 1, iChild);
-        // to check if a child type is required, check the allowed children list `childNodes` 
-        // and look for a child without `?` symbols at the end eg 'title'
+
+        // to check if a child type is required, check the allowed children list `childNodes`
+        // and look for a child without `?` symbols at the end
+        // e.g. `'title'` in this list: `['title', 'shortdesc?', 'prolog?', 'body?']`
         if (typesBetween.find(isChildTypeRequired)) {
             return false;
         }
         return true;
     }
+
     add(child: BaseNode, breakOnError = true): void {
         if (!this._children) {
             this._children = [];
@@ -139,7 +150,7 @@ export abstract class BaseNode {
     }
     /**
      * Get the value of a field, if the field is not defined, throw an error
-     * 
+     *
      * @param field - string name of the field
      * @returns the value of the field
      */
@@ -151,7 +162,7 @@ export abstract class BaseNode {
     }
     /**
      * set the value of a field, if the field is accepted by the element throw an error
-     * 
+     *
      * @param field - string name of the field
      * @param value - value to be set
      */
@@ -176,12 +187,12 @@ export function makeAll<T extends { new(...args: any[]): BaseNode }>(constructor
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 /**
  * a functions that results the constructor of a node
- * @param decorator 
- * @param nodeName 
- * @param fieldValidator 
- * @param fields 
- * @param childTypes 
- * @returns 
+ * @param decorator
+ * @param nodeName
+ * @param fieldValidator
+ * @param fields
+ * @param childTypes
+ * @returns
  */
 export function makeComponent<T extends { new(...args: any[]): BaseNode }>(
     decorator: (constructor: T) => T,
