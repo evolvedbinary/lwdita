@@ -30,14 +30,14 @@ export async function xditaToJdita(xml: string, abortOnError = true): Promise<Do
 
     // Parse the text and add a new node item to the node-array
     parser.on("text", function (text) {
-      stack[stack.length - 1].add(createNode(text), false);
+      stack[stack.length - 1].add(createNode(text), abortOnError);
     });
 
     // Look for the first open tag `<` and add the node to the array
     parser.on("opentag", function (node: saxes.SaxesTagNS) {
       try {
         const obj = createNode(node);
-        stack[stack.length - 1].add(obj, false);
+        stack[stack.length - 1].add(obj, abortOnError);
         stack.push(obj);
       } catch (e) {
         console.log('invalid:', e);

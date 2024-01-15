@@ -28,11 +28,14 @@ export type BasicValue = undefined | DefinedBasicValue;
 // TODO(AR) can we further refine these types?
 export type ID = string;
 export const isID = (value?: BasicValue): value is ID => typeof value === 'string';
+// CDATA character data may contains illegal characters that need to be escaped
 export type CDATA = string;
 export const isCDATA = (value?: BasicValue): value is CDATA => typeof value === 'string';
+// PCDATA parsed character data
 export type PCDATA = string;
 export const isPCDATA = (value?: BasicValue): value is PCDATA => typeof value === 'string';
 export type NMTOKEN = string;
+// NMTOKEN is a string without any spaces
 export const isNMTOKEN = (value?: BasicValue): value is NMTOKEN => typeof value === 'string';
 export type DisplayScale = 50 | 60 | 70 | 80 | 90 | 100 | 110 | 120 | 140 | 160 | 180 | 200;
 export const isDisplayScale = (value?: BasicValue): value is DisplayScale => ([50, 60, 70, 80, 90, 100, 110, 120, 140, 160, 180, 200] as BasicValue[]).indexOf(value) > -1;

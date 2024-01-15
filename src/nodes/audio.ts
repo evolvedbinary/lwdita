@@ -43,7 +43,7 @@ export const isAudioNode = (value?: {}): value is AudioNode =>
   typeof value === 'object' && areFieldsValid(AudioFields, value, isValidAudioField);
 
 /**
- * Construct an `audio` node with all available
+ * Construct an `audio` node with all available attributes
  *
  * @param constructor - The constructor
  * @returns An `audio` node

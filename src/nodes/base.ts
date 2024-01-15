@@ -174,7 +174,7 @@ export function makeComponent<T extends { new(...args: any[]): BaseNode }>(
     nodeName: string,
     fieldValidator: (field: string, value: BasicValue) => boolean,
     fields: Array<string>,
-    childTypes: OrArray<string> = [],
+    childTypes: OrArray<string> = [], // it's being populated during the creation of the node from the decorator call
 
 ) {
     return (constructor: T): T => decorator(class extends constructor {
