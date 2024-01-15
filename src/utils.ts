@@ -118,6 +118,8 @@ export function acceptsNodeName(value: string, childType: ChildTypes): ChildType
 }
 
 // TODO
+// input example
+// 
 export function isChildTypeSingle(childType: string | ChildType | ChildTypes): boolean {
     if (Array.isArray(childType)) {
         let result = true;

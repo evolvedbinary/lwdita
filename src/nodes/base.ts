@@ -72,31 +72,42 @@ export abstract class BaseNode {
     // this function tells you whether a child node can be added to this node
     // this is done by checking the child node name against the child types of this node
     canAdd(child: BaseNode): boolean {
-        const childNodeName = child.static.nodeName;
-        let childType: ChildType | undefined;
+        // we are in a body node and we are trying to add a audio node
+
+        const childNodeName = child.static.nodeName; // audio
+        let childType: ChildType | undefined; //body node allowed children['%list-blocks*', 'section*', 'fn*']
         let iChild = -1;
         // loop through all of the allowed child types and check if the child node name is accepted
+        
+        // ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', 'fig', 'note', data, section, fn]
         this.static.childTypes.some((type, i) => {
-            childType = acceptsNodeName(childNodeName, type);
+            childType = acceptsNodeName(childNodeName, type); // it will find that audio is accepted
             if (childType) {
-                iChild = i;
+                iChild = i; // set the index of child audio to 5
                 return true;
             }
         });
-        if (!childType) {
-            return false;
+
+        if (!childType) { // if we didn't find it in the last list then it's not accepted
+            return false; 
         }
 
+        // get the last child of the body node nodename,
         const last = this.children?.length ? this.children[this.children.length - 1].static.nodeName : '';
         let iLast = -1;
+
+        // if we do have a last child
         if (last) {
+            // get the index of the last child in the list of allowed children
             iLast = this.static.childTypes.findIndex(type => acceptsNodeName(last, type));
             // if child index is less than last index, it can't be added
             if (iLast > iChild) {
                 return false;
             }
+
+
             // if child index is equal to last index, it can't be added if the child type is single
-            if (iLast === iChild) {
+            if (iLast === iChild) { // eg compare of audio and video nodes
                 // TODO figure out what childType.single 
                 if (isChildTypeSingle(this.static.childTypes[iChild])) {
                     return false;
