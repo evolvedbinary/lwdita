@@ -178,7 +178,23 @@ export function createNode<T extends BaseNode = BaseNode>(node: XMLNode): T;
 export function createNode<T extends BaseNode>(node: XMLNode | string): T {
 
   let nodeObject: BaseNode;
-
+  /**
+   * @example
+   * `node`is an object containing the node name, attributes, and their values.
+   * If the node is a text node, it will simply contain its string content.
+   *
+   * ```
+   * {
+   *   name: 'topic',
+   *   attributes: [Object: null prototype] {},
+   *   ns: [Object: null prototype] {},
+   *   prefix: '',
+   *   local: 'topic',
+   *   uri: '',
+   *   isSelfClosing: false
+   * }
+   * ```
+   */
   if (typeof node === 'string') {
     nodeObject = new TextNode(node);
   } else {

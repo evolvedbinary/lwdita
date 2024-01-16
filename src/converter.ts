@@ -6,7 +6,7 @@ import { JDita } from "./classes";
 /** TODO: add tests */
 
 /**
- * Converts XML to a JDita document tree
+ * xditaToJdita - Converts XML to a JDita document tree
  *
  * @param xml - XML string
  * @param abortOnError - If true, abort on error
@@ -15,7 +15,7 @@ import { JDita } from "./classes";
 export async function xditaToJdita(xml: string, abortOnError = true): Promise<DocumentNode> {
   return new Promise((resolve, reject) => {
     const errors: Error[] = [];
-    // Create Parser Object
+    // Create a Parser Object
     const parser = new saxes.SaxesParser({
       xmlns: true,
       fragment: false,
@@ -29,11 +29,37 @@ export async function xditaToJdita(xml: string, abortOnError = true): Promise<Do
     const stack: BaseNode[] = [doc];
 
     // Parse the text and add a new node item to the node-array
+    // `text` is the content of any text node in the parsed xml document
     parser.on("text", function (text) {
       stack[stack.length - 1].add(createNode(text), abortOnError);
     });
 
     // Look for the first open tag `<` and add the node to the array
+    /**
+     * `node` is the node object
+     * @example
+     * ```
+     * node {
+     *   name: 'topic',
+     *   attributes: [Object: null prototype] {
+     *     id: {
+     *       name: 'id', prefix: '',
+     *       local: 'id', value: 'topicID', uri: ''
+     *     }
+     *   },
+     *   ns: [Object: null prototype] {},
+     *   prefix: '',
+     *   local: 'topic',
+     *   uri: '',
+     *   isSelfClosing: false
+     * }
+     * ```
+     * @example
+     * The `obj` is an object containing all the node's corresponding properties like
+     * ```
+     * obj _a: { _props: { id: 'topicID', 'xml:lang': undefined,... }}
+     * ```
+     */
     parser.on("opentag", function (node: saxes.SaxesTagNS) {
       try {
         const obj = createNode(node);
