@@ -42,16 +42,6 @@ export const isImageNodes = (value?: {}): value is ImageNode =>
   isSizeNode(value);
 
 /**
- * `isImageNode` - TODO
- *
- * @param value - TODO
- * @returns TODO
- */
-export const isImageNode = (value?: {}): value is ImageNode =>
-  typeof value === 'object' && areFieldsValid(ImageFields, value, isValidImageField);
-
-
-/**
  * Check if the given attributes of the `image` node are valid and match this list:
  * @See {@link ImageFields}
  *
@@ -65,6 +55,15 @@ export const isValidImageField = (field: string, value: BasicValue): boolean => 
   || isValidFiltersField(field, value)
   || isValidVariableContentField(field, value)
   || isValidSizeField(field, value);
+
+/**
+ * `isImageNode` - TODO
+ *
+ * @param value - TODO
+ * @returns TODO
+ */
+export const isImageNode = (value?: {}): value is ImageNode =>
+  typeof value === 'object' && areFieldsValid(ImageFields, value, isValidImageField);
 
 /**
  * Construct an `image` node with all available attributes
