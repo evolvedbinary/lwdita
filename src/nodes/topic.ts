@@ -98,6 +98,5 @@ export function makeTopic<T extends { new(...args: any[]): BaseNode }>(construct
  */
 @makeComponent(makeTopic, 'topic', isValidTopicField, TopicFields, ['title', 'shortdesc?', 'prolog?', 'body?'])
 export class TopicNode extends BaseNode {
-  /** @override */
   static domNodeName = 'article';
 }

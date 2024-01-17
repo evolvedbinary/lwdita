@@ -64,6 +64,5 @@ export function makeSection<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeSection, 'section', isValidSectionField, SectionFields, ['title?', '%all-blocks*'])
 export class SectionNode extends BaseNode {
-  /** @override */
   static domNodeName = 'section';
 }

@@ -69,6 +69,5 @@ export function makeDlEntry<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeDlEntry, 'dlentry', isValidDlEntryField, DlEntryFields, ['dt', 'dd'])
 export class DlEntryNode extends BaseNode {
-  /** @override */
   static domNodeName = '';
 }

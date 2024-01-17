@@ -67,6 +67,5 @@ export function makeUnderlined<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeUnderlined, 'u', isValidUnderlinedField, UnderlinedFields, ['%all-inline*'])
 export class UnderlinedNode extends BaseNode {
-  /** @override */
   static domNodeName = 'u';
 }

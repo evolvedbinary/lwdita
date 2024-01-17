@@ -65,6 +65,5 @@ export function makeDd<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeDd, 'dd', isValidDdField, DdFields, ['%list-blocks*'])
 export class DdNode extends BaseNode {
-  /** @override */
   static domNodeName = 'dd';
 }

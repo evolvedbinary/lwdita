@@ -67,6 +67,5 @@ export function makeSuperscript<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeSuperscript, 'sup', isValidSuperscriptField, SuperscriptFields, ['%all-inline*'])
 export class SuperscriptNode extends BaseNode {
-  /** @override */
   static domNodeName = 'sup';
 }

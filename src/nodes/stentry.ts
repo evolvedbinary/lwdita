@@ -67,6 +67,5 @@ export function makeStEntry<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeStEntry, 'stentry', isValidStEntryField, StEntryFields, ['%simple-blocks*'])
 export class StEntryNode extends BaseNode {
-  /** @override */
   static domNodeName = 'td';
 }

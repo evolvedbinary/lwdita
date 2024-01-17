@@ -65,6 +65,5 @@ export function makeDt<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeDt, 'dt', isValidDtField, DtFields, ['%all-inline*'])
 export class DtNode extends BaseNode {
-  /** @override */
   static domNodeName = 'dt';
 }

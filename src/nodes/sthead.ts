@@ -64,6 +64,5 @@ export function makeStHead<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeStHead, 'sthead', isValidStHeadField, StHeadFields, ['stentry+'])
 export class StHeadNode extends BaseNode {
-  /** @override */
   static domNodeName = 'thead';
 }

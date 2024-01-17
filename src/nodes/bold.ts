@@ -66,7 +66,5 @@ export function makeBold<T extends Constructor>(constructor: T): T {
 */
 @makeComponent(makeBold, 'b', isValidBoldField, BoldFields, ['%all-inline*'])
 export class BoldNode extends BaseNode {
-  /** @override */
   static domNodeName = 'b';
-
 }

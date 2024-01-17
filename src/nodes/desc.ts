@@ -65,6 +65,5 @@ export function makeDesc<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeDesc, 'desc', isValidDescField, DescFields, ['%common-inline*'])
 export class DescNode extends BaseNode {
-  /** @override */
   static domNodeName = 'caption';
 }

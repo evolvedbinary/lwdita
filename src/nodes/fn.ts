@@ -90,6 +90,5 @@ export function makeFn<T extends { new(...args: any[]): BaseNode }>(constructor:
  */
 @makeComponent(makeFn, 'fn', isValidFnField, FnFields, ['%fn-blocks*'])
 export class FnNode extends BaseNode {
-  /** @override */
   static domNodeName = 'span';
 }

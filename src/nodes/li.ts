@@ -64,6 +64,5 @@ export function makeLi<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeLi, 'li', isValidLiField, LiFields, ['%list-blocks*'])
 export class LiNode extends BaseNode {
-  /** @override */
   static domNodeName = 'li';
 }

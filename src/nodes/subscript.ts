@@ -67,6 +67,5 @@ export function makeSubscript<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeSubscript, 'sub', isValidSubscriptField, SubscriptFields, ['%all-inline*'])
 export class SubscriptNode extends BaseNode {
-  /** @override */
   static domNodeName = 'sub';
 }

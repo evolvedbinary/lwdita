@@ -66,6 +66,5 @@ export function makePh<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makePh, 'ph', isValidPhField, PhFields, ['%all-inline*'])
 export class PhNode extends BaseNode {
-  /** @override */
   static domNodeName = 'span';
 }

@@ -87,6 +87,5 @@ export function makePre<T extends { new(...args: any[]): BaseNode }>(constructor
  */
 @makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', '%data*']])
 export class PreNode extends BaseNode {
-  /** @override */
   static domNodeName = 'pre';
 }

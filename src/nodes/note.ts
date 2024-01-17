@@ -83,6 +83,5 @@ export function makeNote<T extends { new(...args: any[]): BaseNode }>(constructo
  */
 @makeComponent(makeNote, 'note', isValidNoteField, NoteFields, ['%simple-blocks*'])
 export class NoteNode extends BaseNode {
-  /** @override */
   static domNodeName = 'div';
 }

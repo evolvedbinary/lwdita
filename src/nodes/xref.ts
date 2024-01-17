@@ -66,6 +66,5 @@ export function makeXRef<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeXRef, 'xref', isValidXRefField, XRefFields, ['%common-inline*'])
 export class XRefNode extends BaseNode {
-  /** @override */
   static domNodeName = 'a';
 }

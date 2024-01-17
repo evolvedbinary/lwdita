@@ -62,6 +62,5 @@ export function makeMediaSource<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeMediaSource, 'media-source', isValidMediaSourceField, MediaSourceFields)
 export class MediaSourceNode extends BaseNode {
-  /** @override */
   static domNodeName = 'source';
 }

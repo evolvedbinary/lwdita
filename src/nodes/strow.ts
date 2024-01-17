@@ -64,6 +64,5 @@ export function makeStRow<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeStRow, 'strow', isValidStRowField, StRowFields, ['stentry*'])
 export class StRowNode extends BaseNode {
-  /** @override */
   static domNodeName = 'tr';
 }

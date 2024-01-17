@@ -61,6 +61,5 @@ export function makeShortDesc<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeShortDesc, 'shortdesc', isValidShortDescField, ShortDescFields, ['%all-inline*'])
 export class ShortDescNode extends BaseNode {
-  /** @override */
   static domNodeName = 'p';
 }

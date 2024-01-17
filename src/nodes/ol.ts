@@ -64,6 +64,5 @@ export function makeOl<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeOl, 'ol', isValidOlField, OlFields, ['li+'])
 export class OlNode extends BaseNode {
-  /** @override */
   static domNodeName = 'ol';
 }

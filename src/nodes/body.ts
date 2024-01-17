@@ -59,6 +59,5 @@ export function makeBody<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeBody, 'body', isValidBodyField, BodyFields, ['%list-blocks*', 'section*', 'fn*'])
 export class BodyNode extends BaseNode {
-  /** @override */
   static domNodeName = 'div';
 }
