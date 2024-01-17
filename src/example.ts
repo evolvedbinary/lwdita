@@ -1,6 +1,6 @@
 import { xditaToJdita } from "./converter";
 
-const xml = `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd"><topic><title>valid title</title><body><p>text</p><audio></audio></body></topic>`
+const xml = `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd"><topic id="topicID"><title dir="ltr">A valid title</title><body><p><b>Bold Example</b></p></body></topic>`
 
 /**
  * XML example for testing a conversion
@@ -13,7 +13,7 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE topic PUBLIC "-//OA
  * @example
  * The whitespace needs to be elimited from the XML before processing
  * from e.g.:
- * ```
+ * ```xml
  * <topic>
  *   <title>valid title</title>
  *   <body>
@@ -22,7 +22,9 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE topic PUBLIC "-//OA
  * </topic>
  * ```
  * to this:
- * `<topic><title>valid title</title><body><<p>text</p></body></topic>`
+ * ```xml
+ * <topic><title>valid title</title><body><<p>text</p></body></topic>
+ * ```
  */
 xditaToJdita(xml, true)
   .then(result => {
