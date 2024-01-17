@@ -43,13 +43,14 @@ import { SubscriptNode } from "./nodes/subscript";
 import { SuperscriptNode } from "./nodes/superscript";
 import { UnknownNodeError, XMLNode } from "./classes";
 
-/** TODO: Add tests */
-
 /**
  * getNodeClass - Get the Node class constructor based on the node type
  *
- * @param name - string type of node
- * @returns - the node class constructor
+ * @privateRemarks
+ * TODO: Add tests
+ *
+ * @param name - A string containing the node name
+ * @returns - The node class constructor
  * @throws - UnknownNodeError
  */
 export function getNodeClass(name: string): Constructor {
@@ -125,6 +126,9 @@ export function getNodeClassType(name: string): typeof BaseNode {
  * If the input is an XMLNode, the function uses the `getNodeClass` function to create a node of the appropriate type.
  * If the node type is unknown, `getNodeClass` will throw an error.
  *
+ * @privateRemarks
+ * TODO: Add tests
+ *
  * @param node - The XMLNode object or string to be converted into a node.
  *
  * @returns A node of the type corresponding to the input XMLNode type or a TextNode if the input is a string.
@@ -180,9 +184,7 @@ export function createNode<T extends BaseNode>(node: XMLNode | string): T {
   let nodeObject: BaseNode;
   /**
    * @example
-   * `node`is an object containing the node name, attributes, and their values.
-   * If the node is a text node, it will simply contain its string content.
-   *
+   * `node`is an object containing the node name, its attributes, and their values.   *
    * ```
    * {
    *   name: 'topic',
@@ -194,6 +196,7 @@ export function createNode<T extends BaseNode>(node: XMLNode | string): T {
    *   isSelfClosing: false
    * }
    * ```
+   * If the node is a text node, it will simply contain its string content.
    */
   if (typeof node === 'string') {
     nodeObject = new TextNode(node);
