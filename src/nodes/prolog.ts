@@ -75,6 +75,7 @@ export function makeProlog<T extends { new(...args: any[]): BaseNode }>(construc
  * @privateRemarks
  * Is overriding the domNodeName with an empty string intended??
  * TODO: Implement `head > meta`
+ * TODO (Y.): Why is `domNodeName` set to an empty string?
  *
  * @decorator `@makeComponent`
  * @param makeProlog - The `prolog` node constructor

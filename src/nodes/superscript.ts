@@ -54,9 +54,9 @@ export function makeSuperscript<T extends Constructor>(constructor: T): T {
 
 /**
  * Create a `superscript` node and map the `superscript` node with the HTML tag name `sup`
- * 
+ *
  * @privateRemarks
- * TODO:  "+ topic/ph hi-d/sup "
+ * TODO: Implement "+ topic/ph hi-d/sup "
  *
  * @decorator `@makeComponent`
  * @param makeSuperscript - The `superscript` node constructor

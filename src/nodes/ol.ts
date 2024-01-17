@@ -30,7 +30,6 @@ export const isValidOlField = (field: string, value: BasicValue): boolean => isV
   || isValidReuseField(field, value)
   || isValidClassField(field, value);
 
-
 /**
  * Check if the `ol` node is valid
  *

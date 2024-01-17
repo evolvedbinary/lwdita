@@ -12,7 +12,7 @@ import { BasicValue, isCDATA, ID, CDATA } from "../classes";
  * `id`, `callout`, `props`, `dir`, `xml:lang`, `translate`, `conref`, `outputclass`, `class`
  *
  * @privateRemarks
- * TODO: 'xml:space' (preserve)
+ * TODO: Handle 'xml:space' (preserve)
  */
 export const FnFields = [...FiltersFields, ...LocalizationFields, ...FnReuseFields, ...ClassFields, 'id', 'callout'];
 

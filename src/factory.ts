@@ -184,8 +184,8 @@ export function createNode<T extends BaseNode>(node: XMLNode | string): T {
   let nodeObject: BaseNode;
   /**
    * @example
-   * `node`is an object containing the node name, its attributes, and their values.   *
-   * ```
+   * `node`is an object containing the node name, its attributes, and their values.
+   * ```json
    * {
    *   name: 'topic',
    *   attributes: [Object: null prototype] {},

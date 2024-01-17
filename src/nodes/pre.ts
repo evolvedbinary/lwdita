@@ -75,8 +75,8 @@ export function makePre<T extends { new(...args: any[]): BaseNode }>(constructor
  * Create a `pre` node (preformatted text) and map the `pre` node with the HTML tag name `pre`
  *
  * @privateRemarks
- * Is the syntax of the child nodes array [[...]] really correct?
- * // TODO Alex is correct and this needs to be fixed
+ * TODO (A.): Is the syntax of the child nodes array [[...]] really correct?
+ * TODO (Y.): Alex is correct and this needs to be fixed
  *
  * @decorator `@makeComponent`
  * @param makePre - The `pre` node constructor
@@ -85,7 +85,7 @@ export function makePre<T extends { new(...args: any[]): BaseNode }>(constructor
  * @param fields - A List of valid attributes @See {@link PreFields}
  * @param childNodes - An Array of allowed child nodes `text*`, `%ph*`, `xref*`, `%data*`
  */
-@makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', '%data*']]) //TODO does text* mean can have text
+@makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', '%data*']])
 export class PreNode extends BaseNode {
   /** @override */
   static domNodeName = 'pre';

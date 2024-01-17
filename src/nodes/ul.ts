@@ -6,10 +6,6 @@ import { areFieldsValid, } from "../utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
 
-/****************************
- * `ul` node (unordered-list)
- ****************************/
-
 /**
  * Define all allowed `ul` attributes:
  * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `outputclass`, `class`

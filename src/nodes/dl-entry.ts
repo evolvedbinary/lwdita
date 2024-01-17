@@ -56,7 +56,8 @@ export function makeDlEntry<T extends Constructor>(constructor: T): T {
  * Create a `dlentry` node
  *
  * @privateRemarks
- * TODO: To be removed, make changes to 'dl'
+ * TODO: To be removed, make changes to `dl`
+ * TODO (Y.): Why is `domNodeName` set to an empty string?
  *
  * @decorator `@makeComponent`
  * @param makeDlEntry - The `dlEntry` node constructor
@@ -70,5 +71,4 @@ export function makeDlEntry<T extends Constructor>(constructor: T): T {
 export class DlEntryNode extends BaseNode {
   /** @override */
   static domNodeName = '';
-  // TODO why is this empty?????
 }

@@ -3,7 +3,7 @@ import { BaseNode, DocumentNode } from "./nodes";
 import { createNode } from "./factory";
 import { JDita } from "./classes";
 
-/** TODO: add tests */
+/** TODO: Add tests for this module */
 
 /**
  * xditaToJdita - Converts XML to a JDita document tree
@@ -38,7 +38,7 @@ export async function xditaToJdita(xml: string, abortOnError = true): Promise<Do
     /**
      * `node` is the node object
      * @example
-     * ```
+     * ```json
      * node {
      *   name: 'topic',
      *   attributes: [Object: null prototype] {
@@ -56,7 +56,7 @@ export async function xditaToJdita(xml: string, abortOnError = true): Promise<Do
      * ```
      * @example
      * The `obj` is an object containing all the node's corresponding properties like
-     * ```
+     * ```json
      * obj _a: { _props: { id: 'topicID', 'xml:lang': undefined,... }}
      * ```
      */

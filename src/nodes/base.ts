@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { acceptsNodeName, isChildTypeRequired, stringToChildTypes, isChildTypeSingle } from "../utils";
 import { ChildTypes, ChildType, OrArray, BasicValue, Attributes, NonAcceptedChildError, WrongAttributeTypeError, UnknownAttributeError, JDita } from "../classes";
 import { BodyNode } from "./body";
@@ -6,27 +7,27 @@ import { BodyNode } from "./body";
  * `BaseNode` - The base class for all nodes
  */
 export abstract class BaseNode {
-  // node name means node type (e.g. "image", "alt", "body", etc.)
+  // `nodeName` means node type (e.g. "image", "alt", "body", etc.)
   static nodeName = 'node';
 
   static inline?: boolean;
-  // fields are attributes of the node eg <node field="value" />
+  // `fields` are attributes of the node eg <node field="value" />
   static fields: Array<string>;
-  // childTypes are allowed child nodes
+  // `childTypes` are allowed child nodes
   static childTypes: ChildTypes[];
-  // _children are already validated child elements
+  // `_children` are already validated child elements
   public _children?: BaseNode[];
   protected _props!: Record<string, BasicValue>;
 
   constructor(attributes?: Attributes) {
     if (attributes) {
-      // these are the attributes provided by the parser
+      // `_props` - these are the attributes provided by the parser
       this._props = this.static.attributesToProps(attributes);
     }
   }
 
   /**
-   * attributesToProps - Converts attributes to properties
+   * `attributesToProps` - Converts attributes to properties
    * Loops through all of the node attributes retrieved from the parser,
    * then gets their values from attributes,
    * and returns an object with all attributes an values.
@@ -46,7 +47,7 @@ export abstract class BaseNode {
   }
 
   /**
-   * isValidField - This is a function template for validation of attributes
+   * `isValidField` - This is a function template for validation of attributes
    *
    * @privateRemarks
    * eslint-disable-next-line `@typescript-eslint/no-unused-vars`s
@@ -88,7 +89,7 @@ export abstract class BaseNode {
   }
 
   /**
-   * canAdd - Checks if a node can be added as a child
+   * `canAdd` - Checks if a node can be added as a child
    * Also ensure it can be added in the right order
    *
    * @remarks
@@ -146,7 +147,8 @@ export abstract class BaseNode {
           return true;
         }
       }
-      // if child index is greater than last index, it can't be added if there are required child types between them
+      // if the child index is greater than last index,
+      // it can't be added if there are required child types between them
       const typesBetween = this.static.childTypes.slice(iLast + 1, iChild);
 
       // to check if a child type is required, check the allowed children list `childNodes`
@@ -159,7 +161,7 @@ export abstract class BaseNode {
   }
 
   /**
-   * Add a child node to the document tree
+   * `add` - Add a child node to the document tree
    *
    * @remarks
    * If there is a child that cannot be added, throw a new error
@@ -236,7 +238,7 @@ export abstract class BaseNode {
 export type Constructor = { new(attributes: Attributes): BaseNode };
 
 /**
- * This is a template function for all nodes
+ * `makeAll` - This is a template function for all nodes
  *
  * @remarks
  * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
@@ -250,7 +252,7 @@ export function makeAll<T extends { new(...args: any[]): BaseNode }>(constructor
 }
 
 /**
- * A function that returns the constructor of a node
+ * `makeComponent` -  A function that returns the constructor of a node
  *
  * @remarks
  * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
@@ -272,12 +274,12 @@ export function makeComponent<T extends { new(...args: any[]): BaseNode }>(
   fields: Array<string>,
   childTypes: OrArray<string> = [], // it's being populated during the creation of the node from the decorator call
 ) {
-		return (constructor: T): T => decorator(class extends constructor {
-	    static nodeName = nodeName;
-	    static fields = fields;
-	    // These will get parsed when being set in the constructor
-	    static childTypes = stringToChildTypes(childTypes);
-	    static isValidField = fieldValidator;
-		});
+  return (constructor: T): T => decorator(class extends constructor {
+    static nodeName = nodeName;
+    static fields = fields;
+    // These will get parsed when being set in the constructor
+    static childTypes = stringToChildTypes(childTypes);
+    static isValidField = fieldValidator;
+  });
 }
 

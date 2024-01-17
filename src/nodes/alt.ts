@@ -13,14 +13,14 @@ import { BasicValue } from "../classes";
 export const AltFields = [...LocalizationFields, ...FiltersFields, ...VariableContentFields, ...ClassFields];
 
 /**
- * Interface AltNode defines the attribute types for `alt`:
+ * Interface `AltNode` defines the attribute types for `alt`:
  */
 export interface AltNode extends LocalizationNode, FiltersNode, VariableContentNode, ClassNode { }
 
 /**
  * Check if the given fields of the `alt` node are valid and matches this list:
  * `keyref`, `outputclass`, `class`, `dir`, `xml:lang`, `translate`, `props`
- * 
+ *
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
  * @returns Boolean
@@ -53,7 +53,7 @@ export function makeAlt<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create an alt node 
+ * Create an `alt` node
  *
  * @decorator `@makeComponent`
  * @param makeAlt - The `Alt` node constructor
@@ -62,5 +62,5 @@ export function makeAlt<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid fields
  * @param childNodes - An Array of allowed child node `text*`, `%ph*`, `%data*`
  */
-@makeComponent(makeAlt, 'alt', isValidAltField, AltFields, [['text*', '%ph*', '%data*']]) // TODO what is ph and data and does text* mean it can have text?
+@makeComponent(makeAlt, 'alt', isValidAltField, AltFields, [['text*', '%ph*', '%data*']])
 export class AltNode extends BaseNode { }

@@ -3,12 +3,12 @@ import { BaseNode, Constructor } from "./base";
 import { CDATA, BasicValue, isCDATA } from "../classes";
 
 /**
- * FieldFields: `name`, `value`
+ * `FieldFields`: `name`, `value`
  */
 export const FieldFields = ['name', 'value'];
 
 /**
- * Interface FieldNode defines the attribute types
+ * Interface `FieldNode` defines the attribute types
  */
 export interface FieldNode<T = CDATA> {
   'name'?: CDATA;
@@ -16,7 +16,7 @@ export interface FieldNode<T = CDATA> {
 }
 
 /**
- * Check if the attributes `name`, `value` are valid.
+ * `isValidFieldField` - Check if the attributes `name`, `value` are valid.
  *
  * @See {@link FieldFields}
  *
@@ -33,7 +33,7 @@ export const isValidFieldField = (validator: (val: BasicValue) => boolean = isCD
   }
 
 /**
- * Check if the `field` node is valid
+ * `isFieldNode` - Check if the `field` node is valid
  *
  * @remarks
  * Assert that the node is an object and has valid attributes
@@ -45,7 +45,7 @@ export const isFieldNode = (value?: {}): value is FieldNode =>
   typeof value === 'object' && areFieldsValid(FieldFields, value, isValidFieldField());
 
 /**
- * Create a `field` node
+ * `makeField` - Create a `field` node
  *
  * @remarks
  * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
@@ -71,9 +71,7 @@ export function makeField<ValueType, T extends { new(...args: any[]): BaseNode }
 }
 
 /**
- * isValidCDATAFieldField
- *
- * Checks if the field is a CDATA
+ * `isValidCDATAFieldField` - Checks if the field is a CDATA type
  *
  * @param field - the field to check
  * @param value - the value to check
@@ -82,9 +80,9 @@ export function makeField<ValueType, T extends { new(...args: any[]): BaseNode }
 export const isValidCDATAFieldField = isValidFieldField();
 
 /**
- * Make a CDATA field
+ * `makeCDATAField` - Make a CDATA field
  *
- * a function that takes a constructor and returns calls makeField with that constructor
+ * A function that takes a constructor and returns calls makeField with that constructor
  * @param constructor - The contructor
  * @returns a CDATA field
  */
@@ -96,15 +94,17 @@ export const makeCDATAField = <T extends Constructor>(constructor: T): T => make
 export type BooleanFieldNode = FieldNode<boolean>;
 
 /**
- * isValidBooleanFieldField checks if the boolean field node is valid
- * by calling isValidFieldField with a function that checks if the value is a boolean
+ * isValidBooleanFieldField  -  Checks if the boolean field node is valid
+ * by calling `isValidFieldField` with a function `typeof` that checks if the value is a boolean
  */
 export const isValidBooleanFieldField = isValidFieldField(val => typeof val === 'boolean');
 
 /**
- * Make a boolean field
+ * `makeBooleanField` - Make a boolean field
  *
- * a function that takes a constructor and returns calls makeField with that constructor
+ * @remarks
+ * A function that takes a constructor and returns calls makeField with that constructor
+ *
  * @param constructor - The contructor
  * @returns A boolean field
  */

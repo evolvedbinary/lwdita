@@ -56,7 +56,7 @@ export function makeItalic<T extends Constructor>(constructor: T): T {
  * Create an italic node
  *
  * @privateRemarks
- * TODO:  "+ topic/ph hi-d/i"
+ * TODO: Implement "+ topic/ph hi-d/i"
  *
  * @decorator `@makeComponent`
  * @param makeItalic - The `italic` node constructor

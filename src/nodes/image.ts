@@ -20,11 +20,14 @@ export const ImageFields = [...FiltersFields, ...LocalizationFields, ...Variable
 export interface ImageNode extends FiltersNode, LocalizationNode, VariableContentNode, ReferenceContentNode, ClassNode, SizeNode { }
 
 /**
-/**
  * Check if the `image` node is valid
  *
  * @remarks
  * Assert that the node is an object and has valid attributes
+ *
+ * @privateRemarks
+ * Where is `isImageNodes` used?
+ * And what is the difference to `isImageNode`?
  *
  * @param value - The `image` node to test
  * @returns Boolean
@@ -37,6 +40,15 @@ export const isImageNodes = (value?: {}): value is ImageNode =>
   isReferenceContentNode(value) &&
   isVariableContentNode(value) &&
   isSizeNode(value);
+
+/**
+ * `isImageNode` - TODO
+ *
+ * @param value - TODO
+ * @returns TODO
+ */
+export const isImageNode = (value?: {}): value is ImageNode =>
+  typeof value === 'object' && areFieldsValid(ImageFields, value, isValidImageField);
 
 
 /**
@@ -53,10 +65,6 @@ export const isValidImageField = (field: string, value: BasicValue): boolean => 
   || isValidFiltersField(field, value)
   || isValidVariableContentField(field, value)
   || isValidSizeField(field, value);
-
-//TODO is this needed?
-export const isImageNode = (value?: {}): value is ImageNode =>
-  typeof value === 'object' && areFieldsValid(ImageFields, value, isValidImageField);
 
 /**
  * Construct an `image` node with all available attributes

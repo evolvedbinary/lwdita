@@ -49,10 +49,12 @@ export const isValidMediaTrackField = (field: string, value: BasicValue): boolea
 export const isMediaTrackNode = (value?: {}): value is MediaTrackNode =>
   typeof value === 'object' && areFieldsValid(MediaTrackFields, value, isValidMediaTrackField);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 /**
  * Construct a `media-track` node with all available attributes
+ *
+ * @remarks
+ * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
  *
  * @param constructor - The constructor
  * @returns A `media-track` node

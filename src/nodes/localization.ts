@@ -3,12 +3,12 @@ import { BaseNode } from "./base";
 import { BasicValue, isCDATA, CDATA } from "../classes";
 
 /**
- * LocalizationFields: `dir`, `xml:lang`, `translate`
+ * `LocalizationFields`: `dir`, `xml:lang`, `translate`
  */
 export const LocalizationFields = ['dir', 'xml:lang', 'translate'];
 
 /**
- *
+ * Interface LocalizationNode defines the attribute types for localization attributes: `CDATA`
  */
 export interface LocalizationNode {
   'dir'?: CDATA;

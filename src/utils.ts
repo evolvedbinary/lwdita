@@ -190,7 +190,7 @@ export function acceptsNodeName(value: string, childType: ChildTypes): ChildType
  * isChildTypeSingle - TODO
  *
  * @privateRemarks
- * TODO: input example  one of these elements['%list-blocks*', 'section*', 'fn*']
+ * TODO (Y.): Input example one of these elements['%list-blocks*', 'section*', 'fn*']
  *
  * @param childType -  TODO
  * @returns Boolean

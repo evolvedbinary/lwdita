@@ -3,14 +3,15 @@ import { BaseNode, Constructor, TextNode, DocumentNode } from './nodes';
 import { stringToChildTypes } from './utils';
 import { OrArray, UnknownAttributeError, NonAcceptedChildError, WrongAttributeTypeError } from './classes';
 
-// TODO: add a test for creating nodes from XML with valid attributes
-// TODO: add a test for creating nodes from XML with invalid attributes
-// TODO: add a test to set attributes as a property
-// TODO: add a test to get attributes as a property
-// TODO: add a test for checking invalid node
+/**
+ * TODO: Add a test for creating nodes from XML with valid attributes
+ * TODO: Add a test for creating nodes from XML with invalid attributes
+ * TODO: Add a test to set attributes as a property
+ * TODO: Add a test to get attributes as a property
+ * TODO: Add a test for checking invalid node
+ */
 
-
-// this feels like it's missing 
+/** TODO (Y.): This feels like it's missing */
 export function doNodeTest(
   classType: typeof BaseNode,
   nodeName: string,

@@ -56,7 +56,7 @@ export function makeSubscript<T extends Constructor>(constructor: T): T {
  * Create a `subscript` node and map the `subscript` node with the HTML tag name `sb`
  *
  * @privateRemarks
- * TODO:  "+ topic/ph hi-d/sub "
+ * TODO: Implement "+ topic/ph hi-d/sub "
  *
  * @decorator `@makeComponent`
  * @param makeSubscript - The `subscript` node constructor
