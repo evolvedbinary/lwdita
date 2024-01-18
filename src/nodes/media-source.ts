@@ -52,7 +52,7 @@ export function makeMediaSource<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create a `media-source` node and map the `media-source` node with the HTML tag name `source`
+ * Create a `media-source` node and map the `media-source` node with the LwDita tag name `source`
  *
  * @decorator `@makeComponent`
  * @param makeMediaSource - The `media-source` node constructor

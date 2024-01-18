@@ -49,7 +49,7 @@ export function makeTitle<T extends Constructor>(constructor: T): T  {
 }
 
 /**
- * Create a `title` node and map the `title` node with the HTML tag name `h1`
+ * Create a `title` node and map the `title` node with the LwDita tag name `h1`
  *
  * @decorator `@makeComponent`
  * @param makeTitle - The `title` node constructor

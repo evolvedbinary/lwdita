@@ -53,7 +53,7 @@ export function makeStEntry<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create a `stentry` node (simple table entry / "table-cell") and map the `stentry` node with the HTML tag name `td`
+ * Create a `stentry` node (simple table entry / "table-cell") and map the `stentry` node with the LwDita tag name `td`
  *
  * @privateRemarks
  * TODO: Implement td/th

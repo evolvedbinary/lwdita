@@ -44,7 +44,7 @@ export const isClassNode = (value?: {}): value is ClassNode =>
 
 /**
  * Create a `class` node (universal attribute)
- * This will be transformed to an HTML attribute e.g. `class=""`
+ * This will be transformed to an LwDita attribute e.g. `class=""`
  *
  * @see {@link https://dita-lang.org/lwdita/commonspec/specification/langref/attributes/attribute-groups#attribute-groups__universal-attributes}
  *

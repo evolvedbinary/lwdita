@@ -53,7 +53,7 @@ export function makeOl<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create an `ol` (ordered list) node and map the `ol` node with the HTML tag name `ol`
+ * Create an `ol` (ordered list) node and map the `ol` node with the LwDita tag name `ol`
  *
  * @decorator `@makeComponent`
  * @param makeOl - The `ol` node constructor

@@ -53,7 +53,7 @@ export function makeSubscript<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create a `subscript` node and map the `subscript` node with the HTML tag name `sb`
+ * Create a `subscript` node and map the `subscript` node with the LwDita tag name `sb`
  *
  * @privateRemarks
  * TODO: Implement "+ topic/ph hi-d/sub "

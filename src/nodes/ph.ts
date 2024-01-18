@@ -55,7 +55,7 @@ export function makePh<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create a `ph` node (phrase) and map the `ph` node with the HTML tag name `span`
+ * Create a `ph` node (phrase) and map the `ph` node with the LwDita tag name `span`
  *
  * @decorator `@makeComponent`
  * @param makePh - The `ph` node constructor

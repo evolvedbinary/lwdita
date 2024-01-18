@@ -53,7 +53,7 @@ export function makeSimpleTable<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create a `simpletable` node (table) and map the `simpletable` node with the HTML tag name `table`
+ * Create a `simpletable` node (table) and map the `simpletable` node with the LwDita tag name `table`
  *
  * @decorator `@makeComponent`
  * @param makeSimpleTable - The `simpletable` node constructor

@@ -50,7 +50,7 @@ export function makeShortDesc<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create a `shortdesc` node (short description) and map the `shortdesc` node with the HTML tag name `p`
+ * Create a `shortdesc` node (short description) and map the `shortdesc` node with the LwDita tag name `p`
  *
  * @decorator `@makeComponent`
  * @param makeshortdesc - The `shortdesc` node constructor

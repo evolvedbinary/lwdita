@@ -48,7 +48,7 @@ export function makeBody<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create a `body` node (link) and map the `body` node with the HTML tag name `div`
+ * Create a `body` node (link) and map the `body` node with the LwDita tag name `div`
  *
  * @decorator `@makeComponent`
  * @param makeBody - The `Body` node constructor

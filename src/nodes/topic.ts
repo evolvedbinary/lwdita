@@ -87,7 +87,7 @@ export function makeTopic<T extends { new(...args: any[]): BaseNode }>(construct
 }
 
 /**
- * Create a `topic` node (article) and map the `topic` node with the HTML tag name `article`
+ * Create a `topic` node (article) and map the `topic` node with the LwDita tag name `article`
  *
  * @decorator `@makeComponent`
  * @param makeTopic - The `topic` node constructor

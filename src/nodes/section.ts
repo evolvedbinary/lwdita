@@ -53,7 +53,7 @@ export function makeSection<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create a `section` node and map the `section` node with the HTML tag name `section`
+ * Create a `section` node and map the `section` node with the LwDita tag name `section`
  *
  * @decorator `@makeComponent`
  * @param makeSection - The `section` node constructor

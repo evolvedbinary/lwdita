@@ -72,7 +72,7 @@ export function makeNote<T extends { new(...args: any[]): BaseNode }>(constructo
 }
 
 /**
- * Create a `note` node and map the `note` node with the HTML tag name `div`
+ * Create a `note` node and map the `note` node with the LwDita tag name `div`
  *
  * @decorator `@makeComponent`
  * @param makeNote - The `note` node constructor

@@ -53,7 +53,7 @@ export function makeUnderlined<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create an `underlined` node and map the `underlined` node with the HTML tag name `u`
+ * Create an `underlined` node and map the `underlined` node with the LwDita tag name `u`
  *
  * @privateRemarks
  * TODO: Implement "+ topic/ph hi-d/u "

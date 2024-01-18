@@ -55,7 +55,7 @@ export function makeBold<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create a `bold` node (link) and map the `bold` node with the HTML tag name `b`
+ * Create a `bold` node (link) and map the `bold` node with the LwDita tag name `b`
  *
  * @decorator `@makeComponent`
  * @param makeBold - The `Bold` node constructor

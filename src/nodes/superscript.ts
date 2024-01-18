@@ -53,7 +53,7 @@ export function makeSuperscript<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create a `superscript` node and map the `superscript` node with the HTML tag name `sup`
+ * Create a `superscript` node and map the `superscript` node with the LwDita tag name `sup`
  *
  * @privateRemarks
  * TODO: Implement "+ topic/ph hi-d/sup "

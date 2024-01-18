@@ -72,7 +72,7 @@ export function makePre<T extends { new(...args: any[]): BaseNode }>(constructor
 }
 
 /**
- * Create a `pre` node (preformatted text) and map the `pre` node with the HTML tag name `pre`
+ * Create a `pre` node (preformatted text) and map the `pre` node with the LwDita tag name `pre`
  *
  * @privateRemarks
  * TODO (A.): Is the syntax of the child nodes array [[...]] really correct?
