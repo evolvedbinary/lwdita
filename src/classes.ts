@@ -11,7 +11,7 @@ export interface JDita {
 }
 
 /**
- * TypeDef for attributes Record
+ * TypeDef for attributes Record BasicValue
  */
 export type DefinedBasicValue = number | boolean | string | Array<BasicValue> | {} | {
   [key: string]: BasicValue;
@@ -19,7 +19,7 @@ export type DefinedBasicValue = number | boolean | string | Array<BasicValue> | 
 };
 
 /**
- * attributes Record of string and SaxesAttributeNS object
+ * TypeDef for Attributes Record 
  */
 export type Attributes = Record<string, SaxesAttributeNS> | Record<string, string>;
 
@@ -130,7 +130,7 @@ export const isNoteType = (value?: BasicValue): value is NoteType => (['caution'
  * 
  * name - Child name
  * 
- * required - Must have as a child or not
+ * required - Defines if the child is required or not
  * 
  * single - Does not belong to a group like `section`
  * 
@@ -143,7 +143,7 @@ export interface ChildType {
     isGroup: boolean;
 }
 /**
- * Array for see {@link ChildType}
+ * Array for @See {@link ChildType}
  */
 export type ChildTypes = OrArray<ChildType>;
 
