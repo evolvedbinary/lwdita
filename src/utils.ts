@@ -39,9 +39,10 @@ const phGroup = ['ph', 'b', 'i', 'u', 'sub', 'sup'];
 const dataGroup = ['data'];
 
 /**
- *  Node groups
- *   @remarks
- *  Group all similar nodes
+ * Node groups
+ * 
+ * @remarks
+ * Group all similar nodes
  */
 export const nodeGroups: Record<string, Array<string>> = {
     'ph': phGroup,
@@ -57,7 +58,7 @@ export const nodeGroups: Record<string, Array<string>> = {
 
 /**
  * splitTypenames - Converts a string to an array of strings
- *  it splits the string by `|`
+ * it splits the string by `|`
  * 
  * @privateRemarks
  * This is only used in tests
@@ -102,7 +103,7 @@ function childTypeToString(type: ChildType, getNodeName?: (nodeName: string) => 
 }
 
 /**
- * customChildTypesToString - Serialize a child type object to a string
+ * customChildTypesToString - Serialize a child type object to a string with a custom function to get the node name
  *
  * @param type - ChildType Array
  * @param getNodeName - function to get the node name
@@ -140,7 +141,7 @@ export function childTypesToString(type: ChildTypes, topLevel = true): string {
  *
  * @param value - String or Array of strings
  * @param topLevel - Entry of the document
- * @returns Array of ChildType objects See {@link ChildType}
+ * @returns Array of ChildType objects , @See {@link ChildType}
  */
 export function stringToChildTypes(value: OrArray<string>, topLevel = true): ChildTypes[] {
     if (typeof value === 'string') {
@@ -206,8 +207,6 @@ export function acceptsNodeName(value: string, childType: ChildTypes): ChildType
 /**
  * isChildTypeSingle - check if the child belongs to a group of elements eg: `list-blocks` or `all-line`
  *
- * @privateRemarks
- * TODO (Y.): Input example one of these elements['%list-blocks*', 'section*', 'fn*']
  *
  * @param childType - String or an ChildType object or an array ChildType objects
  * @returns Boolean - Whether the child is a group or not
@@ -238,8 +237,8 @@ export function isChildTypeSingle(childType: string | ChildType | ChildTypes): b
  * isChildTypeRequired - Check if a child is required
  * 
  * the required property is denoted by `+` or the lack of `?` in the end of the string
- *
  * This means the child must be present in the node in the order specified by the parent node
+ * 
  * @param childType -  String or an ChildType object or an array ChildType objects
  * @returns Boolean - Whether the child is required or not
  */
@@ -265,7 +264,7 @@ export function isChildTypeRequired(childType: string | ChildType | ChildTypes):
 }
 
 /**
- * childTypesArray - Check weather the child types is an array or not and return an array
+ * childTypesArray - Check whether the child types is an array or not and return an array
  *
  * @param childTypes - ChildType array or ChildType object
  * @returns - ChildType array
