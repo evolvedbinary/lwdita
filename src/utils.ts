@@ -141,7 +141,7 @@ export function childTypesToString(type: ChildTypes, topLevel = true): string {
  *
  * @param value - String or Array of strings
  * @param topLevel - Entry of the document
- * @returns Array of ChildType objects , @See {@link ChildType}
+ * @returns Array of ChildType objects , @see {@link ChildType}
  */
 export function stringToChildTypes(value: OrArray<string>, topLevel = true): ChildTypes[] {
     if (typeof value === 'string') {

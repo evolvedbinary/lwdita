@@ -143,7 +143,7 @@ export interface ChildType {
     isGroup: boolean;
 }
 /**
- * Array for @See {@link ChildType}
+ * Array for @see {@link ChildType}
  */
 export type ChildTypes = OrArray<ChildType>;
 
