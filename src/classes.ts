@@ -1,7 +1,7 @@
 import { SaxesAttributeNS } from "saxes";
 
 /**
- * TODO
+ * JDita is a JSON representation of a DITA XML document
  */
 export interface JDita {
   nodeName: string;
@@ -11,7 +11,7 @@ export interface JDita {
 }
 
 /**
- * TODO
+ * TypeDef for attributes Record
  */
 export type DefinedBasicValue = number | boolean | string | Array<BasicValue> | {} | {
   [key: string]: BasicValue;
@@ -19,12 +19,12 @@ export type DefinedBasicValue = number | boolean | string | Array<BasicValue> | 
 };
 
 /**
- * TODO
+ * attributes Record of string and SaxesAttributeNS object
  */
 export type Attributes = Record<string, SaxesAttributeNS> | Record<string, string>;
 
 /**
- * TODO
+ * Base type for all XML nodes
  */
 export interface XMLNode<T extends string = string> {
     name: T;
@@ -32,18 +32,17 @@ export interface XMLNode<T extends string = string> {
 }
 
 /**
- * TODO
+ * ReferenceContentScope defines all possible values for the `scope` attribute
  */
 export type ReferenceContentScope = 'local' | 'peer' | 'external';
 
 /**
- * TODO
- * @typeParam T - TODO
+ * @typeParam T - Generic type or Array of generic type
  */
 export type OrArray<T> = T | (T | OrArray<T>)[];
 
 /**
- * TODO
+ * BasicValue is a value that can be used in XML attributes or content
  */
 export type BasicValue = undefined | DefinedBasicValue;
 
@@ -53,7 +52,7 @@ export type BasicValue = undefined | DefinedBasicValue;
 export type ID = string;
 
 /**
- * TODO
+ * Id validation function
  */
 export const isID = (value?: BasicValue): value is ID => typeof value === 'string';
 /**
@@ -62,7 +61,7 @@ export const isID = (value?: BasicValue): value is ID => typeof value === 'strin
 export type CDATA = string;
 
 /**
- * TODO
+ * CDATA validation function
  */
 export const isCDATA = (value?: BasicValue): value is CDATA => typeof value === 'string';
 
@@ -72,62 +71,70 @@ export const isCDATA = (value?: BasicValue): value is CDATA => typeof value === 
 export type PCDATA = string;
 
 /**
- * TODO
+ * PCData validation function
  */
 export const isPCDATA = (value?: BasicValue): value is PCDATA => typeof value === 'string';
 
 /**
- * TODO
+ * NMTOKEN is a string without any spaces
  */
 export type NMTOKEN = string;
 
 /**
- * NMTOKEN is a string without any spaces
+ * NMTOKEN validation function
  */
 export const isNMTOKEN = (value?: BasicValue): value is NMTOKEN => typeof value === 'string';
 
 /**
- * TODO
+ * DisplayScale defines all possible values for the `scale` attribute
  */
 export type DisplayScale = 50 | 60 | 70 | 80 | 90 | 100 | 110 | 120 | 140 | 160 | 180 | 200;
 
 /**
- * TODO
+ * DisplayScale validation function
  */
 export const isDisplayScale = (value?: BasicValue): value is DisplayScale => ([50, 60, 70, 80, 90, 100, 110, 120, 140, 160, 180, 200] as BasicValue[]).indexOf(value) > -1;
 
 /**
- * TODO
+ * DisplayAlign defines all possible values for the `align` attribute
  */
 export type DisplayFrame = 'all' | 'bottom' | 'none' | 'sides' | 'top' | 'topbot';
 
 /**
- * TODO
+ * DisplayAlign validation function
  */
 export const isDisplayFrame = (value?: BasicValue): value is DisplayFrame => (['all', 'bottom', 'none', 'sides', 'top', 'topbot'] as BasicValue[]).indexOf(value) > -1;
 
 /**
- * TODO
+ * DisplayAlign defines all possible values for the `align` attribute
  */
 export type DisplayExpanse = 'column' | 'page' | 'spread' | 'textline';
 
 /**
- * TODO
+ * DisplayAlign validation function
  */
 export const isDisplayExpanse = (value?: BasicValue): value is DisplayExpanse => (['column', 'page', 'spread', 'textline'] as BasicValue[]).indexOf(value) > -1;
 
 /**
- * TODO
+ * NoteType defines all possible values for the `type` attribute
  */
 export type NoteType = 'caution' | 'warning' | 'danger' | 'trouble' | 'notice' | 'note';
 
 /**
- * TODO
+ * NoteType validation function
  */
 export const isNoteType = (value?: BasicValue): value is NoteType => (['caution', 'warning', 'danger', 'trouble', 'notice', 'note'] as BasicValue[]).indexOf(value) > -1;
 
 /**
- * TODO
+ * ChildType Object
+ * 
+ * name - Child name
+ * 
+ * required - Must have as a child or not
+ * 
+ * single - Does not belong to a group like `section`
+ * 
+ * isGroup - Belong to a group like `all-line`
  */
 export interface ChildType {
     name: string;
@@ -136,33 +143,33 @@ export interface ChildType {
     isGroup: boolean;
 }
 /**
- * TODO
+ * Array for see {@link ChildType}
  */
 export type ChildTypes = OrArray<ChildType>;
 
 /**
- * TODO
+ * Typedef for UnknownNodeError
  */
 export class UnknownNodeError extends Error {
   name = 'unknown-node';
 }
 
 /**
- * TODO
+ * Typedef for UnknownAttributeError
  */
 export class UnknownAttributeError extends Error {
   name = 'unknown-attribute';
 }
 
 /**
- * TODO
+ * Typedef for UnknownChildError
  */
 export class WrongAttributeTypeError extends Error {
   name = 'wrong-attribute-type';
 }
 
 /**
- * TODO
+ * Typedef for UnknownChildError
  */
 export class NonAcceptedChildError extends Error {
   name = 'non-accepted-child';
