@@ -1,10 +1,10 @@
 import { BasicValue, OrArray, ChildTypes, ChildType, ReferenceContentScope } from "./classes";
 
 /**
- * has - TODO
+ * has - Check if an array has a value
  *
- * @param array - TODO
- * @param value - TODO
+ * @param array - Array
+ * @param value - Value
  * @returns Boolean
  */
 export function has<T>(array: Array<T>, value: T): boolean {
@@ -12,11 +12,11 @@ export function has<T>(array: Array<T>, value: T): boolean {
 }
 
 /**
- * isOrUndefined - TODO
+ * isOrUndefined - Check if a value is undefined or not
  *
- * @param check - TODO
- * @param value - TODO
- * @returns - TODO
+ * @param check - Function to check the value
+ * @param value - Value
+ * @returns - Boolean
  */
 export function isOrUndefined<T extends BasicValue>(check: (value?: BasicValue) => boolean, value?: BasicValue): value is T {
     return typeof value === 'undefined' || check(value);
@@ -31,7 +31,6 @@ export function isOrUndefined<T extends BasicValue>(check: (value?: BasicValue) 
 export const isReferenceContentScope = (value?: BasicValue): value is ReferenceContentScope => has(['local', 'peer', 'external'], value);
 
 /**
- * TODO
  *
  * @remarks
  * When a node is a group we use this list to check if a node name is valid
@@ -40,7 +39,9 @@ const phGroup = ['ph', 'b', 'i', 'u', 'sub', 'sup'];
 const dataGroup = ['data'];
 
 /**
- *  TODO
+ *  Node groups
+ *   @remarks
+ *  Group all similar nodes
  */
 export const nodeGroups: Record<string, Array<string>> = {
     'ph': phGroup,
@@ -55,14 +56,21 @@ export const nodeGroups: Record<string, Array<string>> = {
 }
 
 /**
- * splitTypenames - TODO
- * @param value - TODO
- * @returns - TODO
+ * splitTypenames - Converts a string to an array of strings
+ *  it splits the string by `|`
+ * 
+ * @privateRemarks
+ * This is only used in tests
+ * 
+ * @param value - string
+ * @returns - String[]
  */
 export function splitTypenames(value: string): string[] {
     if (value[0] !== '(') {
         return value.split('|');
     }
+
+    // if the string starts with `(` and ends with `)` then remove them
     const last = value.slice(-1);
     return has(['+', '*', '?'], last)
         ? value.slice(1, -2).split('|').map(type => type + last)
@@ -70,11 +78,11 @@ export function splitTypenames(value: string): string[] {
 }
 
 /**
- * childTypeToString - TODO
- *
- * @param type - TODO
- * @param getNodeName - TODO
- * @returns - TODO
+ * childTypeToString - Convert a child type to a string
+ * 
+ * @param type - ChildType object
+ * @param getNodeName - Get node name function
+ * @returns - string
  */
 function childTypeToString(type: ChildType, getNodeName?: (nodeName: string) => string): string {
     return (type.isGroup
@@ -94,12 +102,12 @@ function childTypeToString(type: ChildType, getNodeName?: (nodeName: string) => 
 }
 
 /**
- * customChildTypesToString - TODO
+ * customChildTypesToString - Serialize a child type object to a string
  *
- * @param type - TODO
- * @param getNodeName - TODO
- * @param topLevel - TODO
- * @returns TODO
+ * @param type - ChildType Array
+ * @param getNodeName - function to get the node name
+ * @param topLevel - start of the document
+ * @returns string - Serialized ChildType Array
  */
 export function customChildTypesToString(type: ChildTypes, getNodeName?: (nodeName: string) => string, topLevel = true): string {
     if (Array.isArray(type)) {
@@ -111,22 +119,28 @@ export function customChildTypesToString(type: ChildTypes, getNodeName?: (nodeNa
 }
 
 /**
- * childTypesToString - TODO
+ * childTypesToString - Serialize a child type object to a string
  *
- * @param type - TODO
- * @param topLevel - TODO
- * @returns TODO
+ * @param type - ChildType Array
+ * @param topLevel - start of the document
+ * @returns string - Serialized ChildType Array
  */
 export function childTypesToString(type: ChildTypes, topLevel = true): string {
     return customChildTypesToString(type, undefined, topLevel);
 }
 
 /**
- * stringToChildTypes - TODO
+ * stringToChildTypes - Convert the array list of string to child objects
+ * 
+ * @remarks
+ * `?` - optional
+ * `+` - required
+ * `*` - optional and multiple
+ * `%` - group
  *
- * @param value - TODO
- * @param topLevel - TODO
- * @returns TODO
+ * @param value - String or Array of strings
+ * @param topLevel - Entry of the document
+ * @returns Array of ChildType objects See {@link ChildType}
  */
 export function stringToChildTypes(value: OrArray<string>, topLevel = true): ChildTypes[] {
     if (typeof value === 'string') {
@@ -161,16 +175,18 @@ export function stringToChildTypes(value: OrArray<string>, topLevel = true): Chi
 }
 
 /**
- * acceptsNodeName - TODO
+ * acceptsNodeName - Check whether a child type accepts a node name
  *
- * @param value - TODO
- * @param childType - TODO
- * @returns TODO
+ * @param value - Node name
+ * @param childType - String or an ChildType object or an array ChildType objects
+ * @returns ChildType | undefined - returns the ChildType oject if it's accepted or undefined if it's not
  */
 export function acceptsNodeName(value: string, childType: ChildTypes): ChildType | undefined {
+    // if child type is an array
     if (Array.isArray(childType)) {
         let result: ChildType | undefined;
         childType.some(type => {
+            // if any of the children in the array accepts the node name then return true
             result = acceptsNodeName(value, type);
             if (result) {
                 return true;
@@ -180,6 +196,7 @@ export function acceptsNodeName(value: string, childType: ChildTypes): ChildType
     } else {
         // if child type is not a group
         // then check if the child type name is equal to the value
+        // if it's a group check if the value is in the group
         return !childType.isGroup
             ? (childType.name === value ? childType : undefined)
             : (has(nodeGroups[childType.name], value) ? childType : undefined);
@@ -187,40 +204,51 @@ export function acceptsNodeName(value: string, childType: ChildTypes): ChildType
 }
 
 /**
- * isChildTypeSingle - TODO
+ * isChildTypeSingle - check if the child belongs to a group of elements eg: `list-blocks` or `all-line`
  *
  * @privateRemarks
  * TODO (Y.): Input example one of these elements['%list-blocks*', 'section*', 'fn*']
  *
- * @param childType -  TODO
- * @returns Boolean
+ * @param childType - String or an ChildType object or an array ChildType objects
+ * @returns Boolean - Whether the child is a group or not
  */
 export function isChildTypeSingle(childType: string | ChildType | ChildTypes): boolean {
+    // if it's an Array 
     if (Array.isArray(childType)) {
         let result = true;
+        // if any of the children in the array is not a single type then return false
         childType.some(type => {
             result = isChildTypeSingle(type);
             return !result;
         });
         return result;
     } else {
+        // it's a string
         if (typeof childType === 'string') {
+            // parse the string using `stringToChildTypes` and check if it's a single type
+            // single type can be denoted by the lack of `%` in the beginning of the string
             return isChildTypeSingle(stringToChildTypes(childType));
         }
+        // if the oject is already parsed then return the single property
         return !!childType.single;
     }
 }
 
 /**
  * isChildTypeRequired - Check if a child is required
+ * 
+ * the required property is denoted by `+` or the lack of `?` in the end of the string
  *
- * @param childType -  TODO
- * @returns Boolean
+ * This means the child must be present in the node in the order specified by the parent node
+ * @param childType -  String or an ChildType object or an array ChildType objects
+ * @returns Boolean - Whether the child is required or not
  */
 export function isChildTypeRequired(childType: string | ChildType | ChildTypes): boolean {
     // console.log(childType);
+    // if it's an Array
     if (Array.isArray(childType)) {
         let result = true;
+        // if one of the children in the array is required then return true
         childType.some(type => {
             result = !isChildTypeRequired(type);
             return !result;
@@ -228,29 +256,31 @@ export function isChildTypeRequired(childType: string | ChildType | ChildTypes):
         return result;
     } else {
         if (typeof childType === 'string') {
+            // if it's a string parse it and check if it's required
             return isChildTypeRequired(stringToChildTypes(childType));
         }
+        // if the oject is already parsed then return the required property
         return !!childType.required;
     }
 }
 
 /**
- * childTypesArray - TODO
+ * childTypesArray - Check weather the child types is an array or not and return an array
  *
- * @param childTypes - TODO
- * @returns - TODO
+ * @param childTypes - ChildType array or ChildType object
+ * @returns - ChildType array
  */
 export function childTypesArray(childTypes: ChildTypes): ChildTypes[] {
     return Array.isArray(childTypes) ? childTypes : [childTypes];
 }
 
 /**
- * areFieldsValid - TODO
+ * areFieldsValid - Attribute validator
  *
- * @param fields - TODO
- * @param value - TODO
- * @param validations - TODO
- * @returns Boolean
+ * @param fields - Array of attribute names
+ * @param value - Object of attribute values
+ * @param validations - Validation functions
+ * @returns Boolean - Whether the attributes are valid or not
  */
 export function areFieldsValid(fields: string[], value: Record<string, BasicValue>, ...validations: ((field: string, value: BasicValue) => boolean)[]): boolean {
     for (const field of fields) {
