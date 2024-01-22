@@ -23,15 +23,14 @@ export function isOrUndefined<T extends BasicValue>(check: (value?: BasicValue) 
 }
 
 /**
- * isReferenceContentScope - TODO
+ * isReferenceContentScope - Checks if a value is a ReferenceContentScope
  *
- * @param value - TODO
- * @returns - TODO
+ * @param value - String
+ * @returns - If the value is a ReferenceContentScope
  */
 export const isReferenceContentScope = (value?: BasicValue): value is ReferenceContentScope => has(['local', 'peer', 'external'], value);
 
 /**
- *
  * @remarks
  * When a node is a group we use this list to check if a node name is valid
  */
@@ -206,7 +205,6 @@ export function acceptsNodeName(value: string, childType: ChildTypes): ChildType
 
 /**
  * isChildTypeSingle - check if the child belongs to a group of elements eg: `list-blocks` or `all-line`
- *
  *
  * @param childType - String or an ChildType object or an array ChildType objects
  * @returns Boolean - Whether the child is a group or not
