@@ -4,7 +4,6 @@ coverage
 coverage.lcov
 lib/
 generated-docs/
-yarn-error.log
 
 package-lock.json
 
@@ -17,6 +16,5 @@ package-lock.json
 # Optional eslint cache
 .eslintcache
 
-# Editor files
 .vscode/
-.idea/
+yarn-error.log
