@@ -77,3 +77,23 @@ If you want to test this library and its conversion from `XDITA` to `JDITA`, run
 ```shell
 yarn run ts-node ./src/example.ts
 ```
+
+## How It Works
+
+Jdita takes in documents in authoring format XDITA, and converts it to a document node tree.
+
+XDITA is the LwDITA authoring format that uses XML to structure information. XDITA is a subset of DITA, with new multimedia element types added to support interoperability with HTML5.
+[Source: https://www.dita-ot.org/4.1/topics/lwdita-input](https://www.dita-ot.org/4.1/topics/lwdita-input)
+
+The conversion process starts by building a document node,  then appending each element tag as a node while saving the tag attributes as node properties.
+This will generate a full document tree that represents the original XDITA document as a JavaScript object.
+
+![Diagram of converter.ts](diagrams/jdita-diagram-conversion.svg "Diagram of converter.ts")
+
+Here's how the nodes are created:
+
+![Diagram the node creation](diagrams/jdita-diagram-node-creation.svg "Diagram the node creation")
+
+Examples of the nodes `<title>` and `<topic>`:
+
+![Diagram of example nodes](diagrams/jdita-diagram-nodes.svg "Diagram of example nodes")
