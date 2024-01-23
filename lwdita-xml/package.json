@@ -1,0 +1,22 @@
+{
+  "name": "lwdita-xml",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node example.ts",
+    "build": "rimraf ./lib && tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "saxes": "^6.0.0",
+    "lwdita-ast": "./lwdita-ast"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "typescript": "4.7.2",
+    "ts-node": "^10.9.2"
+  }
+}
