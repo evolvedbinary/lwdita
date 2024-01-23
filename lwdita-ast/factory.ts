@@ -41,7 +41,8 @@ import { ItalicNode } from "./nodes/italic";
 import { UnderlinedNode } from "./nodes/underlined";
 import { SubscriptNode } from "./nodes/subscript";
 import { SuperscriptNode } from "./nodes/superscript";
-import { UnknownNodeError, XMLNode } from "../lwdita-xml/classes";
+import { XMLNode } from "../lwdita-xml/classes";
+import { UnknownNodeError } from "./ast_classes";
 
 /**
  * getNodeClass - Get the Node class constructor based on the node type

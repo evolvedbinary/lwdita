@@ -1,6 +1,8 @@
 import { isOrUndefined, areFieldsValid } from "../../lwdita-xml/utils";
 import { BaseNode } from "./base";
-import { BasicValue, isNMTOKEN, NMTOKEN } from "../../lwdita-xml/classes";
+import { BasicValue } from "../../lwdita-xml/classes";
+import { NMTOKEN, isNMTOKEN } from "../ast_classes";
+
 
 /**
  * Define all allowed `size` attributes:

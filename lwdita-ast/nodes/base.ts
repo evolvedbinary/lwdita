@@ -1,5 +1,6 @@
 import { acceptsNodeName, isChildTypeRequired, stringToChildTypes, isChildTypeSingle } from "../../lwdita-xml/utils";
-import { ChildTypes, ChildType, OrArray, BasicValue, Attributes, NonAcceptedChildError, WrongAttributeTypeError, UnknownAttributeError, JDita } from "../../lwdita-xml/classes";
+import { ChildTypes, ChildType, OrArray, BasicValue, Attributes, JDita } from "../../lwdita-xml/classes";
+import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError } from "../ast_classes";
 
 /**
  * `BaseNode` - The base class for all nodes

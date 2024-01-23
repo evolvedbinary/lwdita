@@ -1,4 +1,6 @@
-import { BasicValue, OrArray, ChildTypes, ChildType, ReferenceContentScope } from "./classes";
+import { ReferenceContentScope } from "../lwdita-ast/ast_classes";
+import { BasicValue, OrArray, ChildTypes, ChildType} from "./classes";
+
 
 /**
  * has - Check if an array has a value

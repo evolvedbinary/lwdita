@@ -1,6 +1,8 @@
 import { isOrUndefined, areFieldsValid } from "../../lwdita-xml/utils";
 import { BaseNode } from "./base";
-import { NMTOKEN, CDATA, BasicValue, isNMTOKEN, isCDATA } from "../../lwdita-xml/classes";
+import { BasicValue } from "../../lwdita-xml/classes";
+import { CDATA, NMTOKEN, isCDATA, isNMTOKEN } from "../ast_classes";
+
 
 /**
  * Define all allowed `reuse` attributes:
