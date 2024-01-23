@@ -1,6 +1,7 @@
 import { acceptsNodeName, isChildTypeRequired, stringToChildTypes, isChildTypeSingle } from "../../lwdita-xml/utils";
 import { ChildTypes, ChildType, OrArray, BasicValue, Attributes, JDita } from "../../lwdita-xml/classes";
 import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError } from "../ast_classes";
+import { nodeGroups } from "../ast-utils";
 
 /**
  * `BaseNode` - The base class for all nodes
@@ -107,7 +108,7 @@ export abstract class BaseNode {
       // loop through all of the allowed child types and check if the child node name is accepted
       // `this.static.childTypes`, e.g. allowed children: `['%list-blocks*', 'section*', 'fn*']`
       this.static.childTypes.some((type, i) => {
-        childType = acceptsNodeName(childNodeName, type);
+        childType = acceptsNodeName(childNodeName, type, nodeGroups);
         if (childType) {
 
           iChild = i;
@@ -127,7 +128,7 @@ export abstract class BaseNode {
       // if we do have a last child
       if (last) {
         // get the index of the last child in the list of allowed children
-        iLast = this.static.childTypes.findIndex(type => acceptsNodeName(last, type));
+        iLast = this.static.childTypes.findIndex(type => acceptsNodeName(last, type, nodeGroups));
         // if the child index is less than the last index, it can't be added
         // this ensures the correct and valid outline
         if (iLast > iChild) {
