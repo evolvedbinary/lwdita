@@ -1,7 +1,7 @@
-import { isOrUndefined, isReferenceContentScope, areFieldsValid } from "../../lwdita-xml/utils";
+import { isOrUndefined, areFieldsValid } from "../../lwdita-xml/utils";
 import { BaseNode } from "./base";
 import { BasicValue } from "../../lwdita-xml/classes";
-import { CDATA, ReferenceContentScope, isCDATA } from "../ast_classes";
+import { CDATA, isReferenceContentScope, ReferenceContentScope, isCDATA } from "../ast_classes";
 
 
 export const ReferenceContentFields = ['href', 'format', 'scope'];
