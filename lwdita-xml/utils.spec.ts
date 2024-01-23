@@ -6,7 +6,9 @@ import { ChildTypes } from './classes';
 // TODO: add a test for getting string from child type of group '%XYZ*' => (X|Y|Z)*
 // TODO: add tests to check required/single for strings
 
-const mockedNodeGroups = {};  
+const mockedNodeGroups = {
+  'data': ['data'],
+};  
 
 describe('Childtype from string', () => {
   it('should return an empty ChildType', () => {
@@ -110,53 +112,53 @@ describe('String from Childtype', () => {
       isGroup: false,
     },mockedNodeGroups), 'child+');
   });
-  // it('[0..1] should return the correct string (group with one node)', () => {
-  //   assert.equal(childTypesToString({
-  //     name: 'data',
-  //     single: true,
-  //     required: false,
-  //     isGroup: true,
-  //   }), 'data?');
-  // });
-  // it('[1..1] should return the correct string (group with one node)', () => {
-  //   assert.equal(childTypesToString({
-  //     name: 'data',
-  //     single: true,
-  //     required: true,
-  //     isGroup: true,
-  //   }), 'data');
-  // });
-  // it('[0..n] should return the correct string (group with one node)', () => {
-  //   assert.equal(childTypesToString({
-  //     name: 'data',
-  //     single: false,
-  //     required: false,
-  //     isGroup: true,
-  //   }), 'data*');
-  // });
-  // it('[1..n] should return the correct string (group with one node)', () => {
-  //   assert.equal(childTypesToString({
-  //     name: 'data',
-  //     single: false,
-  //     required: true,
-  //     isGroup: true,
-  //   }), 'data+');
-  // });
-  // it('[0..1] should return the correct string (group with multiple nodes)', () => {
-  //   assert.equal(childTypesToString(stringToChildTypes('(ph|b|i|u|sub|sup)?')), 'ph?|b?|i?|u?|sub?|sup?');
-  // });
-  // it('[1..1] should return the correct string (group with multiple nodes)', () => {
-  //   assert.equal(childTypesToString(stringToChildTypes('ph|b|i|u|sub|sup')), 'ph|b|i|u|sub|sup');
-  // });
-  // it('[0..n] should return the correct string (group with multiple nodes)', () => {
-  //   assert.equal(childTypesToString(stringToChildTypes('(ph|b|i|u|sub|sup)*')), 'ph*|b*|i*|u*|sub*|sup*');
-  // });
-  // it('[1..n] should return the correct string (group with multiple nodes)', () => {
-  //   assert.equal(childTypesToString(stringToChildTypes('(ph|b|i|u|sub|sup)+')), 'ph+|b+|i+|u+|sub+|sup+');
-  // });
-  // it('should return the correct string (mixed)', () => {
-  //   assert.equal(childTypesToString(stringToChildTypes(['(ph|b|i|u|sub|sup)?', 'child+', 'a*|b'])), '(ph?|b?|i?|u?|sub?|sup?)|child+|(a*|b)');
-  // });
+  it('[0..1] should return the correct string (group with one node)', () => {
+    assert.equal(childTypesToString({
+      name: 'data',
+      single: true,
+      required: false,
+      isGroup: true,
+    }, mockedNodeGroups), 'data?');
+  });
+  it('[1..1] should return the correct string (group with one node)', () => {
+    assert.equal(childTypesToString({
+      name: 'data',
+      single: true,
+      required: true,
+      isGroup: true,
+    }, mockedNodeGroups), 'data');
+  });
+  it('[0..n] should return the correct string (group with one node)', () => {
+    assert.equal(childTypesToString({
+      name: 'data',
+      single: false,
+      required: false,
+      isGroup: true,
+    }, mockedNodeGroups), 'data*');
+  });
+  it('[1..n] should return the correct string (group with one node)', () => {
+    assert.equal(childTypesToString({
+      name: 'data',
+      single: false,
+      required: true,
+      isGroup: true,
+    }, mockedNodeGroups), 'data+');
+  });
+  it('[0..1] should return the correct string (group with multiple nodes)', () => {
+    assert.equal(childTypesToString(stringToChildTypes('(ph|b|i|u|sub|sup)?'), mockedNodeGroups), 'ph?|b?|i?|u?|sub?|sup?');
+  });
+  it('[1..1] should return the correct string (group with multiple nodes)', () => {
+    assert.equal(childTypesToString(stringToChildTypes('ph|b|i|u|sub|sup'), mockedNodeGroups), 'ph|b|i|u|sub|sup');
+  });
+  it('[0..n] should return the correct string (group with multiple nodes)', () => {
+    assert.equal(childTypesToString(stringToChildTypes('(ph|b|i|u|sub|sup)*'), mockedNodeGroups), 'ph*|b*|i*|u*|sub*|sup*');
+  });
+  it('[1..n] should return the correct string (group with multiple nodes)', () => {
+    assert.equal(childTypesToString(stringToChildTypes('(ph|b|i|u|sub|sup)+'), mockedNodeGroups), 'ph+|b+|i+|u+|sub+|sup+');
+  });
+  it('should return the correct string (mixed)', () => {
+    assert.equal(childTypesToString(stringToChildTypes(['(ph|b|i|u|sub|sup)?', 'child+', 'a*|b']), mockedNodeGroups), '(ph?|b?|i?|u?|sub?|sup?)|child+|(a*|b)');
+  });
   it('should return the correct string (empty)', () => {
     assert.equal(childTypesToString(stringToChildTypes(''), mockedNodeGroups), '');
   });
