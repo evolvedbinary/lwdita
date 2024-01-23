@@ -1,4 +1,4 @@
-import { BasicValue, has } from "../lwdita-xml";
+import { BasicValue } from "../lwdita-xml";
 
 /**
  * isReferenceContentScope - Checks if a value is a ReferenceContentScope
@@ -6,7 +6,7 @@ import { BasicValue, has } from "../lwdita-xml";
  * @param value - String
  * @returns - If the value is a ReferenceContentScope
  */
-export const isReferenceContentScope = (value?: BasicValue): value is ReferenceContentScope => has(['local', 'peer', 'external'], value);
+export const isReferenceContentScope = (value?: BasicValue): value is ReferenceContentScope => ['local', 'peer', 'external'].includes(value as string);
 
 /**
  * ReferenceContentScope defines all possible values for the `scope` attribute
