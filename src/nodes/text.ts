@@ -1,6 +1,6 @@
 import { BaseNode, makeComponent } from "./base";
-import { isOrUndefined } from "../utils";
-import { BasicValue, JDita } from "../classes";
+import { isOrUndefined } from "../../lwdita-xml/utils";
+import { BasicValue, JDita } from "../../lwdita-xml/classes";
 
 /**
  * Define the allowed `text` attribute:

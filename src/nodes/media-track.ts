@@ -1,9 +1,9 @@
 import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { areFieldsValid, isOrUndefined } from "../utils";
+import { areFieldsValid, isOrUndefined } from "../../lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
 import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
-import { BasicValue, isCDATA, CDATA } from "../classes";
+import { BasicValue, isCDATA, CDATA } from "../../lwdita-xml/classes";
 
 /**
  * Define all allowed `media-track` attributes:

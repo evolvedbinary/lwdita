@@ -1,7 +1,7 @@
 import { assert, expect } from 'chai';
 import { BaseNode, Constructor, TextNode, DocumentNode } from './nodes';
-import { stringToChildTypes } from './utils';
-import { OrArray, UnknownAttributeError, NonAcceptedChildError, WrongAttributeTypeError } from './classes';
+import { stringToChildTypes } from '../lwdita-xml/utils';
+import { OrArray, UnknownAttributeError, NonAcceptedChildError, WrongAttributeTypeError } from '../lwdita-xml/classes';
 
 // TODO: add a test for creating nodes from XML with valid attributes
 // TODO: add a test for creating nodes from XML with invalid attributes

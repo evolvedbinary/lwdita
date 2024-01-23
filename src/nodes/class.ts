@@ -1,6 +1,6 @@
-import { isOrUndefined, areFieldsValid } from "../utils";
+import { isOrUndefined, areFieldsValid } from "../../lwdita-xml/utils";
 import { BaseNode } from "./base";
-import { CDATA, BasicValue, isCDATA } from "../classes";
+import { CDATA, BasicValue, isCDATA } from "../../lwdita-xml/classes";
 
 /**
  * ClassFields (universal attributes): `outputclass`, `class`
