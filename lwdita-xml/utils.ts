@@ -1,4 +1,3 @@
-import { nodeGroups } from "../lwdita-ast/ast-utils";
 import { BasicValue, OrArray, ChildTypes, ChildType} from "./classes";
 
 /**
@@ -50,9 +49,10 @@ export function splitTypenames(value: string): string[] {
  *
  * @param type - ChildType object
  * @param getNodeName - Get node name function
+ * @param nodeGroups - Node groups
  * @returns - string
  */
-function childTypeToString(type: ChildType, getNodeName?: (nodeName: string) => string): string {
+function childTypeToString(type: ChildType, nodeGroups: Record<string, string[]>, getNodeName?: (nodeName: string) => string): string {
     return (type.isGroup
         ? nodeGroups[type.name].length === 1
             ? (getNodeName
@@ -73,16 +73,17 @@ function childTypeToString(type: ChildType, getNodeName?: (nodeName: string) => 
  * customChildTypesToString - Serialize a child type object to a string with a custom function to get the node name
  *
  * @param type - ChildType Array
+ * @param nodeGroups - Node groups
  * @param getNodeName - function to get the node name
  * @param topLevel - start of the document
  * @returns string - Serialized ChildType Array
  */
-export function customChildTypesToString(type: ChildTypes, getNodeName?: (nodeName: string) => string, topLevel = true): string {
+export function customChildTypesToString(type: ChildTypes, nodeGroups: Record<string, string[]>, getNodeName?: (nodeName: string) => string, topLevel = true): string {
     if (Array.isArray(type)) {
-        const types = type.map(subType => customChildTypesToString(subType, getNodeName, false)).join('|');
+        const types = type.map(subType => customChildTypesToString(subType, nodeGroups, getNodeName, false)).join('|');
         return topLevel || type.length === 1 ? types : '(' + types + ')';
     } else {
-        return childTypeToString(type, getNodeName)
+        return childTypeToString(type, nodeGroups, getNodeName)
     }
 }
 
@@ -90,11 +91,12 @@ export function customChildTypesToString(type: ChildTypes, getNodeName?: (nodeNa
  * childTypesToString - Serialize a child type object to a string
  *
  * @param type - ChildType Array
+ * @param nodeGroups - Node groups
  * @param topLevel - start of the document
  * @returns string - Serialized ChildType Array
  */
-export function childTypesToString(type: ChildTypes, topLevel = true): string {
-    return customChildTypesToString(type, undefined, topLevel);
+export function childTypesToString(type: ChildTypes, nodeGroups: Record<string, string[]>, topLevel = true): string {
+    return customChildTypesToString(type, nodeGroups, undefined, topLevel);
 }
 
 /**
@@ -147,15 +149,16 @@ export function stringToChildTypes(value: OrArray<string>, topLevel = true): Chi
  *
  * @param value - Node name
  * @param childType - String or an ChildType object or an array ChildType objects
+ * @param nodeGroups - Node groups
  * @returns ChildType | undefined - returns the ChildType oject if it's accepted or undefined if it's not
  */
-export function acceptsNodeName(value: string, childType: ChildTypes): ChildType | undefined {
+export function acceptsNodeName(value: string, childType: ChildTypes, nodeGroups: Record<string, string[]>): ChildType | undefined {
     // if child type is an array
     if (Array.isArray(childType)) {
         let result: ChildType | undefined;
         childType.some(type => {
             // if any of the children in the array accepts the node name then return true
-            result = acceptsNodeName(value, type);
+            result = acceptsNodeName(value, type, nodeGroups);
             if (result) {
                 return true;
             }
