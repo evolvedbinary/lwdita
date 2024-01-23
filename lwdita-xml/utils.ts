@@ -1,6 +1,5 @@
-import { ReferenceContentScope } from "../lwdita-ast/ast_classes";
+import { nodeGroups } from "../lwdita-ast/ast-utils";
 import { BasicValue, OrArray, ChildTypes, ChildType} from "./classes";
-
 
 /**
  * has - Check if an array has a value
@@ -22,39 +21,6 @@ export function has<T>(array: Array<T>, value: T): boolean {
  */
 export function isOrUndefined<T extends BasicValue>(check: (value?: BasicValue) => boolean, value?: BasicValue): value is T {
     return typeof value === 'undefined' || check(value);
-}
-
-/**
- * isReferenceContentScope - Checks if a value is a ReferenceContentScope
- *
- * @param value - String
- * @returns - If the value is a ReferenceContentScope
- */
-export const isReferenceContentScope = (value?: BasicValue): value is ReferenceContentScope => has(['local', 'peer', 'external'], value);
-
-/**
- * @remarks
- * When a node is a group we use this list to check if a node name is valid
- */
-const phGroup = ['ph', 'b', 'i', 'u', 'sub', 'sup'];
-const dataGroup = ['data'];
-
-/**
- * Node groups
- *
- * @remarks
- * Group all similar nodes
- */
-export const nodeGroups: Record<string, Array<string>> = {
-    'ph': phGroup,
-    'data': dataGroup,
-    'common-inline': ['text', ...phGroup, 'image', ...dataGroup],
-    'all-inline': ['text', ...phGroup, 'image', 'xref', ...dataGroup],
-    'simple-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'fn', 'note', ...dataGroup],
-    'fn-blocks': ['p', 'ul', 'ol', 'dl', ...dataGroup],
-    'all-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', 'fig', 'fn', 'note', ...dataGroup],
-    'list-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', 'fig', 'note', ...dataGroup],
-    'fig-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', ...dataGroup],
 }
 
 /**
