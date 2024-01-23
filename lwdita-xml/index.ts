@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 export * from './classes';
-export * from '../lw-ast/factory';
-export * from '../lw-ast/nodes';
+export * from '../lwdita-ast/factory';
+export * from '../lwdita-ast/nodes';
 export * from './utils';
 export * from './converter';
