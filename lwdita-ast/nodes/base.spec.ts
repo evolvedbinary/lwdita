@@ -1,7 +1,7 @@
 import { expect, assert } from 'chai';
 import { BaseNode } from './base';
-import { stringToChildTypes } from '../utils';
-import { NonAcceptedChildError } from '../classes';
+import { stringToChildTypes } from "../../lwdita-xml";
+import { NonAcceptedChildError } from '../ast_classes';
 
 // TODO: add tests for an unknown node
 
