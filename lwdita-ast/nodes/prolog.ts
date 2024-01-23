@@ -2,7 +2,8 @@ import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLoc
 import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, isOrUndefined } from "../../lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
-import { BasicValue, isCDATA, CDATA } from "../../lwdita-xml/classes";
+import { BasicValue } from "../../lwdita-xml/classes";
+import { CDATA, isCDATA } from "../ast_classes";
 
 /**
  * Define all allowed `prolog` attributes:

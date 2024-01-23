@@ -1,6 +1,8 @@
 import { isOrUndefined, areFieldsValid } from "../../lwdita-xml/utils";
 import { BaseNode } from "./base";
-import { BasicValue, isCDATA, CDATA } from "../../lwdita-xml/classes";
+import { BasicValue } from "../../lwdita-xml/classes";
+import { CDATA, isCDATA } from "../ast_classes";
+
 
 /**
  * Define all allowed `variable-content` attributes:
