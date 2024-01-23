@@ -2,7 +2,7 @@
   "exclude": [
     "**/*.spec.ts",
     "src/tests.ts",
-    "src/example.ts"
+    "example.ts"
   ],
   "compilerOptions": {
     /* Basic Options */

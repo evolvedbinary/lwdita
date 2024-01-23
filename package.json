@@ -13,7 +13,7 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "start:dev": "nodemon",
     "build": "rimraf ./lib && tsc",
-    "start": "ts-node ./src/example.ts",
+    "start": "ts-node ./example.ts",
     "test": "mocha",
     "test:watch": "mocha -w",
     "coverage": "rimraf coverage && nyc yarn mocha",
