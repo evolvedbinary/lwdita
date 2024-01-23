@@ -19,6 +19,7 @@
     "coverage": "rimraf coverage && nyc yarn mocha",
     "coveralls": "nyc --reporter=text-lcov report | coveralls",
     "generate-docs": "typedoc --treatWarningsAsErrors --out generated-docs src --plugin typedoc-plugin-missing-exports"
+
   },
   "repository": {
     "type": "git",
