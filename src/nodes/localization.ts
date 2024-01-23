@@ -1,6 +1,6 @@
-import { isOrUndefined, areFieldsValid } from "../utils";
+import { isOrUndefined, areFieldsValid } from "../../lwdita-xml/utils";
 import { BaseNode } from "./base";
-import { BasicValue, isCDATA, CDATA } from "../classes";
+import { BasicValue, isCDATA, CDATA } from "../../lwdita-xml/classes";
 
 /**
  * `LocalizationFields`: `dir`, `xml:lang`, `translate`

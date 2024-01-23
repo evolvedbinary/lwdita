@@ -1,9 +1,9 @@
 import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { areFieldsValid } from "../utils";
+import { areFieldsValid } from "../../lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
-import { BasicValue } from "../classes";
+import { BasicValue } from "../../lwdita-xml/classes";
 
 /**
  * Define all allowed `media-controls` attributes:

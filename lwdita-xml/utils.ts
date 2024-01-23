@@ -39,7 +39,7 @@ const dataGroup = ['data'];
 
 /**
  * Node groups
- * 
+ *
  * @remarks
  * Group all similar nodes
  */
@@ -58,10 +58,10 @@ export const nodeGroups: Record<string, Array<string>> = {
 /**
  * splitTypenames - Converts a string to an array of strings
  * it splits the string by `|`
- * 
+ *
  * @privateRemarks
  * This is only used in tests
- * 
+ *
  * @param value - string
  * @returns - String[]
  */
@@ -79,7 +79,7 @@ export function splitTypenames(value: string): string[] {
 
 /**
  * childTypeToString - Convert a child type to a string
- * 
+ *
  * @param type - ChildType object
  * @param getNodeName - Get node name function
  * @returns - string
@@ -131,7 +131,7 @@ export function childTypesToString(type: ChildTypes, topLevel = true): string {
 
 /**
  * stringToChildTypes - Convert the array list of string to child objects
- * 
+ *
  * @remarks
  * `?` - optional
  * `+` - required
@@ -210,7 +210,7 @@ export function acceptsNodeName(value: string, childType: ChildTypes): ChildType
  * @returns Boolean - Whether the child is a group or not
  */
 export function isChildTypeSingle(childType: string | ChildType | ChildTypes): boolean {
-    // if it's an Array 
+    // if it's an Array
     if (Array.isArray(childType)) {
         let result = true;
         // if any of the children in the array is not a single type then return false
@@ -233,10 +233,10 @@ export function isChildTypeSingle(childType: string | ChildType | ChildTypes): b
 
 /**
  * isChildTypeRequired - Check if a child is required
- * 
+ *
  * the required property is denoted by `+` or the lack of `?` in the end of the string
  * This means the child must be present in the node in the order specified by the parent node
- * 
+ *
  * @param childType -  String or an ChildType object or an array ChildType objects
  * @returns Boolean - Whether the child is required or not
  */

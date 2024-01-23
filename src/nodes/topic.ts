@@ -1,8 +1,8 @@
 import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { isOrUndefined, areFieldsValid } from "../utils";
+import { isOrUndefined, areFieldsValid } from "../../lwdita-xml/utils";
 import { BaseNode, makeComponent, makeAll } from "./base";
-import { BasicValue, isCDATA, CDATA, ID } from "../classes";
+import { BasicValue, isCDATA, CDATA, ID } from "../../lwdita-xml/classes";
 
 /**
  * Define all allowed `topic` attributes:

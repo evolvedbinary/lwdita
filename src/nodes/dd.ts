@@ -1,10 +1,10 @@
 import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { areFieldsValid } from "../utils";
+import { areFieldsValid } from "../../lwdita-xml/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { ReuseFields, ReuseNode, isValidReuseField, makeReuse } from "./reuse";
-import { BasicValue } from "../classes";
+import { BasicValue } from "../../lwdita-xml/classes";
 
 /**
  * Define all allowed `dd` attributes:

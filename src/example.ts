@@ -1,4 +1,4 @@
-import { xditaToJson, xditaToJdita } from "./converter";
+import { xditaToJson, xditaToJdita } from "../lwdita-xml/converter.ts";
 import { BaseNode, TextNode, TopicNode } from "./nodes";
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
