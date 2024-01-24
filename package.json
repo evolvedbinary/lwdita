@@ -8,6 +8,10 @@
     "node": ">=20.1.0 <21",
     "yarn": ">=1.22.21 <2"
   },
+  "private": true,
+  "workspaces": [
+   "packages/*"
+  ],
   "scripts": {
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
@@ -18,7 +22,7 @@
     "test:watch": "mocha -w",
     "coverage": "rimraf coverage && nyc yarn mocha",
     "coveralls": "nyc --reporter=text-lcov report | coveralls",
-    "generate-docs": "typedoc --out generated-docs lwdita-ast lwdita-xml"
+    "generate-docs": "typedoc --out generated-docs packages/*"
   },
   "repository": {
     "type": "git",
