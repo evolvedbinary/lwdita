@@ -70,6 +70,36 @@ Install all packages:
 yarn install
 ```
 
+### Packages
+
+This project uses [Yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces).
+The current packages, aka. "workspaces" are `lwdita-xml` and `lwdita-xml` and can be found in folder `packages/`.
+Package `lwdita-xml` contains all files and modules for pasrsing a document.
+Package `lwdita-ast` contains all files and modules for creating the abstract syntax tree ("AST") of the parsed document.
+
+Both packages depend on each other, as indicated by the `dependency` in their respective package.json files, and they share the same global node modules and commands as declared in the `package.json` file in the root of the project.
+
+If in the future different node modules or commands should be defined for the packages, then you are able to address the packages directly with command
+
+```shell
+yarn workspace <workspace_name> <command>
+```
+
+In the global package.json you can e.g. define specific commands for each package like following pattern:
+
+```json
+"scripts": {
+  "start:package-a": "yarn workspace package-a start",
+  "start:package-b": "yarn workspace package-b start"
+}
+```
+
+To get more information about contained workspaces, run command
+
+```shell
+yarn workspaces info
+```
+
 ### Build
 
 To build the project, run:
