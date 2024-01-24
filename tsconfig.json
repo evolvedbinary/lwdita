@@ -1,7 +1,7 @@
 {
   "exclude": [
     "**/*.spec.ts",
-    "lwdita-ast/tests.ts",
+    "packages/lwdita-ast/tests.ts",
     "example.ts"
   ],
   "compilerOptions": {

@@ -8,6 +8,10 @@
     "node": ">=20.1.0 <21",
     "yarn": ">=1.22.21 <2"
   },
+  "private": true,
+  "workspaces": [
+   "packages/*"
+  ],
   "scripts": {
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
@@ -19,7 +23,6 @@
     "coverage": "rimraf coverage && nyc yarn mocha",
     "coveralls": "nyc --reporter=text-lcov report | coveralls",
     "generate-docs": "typedoc --treatWarningsAsErrors --out generated-docs src --plugin typedoc-plugin-missing-exports"
-
   },
   "repository": {
     "type": "git",
