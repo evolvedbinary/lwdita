@@ -22,15 +22,12 @@
     "url": "https://github.com/evolvedbinary/jdita/issues"
   },
   "scripts": {
-    "lint": "eslint packages/* --ext .ts",
-    "lint:fix": "eslint packages/* --ext .ts --fix",
-    "start:dev": "nodemon",
-    "build": "rimraf ./lib && tsc",
-    "start": "ts-node ./example.ts",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "start": "ts-node ../../example.ts",
     "test": "mocha",
     "test:watch": "mocha -w",
     "coverage": "rimraf coverage && nyc yarn mocha",
-    "coveralls": "nyc --reporter=text-lcov report | coveralls",
-    "generate-docs": "typedoc --out generated-docs packages/*"
+    "coveralls": "nyc --reporter=text-lcov report | coveralls"
   }
 }
