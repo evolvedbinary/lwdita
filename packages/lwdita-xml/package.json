@@ -4,5 +4,33 @@
   "main": "./lib/lwdita-xml/index.js",
   "dependencies": {
     "lwdita-ast": "link:lwdita-ast"
+  },
+  "keywords": [
+    "LwDITA",
+    "DITA",
+    "XML",
+    "JSON"
+  ],
+  "author": "Evolved Binary",
+  "license": "AGPL-3.0",
+  "homepage": "https://github.com/evolvedbinary/jdita#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evolvedbinary/jdita.git"
+  },
+  "bugs": {
+    "url": "https://github.com/evolvedbinary/jdita/issues"
+  },
+  "scripts": {
+    "lint": "eslint packages/* --ext .ts",
+    "lint:fix": "eslint packages/* --ext .ts --fix",
+    "start:dev": "nodemon",
+    "build": "rimraf ./lib && tsc",
+    "start": "ts-node ./example.ts",
+    "test": "mocha",
+    "test:watch": "mocha -w",
+    "coverage": "rimraf coverage && nyc yarn mocha",
+    "coveralls": "nyc --reporter=text-lcov report | coveralls",
+    "generate-docs": "typedoc --out generated-docs packages/*"
   }
 }
