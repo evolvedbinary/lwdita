@@ -57,6 +57,17 @@ yarn build
 
 will create a `./lib` folder in the root of the project, which contains binaries that can be copied to your own project.
 
+### Generate the TSDoc Documentation
+
+You can generate the documentation by running
+
+```shell
+yarn run generate-docs
+```
+
+This will generate a new folder `docs` containing an HTML file with the entire TSDoc jdita documentation.
+Open this file in a browser to navigate through the documentation.
+
 ### Test
 
 This project also has tests which are written using the Mocha framework.
