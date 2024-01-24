@@ -51,8 +51,8 @@ For development, you will need Node.js and a node package manager, like Yarn, to
 
 This project uses [Yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces).
 The current packages, aka. "workspaces" are `lwdita-xml` and `lwdita-xml` and can be found in folder `packages/`.
-Package `lwdita-xml` contains all files and modules for pasrsing a document.
-Package `lwdita-ast` contains all files and modules for creating the abstract syntax tree ("AST") of the parsed document.
+Package `lwdita-xml` contains all files and modules for parsing an xml document.
+Package `lwdita-ast` contains all files and modules for creating the abstract syntax tree ("AST") of the parsed XML document, provided by package `lwdita-xml`.
 
 Both packages depend on each other, as indicated by the `dependency` in their respective package.json files, and they share the same global node modules and commands as declared in the `package.json` file in the root of the project.
 
