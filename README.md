@@ -89,7 +89,7 @@ If you want to test this library and its conversion from `XDITA` to `JDITA`, run
 yarn run ts-node ./src/example.ts
 ```
 
-## How It Works
+## How jdita Works
 
 Jdita takes in documents in authoring format XDITA, and converts it to a document node tree.
 
