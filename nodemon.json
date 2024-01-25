@@ -2,5 +2,5 @@
     "watch": ["src"],
     "ext": ".ts",
     "ignore": [],
-    "exec": "ts-node ./example.ts"
+    "exec": "ts-node ./packages/lwdita-xml/example.ts"
   }

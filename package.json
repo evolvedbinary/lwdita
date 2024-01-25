@@ -15,7 +15,7 @@
     "lint:fix": "eslint packages/* --ext .ts --fix",
     "start:dev": "nodemon",
     "build": "rimraf ./lib && tsc",
-    "start": "ts-node ./example.ts",
+    "start": "ts-node ./packages/lwdita-xml/example.ts",
     "test": "mocha",
     "test:watch": "mocha -w",
     "coverage": "rimraf coverage && nyc yarn mocha",
