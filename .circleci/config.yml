@@ -44,6 +44,9 @@ jobs:
           command: yarn run nyc --reporter=text-lcov report > coverage.lcov
       - coveralls/upload:
           coverage_file: coverage.lcov
+      - run:
+          name: Create Code documentation 
+          command: yarn run generate-docs
 
 workflows:
   build-and-test:
