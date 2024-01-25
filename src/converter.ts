@@ -17,13 +17,13 @@ export async function xditaToJdita(xml: string, abortOnError = true): Promise<Do
     const doc = new DocumentNode();
     const stack: BaseNode[] = [doc];
     parser.on("text", function (text) {
-      stack[stack.length - 1].add(createNode(text), false);
+      stack[stack.length - 1].add(createNode(text), abortOnError);
     });
 
     parser.on("opentag", function (node: saxes.SaxesTagNS) {
       try {
         const obj = createNode(node);
-        stack[stack.length - 1].add(obj, false);
+        stack[stack.length - 1].add(obj, abortOnError);
         stack.push(obj);
       } catch (e) {
         console.log('invalid:', e);
