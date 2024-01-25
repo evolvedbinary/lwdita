@@ -65,7 +65,7 @@ You can generate the documentation by running
 yarn run generate-docs
 ```
 
-This will generate a new folder `docs` containing an HTML file with the entire TSDoc jdita documentation.
+This will generate a new folder `docs` containing an HTML file with the entire TSDoc JDita documentation.
 Open this file in a browser to navigate through the documentation.
 
 ### Test
@@ -89,9 +89,9 @@ If you want to test this library and its conversion from `XDITA` to `JDITA`, run
 yarn run ts-node ./src/example.ts
 ```
 
-## How jdita Works
+## How JDita Works
 
-Jdita takes in documents in authoring format XDITA, and converts it to a document node tree.
+JDita takes in documents in authoring format XDITA, and converts it to a document node tree.
 
 XDITA is the LwDITA authoring format that uses XML to structure information. XDITA is a subset of DITA, with new multimedia element types added to support interoperability with HTML5.
 [Source: https://www.dita-ot.org/4.1/topics/lwdita-input](https://www.dita-ot.org/4.1/topics/lwdita-input)
