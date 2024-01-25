@@ -1,7 +1,7 @@
 import { isOrUndefined, areFieldsValid } from "../../lwdita-xml/utils";
 import { BaseNode, Constructor } from "./base";
 import { BasicValue } from "../../lwdita-xml/classes";
-import { CDATA, isCDATA } from "../ast_classes";
+import { CDATA, isCDATA } from "../ast-classes";
 
 /**
  * `FieldFields`: `name`, `value`

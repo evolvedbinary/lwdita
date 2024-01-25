@@ -5,7 +5,7 @@ import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./
 import { areFieldsValid, isOrUndefined } from "../../lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
 import { BasicValue } from "../../lwdita-xml/classes";
-import { CDATA, isCDATA, ID } from "../ast_classes";
+import { CDATA, isCDATA, ID } from "../ast-classes";
 
 /**
  * Define all allowed `fn` fields:

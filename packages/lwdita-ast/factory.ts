@@ -42,7 +42,7 @@ import { UnderlinedNode } from "./nodes/underlined";
 import { SubscriptNode } from "./nodes/subscript";
 import { SuperscriptNode } from "./nodes/superscript";
 import { XMLNode } from "../lwdita-xml/classes";
-import { UnknownNodeError } from "./ast_classes";
+import { UnknownNodeError } from "./ast-classes";
 
 /**
  * getNodeClass - Get the Node class constructor based on the node type

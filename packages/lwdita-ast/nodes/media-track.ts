@@ -4,7 +4,7 @@ import { makeComponent, BaseNode, makeAll } from "./base";
 import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "../../lwdita-xml/classes";
-import { CDATA, isCDATA } from "../ast_classes";
+import { CDATA, isCDATA } from "../ast-classes";
 
 /**
  * Define all allowed `media-track` attributes:
