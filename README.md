@@ -139,7 +139,7 @@ This file contains a small example in `XDITA` format.
 If you want to test this library and its conversion from `XDITA` to `JDITA`, run:
 
 ```shell
-yarn run ts-node ./example.ts
+yarn run ts-node ./packages/lwdita-xml/example.ts
 ```
 
 ## How JDita Works
