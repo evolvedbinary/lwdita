@@ -16,6 +16,5 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-export * from './classes';
-export * from './utils';
-export * from './converter';
+export * from './factory';
+export * from './nodes';
