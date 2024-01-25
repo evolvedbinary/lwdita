@@ -2,9 +2,9 @@ import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
 import { ReuseNode, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
 import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { areFieldsValid } from "../../lwdita-xml/utils";
+import { areFieldsValid } from "lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
-import { BasicValue } from "../../lwdita-xml/classes";
+import { BasicValue } from "lwdita-xml/classes";
 
 /**
  * Define all allowed `sthead` attributes:

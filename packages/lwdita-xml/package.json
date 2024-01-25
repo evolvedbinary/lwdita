@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "./lib/index.js",
   "dependencies": {
-    "lwdita-ast": "link:lwdita-ast"
+    "saxes": "^6.0.0",
+    "lwdita-ast": "1.0.0"
   },
   "keywords": [
     "LwDITA",
