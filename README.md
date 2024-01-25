@@ -91,12 +91,13 @@ yarn run ts-node ./src/example.ts
 
 ## How JDita Works
 
-JDita takes in documents in authoring format XDITA, and converts it to a document node tree.
+JDita takes in documents in LwDITA XDITA (XML) format, and produces an AST (Abstract Syntax Tree).
 
-XDITA is the LwDITA authoring format that uses XML to structure information. XDITA is a subset of DITA, with new multimedia element types added to support interoperability with HTML5.
+XDITA is the LwDITA authoring format that uses XML to structure information. LwDITA is a subset of DITA, with new multimedia element types added to support interoperability with HTML5.
 [Source: https://www.dita-ot.org/4.1/topics/lwdita-input](https://www.dita-ot.org/4.1/topics/lwdita-input)
 
-The conversion process starts by building a document node,  then appending each element tag as a node while saving the tag attributes as node properties.
+The conversion process starts by building a tree whose root node represents the XDITA Document Node, then appending each XDITA Element Node as a child node node in the tree.
+
 This will generate a full document tree that represents the original XDITA document as a JavaScript object.
 
 ![Diagram of converter.ts](diagrams/jdita-diagram-conversion.svg "Diagram of converter.ts")
