@@ -1,10 +1,10 @@
 import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { areFieldsValid } from "../../lwdita-xml/utils";
+import { areFieldsValid } from "lwdita-xml/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { ReuseNode, isValidReuseField, ReuseFields, makeReuse } from "./reuse";
-import { BasicValue } from "../../lwdita-xml/classes";
+import { BasicValue } from "lwdita-xml/classes";
 
 /**
  * Define all allowed `dlentry` fields:

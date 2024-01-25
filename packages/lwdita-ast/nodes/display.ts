@@ -1,6 +1,6 @@
-import { isOrUndefined, areFieldsValid } from "../../lwdita-xml/utils";
+import { isOrUndefined, areFieldsValid } from "lwdita-xml/utils";
 import { BaseNode } from "./base";
-import { BasicValue } from "../../lwdita-xml/classes";
+import { BasicValue } from "lwdita-xml/classes";
 import { DisplayExpanse, DisplayFrame, DisplayScale, isDisplayExpanse, isDisplayFrame, isDisplayScale } from "../ast-classes";
 
 

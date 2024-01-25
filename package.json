@@ -45,9 +45,6 @@
   "files": [
     "lib"
   ],
-  "dependencies": {
-    "saxes": "^6.0.0"
-  },
   "devDependencies": {
     "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.6",

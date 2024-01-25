@@ -2,9 +2,9 @@ import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
 import { FnReuseNode, FnReuseFields, isValidFnReuseField, makeFnReuse } from "./fn-reuse";
 import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { areFieldsValid, isOrUndefined } from "../../lwdita-xml/utils";
+import { areFieldsValid, isOrUndefined } from "lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
-import { BasicValue } from "../../lwdita-xml/classes";
+import { BasicValue } from "lwdita-xml/classes";
 import { CDATA, isCDATA, ID } from "../ast-classes";
 
 /**
