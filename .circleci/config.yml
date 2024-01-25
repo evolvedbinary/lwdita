@@ -44,9 +44,6 @@ jobs:
           command: yarn run nyc --reporter=text-lcov report > coverage.lcov
       - coveralls/upload:
           coverage_file: coverage.lcov
-      - run:
-          name: Create Code documentation 
-          command: yarn run generate-docs
 
 workflows:
   build-and-test:
@@ -66,3 +63,14 @@ workflows:
       - coverage:
           requires:
             - clone-and-install
+      - node/run:
+          name: generate docs
+          requires:
+            - clone-and-install
+          version: << pipeline.parameters.node-image-tag >>
+          resource_class: << pipeline.parameters.resource-class >>
+          pkg-manager: yarn
+          setup:
+            - node/install-yarn:
+                version: << pipeline.parameters.yarn-version >>
+          yarn-run: generate-docs
