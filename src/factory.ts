@@ -135,7 +135,7 @@ export function getNodeClassType(name: string): typeof BaseNode {
  *
  * @throws Will throw an error if the node type is unknown.
  */
-export function createNode(content: string): TextNode;
+export function createNode(node: string): TextNode;
 export function createNode(node: XMLNode<'audio'>): AudioNode;
 export function createNode(node: XMLNode<'alt'>): AltNode;
 export function createNode(node: XMLNode<'b'>): BoldNode;
