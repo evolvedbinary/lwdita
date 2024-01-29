@@ -1,6 +1,6 @@
 import * as saxes from "saxes";
-import { BaseNode, DocumentNode } from "lwdita-ast/nodes";
-import { createNode } from "lwdita-ast/factory";
+import { BaseNode, DocumentNode } from "@jdita/lwdita-ast/nodes";
+import { createNode } from "@jdita/lwdita-ast/factory";
 import { JDita } from "./classes";
 
 /** TODO: Add tests for this module */

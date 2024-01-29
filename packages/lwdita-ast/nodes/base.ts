@@ -1,5 +1,5 @@
-import { acceptsNodeName, isChildTypeRequired, stringToChildTypes, isChildTypeSingle } from "lwdita-xml/utils";
-import { ChildTypes, ChildType, OrArray, BasicValue, Attributes, JDita } from "lwdita-xml/classes";
+import { acceptsNodeName, isChildTypeRequired, stringToChildTypes, isChildTypeSingle } from "@jdita/lwdita-xml/utils";
+import { ChildTypes, ChildType, OrArray, BasicValue, Attributes, JDita } from "@jdita/lwdita-xml/classes";
 import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError } from "../ast-classes";
 import { nodeGroups } from "../ast-utils";
 

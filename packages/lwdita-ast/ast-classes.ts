@@ -1,4 +1,4 @@
-import { BasicValue } from "lwdita-xml/classes";
+import { BasicValue } from "@jdita/lwdita-xml/classes";
 
 /**
  * isReferenceContentScope - Checks if a value is a ReferenceContentScope

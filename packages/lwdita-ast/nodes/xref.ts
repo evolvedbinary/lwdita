@@ -1,11 +1,11 @@
 import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
 import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { areFieldsValid } from "lwdita-xml/utils";
+import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { ReferenceContentFields, ReferenceContentNode, isValidReferenceContentField, makeReferenceContent } from "./reference-content";
 import { VariableContentFields, VariableContentNode, isValidVariableContentField, makeVariableContent } from "./variable-content";
-import { BasicValue } from "lwdita-xml/classes";
+import { BasicValue } from "@jdita/lwdita-xml/classes";
 
 /**
  * Define all allowed `xref` (cross-reference) attributes:

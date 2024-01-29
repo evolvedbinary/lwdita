@@ -1,5 +1,5 @@
 import { xditaToJson, xditaToJdita } from "./converter";
-import { BaseNode, TextNode, TopicNode } from "lwdita-ast/nodes";
+import { BaseNode, TextNode, TopicNode } from "@jdita/lwdita-ast/nodes";
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd"><topic id="program-bulbs-to-groups"><title>Programming Light Bulbs to a Lighting Group</title><shortdesc>You can program one or more light bulbs to a lighting group to operate that group with your remote control.</shortdesc><body><p>New Example</p></body></topic>`
 

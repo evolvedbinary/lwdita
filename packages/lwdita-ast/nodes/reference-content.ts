@@ -1,6 +1,6 @@
-import { isOrUndefined, areFieldsValid } from "lwdita-xml/utils";
+import { isOrUndefined, areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { BaseNode } from "./base";
-import { BasicValue } from "lwdita-xml/classes";
+import { BasicValue } from "@jdita/lwdita-xml/classes";
 import { CDATA, isReferenceContentScope, ReferenceContentScope, isCDATA } from "../ast-classes";
 
 
