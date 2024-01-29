@@ -1,10 +1,10 @@
 # JDita
+
 [![Node.js Version](https://img.shields.io/node/v-lts/jdita)](https://nodejs.org)
-[![Npm Package Version](https://img.shields.io/npm/v/jdita)](https://www.npmjs.com/package/jdita)
 [![Build Status](https://circleci.com/gh/evolvedbinary/jdita.svg?style=svg)](https://circleci.com/gh/evolvedbinary/jdita)
 [![Coverage Status](https://coveralls.io/repos/github/evolvedbinary/jdita/badge.svg?branch=main)](https://coveralls.io/github/evolvedbinary/jdita?branch=main)
 
-This tool generates JSON data from XDita files
+This tool generates JSON data from XDita files.
 
 ---
 
@@ -15,7 +15,9 @@ You can add JDita to your project using `npm` or `yarn`
 ```bash
 npm install --save @jdita/lwdita-xml
 ```
+
 or
+
 ```bash
 yarn add @jdita/lwdita-xml
 ```
@@ -105,10 +107,10 @@ yarn workspaces info
 To build the project, run:
 
 ```shell
-yarn build
+yarn run build
 ```
 
-will create a `./lib` folder in the root of the project, which contains binaries that can be copied to your own project.
+This will create a `./lib` folder in the root of each sub-module, which contains binaries that can be copied to your own project.
 
 ### Generate the TSDoc Documentation
 
@@ -127,8 +129,8 @@ This project also has tests which are written using the Mocha framework.
 To execute the test suite and view the code coverage, run:
 
 ```shell
-yarn test
-yarn coverage
+yarn run test
+yarn run coverage
 ```
 
 ### Example
