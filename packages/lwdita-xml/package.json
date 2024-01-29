@@ -1,5 +1,5 @@
 {
-  "name": "lwdita-xml",
+  "name": "@jdita/lwdita-xml",
   "version": "1.0.0",
   "main": "./lib/index.js",
   "dependencies": {

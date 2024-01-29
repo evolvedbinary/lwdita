@@ -3,24 +3,24 @@
 `lwdita-xml` is a parser made for [LwDITA](https://github.com/oasis-tcs/dita-lwdita).
 It is responsible for converting LwDITA files to a JSON tree structure.
 
-This project depends on the `lwdita-ast` package to provide the mapping from the [XDita schema](https://github.com/oasis-tcs/dita-lwdita/blob/spec/org.oasis.xdita/dtd/lw-topic.mod).
+This project depends on the [`@jdita/lwdita-ast`](https://www.npmjs.com/package/@jdita/lwdita-xml) package to provide the mapping from the [XDita schema](https://github.com/oasis-tcs/dita-lwdita/blob/spec/org.oasis.xdita/dtd/lw-topic.mod).
 
 ## Usage
 
 You can add `lwdita-xml` to your project using `npm` or `yarn`.
 
 ```bash
-npm install --save lwdita-xml
+npm install --save @jdita/lwdita-xml
 ```
 
 or
 
 ```bash
-yarn add lwdita-xml
+yarn add @jdita/lwdita-xml
 ```
 
 ```javascript
-const { xditaToJson } = require("lwdita-xml");
+const { xditaToJson } = require("@jdita/lwdita-xml");
 
 const xml = `
 <?xml version="1.0" encoding="UTF-8"?>
