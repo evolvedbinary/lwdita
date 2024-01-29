@@ -42,10 +42,34 @@ xditaToJson(xml, false)
 
 ## Development
 
-For development, you will need Node.js and a node package manager, like Yarn, to be installed in your environement.
+### Prerequisites
+
+For development, you will need Node.js and a node package manager to be installed in your environement.
 
 * Minimal Node version: v20.1.0
-* Optional: This project uses Yarn as its build system. Although we don't support it, if you prefer, it should also be possible to use npm instead of Yarn. The version of Yarn that we have used is v1.22.21.
+* [Yarn](https://classic.yarnpkg.com/) version v1.22.21.
+* Optional: This project uses Yarn as its build system. Although we don't support it, if you prefer, it should also be possible to use `npm` instead of `yarn`.
+
+### Installation
+
+Clone the JDita repository:
+
+```shell
+git clone https://github.com/evolvedbinary/jdita.git
+```
+
+Change to the JDita directory:
+
+```shell
+cd jdita
+```
+
+Install all packages
+(if you have previously installed this project, please make sure to delete folder `node_modules`):
+
+```shell
+yarn install
+```
 
 ### Build
 
