@@ -44,7 +44,7 @@ xditaToJson(xml, false)
 
 ### Prerequisites
 
-For development, you will need Node.js and a node package manager to be installed in your environement.
+For development, you will need Node.js and a node package manager to be installed in your environment.
 
 * Minimal Node version: v20.1.0
 * [Yarn](https://classic.yarnpkg.com/) version v1.22.21.
@@ -64,8 +64,7 @@ Change to the JDita directory:
 cd jdita
 ```
 
-Install all packages
-(if you have previously installed this project, please make sure to delete folder `node_modules`):
+Install all packages:
 
 ```shell
 yarn install
