@@ -1,10 +1,10 @@
 # JDita
 [![Node.js Version](https://img.shields.io/node/v-lts/jdita)](https://nodejs.org)
-[![Npm Package Version](https://img.shields.io/npm/v/jdita)](https://www.npmjs.com/package/jdita)
+[![Npm Package Version](https://img.shields.io/npm/v/jdita)](https://www.npmjs.com/package/jdita) //TODO this is absolute
 [![Build Status](https://circleci.com/gh/evolvedbinary/jdita.svg?style=svg)](https://circleci.com/gh/evolvedbinary/jdita)
 [![Coverage Status](https://coveralls.io/repos/github/evolvedbinary/jdita/badge.svg?branch=main)](https://coveralls.io/github/evolvedbinary/jdita?branch=main)
 
-This tool generates JSON data from XDita files
+This tool generates JSON data from Lwdita files
 
 ---
 
@@ -13,7 +13,7 @@ This tool generates JSON data from XDita files
 You can add JDita to your project using `npm` or `yarn`
 
 ```bash
-npm install --save jdita
+npm install --save jdita //TODO jdita package no longer exists
 ```
 or
 ```bash
@@ -47,45 +47,11 @@ For development, you will need Node.js and a node package manager, like Yarn, to
 * Minimal Node version: v20.1.0
 * Optional: This project uses Yarn as its build system. Although we don't support it, if you prefer, it should also be possible to use npm instead of Yarn. The version of Yarn that we have used is v1.22.21.
 
-### Packages
-
-This project uses [Yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces).
-The current packages, aka. "workspaces" are `lwdita-xml` and `lwdita-xml` and can be found in folder `packages/`.
-Package `lwdita-xml` contains all files and modules for parsing an xml document.
-Package `lwdita-ast` contains all files and modules for creating the abstract syntax tree ("AST") of the parsed XML document, provided by package `lwdita-xml`.
-
-Both packages depend on each other, as indicated by the `dependency` in their respective package.json files, and they share the same global node modules and commands as declared in the `package.json` file in the root of the project.
-
-If in the future different node modules or commands should be defined for the packages, then you are able to address the packages directly with command
-
-```shell
-yarn workspace <workspace_name> <command>
-```
-
-In the global package.json you can e.g. define specific commands for each package like following pattern:
-
-```json
-"scripts": {
-  "start:package-a": "yarn workspace package-a start",
-  "start:package-b": "yarn workspace package-b start"
-}
-```
-
-To get more information about contained workspaces, run command
-
-```shell
-yarn workspaces info
-```
-
 ### Build
 
-To build the project, run:
+// TODO
 
-```shell
-yarn build
-```
-
-will create a `./lib` folder in the root of the project, which contains binaries that can be copied to your own project.
+will create a `./lib` folder in the root of each sub module, which contains binaries that can be copied to your own project.
 
 ### Generate the TSDoc Documentation
 
@@ -116,7 +82,7 @@ This file contains a small example in `XDITA` format.
 If you want to test this library and its conversion from `XDITA` to `JDITA`, run:
 
 ```shell
-yarn run ts-node ./packages/lwdita-xml/example.ts
+yarn run example
 ```
 
 ## How jdita Works

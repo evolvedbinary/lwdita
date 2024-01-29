@@ -1,5 +1,8 @@
-# lwdita-ast
+# lwdita-ast-xdita
 
-This jdita package `lwdita-ast` contains all files and modules for creating the abstract syntax tree ("AST") of a parsed XML document, provided by package `lwdita-xml`.
+Abstract syntax tree that represents the lwdita xdita //insert lin here in javascript classes.
 
-For more information, see [README](../../README.md#Packages).
+
+
+
+This package is meant to provide dtd mapping for [lwdita-xml-parser](packagelink).

@@ -19,7 +19,7 @@
     "copy-ast": "mv lib/lwdita-ast packages/lwdita-ast/lib",
     "copy": "yarn copy-xml && yarn copy-ast",
     "build": "yarn clean && tsc && yarn copy",
-    "start": "yarn workspace lwdita-xml start",
+    "example": "yarn workspace lwdita-xml start",
     "test": "mocha",
     "test:watch": "mocha -w",
     "coverage": "rimraf coverage && nyc yarn mocha",
