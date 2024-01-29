@@ -23,6 +23,6 @@
     "url": "https://github.com/evolvedbinary/jdita/issues"
   },
   "scripts": {
-    "start": "ts-node ./example.ts"
+    "example": "ts-node ./example.ts"
   }
 }
