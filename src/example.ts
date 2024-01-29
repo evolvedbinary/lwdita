@@ -64,6 +64,31 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
   </body>
 </topic>
 `
+
+/**
+ * XML example for testing a conversion
+ *
+ * @remarks
+ * This is the entry point given xml string.
+ * The xml needs to be preprocessed to remove all of the white space
+ * and new lines from outside of the tags.
+ *
+ * @example
+ * The whitespace needs to be elimited from the XML before processing
+ * from e.g.:
+ * ```xml
+ * <topic>
+ *   <title>valid title</title>
+ *   <body>
+ *     <p>text</p>
+ *   </body>
+ * </topic>
+ * ```
+ * to this:
+ * ```xml
+ * <topic><title>valid title</title><body><<p>text</p></body></topic>
+ * ```
+ */
 xditaToJdita(xml)
   .then(result => {
     (result.children[0] as TopicNode).id = 'new-topic-id';

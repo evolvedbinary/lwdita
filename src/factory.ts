@@ -43,8 +43,16 @@ import { SubscriptNode } from "./nodes/subscript";
 import { SuperscriptNode } from "./nodes/superscript";
 import { UnknownNodeError, XMLNode } from "./classes";
 
-// TODO: add tests
-
+/**
+ * getNodeClass - Get the Node class constructor based on the node type
+ *
+ * @privateRemarks
+ * TODO: Add tests
+ *
+ * @param name - A string containing the node name
+ * @returns - The node class constructor
+ * @throws - UnknownNodeError
+ */
 export function getNodeClass(name: string): Constructor {
   switch (name) {
     case 'alt': return AltNode;
@@ -94,11 +102,40 @@ export function getNodeClass(name: string): Constructor {
   }
 }
 
+/**
+ * getNodeClassType
+ *
+ * @privateRemarks
+ * This function is never used, remove this function if not needed
+ *
+ * @param name - String
+ * @returns A node of type BaseNode
+ */
 export function getNodeClassType(name: string): typeof BaseNode {
   return getNodeClass(name) as unknown as typeof BaseNode;
 }
 
-export function createNode(content: string): TextNode;
+/**
+ * createNode - Overloaded function `createNode` that creates different types of nodes based on the input XMLNode type.
+ *
+ * @remarks
+ * The function has multiple signatures for different XMLNode types like `'pre', 'prolog', 'section'`, etc.
+ * Each signature returns a different type of node corresponding to the input XMLNode type.
+ * The function also has a generic signature that accepts any XMLNode and returns a node of type BaseNode or derived from BaseNode.
+ * If the input is a string, the function creates a TextNode.
+ * If the input is an XMLNode, the function uses the `getNodeClass` function to create a node of the appropriate type.
+ * If the node type is unknown, `getNodeClass` will throw an error.
+ *
+ * @privateRemarks
+ * TODO: Add tests
+ *
+ * @param node - The XMLNode object or string to be converted into a node.
+ *
+ * @returns A node of the type corresponding to the input XMLNode type or a TextNode if the input is a string.
+ *
+ * @throws Will throw an error if the node type is unknown.
+ */
+export function createNode(node: string): TextNode;
 export function createNode(node: XMLNode<'audio'>): AudioNode;
 export function createNode(node: XMLNode<'alt'>): AltNode;
 export function createNode(node: XMLNode<'b'>): BoldNode;
@@ -143,7 +180,24 @@ export function createNode(node: XMLNode<'video-poster'>): VideoPosterNode;
 export function createNode(node: XMLNode<'xref'>): XRefNode;
 export function createNode<T extends BaseNode = BaseNode>(node: XMLNode): T;
 export function createNode<T extends BaseNode>(node: XMLNode | string): T {
+
   let nodeObject: BaseNode;
+  /**
+   * @example
+   * `node`is an object containing the node name, its attributes, and their values.
+   * ```json
+   * {
+   *   name: 'topic',
+   *   attributes: [Object: null prototype] {},
+   *   ns: [Object: null prototype] {},
+   *   prefix: '',
+   *   local: 'topic',
+   *   uri: '',
+   *   isSelfClosing: false
+   * }
+   * ```
+   * If the node is a text node, it will simply contain its string content.
+   */
   if (typeof node === 'string') {
     nodeObject = new TextNode(node);
   } else {

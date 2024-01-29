@@ -42,10 +42,33 @@ xditaToJson(xml, false)
 
 ## Development
 
-For development, you will need Node.js and a node package manager, like Yarn, to be installed in your environement.
+### Prerequisites
+
+For development, you will need Node.js and a node package manager to be installed in your environment.
 
 * Minimal Node version: v20.1.0
-* Optional: This project uses Yarn as its build system. Although we don't support it, if you prefer, it should also be possible to use npm instead of Yarn. The version of Yarn that we have used is v1.22.21.
+* [Yarn](https://classic.yarnpkg.com/) version v1.22.21.
+* Optional: This project uses Yarn as its build system. Although we don't support it, if you prefer, it should also be possible to use `npm` instead of `yarn`.
+
+### Installation
+
+Clone the JDita repository:
+
+```shell
+git clone https://github.com/evolvedbinary/jdita.git
+```
+
+Change to the JDita directory:
+
+```shell
+cd jdita
+```
+
+Install all packages:
+
+```shell
+yarn install
+```
 
 ### Build
 
@@ -56,6 +79,17 @@ yarn build
 ```
 
 will create a `./lib` folder in the root of the project, which contains binaries that can be copied to your own project.
+
+### Generate the TSDoc Documentation
+
+You can generate the documentation by running
+
+```shell
+yarn run generate-docs
+```
+
+This will generate a new folder `docs` containing an HTML file with the entire TSDoc JDita documentation.
+Open this file in a browser to navigate through the documentation.
 
 ### Test
 
@@ -77,3 +111,24 @@ If you want to test this library and its conversion from `XDITA` to `JDITA`, run
 ```shell
 yarn run ts-node ./src/example.ts
 ```
+
+## How JDita Works
+
+JDita takes in documents in LwDITA XDITA (XML) format, and produces an AST (Abstract Syntax Tree).
+
+XDITA is the LwDITA authoring format that uses XML to structure information. LwDITA is a subset of DITA, with new multimedia element types added to support interoperability with HTML5.
+[Source: https://www.dita-ot.org/4.1/topics/lwdita-input](https://www.dita-ot.org/4.1/topics/lwdita-input)
+
+The conversion process starts by building a tree whose root node represents the XDITA Document Node, then appending each XDITA Element Node as a child node node in the tree.
+
+This will generate a full document tree that represents the original XDITA document as a JavaScript object.
+
+![Diagram of converter.ts](diagrams/jdita-diagram-conversion.svg "Diagram of converter.ts")
+
+Here's how the nodes are created:
+
+![Diagram the node creation](diagrams/jdita-diagram-node-creation.svg "Diagram the node creation")
+
+Examples of the nodes `<title>` and `<topic>`:
+
+![Diagram of example nodes](diagrams/jdita-diagram-nodes.svg "Diagram of example nodes")
