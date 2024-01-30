@@ -83,4 +83,14 @@ export class TextNode extends BaseNode {
       content: this._props['content'] as string,
     };
   }
+
+  /**
+   * Override the `accept` method of the `BaseNode` class
+   * 
+   * @param visitor 
+   */
+  accept(visitor: any): void {
+    visitor.visit(this._props['content'] as string);
+  }
+
 }

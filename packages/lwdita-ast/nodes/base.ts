@@ -230,6 +230,21 @@ export abstract class BaseNode {
     // Else add attribute to element and document tree
     this._props[field] = value;
   }
+
+  /**
+   * `accept` - Accept a visitor
+   *
+   * @remarks
+   * This function is used to traverse the AST
+   *
+   * @param visitor - The visitor
+   * @returns void
+   */
+  accept(visitor: any): void {
+    visitor.startTag(this.static.nodeName, this._props || {});
+    this._children?.forEach(child => child.accept(visitor));
+    visitor.endTag();
+  }
 }
 
 /**
