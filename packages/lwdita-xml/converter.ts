@@ -2,6 +2,7 @@ import * as saxes from "saxes";
 import { BaseNode, DocumentNode } from "@jdita/lwdita-ast/nodes";
 import { createNode } from "@jdita/lwdita-ast/factory";
 import { JDita } from "./classes";
+import {create} from 'xmlbuilder2';
 
 /** TODO: Add tests for this module */
 
@@ -102,4 +103,26 @@ export async function xditaToJdita(xml: string, abortOnError = true): Promise<Do
  */
 export async function xditaToJson(xml: string, abortOnError = true): Promise<JDita> {
   return xditaToJdita(xml, abortOnError).then(doc => doc.json);
+}
+
+/**
+ * Serialize the document tree to XML
+ * 
+ * @param tree - xdita document tree 
+ * @param abortOnError - Boolean, if true, stop execution and report errors
+ */
+export async function xditaToXml(tree: string, abortOnError = true): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const root = create()
+    .ele('root', { att: 'val' })
+      .ele('foo')
+        .ele('bar1').txt('foobar').up()
+        .ele('bar2').txt('foobar').up()
+      .up()
+      .ele('bar').up()
+    .up();
+
+const xml = root.end({ prettyPrint: true });
+    console.log(xml)
+  });
 }

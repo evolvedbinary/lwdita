@@ -2,6 +2,9 @@ import { acceptsNodeName, isChildTypeRequired, stringToChildTypes, isChildTypeSi
 import { ChildTypes, ChildType, OrArray, BasicValue, Attributes, JDita } from "@jdita/lwdita-xml/classes";
 import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError } from "../ast-classes";
 import { nodeGroups } from "../ast-utils";
+import { create } from "xmlbuilder2";
+import { TextNode } from "./text";
+import { XMLBuilder } from 'xmlbuilder2/lib/interfaces';
 
 /**
  * `BaseNode` - The base class for all nodes
@@ -80,14 +83,60 @@ export abstract class BaseNode {
    * @privateRemarks
    * this is not real json it needs to be stringified to be converted to actual json
    */
-  get json(): JDita {
+  // get json(): any {
+  //   const nodeName = this.static.nodeName;
+  //   const children = this.children || [];
+
+  //   if(children.length === 0) {
+  //     return {
+  //       [nodeName]: {
+  //         ...this._props,
+  //       }
+  //     };
+  //   }
+
+  //   const childJson = children.map(child => child.json);
+
+  //   return {
+  //     [nodeName]: childJson
+  //   };
+  // }
+
+  xml(tree: XMLBuilder): string {
+
+    if(!tree) {
+      tree = create();
+    }
+    // get the node name
+    const nodeName = this.static.nodeName;
+    // get the children
+    let children = this.children || [];
+
+    // if we encounter a text node we should cast it as one
+    const text: TextNode = children.filter(child => child.static.nodeName === "text")[0];
+    children = children.filter(child => child.static.nodeName !== "text");
+    
+    // append the node and it's attributes and text it it has any
+    const parent = tree.ele(nodeName).att({ ...this._props }).txt(text?.content);
+    
+    //if we have any children, append them to the node
+    children.forEach(child => child.xml(parent));
+
+    // once we are done with the children, go back to the parent
+    parent.up();
+
+    // if there are no children, return the xml
+    const xml = tree.end();
+    return xml;
+  }
+
+  get json(): any {
     return {
       nodeName: this.static.nodeName,
       attributes: this._props,
       children: this._children?.map(child => child.json),
     };
   }
-
   /**
    * `canAdd` - Checks if a node can be added as a child
    * Also ensure it can be added in the right order
