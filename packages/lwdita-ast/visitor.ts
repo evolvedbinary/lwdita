@@ -9,6 +9,11 @@ export class XMLTag {
   children?: JDita[];
   isSelfClosing: boolean;
 
+  constructor(tagName: string,attributes: Record<string, BasicValue>) {
+    this.tagName = tagName;
+    this.attributes = attributes;
+  }
+
   toString(): string { return "test" }
 }
 
@@ -18,9 +23,6 @@ export class XMLTag {
 export class Visitor {
   //TODO change this an array or any kind of method for saving the output
   outStream: Array<XMLTag>;
-  // string
-  // 2 array of strings
-  // 3 array of objects that represent xml tags
 
   //tageNames array for saving the tag names
   tagNames: Array<string>;
@@ -49,8 +51,26 @@ export class Visitor {
    * @param attrs the attributes 
    */
   startTag(tagName: string, attrs: any) {
-    const attrsPrint = Object.keys(attrs).filter(key => attrs[key]).map(key => `${key}="${attrs[key]}"`).join(' ');
-    this.outStream.push(attrsPrint ? `<${tagName} ${attrsPrint}>` : `<${tagName}>`);
+    // <topic> // save the open tag or start to the array
+    // <title> // save the open
+    //valid title // save the text
+    //</title> // save the close tag
+    // <body>
+    // </body>
+    // </topic>
+
+
+    // you have an issue of how to add closing tags
+
+    //TODO convert this code to a XMLTag object
+    const xmlTag = new XMLTag(tagName, attrs);
+
+    // new code
+    this.outStream.push(xmlTag);
+    this.tagNames.push(tagName);
+
+    // old code
+    this.outStream.push(`<${tagName}>`);
     this.tagNames.push(tagName);
   }
 

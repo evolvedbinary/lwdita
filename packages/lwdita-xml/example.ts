@@ -5,6 +5,8 @@ import { Visitor } from "@jdita/lwdita-ast/visitor";
 function serializeToXML(root) {
   const outStream = [];
 
+  //TODO handle DOCType and XML version
+  // figure out what !ENTITY means, does xdita have it?
   const visitor = new Visitor(outStream);
 
   root.accept(visitor);
