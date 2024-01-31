@@ -1,9 +1,23 @@
+import { BasicValue, JDita } from "@evolvedbinary/lwdita-xdita/classes";
+
+/**
+ *
+ */
+export class XMLTag {
+  tagName: string;
+  attributes?: Record<string, BasicValue>;
+  children?: JDita[];
+  isSelfClosing: boolean;
+
+  toString(): string { return "test" }
+}
+
 /**
  * Visitor class for traversing the AST
  */
 export class Visitor {
   //TODO change this an array or any kind of method for saving the output
-  outStream: Array<string>;
+  outStream: Array<XMLTag>;
   // string
   // 2 array of strings
   // 3 array of objects that represent xml tags
@@ -15,16 +29,16 @@ export class Visitor {
    * Constructor
    * @param outStream the output stream
    */
-  constructor(outStream: Array<string>) {
+  constructor(outStream: Array<XMLTag>) {
     this.outStream = outStream;
     this.tagNames = [];
   }
 
   /**
    * Visit a node
-   * @param text 
+   * @param text
    */
-  visit(text: string) {
+  visit(text: XMLTag) {
     this.outStream.push(text);
   }
 
