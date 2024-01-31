@@ -3,7 +3,10 @@
  */
 export class Visitor {
   //TODO change this an array or any kind of method for saving the output
-  outStream: Console;
+  outStream: Array<string>;
+  // string
+  // 2 array of strings
+  // 3 array of objects that represent xml tags
 
   //tageNames array for saving the tag names
   tagNames: Array<string>;
@@ -12,7 +15,7 @@ export class Visitor {
    * Constructor
    * @param outStream the output stream
    */
-  constructor(outStream: Console) {
+  constructor(outStream: Array<string>) {
     this.outStream = outStream;
     this.tagNames = [];
   }
@@ -22,7 +25,7 @@ export class Visitor {
    * @param text 
    */
   visit(text: string) {
-    this.outStream.log(text);
+    this.outStream.push(text);
   }
 
   /**
@@ -33,7 +36,7 @@ export class Visitor {
    */
   startTag(tagName: string, attrs: any) {
     const attrsPrint = Object.keys(attrs).filter(key => attrs[key]).map(key => `${key}="${attrs[key]}"`).join(' ');
-    this.outStream.log(attrsPrint ? `<${tagName} ${attrsPrint}>` : `<${tagName}>`);
+    this.outStream.push(attrsPrint ? `<${tagName} ${attrsPrint}>` : `<${tagName}>`);
     this.tagNames.push(tagName);
   }
 
@@ -42,7 +45,11 @@ export class Visitor {
    */
   endTag() {
     const tagName = this.tagNames.pop();
-    this.outStream.log(`</${tagName}>`);
+    this.outStream.push(`</${tagName}>`);
   }
 
+  selfClosingTag(tagName: string, attrs: any) {
+    const attrsPrint = Object.keys(attrs).filter(key => attrs[key]).map(key => `${key}="${attrs[key]}"`).join(' ');
+    this.outStream.push(attrsPrint ? `<${tagName} ${attrsPrint}/>` : `<${tagName}/>`);
+  }
 }
