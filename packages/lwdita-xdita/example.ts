@@ -10,8 +10,8 @@ function serializeToXML(root) {
   const visitor = new Visitor(outStream);
 
   root.accept(visitor);
-
-  console.log(outStream.join(''));
+  //TODO do no log this to console, return the string
+  console.log(outStream.join('\n'));
 }
 
 const xml = 
