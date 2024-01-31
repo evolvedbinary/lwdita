@@ -6,15 +6,30 @@ import { BasicValue, JDita } from "@jdita/lwdita-xml/classes";
 export class XMLTag {
   tagName: string;
   attributes?: Record<string, BasicValue>;
-  children?: JDita[];
   isSelfClosing: boolean;
+  isStartTag: boolean;
 
-  constructor(tagName: string,attributes: Record<string, BasicValue>) {
+  constructor(tagName: string,attributes: Record<string, BasicValue>, isSelfClosing: boolean, isStartTag: boolean) {
     this.tagName = tagName;
     this.attributes = attributes;
+    this.isSelfClosing = isSelfClosing;
+    this.isStartTag = isStartTag;
   }
 
-  toString(): string { return "test" }
+  toString(): string {
+    const attrsPrint = Object.keys(this.attributes).filter(key => this.attributes[key]).map(key => `${key}="${this.attributes[key]}"`).join(' ');
+    if (this.isSelfClosing) {
+      return attrsPrint ? `<${this.tagName} ${attrsPrint}/>` : `<${this.tagName}/>`;
+    }
+
+    if (this.isStartTag) {
+      return attrsPrint ? `<${this.tagName} ${attrsPrint}>` : `<${this.tagName}>`;
+    }
+
+    if(!this.isStartTag) {
+      return `</${this.tagName}>`;
+    }
+   }
 }
 
 /**
@@ -25,7 +40,7 @@ export class Visitor {
   outStream: Array<XMLTag>;
 
   //tageNames array for saving the tag names
-  tagNames: Array<string>;
+  tagsStack: Array<string>;
 
   /**
    * Constructor
@@ -33,7 +48,7 @@ export class Visitor {
    */
   constructor(outStream: Array<XMLTag>) {
     this.outStream = outStream;
-    this.tagNames = [];
+    this.tagsStack = [];
   }
 
   /**
@@ -50,40 +65,31 @@ export class Visitor {
    * @param tagName the tag name
    * @param attrs the attributes 
    */
-  startTag(tagName: string, attrs: any) {
-    // <topic> // save the open tag or start to the array
-    // <title> // save the open
-    //valid title // save the text
-    //</title> // save the close tag
-    // <body>
-    // </body>
-    // </topic>
-
-
-    // you have an issue of how to add closing tags
-
-    //TODO convert this code to a XMLTag object
-    const xmlTag = new XMLTag(tagName, attrs);
-
-    // new code
+  startTag(tagName: string, attrs: any, isSelfClosing = false, isStartTag = true) {
+    // create a new XMLTag object 
+    const xmlTag = new XMLTag(tagName, attrs, isSelfClosing , isStartTag);
+    // push to the output stream 
     this.outStream.push(xmlTag);
-    this.tagNames.push(tagName);
-
-    // old code
-    this.outStream.push(`<${tagName}>`);
-    this.tagNames.push(tagName);
+    // save the tag in the stack to use it later
+    this.tagsStack.push(tagName);
   }
 
   /**
    * EndTag event
    */
-  endTag() {
-    const tagName = this.tagNames.pop();
-    this.outStream.push(`</${tagName}>`);
+  endTag(isSelfClosing = false, isStartTag = false) {
+    // get the tag out of the stack
+    const tagName = this.tagsStack.pop();
+    // create a new XMLTag object
+    const xmlTag = new XMLTag(tagName, {}, isSelfClosing, isStartTag);
+    // add the closing tag to the output stream
+    this.outStream.push(xmlTag);
   }
 
-  selfClosingTag(tagName: string, attrs: any) {
-    const attrsPrint = Object.keys(attrs).filter(key => attrs[key]).map(key => `${key}="${attrs[key]}"`).join(' ');
-    this.outStream.push(attrsPrint ? `<${tagName} ${attrsPrint}/>` : `<${tagName}/>`);
+  selfClosingTag(tagName: string, attrs: any, isSelfClosing = true, isStartTag = true) {
+    // create new self closing tag
+    const xmlTag = new XMLTag(tagName, attrs, isSelfClosing, isStartTag);
+    // push to the output stream
+    this.outStream.push(xmlTag);
   }
 }
