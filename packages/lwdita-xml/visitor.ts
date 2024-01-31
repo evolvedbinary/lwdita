@@ -1,7 +1,7 @@
-import { BasicValue, JDita } from "@jdita/lwdita-xml/classes";
+import { BasicValue } from "@jdita/lwdita-xml/classes";
 
 /**
- *
+ * 
  */
 export class XMLTag {
   tagName: string;
@@ -61,14 +61,14 @@ export class Visitor {
 
   /**
    * StartTag event
-   * 
+   *
    * @param tagName the tag name
-   * @param attrs the attributes 
+   * @param attrs the attributes
    */
   startTag(tagName: string, attrs: any, isSelfClosing = false, isStartTag = true) {
-    // create a new XMLTag object 
+    // create a new XMLTag object
     const xmlTag = new XMLTag(tagName, attrs, isSelfClosing , isStartTag);
-    // push to the output stream 
+    // push to the output stream
     this.outStream.push(xmlTag);
     // save the tag in the stack to use it later
     this.tagsStack.push(tagName);
