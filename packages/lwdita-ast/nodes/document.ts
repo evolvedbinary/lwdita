@@ -16,4 +16,10 @@ export class DocumentNode extends BaseNode {
   static childTypes = stringToChildTypes(['topic']);
   static fields = [];
   static isValidField = (): boolean => true;
+  
+  /** @override */
+  accept(visitor: any): void {
+    //don't start the tag for document node
+    this._children?.forEach(child => child.accept(visitor));
+  }
 }
