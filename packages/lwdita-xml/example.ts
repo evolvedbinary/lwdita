@@ -1,18 +1,5 @@
-import { xditaToJson, xditaToJdita } from "./converter";
+import { xditaToJson, xditaToJdita, serializeToXML } from "./converter";
 import { BaseNode, TextNode, TopicNode } from "@jdita/lwdita-ast/nodes";
-import { Visitor } from "@jdita/lwdita-xml/visitor";
-
-function serializeToXML(root) {
-  const outStream = [];
-
-  //TODO handle DOCType and XML version
-  // figure out what !ENTITY means, does xdita have it?
-  const visitor = new Visitor(outStream);
-
-  root.accept(visitor);
-  //TODO do no log this to console, return the string
-  console.log(outStream.join('\n'));
-}
 
 const xml =
 `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd"><topic id="intro-product"><title><ph keyref="product-name"/>Overview</title><shortdesc>The<ph keyref="product-name"/> kit allows you to operate network-based home lighting through a remote control</shortdesc><body><p>The<ph keyref="product-name"/> kit includes a wireless smart lighting system that helps make the lighting in your home more energy efficient and easier to manage. The kit includes the following components:</p><dl><dlentry><dt>Remote Control</dt><dd><p>Allows you to power on, power off, and dim groups of lights on your network.</p></dd></dlentry><dlentry><dt>LED Light Bulbs</dt><dd><p>Energy-efficient network light bulbs you can install into standard light fixtures.</p></dd></dlentry></dl><fig><title><ph keyref="product-name"/>ready for installation</title><image href="../images/kit.png"><alt>Remote Lighting Kit</alt></image></fig><p id="warning">Electrical hazards can cause burns, shocks and electrocution (death).</p></body></topic>`
