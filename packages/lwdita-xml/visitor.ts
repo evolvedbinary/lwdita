@@ -20,16 +20,17 @@ export class XMLTag {
 
   toString(): string {
     const attrsPrint = Object.keys(this.attributes).filter(key => this.attributes[key]).map(key => `${key}="${this.attributes[key]}"`).join(' ');
+    const depthString = `  `.repeat(this.depth);
     if (this.isSelfClosing) {
-      return `${this.depth}`.repeat(this.depth) + attrsPrint ? `<${this.tagName} ${attrsPrint}/>` : `<${this.tagName}/>`;
+      return depthString + (attrsPrint ? `<${this.tagName} ${attrsPrint}/>` : `<${this.tagName}/>`);
     }
 
     if (this.isStartTag) {
-      return `${this.depth}`.repeat(this.depth) + attrsPrint ? `<${this.tagName} ${attrsPrint}>` : `<${this.tagName}>`;
+      return depthString + (attrsPrint ? `<${this.tagName} ${attrsPrint}>` : `<${this.tagName}>`);
     }
 
     if(!this.isStartTag) {
-      return `${this.depth}`.repeat(this.depth) + `</${this.tagName}>`;
+      return depthString +  `</${this.tagName}>`;
     }
    }
 }
