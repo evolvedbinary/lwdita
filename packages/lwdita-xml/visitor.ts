@@ -42,17 +42,17 @@ export class XMLTag {
 
     // Handle selfclosing elements
     if (this.isSelfClosing) {
-      return depthString + (attrsPrint ? `<${this.tagName} ${attrsPrint}/>` : `<${this.tagName}/>`);
+      return indentationLevelString + (attrsPrint ? `<${this.tagName} ${attrsPrint}/>` : `<${this.tagName}/>`);
     }
 
     // Handle start tags
     if (this.isStartTag) {
-      return depthString + (attrsPrint ? `<${this.tagName} ${attrsPrint}>` : `<${this.tagName}>`);
+      return indentationLevelString + (attrsPrint ? `<${this.tagName} ${attrsPrint}>` : `<${this.tagName}>`);
     }
 
     // Handle end tags
     if(!this.isStartTag) {
-      return depthString +  `</${this.tagName}>`;
+      return indentationLevelString +  `</${this.tagName}>`;
     }
    }
 }
