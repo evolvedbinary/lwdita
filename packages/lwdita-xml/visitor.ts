@@ -1,7 +1,24 @@
 import { BasicValue } from "@jdita/lwdita-xml/classes";
 
 /**
- * 
+ * Create XML tags
+ *
+ * @remarks
+ * Return start tag, the element name
+ * available attributes, an end tag.
+ * In case of selfclosing elements, return
+ * a selfclosing tag.
+ * Indent the tags by inserting
+ * 2 spaces per level according to the element's nesting level.
+ *
+ * @example
+ * Selfclosing tag: `<ph keyref="product-name"/>`
+ *
+ * @example
+ * Start tag with attribute: `<p id="warning">`
+ *
+ * @example
+ * End tag: `</topic>`
  */
 export class XMLTag {
   tagName: string;
@@ -20,15 +37,20 @@ export class XMLTag {
 
   toString(): string {
     const attrsPrint = Object.keys(this.attributes).filter(key => this.attributes[key]).map(key => `${key}="${this.attributes[key]}"`).join(' ');
-    const depthString = `  `.repeat(this.depth);
+    // Indentation: 2 single spaces per level
+    const indentationLevelString = `  `.repeat(this.depth);
+
+    // Handle selfclosing elements
     if (this.isSelfClosing) {
       return depthString + (attrsPrint ? `<${this.tagName} ${attrsPrint}/>` : `<${this.tagName}/>`);
     }
 
+    // Handle start tags
     if (this.isStartTag) {
       return depthString + (attrsPrint ? `<${this.tagName} ${attrsPrint}>` : `<${this.tagName}>`);
     }
 
+    // Handle end tags
     if(!this.isStartTag) {
       return depthString +  `</${this.tagName}>`;
     }
