@@ -240,16 +240,14 @@ export abstract class BaseNode {
    * @param visitor - The visitor
    * @returns void
    */
-  accept(visitor: any): void {
+  accept(visitor: any, depth = 0): void {
 
-    //TODO Ask Tom about possible tags that can't be self closed.
-    // treat the case for self closing tags
     if(this.children.length > 0) {
-      visitor.startTag(this.static.nodeName, this._props || {});
-      this._children?.forEach(child => child.accept(visitor));
-      visitor.endTag();
+      visitor.startTag(this.static.nodeName, this._props || {}, depth);
+      this._children?.forEach(child => child.accept(visitor, depth + 1));
+      visitor.endTag(depth);
     }else {
-      visitor.selfClosingTag(this.static.nodeName, this._props || {});
+      visitor.selfClosingTag(this.static.nodeName, this._props || {}, depth + 1);
     }
   }
 }
