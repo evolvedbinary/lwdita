@@ -18,8 +18,8 @@ export class DocumentNode extends BaseNode {
   static isValidField = (): boolean => true;
   
   /** @override */
-  accept(visitor: any): void {
+  accept(visitor: any, depth): void {
     //don't start the tag for document node
-    this._children?.forEach(child => child.accept(visitor));
+    this._children?.forEach(child => child.accept(visitor, depth));
   }
 }

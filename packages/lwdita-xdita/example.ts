@@ -29,7 +29,9 @@ const xml =
  */
 xditaToJdita(xml)
   .then(result => {
-    serializeToXML(result);
+
+    console.log(serializeToXML(result).join('\n'));
+    
   })
   .catch(e => console.log('Failed to convert:', e));
 
