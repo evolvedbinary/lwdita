@@ -90,7 +90,12 @@ export class TextNode extends BaseNode {
    * @param visitor 
    */
   accept(visitor: any, depth = 0, indent: boolean): void {
-    visitor.visit(this._props['content'] as string);
+    const textContent = this._props['content'] as string;
+    // Indentation: 2 single spaces per level
+    const tab = `  `;
+    const indentation = indent ? tab.repeat(depth) : '';
+    const lineEnd = indent ? '\n' : '';
+    visitor.visit(indentation + textContent + lineEnd);
   }
 
 }
