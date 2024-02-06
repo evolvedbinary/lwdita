@@ -35,6 +35,7 @@ const xml =
 xditaToJdita(xml)
   .then(result => {
 
+    console.log(JSON.stringify(result.json, null, 2));
     const res = serializeToXML(result, true).join('');
     console.log("Success!\nsaving to file...");
     const dir = path.join(__dirname, '../../out');
