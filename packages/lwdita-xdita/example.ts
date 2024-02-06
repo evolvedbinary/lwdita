@@ -1,6 +1,8 @@
 import { xditaToJson, xditaToJdita, serializeToXML } from "./converter";
 import { BaseNode, TextNode, TopicNode } from "@evolvedbinary/lwdita-ast/nodes";
 import { storeOutputXML } from "./utils";
+import path from 'path';
+import fs from 'fs';
 
 //TODO: input xml can't have new space between tags or else it's considered a text node, handle this.
 //TODO: figure out how to put CDATA in the input
@@ -34,7 +36,14 @@ xditaToJdita(xml)
   .then(result => {
 
     const res = serializeToXML(result).join('\n');
-    storeOutputXML(res);
+    console.log("Success!\nsaving to file...");
+    const dir = path.join(__dirname, '../../out');
+    if (!fs.existsSync(dir)){
+      fs.mkdirSync(dir);
+    }
+
+
+    storeOutputXML(res, dir + "/output.xml");
  
   })
   .catch(e => console.log('Failed to convert:', e));
