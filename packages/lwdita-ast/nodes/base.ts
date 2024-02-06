@@ -240,14 +240,14 @@ export abstract class BaseNode {
    * @param visitor - The visitor
    * @returns void
    */
-  accept(visitor: any, depth = 0): void {
+  accept(visitor: any, depth = 0, indent: boolean): void {
 
     if(this.children.length > 0) {
-      visitor.startTag(this.static.nodeName, this._props || {}, depth);
-      this._children?.forEach(child => child.accept(visitor, depth + 1));
-      visitor.endTag(depth);
+      visitor.startTag(this.static.nodeName, this._props || {}, depth, indent);
+      this._children?.forEach(child => child.accept(visitor, depth + 1, indent));
+      visitor.endTag(depth, indent);
     }else {
-      visitor.selfClosingTag(this.static.nodeName, this._props || {}, depth + 1);
+      visitor.selfClosingTag(this.static.nodeName, this._props || {}, depth + 1, indent);
     }
   }
 }

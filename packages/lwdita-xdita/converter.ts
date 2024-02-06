@@ -109,7 +109,7 @@ export async function xditaToJson(xml: string, abortOnError = true): Promise<JDi
  *
  * @param root
  */
-export function serializeToXML(root: BaseNode): XMLTag[] {
+export function serializeToXML(root: BaseNode, indent: boolean): XMLTag[] {
   const outStream: XMLTag[] = [];
 
   // TODO: Handle DOCType and XML version
@@ -121,7 +121,7 @@ export function serializeToXML(root: BaseNode): XMLTag[] {
   // (TODO: Handle whitespace?)
   const visitor = new Visitor(outStream);
 
-  root.accept(visitor);
+  root.accept(visitor, 0, indent);
 
   return (outStream);
 }
