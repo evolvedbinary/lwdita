@@ -119,7 +119,7 @@ export function serializeToXML(root: BaseNode, indent: boolean): XMLTag[] {
   // TODO: Finalise the documentation for newly added features and complete the types.
   // TODO: Handle the correct indentation / formatting of output XML.
   // (TODO: Handle whitespace?)
-  const visitor = new Visitor(outStream);
+  const visitor = new Visitor(outStream);  
 
   root.accept(visitor, 0, indent);
 
