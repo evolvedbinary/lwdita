@@ -26,33 +26,37 @@ export class XMLTag {
   isSelfClosing: boolean;
   isStartTag: boolean;
   depth: number;
+  indent: boolean;
 
-  constructor(tagName: string,attributes: Record<string, BasicValue>, depth: number, isSelfClosing: boolean, isStartTag: boolean) {
+  constructor(tagName: string,attributes: Record<string, BasicValue>, depth: number, isSelfClosing: boolean, isStartTag: boolean, indent: boolean) {
     this.tagName = tagName;
     this.attributes = attributes;
     this.depth = depth;
     this.isSelfClosing = isSelfClosing;
     this.isStartTag = isStartTag;
+    this.indent = indent;
   }
 
   toString(): string {
     const attrsPrint = Object.keys(this.attributes).filter(key => this.attributes[key]).map(key => `${key}="${this.attributes[key]}"`).join(' ');
     // Indentation: 2 single spaces per level
-    const indentationLevelString = `  `.repeat(this.depth);
+    const tab = `  `;
+    const indentation = this.indent ? tab.repeat(this.depth) : '';
+    const lineEnd = this.indent ? '\n' : '';
 
     // Handle selfclosing elements
     if (this.isSelfClosing) {
-      return indentationLevelString + (attrsPrint ? `<${this.tagName} ${attrsPrint}/>` : `<${this.tagName}/>`);
+      return indentation + (attrsPrint ? `<${this.tagName} ${attrsPrint}/>` : `<${this.tagName}/>`) + lineEnd;
     }
 
     // Handle start tags
     if (this.isStartTag) {
-      return indentationLevelString + (attrsPrint ? `<${this.tagName} ${attrsPrint}>` : `<${this.tagName}>`);
+      return indentation + (attrsPrint ? `<${this.tagName} ${attrsPrint}>` : `<${this.tagName}>`) + lineEnd;
     }
 
     // Handle end tags
     if(!this.isStartTag) {
-      return indentationLevelString +  `</${this.tagName}>`;
+      return indentation +  `</${this.tagName}>` + lineEnd;
     }
    }
 }
@@ -90,10 +94,10 @@ export class Visitor {
    * @param tagName the tag name
    * @param attrs the attributes
    */
-  startTag(tagName: string, attrs: any, depth, isSelfClosing = false, isStartTag = true) {
-    // create a new XMLTag object 
-    const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing , isStartTag);
-    // push to the output stream 
+  startTag(tagName: string, attrs: any, depth, isSelfClosing = false, isStartTag = true, indent: boolean) {
+    // create a new XMLTag object
+    const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing , isStartTag, indent);
+    // push to the output stream
     this.outStream.push(xmlTag);
     // save the tag in the stack to use it later
     this.tagsStack.push(tagName);
@@ -102,18 +106,18 @@ export class Visitor {
   /**
    * EndTag event
    */
-  endTag(depth, isSelfClosing = false, isStartTag = false) {
+  endTag(depth, isSelfClosing = false, isStartTag = false, indent: boolean) {
     // get the tag out of the stack
     const tagName = this.tagsStack.pop();
     // create a new XMLTag object
-    const xmlTag = new XMLTag(tagName, {}, depth, isSelfClosing, isStartTag);
+    const xmlTag = new XMLTag(tagName, {}, depth, isSelfClosing, isStartTag, indent);
     // add the closing tag to the output stream
     this.outStream.push(xmlTag);
   }
 
-  selfClosingTag(tagName: string, attrs: any, depth, isSelfClosing = true, isStartTag = true) {
+  selfClosingTag(tagName: string, attrs: any, depth, isSelfClosing = true, isStartTag = true, indent: boolean) {
     // create new self closing tag
-    const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing, isStartTag);
+    const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing, isStartTag, indent);
     // push to the output stream
     this.outStream.push(xmlTag);
   }

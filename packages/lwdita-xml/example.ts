@@ -35,7 +35,7 @@ const xml =
 xditaToJdita(xml)
   .then(result => {
 
-    const res = serializeToXML(result).join('\n');
+    const res = serializeToXML(result, true).join('\n');
     console.log("Success!\nsaving to file...");
     const dir = path.join(__dirname, '../../out');
     if (!fs.existsSync(dir)){
