@@ -272,11 +272,11 @@ export function areFieldsValid(fields: string[], value: Record<string, BasicValu
  * TODO:  Checkout which platform this is running on, We are not sure yet if this would be running in the browser?
  * @param xml string xml to store
  */
-export function storeOutputXML(xml: string) {
+export function storeOutputXML(xml: string, path: string) {
     // temp saving in out folder
     // TODO: save the file in a more appropriate place like out/
     // TODO: get file name info from input XML
     const header = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`
     xml = header + xml;
-    fs.writeFileSync('out.xml',xml)
+    fs.writeFileSync(path,xml)
 }
