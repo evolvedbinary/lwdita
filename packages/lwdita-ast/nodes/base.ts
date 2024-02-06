@@ -241,13 +241,12 @@ export abstract class BaseNode {
    * @returns void
    */
   accept(visitor: any, depth = 0, indent: boolean): void {
-
     if(this.children.length > 0) {
-      visitor.startTag(this.static.nodeName, this._props || {}, depth, indent);
+      visitor.startTag(this.static.nodeName, this._props || {}, depth, false, true, indent);
       this._children?.forEach(child => child.accept(visitor, depth + 1, indent));
-      visitor.endTag(depth, indent);
+      visitor.endTag(depth,false, false, indent);
     }else {
-      visitor.selfClosingTag(this.static.nodeName, this._props || {}, depth + 1, indent);
+      visitor.selfClosingTag(this.static.nodeName, this._props || {}, depth + 1, true, true, indent);
     }
   }
 }
