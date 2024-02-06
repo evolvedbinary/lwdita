@@ -89,7 +89,7 @@ export class TextNode extends BaseNode {
    * 
    * @param visitor 
    */
-  accept(visitor: any, depth): void {
+  accept(visitor: any, depth, indent: boolean): void {
     visitor.visit(this._props['content'] as string);
   }
 
