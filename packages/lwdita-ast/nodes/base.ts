@@ -240,6 +240,7 @@ export abstract class BaseNode {
    * @param indent - The indentation flag as a Boolean type, for an optional indentation of the output XML
    * @returns void
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   accept(visitor: any, depth = 0, indent: boolean): void {
     if(this.children.length > 0) {
       visitor.startTag(this.static.nodeName, this._props || {}, depth, false, true, indent);

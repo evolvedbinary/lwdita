@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { xditaToJson, xditaToJdita, serializeToXML } from "./converter";
 import { BaseNode, TextNode, TopicNode } from "@evolvedbinary/lwdita-ast/nodes";
 import { storeOutputXML } from "./utils";
