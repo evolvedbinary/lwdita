@@ -18,6 +18,7 @@ export class DocumentNode extends BaseNode {
   static isValidField = (): boolean => true;
 
   /** @override */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   accept(visitor: any, depth, indent): void {
     //don't start the tag for document node
     this._children?.forEach(child => child.accept(visitor, depth, indent));
