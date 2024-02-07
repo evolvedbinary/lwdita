@@ -1,6 +1,6 @@
 import { expect, assert } from 'chai';
 import { BasicValue } from "@jdita/lwdita-xml/classes";
-import { XMLTag, Visitor } from './visitor.ts';
+//import { XMLTag, Visitor } from './visitor.ts';
 
 // Test class XMLTag:
 // method toString()
