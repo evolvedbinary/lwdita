@@ -46,12 +46,10 @@ export const isTextNode = (value?: BasicValue): value is TextNode =>
 /**
  * Construct a `text` node containing a `content` property
  *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
- *
  * @param constructor - The constructor
  * @returns The `text` node
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeText<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements TextNode {
     get 'content'(): string {
@@ -86,8 +84,8 @@ export class TextNode extends BaseNode {
 
   /**
    * Override the `accept` method of the `BaseNode` class
-   * 
-   * @param visitor 
+   *
+   * @param visitor
    */
   accept(visitor: any, depth = 0, indent: boolean): void {
     const textContent = this._props['content'] as string;
