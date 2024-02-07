@@ -55,12 +55,26 @@ xditaToJson(xml, false)
 The full example with an additional option for serializing the JDita object back into XML can be found in file [example.ts](packages/lwdita-xml/example.ts).
 
 The serialization function contains an option for indenting the output with 2 spaces according to the level of the node tag level and adding a newline after each tag.
-When set to false, the output will be generated in one line.
+This is handled by the second parameter of `serializeToXML(root, indent)`.
+When set the second parameter to false, the output will be generated in one line.
 The generated XML will contain all XML nodes, their text content, and their attributes (`CDATA` is currently not processed).
 
 ```javascript
 serializeToXML(result, true)
 ```
+
+And in context:
+
+```javascript
+xditaToJdita(xml)
+  .then(result => {
+    console.log(JSON.stringify(result.json, null, 2));
+    const res = serializeToXML(result, true).join('');
+  })
+  .catch(e => console.log('Failed to convert:', e));
+```
+
+If you want to store the XML output in a file, you can see an example in [example.ts](packages/lwdita-xml/example.ts).
 
 ## Development
 
