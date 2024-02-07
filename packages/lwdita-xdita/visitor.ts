@@ -28,7 +28,15 @@ export class XMLTag {
   depth: number;
   indent: boolean;
 
-  constructor(tagName: string,attributes: Record<string, BasicValue>, depth: number, isSelfClosing: boolean, isStartTag: boolean, indent: boolean) {
+  constructor(
+    tagName: string,
+    attributes: Record<string,
+    BasicValue>,
+    depth: number,
+    isSelfClosing: boolean,
+    isStartTag: boolean,
+    indent: boolean
+  ){
     this.tagName = tagName;
     this.attributes = attributes;
     this.depth = depth;
@@ -94,7 +102,13 @@ export class Visitor {
    * @param tagName the tag name
    * @param attrs the attributes
    */
-  startTag(tagName: string, attrs: any, depth, isSelfClosing = false, isStartTag = true, indent: boolean) {
+  startTag(
+    tagName: string,
+    attrs: any, depth,
+    isSelfClosing = false,
+    isStartTag = true,
+    indent: boolean
+  ) {
     // create a new XMLTag object
     const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing , isStartTag, indent);
     // push to the output stream
@@ -106,7 +120,12 @@ export class Visitor {
   /**
    * EndTag event
    */
-  endTag(depth, isSelfClosing = false, isStartTag = false, indent: boolean) {
+  endTag(
+    depth,
+    isSelfClosing = false,
+    isStartTag = false,
+    indent: boolean
+  ) {
     // get the tag out of the stack
     const tagName = this.tagsStack.pop();
     // create a new XMLTag object
@@ -115,7 +134,14 @@ export class Visitor {
     this.outStream.push(xmlTag);
   }
 
-  selfClosingTag(tagName: string, attrs: any, depth, isSelfClosing = true, isStartTag = true, indent: boolean) {
+  selfClosingTag(
+    tagName: string,
+    attrs: any,
+    depth,
+    isSelfClosing = true,
+    isStartTag = true,
+    indent: boolean
+  ) {
     // create new self closing tag
     const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing, isStartTag, indent);
     // push to the output stream
