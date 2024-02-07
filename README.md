@@ -52,11 +52,7 @@ xditaToJson(xml, false)
 
 ### Serialization of the JDita AST to XML
 
-The full example with an additional option for serializing the JDita object back into XML can be found here:
-
-```shell
-packages/lwdita-xdita/example.ts
-```
+The full example with an additional option for serializing the JDita object back into XML can be found in file [example.ts](packages/lwdita-xdita/example.ts).
 
 The serialization function contains an option for indenting the output with 2 spaces according to the level of the node tag level and adding a newline after each tag.
 When set to false, the output will be generated in one line.
