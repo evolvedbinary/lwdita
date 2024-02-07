@@ -71,17 +71,20 @@ export class XMLTag {
 
 /**
  * Visitor class for traversing the AST
+ *
+ * @privateRemarks
+ * TODO change this an array or any kind of method for saving the output
  */
 export class Visitor {
-  //TODO change this an array or any kind of method for saving the output
   outStream: Array<XMLTag>;
 
-  //tageNames array for saving the tag names
+  // A tagsStack array for saving the tag names
   tagsStack: Array<string>;
 
   /**
    * Constructor
-   * @param outStream the output stream
+   *
+   * @param outStream - The output stream
    */
   constructor(outStream: Array<XMLTag>) {
     this.outStream = outStream;
@@ -90,17 +93,22 @@ export class Visitor {
 
   /**
    * Visit a node
-   * @param text
+   *
+   * @param text - The XML node
    */
   visit(text: XMLTag) {
     this.outStream.push(text);
   }
 
   /**
-   * StartTag event
+   * StartTag Event
    *
-   * @param tagName the tag name
-   * @param attrs the attributes
+   * @param tagName - The tag name of the node
+   * @param attrs - The attributes of the node
+   * @param depth - The node's level within the document tree, needed for indentation
+   * @param isSelfClosing - Boolean, if the element is selfclosing or not
+   * @param isStartTag - Boolean, if the tag is a start tag or not
+   * @param indent - Boolean, if the indentation of the output is set or not
    */
   startTag(
     tagName: string,
@@ -118,7 +126,12 @@ export class Visitor {
   }
 
   /**
-   * EndTag event
+   * EndTag Event
+   *
+   * @param depth - The node's level within the document tree, needed for indentation
+   * @param isSelfClosing - Boolean, if the element is selfclosing or not, the default is "false"
+   * @param isStartTag - Boolean, if the tag is a start tag or not, the default is "false"
+   * @param indent - Boolean, if the indentation of the output is set or not
    */
   endTag(
     depth,
@@ -134,6 +147,16 @@ export class Visitor {
     this.outStream.push(xmlTag);
   }
 
+  /**
+   * selfClosingTag Event
+   *
+   * @param tagName - The tag name of the node
+   * @param attrs - The attributes of the node
+   * @param depth - The node's level within the document tree, needed for indentation
+   * @param isSelfClosing - Boolean, if the element is selfclosing or not, the default is "true"
+   * @param isStartTag - Boolean, if the tag is a start tag or not, the default is "true"
+   * @param indent - Boolean, if the indentation of the output is set or not
+   */
   selfClosingTag(
     tagName: string,
     attrs: any,
