@@ -268,14 +268,19 @@ export function areFieldsValid(fields: string[], value: Record<string, BasicValu
 
 /**
  * Store Xml documents in the file system.
- * 
- * TODO:  Checkout which platform this is running on, We are not sure yet if this would be running in the browser?
- * @param xml string xml to store
+ *
+ * @privateRemarks
+ * TODO: Get file name info from input XML
+ * TODO: Check if the parser has support for reading the XML & Doctype Declaration,
+ * if it can then, set the values from the XML Declaration and the Doctype Declaration
+ * as properties on the root node of the AST tree.
+ *
+ * @param xml - The xml input string to store
+ * @param path - The path in the filesystem to store the output stream
  */
-export function storeOutputXML(xml: string, path: string) {
-    // temp saving in out folder
-    // TODO: save the file in a more appropriate place like out/
-    // TODO: get file name info from input XML
+export function storeOutputXML(xml: string, path: string): void {
+    // This is a static & generic XML & DOCTYPE Declaration for the output XML,
+    // see above's TODO for a future implementation
     const header = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`
     xml = header + xml;
     fs.writeFileSync(path,xml)
