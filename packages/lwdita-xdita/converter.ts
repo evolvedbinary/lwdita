@@ -106,22 +106,15 @@ export async function xditaToJson(xml: string, abortOnError = true): Promise<JDi
 }
 
 /**
+ * `serializeToXML` - Serialize the JDita AST and transform it into XML
  *
- * @param root
+ * @param root - The document root
+ * @param indent - The indentation flag as a Boolean type, for an optional indentation of the output XML
+ * @returns The output stream of the document
  */
 export function serializeToXML(root: BaseNode, indent: boolean): XMLTag[] {
   const outStream: XMLTag[] = [];
-
-  // TODO: Handle DOCType and XML version
-  // TODO: Figure out if we have to handle `!ENTITY` for XDita.
-  // TODO: Handle CDATA in output XML
-  // TODO: Determine where to store the output.
-  // TODO: Finalise the documentation for newly added features and complete the types.
-  // TODO: Handle the correct indentation / formatting of output XML.
-  // (TODO: Handle whitespace?)
-  const visitor = new Visitor(outStream);  
-
+  const visitor = new Visitor(outStream);
   root.accept(visitor, 0, indent);
-
   return (outStream);
 }
