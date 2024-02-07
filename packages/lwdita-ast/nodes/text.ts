@@ -85,8 +85,11 @@ export class TextNode extends BaseNode {
   /**
    * Override the `accept` method of the `BaseNode` class
    *
-   * @param visitor
+   * @param visitor - The accepted visitor
+   * @param depth - The node's level within the document tree, needed for indentation
+   * @param indent - Boolean, if the indentation of the output is set or not
    */
+  /** @override */
   accept(visitor: any, depth = 0, indent: boolean): void {
     const textContent = this._props['content'] as string;
     // Indentation: 2 single spaces per level
@@ -95,5 +98,4 @@ export class TextNode extends BaseNode {
     const lineEnd = indent ? '\n' : '';
     visitor.visit(indentation + textContent + lineEnd);
   }
-
 }
