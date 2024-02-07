@@ -237,7 +237,9 @@ export abstract class BaseNode {
    * @remarks
    * This function is used to traverse the AST
    *
-   * @param visitor - The visitor
+   * @param visitor - The accepted visitor which is allowed to retrieve information
+   * @param depth - The node's level within the document tree, needed for indentation, by default set to root level "0"
+   * @param indent - The indentation flag as a Boolean type, for an optional indentation of the output XML
    * @returns void
    */
   accept(visitor: any, depth = 0, indent: boolean): void {
@@ -245,7 +247,7 @@ export abstract class BaseNode {
       visitor.startTag(this.static.nodeName, this._props || {}, depth, false, true, indent);
       this._children?.forEach(child => child.accept(visitor, depth + 1, indent));
       visitor.endTag(depth,false, false, indent);
-    }else {
+    } else {
       visitor.selfClosingTag(this.static.nodeName, this._props || {}, depth, true, true, indent);
     }
   }
