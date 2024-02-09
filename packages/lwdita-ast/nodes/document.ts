@@ -1,3 +1,4 @@
+import { Visitor } from "@jdita/lwdita-xml/visitor";
 import { BaseNode } from "./base";
 import { stringToChildTypes } from "@jdita/lwdita-xml/utils";
 
@@ -19,7 +20,7 @@ export class DocumentNode extends BaseNode {
 
   /** @override */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  accept(visitor: any, depth, indent): void {
+  accept(visitor: Visitor, depth: number, indent: boolean): void {
     //don't start the tag for document node
     this._children?.forEach(child => child.accept(visitor, depth, indent));
   }
