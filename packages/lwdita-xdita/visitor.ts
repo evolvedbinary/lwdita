@@ -48,8 +48,14 @@ export class XMLTag {
     this.indent = indent;
   }
 
-  toString(): string {
-    const attrsPrint = Object.keys(this.attributes).filter(key => this.attributes[key]).map(key => `${key}="${this.attributes[key]}"`).join(' ');
+  toString() {
+    // prep the attributes string
+    let attrsPrint = "";
+    if (this.attributes) {
+      const attr = this.attributes as Record<string, string>;
+      attrsPrint = Object.keys(this.attributes).filter(key => attr[key]).map(key => `${key}="${attr[key]}"`).join(' ');
+    }
+
     // Indentation: 2 single spaces per level
     const tab = `  `;
     const indentation = this.indent ? tab.repeat(this.depth) : '';
@@ -115,7 +121,8 @@ export class Visitor {
    */
   startTag(
     tagName: string,
-    attrs: any, depth,
+    attrs: Record<string, BasicValue>,
+    depth: number,
     isSelfClosing = false,
     isStartTag = true,
     indent: boolean
@@ -137,13 +144,13 @@ export class Visitor {
    * @param indent - Boolean, if the indentation of the output is set or not
    */
   endTag(
-    depth,
+    depth: number,
     isSelfClosing = false,
     isStartTag = false,
     indent: boolean
   ) {
     // get the tag out of the stack
-    const tagName = this.tagsStack.pop();
+    const tagName = this.tagsStack.pop() as string;
     // create a new XMLTag object
     const xmlTag = new XMLTag(tagName, {}, depth, isSelfClosing, isStartTag, indent);
     // add the closing tag to the output stream
@@ -162,8 +169,8 @@ export class Visitor {
    */
   selfClosingTag(
     tagName: string,
-    attrs: any,
-    depth,
+    attrs: Record<string, BasicValue>,
+    depth: number,
     isSelfClosing = true,
     isStartTag = true,
     indent: boolean
