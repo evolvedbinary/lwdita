@@ -1,9 +1,9 @@
 import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
 import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { areFieldsValid } from "@jdita/lwdita-xml/utils";
+import { areFieldsValid } from "@jdita/lwdita-xdita/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
-import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { BasicValue } from "@jdita/lwdita-xdita/classes";
 
 /**
  * Define all allowed `desc` attributes:

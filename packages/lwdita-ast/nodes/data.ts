@@ -2,11 +2,11 @@ import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
 import { ReferenceContentNode, ReferenceContentFields, isValidReferenceContentField, makeReferenceContent } from "./reference-content";
 import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { areFieldsValid } from "@jdita/lwdita-xml/utils";
+import { areFieldsValid } from "@jdita/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, VariableContentNode, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { FieldFields, FieldNode, isValidCDATAFieldField, makeCDATAField } from "./field";
-import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { BasicValue } from "@jdita/lwdita-xdita/classes";
 
 /**
  * Define all allowed `data` attributes:

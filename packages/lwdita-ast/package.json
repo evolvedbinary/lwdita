@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "./lib/index.js",
   "dependencies": {
-    "@jdita/lwdita-xml": "1.0.0"
+    "@jdita/lwdita-xdita": "1.0.0"
   },
   "keywords": [
     "LwDITA",

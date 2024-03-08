@@ -13,17 +13,17 @@ This tool generates JSON data from XDita files.
 You can add JDita to your project using `npm` or `yarn`
 
 ```bash
-npm install --save @jdita/lwdita-xml
+npm install --save @jdita/lwdita-xdita
 ```
 
 or
 
 ```bash
-yarn add @jdita/lwdita-xml
+yarn add @jdita/lwdita-xdita
 ```
 
 ```javascript
-const { xditaToJson } = require("@jdita/lwdita-xml");
+const { xditaToJson } = require("@jdita/lwdita-xdita");
 
 const xml = `
 <?xml version="1.0" encoding="UTF-8"?>
@@ -75,9 +75,9 @@ yarn install
 ### Packages
 
 This project uses [Yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces).
-The current packages, aka. "workspaces" are `lwdita-xml` and `lwdita-xml` and can be found in folder `packages/`.
-Package `lwdita-xml` contains all files and modules for parsing an xml document.
-Package `lwdita-ast` contains all files and modules for creating the abstract syntax tree ("AST") of the parsed XML document, provided by package `lwdita-xml`.
+The current packages, aka. "workspaces" are `lwdita-xdita` and `lwdita-xdita` and can be found in folder `packages/`.
+Package `lwdita-xdita` contains all files and modules for parsing an xml document.
+Package `lwdita-ast` contains all files and modules for creating the abstract syntax tree ("AST") of the parsed XML document, provided by package `lwdita-xdita`.
 
 Both packages depend on each other, as indicated by the `dependency` in their respective package.json files, and they share the same global node modules and commands as declared in the `package.json` file in the root of the project.
 

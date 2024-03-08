@@ -2,10 +2,10 @@ import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
 import { ReuseNode } from "./reuse";
 import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNode } from "./filters";
-import { areFieldsValid } from "@jdita/lwdita-xml/utils";
+import { areFieldsValid } from "@jdita/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
-import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { BasicValue } from "@jdita/lwdita-xdita/classes";
 
 /**
  * Define all allowed `i` attributes:

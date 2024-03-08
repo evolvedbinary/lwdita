@@ -1,9 +1,9 @@
 import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { areFieldsValid } from "@jdita/lwdita-xml/utils";
+import { areFieldsValid } from "@jdita/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
-import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { BasicValue } from "@jdita/lwdita-xdita/classes";
 
 /**
  * Define all allowed `media-loop` attributes:
