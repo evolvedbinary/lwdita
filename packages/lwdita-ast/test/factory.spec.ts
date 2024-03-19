@@ -35,9 +35,8 @@ describe('getNodeClass()', () => {
   });
 
   describe('when passed an unknown node name', () => {
-    it('throw an error"', () => {
-      //nodeClass = getNodeClass('unknown-node');
-      //expect(nodeClass).to.throw(UnknownNodeError);
+    it('throws an error"', () => {
+      expect(() => getNodeClass('unknown-node')).to.throw();
     });
   });
 });
@@ -46,9 +45,8 @@ describe('getNodeClass()', () => {
 // Creates different types of nodes based on the input XMLNode type
 // createNode()
 /*
-describe('', () => {
+describe('createNode', () => {
   it('', () => {
     console.log();
   });
 });
- */
