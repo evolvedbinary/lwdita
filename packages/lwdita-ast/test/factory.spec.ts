@@ -3,7 +3,7 @@ import { AltNode } from "../nodes/alt";
 import { SectionNode } from "../nodes/section";
 import { VideoPosterNode } from "../nodes/video-poster";
 import { expect } from 'chai';
-import { UnknownNodeError} from '../ast-classes';
+import { XMLNode } from "@jdita/lwdita-xml/classes";
 
 /**
  * Unit tests for factory.ts
@@ -41,12 +41,16 @@ describe('getNodeClass()', () => {
   });
 });
 
-
 // Creates different types of nodes based on the input XMLNode type
-// createNode()
-/*
-describe('createNode', () => {
-  it('', () => {
-    console.log();
+describe.skip('createNode', () => {
+  let nodeClass;
+
+  describe('when passed an XMLNode node type "TextNode"', () => {
+    it('returns the text content', () => {
+      nodeClass = createNode('Some text content');
+      console.log(nodeClass);
+      const expected = JSON.parse("{_props:{content:'Some text content'}}");
+      expect(nodeClass).to.equal(expected);
+    });
   });
 });
