@@ -47,9 +47,6 @@ import { UnknownNodeError } from "./ast-classes";
 /**
  * getNodeClass - Get the Node class constructor based on the node type
  *
- * @privateRemarks
- * TODO: Add tests
- *
  * @param name - A string containing the node name
  * @returns - The node class constructor
  * @throws - UnknownNodeError
