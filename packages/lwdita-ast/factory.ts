@@ -124,9 +124,6 @@ export function getNodeClassType(name: string): typeof BaseNode {
  * If the input is an XMLNode, the function uses the `getNodeClass` function to create a node of the appropriate type.
  * If the node type is unknown, `getNodeClass` will throw an error.
  *
- * @privateRemarks
- * TODO: Add tests
- *
  * @param node - The XMLNode object or string to be converted into a node.
  *
  * @returns A node of the type corresponding to the input XMLNode type or a TextNode if the input is a string.
