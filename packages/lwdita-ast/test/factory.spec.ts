@@ -63,7 +63,7 @@ describe('createNode', () => {
     });
   });
 
-  describe.only('when passed an XMLNode node with unknown type', () => {
+  describe('when passed an XMLNode node with unknown type', () => {
     it('throws an error', () => {
       const node: XMLNode<'unknown'> = JSON.parse(XMLNODE_UNKNOWN);
       expect(() => createNode(node)).to.throw();
