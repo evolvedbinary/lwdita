@@ -234,7 +234,7 @@ describe('isOrUndefined', () => {
 describe('childTypeToString', () => {
   const mockedNodeGroups = {
     'data': ['data'],
-    'group1': ['node1', 'node2'],
+    'all-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', 'fig', 'fn', 'note', 'data']
   };
 
   it('returns the correct string for a non-group child type', () => {
@@ -261,13 +261,14 @@ describe('childTypeToString', () => {
 
   it('single group child type with multiple nodes', () => {
     const type = {
-      name: 'group1',
-      single: true,
+      name: 'all-blocks',
+      single: false,
       required: false,
-      isGroup: false,
+      isGroup: true,
     };
+
     const result = childTypeToString(type, mockedNodeGroups);
-    expect(result).to.equal('(node1|node2)?');
+    expect(result).to.equal('(p|ul|ol|dl|pre|audio|video|simpletable|fig|fn|note|data)*');
   });
 });
 
