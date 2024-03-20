@@ -1,15 +1,16 @@
+import { expect } from 'chai';
 import { getNodeClass, createNode } from "../factory";
 import { AltNode } from "../nodes/alt";
 import { SectionNode } from "../nodes/section";
 import { VideoPosterNode } from "../nodes/video-poster";
-import { expect } from 'chai';
 import { XMLNode } from "@jdita/lwdita-xml/classes";
+import { XMLNODE_AUDIO, AUDIO_NODE_OBJECT, XMLNODE_UNKNOWN } from "./test-utils";
 
 /**
  * Unit tests for factory.ts
  */
 
-// Get the Node class constructor based on the node type
+// Gets the Node class constructor based on the node type
 describe('getNodeClass()', () => {
   let nodeClass;
 
@@ -35,22 +36,37 @@ describe('getNodeClass()', () => {
   });
 
   describe('when passed an unknown node name', () => {
-    it('throws an error"', () => {
+    it('throws an error', () => {
       expect(() => getNodeClass('unknown-node')).to.throw();
     });
   });
 });
 
 // Creates different types of nodes based on the input XMLNode type
-describe.skip('createNode', () => {
-  let nodeClass;
+describe('createNode', () => {
+  let nodeClass, expected;
 
   describe('when passed an XMLNode node type "TextNode"', () => {
     it('returns the text content', () => {
       nodeClass = createNode('Some text content');
-      console.log(nodeClass);
-      const expected = JSON.parse("{_props:{content:'Some text content'}}");
-      expect(nodeClass).to.equal(expected);
+      expected = JSON.parse(`{"_props":{"content":"Some text content"}}`);
+      expect(nodeClass).to.be.deep.equal(expected);
+    });
+  });
+
+  describe('when passed an XMLNode node type "AudioNode"', () => {
+    it('returns the audio node object containing name and attributes', () => {
+      const node: XMLNode<'audio'> = JSON.parse(XMLNODE_AUDIO);
+      nodeClass = createNode(node);
+      expected = AUDIO_NODE_OBJECT;
+      expect(nodeClass).to.be.deep.equal(expected);
+    });
+  });
+
+  describe.only('when passed an XMLNode node with unknown type', () => {
+    it('throws an error', () => {
+      const node: XMLNode<'unknown'> = JSON.parse(XMLNODE_UNKNOWN);
+      expect(() => createNode(node)).to.throw();
     });
   });
 });
