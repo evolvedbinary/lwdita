@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { expect, assert } from 'chai';
-import { stringToChildTypes, splitTypenames, childTypesToString, customChildTypesToString } from './utils';
+import { stringToChildTypes, splitTypenames, childTypesToString, customChildTypesToString, isChildTypeRequired } from './utils';
 import { ChildTypes } from './classes';
 
 // TODO: add a test for getting child types from: (X+|Y*|Z*)
@@ -196,4 +196,49 @@ describe('Childtypes from strings', () => {
   it('should return the ChildTypes with any order', () => {
     assert.deepEqual(stringToChildTypes(['child1?|child2+']), [[stringToChildTypes('child1?', false), stringToChildTypes('child2+', false)]]);
   });
+});
+
+describe('isChildTypeRequired', () => {
+  it('returns true for required childType', () => {
+    const childType = {
+      name: 'child',
+      single: false,
+      required: true,
+      isGroup: false,
+    };
+    const result = isChildTypeRequired(childType);
+    expect(result).to.be.true;
+  });
+
+  it('returns true for string as required childtype', () => {
+    const child = 'child+';
+    const result = isChildTypeRequired(child);
+    expect(result).to.be.true;
+  });
+
+  it('returns false for string as non-required childtype', () => {
+    const child = 'child?';
+    const result = isChildTypeRequired(child);
+    expect(result).to.be.false;
+  });
+
+  it('returns true for childtypes array', () => {
+    const childType: ChildTypes = [
+      {
+        name: 'group1',
+        single: false,
+        required: true,
+        isGroup: false,
+      },
+      {
+        name: 'group2',
+        single: false,
+        required: true,
+        isGroup: false,
+      },
+    ];
+    const result = isChildTypeRequired(childType);
+    expect(result).to.be.true;
+  });
+
 });
