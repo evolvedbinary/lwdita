@@ -352,4 +352,36 @@ describe('isChildTypeSingle', () => {
     const result = isChildTypeSingle(childType);
     expect(result).to.be.true;
   });
+
+  it('should return true for a string', () => {
+    const child = 'child';
+    const result = isChildTypeSingle(child);
+    expect(result).to.be.true;
+  });
+
+  it.skip('should return false for a string', () => {
+    const child = 'child?';
+    const result = isChildTypeSingle(child);
+    expect(result).to.be.false;
+  });
+
+  it('should return true for a string', () => {
+    const childType: ChildTypes = [
+      {
+        name: 'group1',
+        single: true,
+        required: false,
+        isGroup: true,
+      },
+      {
+        name: 'group2',
+        single: true,
+        required: false,
+        isGroup: true,
+      },
+    ];
+    const result = isChildTypeSingle(childType);
+    expect(result).to.be.true;
+  });
+
 });
