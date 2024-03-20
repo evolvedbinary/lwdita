@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { expect, assert } from 'chai';
-import { stringToChildTypes, splitTypenames, childTypesToString, customChildTypesToString, has, isOrUndefined, childTypeToString, acceptsNodeName, isChildTypeSingle } from '../utils';
+import { stringToChildTypes, splitTypenames, childTypesToString, customChildTypesToString, has, isOrUndefined, childTypeToString, acceptsNodeName, isChildTypeSingle, isChildTypeRequired } from '../utils';
 import { ChildType, ChildTypes } from '../classes';
 
 // TODO: add a test for getting child types from: (X+|Y*|Z*)
@@ -343,7 +343,7 @@ describe('acceptsNodeName', () => {
 });
 
 describe('isChildTypeSingle', () => {
-  it('should return true for a single child type', () => {
+  it('returns true for single childType', () => {
     const childType = {
       name: 'child',
       single: true,
@@ -354,19 +354,19 @@ describe('isChildTypeSingle', () => {
     expect(result).to.be.true;
   });
 
-  it('should return true for a string', () => {
+  it('returns true for string as single childtype', () => {
     const child = 'child';
     const result = isChildTypeSingle(child);
     expect(result).to.be.true;
   });
 
-  it('should return false for a string', () => {
+  it('returns false for string as non-single childtype', () => {
     const child = '%child*';
     const result = isChildTypeSingle(child);
     expect(result).to.be.false;
   });
 
-  it('should return true for a string', () => {
+  it('returns true for childtypes array', () => {
     const childType: ChildTypes = [
       {
         name: 'group1',
@@ -382,6 +382,52 @@ describe('isChildTypeSingle', () => {
       },
     ];
     const result = isChildTypeSingle(childType);
+    expect(result).to.be.true;
+  });
+
+});
+
+
+describe('isChildTypeRequired', () => {
+  it('returns true for required childType', () => {
+    const childType = {
+      name: 'child',
+      single: false,
+      required: true,
+      isGroup: false,
+    };
+    const result = isChildTypeRequired(childType);
+    expect(result).to.be.true;
+  });
+
+  it.only('returns true for string as required childtype', () => {
+    const child = 'child+';
+    const result = isChildTypeRequired(child);
+    expect(result).to.be.true;
+  });
+
+  it('returns false for string as non-required childtype', () => {
+    const child = 'child+';
+    const result = isChildTypeRequired(child);
+    expect(result).to.be.false;
+  });
+
+  it('returns true for childtypes array', () => {
+    const childType: ChildTypes = [
+      {
+        name: 'group1',
+        single: false,
+        required: true,
+        isGroup: false,
+      },
+      {
+        name: 'group2',
+        single: false,
+        required: true,
+        isGroup: false,
+      },
+    ];
+    const result = isChildTypeRequired(childType);
     expect(result).to.be.true;
   });
 
