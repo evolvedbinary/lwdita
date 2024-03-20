@@ -359,8 +359,8 @@ describe('isChildTypeSingle', () => {
     expect(result).to.be.true;
   });
 
-  it.skip('should return false for a string', () => {
-    const child = 'child?';
+  it('should return false for a string', () => {
+    const child = '%child*';
     const result = isChildTypeSingle(child);
     expect(result).to.be.false;
   });
