@@ -52,7 +52,7 @@ export function splitTypenames(value: string): string[] {
  * @param nodeGroups - Node groups
  * @returns - string
  */
-function childTypeToString(type: ChildType, nodeGroups: Record<string, string[]>, getNodeName?: (nodeName: string) => string): string {
+export function childTypeToString(type: ChildType, nodeGroups: Record<string, string[]>, getNodeName?: (nodeName: string) => string): string {
     return (type.isGroup
         ? nodeGroups[type.name].length === 1
             ? (getNodeName
