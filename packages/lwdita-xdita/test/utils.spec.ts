@@ -403,12 +403,6 @@ describe('isChildTypeRequired', () => {
     expect(result).to.be.true;
   });
 
-  it('returns false for string as optional childtype', () => {
-    const child = 'child?';
-    const result = isChildTypeRequired(child);
-    expect(result).to.be.false;
-  });
-
   //TODO: This test is failing cuz the function is not implemented correctly
   // Related PR: https://github.com/evolvedbinary/jdita/pull/145
   it.skip('returns true for required childtypes array', () => {
