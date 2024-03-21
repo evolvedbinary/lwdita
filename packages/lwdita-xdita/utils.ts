@@ -213,15 +213,16 @@ export function isChildTypeSingle(childType: string | ChildType | ChildTypes): b
  * @returns Boolean - Whether the child is required or not
  */
 export function isChildTypeRequired(childType: string | ChildType | ChildTypes): boolean {
-    // console.log(childType);
     // if it's an Array
     if (Array.isArray(childType)) {
         let result = true;
         // if one of the children in the array is required then return true
         childType.some(type => {
             result = !isChildTypeRequired(type);
+            //console.log("result Array - check if one item is required:", childType, !result);
             return !result;
         });
+        //console.log("result Array", childType, result);
         return result;
     } else {
         if (typeof childType === 'string') {
@@ -229,6 +230,7 @@ export function isChildTypeRequired(childType: string | ChildType | ChildTypes):
             return isChildTypeRequired(stringToChildTypes(childType));
         }
         // if the oject is already parsed then return the required property
+        //console.log("result childType property=", childType, !!childType.required);
         return !!childType.required;
     }
 }

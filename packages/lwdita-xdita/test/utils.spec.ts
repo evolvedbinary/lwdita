@@ -387,9 +387,8 @@ describe('isChildTypeSingle', () => {
 
 });
 
-
 describe('isChildTypeRequired', () => {
-  it('returns true for required childType', () => {
+  it('returns true for required childType object', () => {
     const childType = {
       name: 'child',
       single: false,
@@ -400,19 +399,19 @@ describe('isChildTypeRequired', () => {
     expect(result).to.be.true;
   });
 
-  it.only('returns true for string as required childtype', () => {
+  it('returns true for string as required childtype', () => {
     const child = 'child+';
     const result = isChildTypeRequired(child);
     expect(result).to.be.true;
   });
 
-  it('returns false for string as non-required childtype', () => {
-    const child = 'child+';
+  it('returns false for string as optional childtype', () => {
+    const child = 'child?';
     const result = isChildTypeRequired(child);
     expect(result).to.be.false;
   });
 
-  it('returns true for childtypes array', () => {
+  it('returns true for required childtypes array', () => {
     const childType: ChildTypes = [
       {
         name: 'group1',
