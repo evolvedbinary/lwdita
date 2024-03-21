@@ -3,10 +3,6 @@ import { expect, assert } from 'chai';
 import { stringToChildTypes, splitTypenames, childTypesToString, customChildTypesToString, has, isOrUndefined, childTypeToString, acceptsNodeName, isChildTypeSingle, isChildTypeRequired, childTypesArray, areFieldsValid } from '../utils';
 import { BasicValue, ChildType, ChildTypes } from '../classes';
 
-// TODO: add a test for getting child types from: (X+|Y*|Z*)
-// TODO: add a test for getting string from child type of group '%XYZ*' => (X|Y|Z)*
-// TODO: add tests to check required/single for strings
-
 const mockedNodeGroups = {
   'data': ['data'],
 };
