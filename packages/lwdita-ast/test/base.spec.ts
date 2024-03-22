@@ -13,7 +13,9 @@ describe('Base Node children (nodes)', () => {
     static nodeName = 'child2';
   }
 
-  // TODO: add tests for not throwing an exception on wrong children
+  class WrongChildNode extends BaseNode {
+    static nodeName = 'wrong-child';
+  }
 
   describe('Cardinality', () => {
     it('[0..1] should accept only one child', () => {
@@ -63,6 +65,19 @@ describe('Base Node children (nodes)', () => {
         parentNode.add(new ChildNode());
         parentNode.add(new ChildNode());
       }).to.not.throw();
+    });
+
+    // TODO: add tests for not throwing an exception on wrong children
+    // It does throw an exception, why shouldn't it?
+    it('should not accept wrong child', () => {
+      class ParentNode extends BaseNode {
+        static nodeName = 'parent';
+        static childTypes = stringToChildTypes(['child']);
+      }
+      const parentNode = new ParentNode();
+      expect(() => {
+        parentNode.add(new WrongChildNode());
+      }).to.throw(NonAcceptedChildError, 'can\'t be a child');
     });
   });
   // TODO: add going back in order tests for nodes
