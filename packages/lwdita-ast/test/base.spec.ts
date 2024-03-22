@@ -65,7 +65,6 @@ describe('Base Node children (nodes)', () => {
       }).to.not.throw();
     });
   });
-  // TODO: add order tests for groups
   // TODO: add going back in order tests for nodes
   // TODO: add going back in order tests for groups
   describe('Order', () => {
@@ -489,6 +488,18 @@ describe('Base Node children (groups)', () => {
       }).to.not.throw();
       // child2 then child
       parentNode = new ParentNode();
+      expect(() => {
+        parentNode.add(new ChildBlockNode());
+        parentNode.add(new ChildInlineNode());
+      }).to.not.throw();
+    });
+
+    it.skip('order for groups',() => {
+      class ParentNode extends BaseNode {
+        static nodeName = 'parent';
+        static childTypes = stringToChildTypes(['%all-block*, %all-inline*']);
+      }
+      const parentNode = new ParentNode();
       expect(() => {
         parentNode.add(new ChildBlockNode());
         parentNode.add(new ChildInlineNode());
