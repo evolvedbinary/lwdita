@@ -63,6 +63,7 @@ export function doNodeTest(
     });
 
     //TODO: when created a node with invalid attributes, it should throw an error
+    // Typescript type checking doesn't allow to create a node with invalid attributes
     it.skip("can't create node with invalid attributes", () => {
       expect(() => new (classType as unknown as Constructor)({ [attribute]: wrongValue as unknown as string })).to.throw(WrongAttributeTypeError, 'wrong attribute type');
     });
