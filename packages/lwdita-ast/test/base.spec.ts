@@ -4,6 +4,7 @@ import { stringToChildTypes } from "@evolvedbinary/lwdita-xdita";
 import { NonAcceptedChildError } from '../ast-classes';
 
 // TODO: add tests for an unknown node
+// Not enough information to implement this test
 
 describe('Base Node children (nodes)', () => {
   class ChildNode extends BaseNode {
