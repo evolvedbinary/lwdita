@@ -40,7 +40,7 @@ export const isValidPField = (field: string, value: BasicValue): boolean => isVa
  * @returns Boolean
  */
 export const isPNode = (value?: {}): value is PNode =>
-  typeof value === 'object' && areFieldsValid(PFields, value, isValidPField);
+  typeof value === 'object' && areFieldsValid(PFields, value as Record<string, BasicValue>, isValidPField);
 
 /**
  * Construct a `p` node with all available attributes

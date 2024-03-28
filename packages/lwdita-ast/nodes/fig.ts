@@ -40,7 +40,7 @@ export const isValidFigField = (field: string, value: BasicValue): boolean => is
  * @returns Boolean
  */
 export const isFigNode = (value?: {}): value is FigNode =>
-  typeof value === 'object' && areFieldsValid(FigFields, value, isValidFigField);
+  typeof value === 'object' && areFieldsValid(FigFields, value as Record<string, BasicValue>, isValidFigField);
 
 /**
  * Construct a `fig` node with all available attributes

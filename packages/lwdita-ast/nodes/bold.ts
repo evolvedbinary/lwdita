@@ -42,7 +42,7 @@ export const isValidBoldField = (field: string, value: BasicValue): boolean => i
  * @returns Boolean
  */
 export const isBoldNode = (value?: {}): value is BoldNode =>
-  typeof value === 'object' && areFieldsValid(BoldFields, value, isValidBoldField);
+  typeof value === 'object' && areFieldsValid(BoldFields, value as Record<string, BasicValue>, isValidBoldField);
 
 /**
  * Construct a `bold` node with all available attributes

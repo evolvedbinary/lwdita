@@ -40,7 +40,7 @@ export const isValidStEntryField = (field: string, value: BasicValue): boolean =
  * @returns Boolean
  */
 export const isStEntryNode = (value?: {}): value is StEntryNode =>
-  typeof value === 'object' && areFieldsValid(StEntryFields, value, isValidStEntryField);
+  typeof value === 'object' && areFieldsValid(StEntryFields, value as Record<string, BasicValue>, isValidStEntryField);
 
 /**
  * Construct a `stentry` node with all available attributes

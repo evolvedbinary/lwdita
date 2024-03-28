@@ -38,7 +38,7 @@ export const isValidDescField = (field: string, value: BasicValue): boolean => i
  * @returns Boolean
  */
 export const isDescNode = (value?: {}): value is DescNode =>
-  typeof value === 'object' && areFieldsValid(DescFields, value, isValidDescField);
+  typeof value === 'object' && areFieldsValid(DescFields, value as Record<string, BasicValue>, isValidDescField);
 
 /**
  * Construct a `desc` node with all available attributes

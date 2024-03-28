@@ -40,7 +40,7 @@ export const isValidUnderlinedField = (field: string, value: BasicValue): boolea
  * @returns Boolean
  */
 export const isUnderlinedNode = (value?: {}): value is UnderlinedNode =>
-  typeof value === 'object' && areFieldsValid(UnderlinedFields, value, isValidUnderlinedField);
+  typeof value === 'object' && areFieldsValid(UnderlinedFields, value as Record<string, BasicValue>, isValidUnderlinedField);
 
 /**
  * Construct an `underlined` node with all available attributes

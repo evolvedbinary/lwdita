@@ -40,7 +40,7 @@ export const isValidSimpleTableField = (field: string, value: BasicValue): boole
  * @returns Boolean
  */
 export const isSimpleTableNode = (value?: {}): value is SimpleTableNode =>
-  typeof value === 'object' && areFieldsValid(SimpleTableFields, value, isValidSimpleTableField);
+  typeof value === 'object' && areFieldsValid(SimpleTableFields, value as Record<string, BasicValue>, isValidSimpleTableField);
 
 /**
  * Construct a `simpletable` node with all available attributes

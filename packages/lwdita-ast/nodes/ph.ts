@@ -39,7 +39,7 @@ export const isValidPhField = (field: string, value: BasicValue): boolean => isV
  * @returns Boolean
  */
 export const isPhNode = (value?: {}): value is PhNode =>
-  typeof value === 'object' && areFieldsValid(PhFields, value, isValidPhField);
+  typeof value === 'object' && areFieldsValid(PhFields, value as Record<string, BasicValue>, isValidPhField);
 
 /**
  * Construct a `ph` node with all available attributes
