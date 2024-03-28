@@ -1,6 +1,6 @@
 import { isOrUndefined, areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { BaseNode, Constructor } from "./base";
-import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { BasicValue, DefinedBasicValue } from "@jdita/lwdita-xml/classes";
 import { CDATA, isCDATA } from "../ast-classes";
 
 /**
@@ -52,19 +52,19 @@ export const isFieldNode = (value?: {}): value is FieldNode =>
  * @returns The `field` node
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function makeField<ValueType, T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements FieldNode<ValueType> {
+export function makeField<BasicValue, T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+  return class extends constructor implements FieldNode<BasicValue> {
     get 'name'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('name');
     }
     set 'name'(value: CDATA | undefined) {
       this.writeProp<CDATA | undefined>('name', value);
     }
-    get 'value'(): ValueType | undefined {
-      return this.readProp<ValueType | undefined>('value');
+    get 'value'(): BasicValue {
+      return this.readProp('value');
     }
-    set 'value'(value: ValueType | undefined) {
-      this.writeProp<ValueType | undefined>('value', value);
+    set 'value'(value: BasicValue) {
+      this.writeProp('value', value as DefinedBasicValue);
     }
   }
 }
