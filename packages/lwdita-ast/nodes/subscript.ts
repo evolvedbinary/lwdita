@@ -66,6 +66,6 @@ export function makeSubscript<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makeSubscript, 'sub', isValidSubscriptField, SubscriptFields, ['%all-inline*'])
-export class SubscriptNode extends BaseNode {
+export class SubscriptNode extends BaseNode implements SubscriptNodeInterface {
   static domNodeName = 'sub';
 }

@@ -65,6 +65,6 @@ export function makeBold<T extends Constructor>(constructor: T): T {
  * @param childNodes - An array containing all valid child node names: `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
 */
 @makeComponent(makeBold, 'b', isValidBoldField, BoldFields, ['%all-inline*'])
-export class BoldNode extends BaseNode {
+export class BoldNode extends BaseNode implements BoldNodeInterface {
   static domNodeName = 'b';
 }

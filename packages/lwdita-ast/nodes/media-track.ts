@@ -80,4 +80,4 @@ export function makeMediaTrack<T extends { new(...args: any[]): BaseNode }>(cons
  * @param fields - A List of valid attributes @See {@link MediaTrackFields}
  */
 @makeComponent(makeMediaTrack, 'media-track', isValidMediaTrackField, MediaTrackFields)
-export class MediaTrackNode extends BaseNode { }
+export class MediaTrackNode extends BaseNode implements MediaTrackNodeInterface { }

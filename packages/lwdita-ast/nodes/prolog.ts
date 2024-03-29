@@ -87,6 +87,6 @@ export function makeProlog<T extends { new(...args: any[]): BaseNode }>(construc
  * @param childNodes - An Array of allowed child nodes: `%data*`
  */
 @makeComponent(makeProlog, 'prolog', isValidPrologField, PrologFields, ['%data*'])
-export class PrologNode extends BaseNode {
+export class PrologNode extends BaseNode implements PrologNodeInterface {
   static domNodeName = '';
 }

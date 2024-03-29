@@ -85,6 +85,6 @@ export function makePre<T extends { new(...args: any[]): BaseNode }>(constructor
  * @param childNodes - An Array of allowed child nodes `text*`, `%ph*`, `xref*`, `%data*`
  */
 @makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', '%data*']])
-export class PreNode extends BaseNode {
+export class PreNode extends BaseNode implements PreNodeInterface {
   static domNodeName = 'pre';
 }

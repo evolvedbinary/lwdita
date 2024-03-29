@@ -61,4 +61,4 @@ export function makeVideoPoster<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link VideoPosterFields}
  */
 @makeComponent(makeVideoPoster, 'video-poster', isValidVideoPosterField, VideoPosterFields)
-export class VideoPosterNode extends BaseNode { }
+export class VideoPosterNode extends BaseNode implements VideoPosterNodeInterface { }

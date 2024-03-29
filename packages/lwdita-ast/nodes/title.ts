@@ -59,6 +59,6 @@ export function makeTitle<T extends Constructor>(constructor: T): T  {
  * @param childNodes - An Array of allowed child nodes: `%common-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `data`)
  */
 @makeComponent(makeTitle, 'title', isValidTitleField, TitleFields, ['%common-inline*'])
-export class TitleNode extends BaseNode {
+export class TitleNode extends BaseNode implements TitleNodeInterface {
   static domNodeName = 'h1';
 }

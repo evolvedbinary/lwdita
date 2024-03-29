@@ -91,4 +91,4 @@ export function makeImage<T extends Constructor>(constructor: T): T {
  * @returns An `image` node
  */
 @makeComponent(makeImage, 'image', isValidImageField, ImageFields, ['alt?'])
-export class ImageNode extends BaseNode {}
+export class ImageNode extends BaseNode implements ImageNodeInterface {}

@@ -63,6 +63,6 @@ export function makeLi<T extends Constructor>(constructor: T): T {
  * @returns A `li` node
  */
 @makeComponent(makeLi, 'li', isValidLiField, LiFields, ['%list-blocks*'])
-export class LiNode extends BaseNode {
+export class LiNode extends BaseNode implements LiNodeInterface {
   static domNodeName = 'li';
 }

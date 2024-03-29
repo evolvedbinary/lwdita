@@ -63,6 +63,6 @@ export function makeUl<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: `li+`
  */
 @makeComponent(makeUl, 'ul', isValidUlField, UlFields, ['li+'])
-export class UlNode extends BaseNode {
+export class UlNode extends BaseNode implements UlNodeInterface {
   static domNodeName = 'ul';
 }

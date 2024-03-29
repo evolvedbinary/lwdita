@@ -58,6 +58,6 @@ export function makeBody<T extends Constructor>(constructor: T): T {
  * @param childNodes - An array containing all valid child node names: `%list-blocks*`, `section*`, `fn*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `note`, `data`)
  */
 @makeComponent(makeBody, 'body', isValidBodyField, BodyFields, ['%list-blocks*', 'section*', 'fn*'])
-export class BodyNode extends BaseNode {
+export class BodyNode extends BaseNode implements BodyNodeInterface {
   static domNodeName = 'div';
 }

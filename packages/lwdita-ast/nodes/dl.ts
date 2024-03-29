@@ -64,6 +64,6 @@ export function makeDl<T extends Constructor>(constructor: T): T {
  * @returns A `dl` node
  */
 @makeComponent(makeDl, 'dl', isValidDlField, DlFields, ['dlentry+'])
-export class DlNode extends BaseNode {
+export class DlNode extends BaseNode implements DlNodeInterface {
   static domNodeName = 'dl';
 }

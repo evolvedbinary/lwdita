@@ -66,6 +66,6 @@ export function makeUnderlined<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `%all-inline*`
  */
 @makeComponent(makeUnderlined, 'u', isValidUnderlinedField, UnderlinedFields, ['%all-inline*'])
-export class UnderlinedNode extends BaseNode {
+export class UnderlinedNode extends BaseNode implements UnderlinedNodeInterface {
   static domNodeName = 'u';
 }

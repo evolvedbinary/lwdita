@@ -63,6 +63,6 @@ export function makeSimpleTable<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes `sthead?`, `strow+`
  */
 @makeComponent(makeSimpleTable, 'simpletable', isValidSimpleTableField, SimpleTableFields, ['sthead?', 'strow+'])
-export class SimpleTableNode extends BaseNode {
+export class SimpleTableNode extends BaseNode implements SimpleTableNodeInterface {
   static domNodeName = 'table';
 }

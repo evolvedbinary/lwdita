@@ -66,6 +66,6 @@ export function makeSuperscript<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makeSuperscript, 'sup', isValidSuperscriptField, SuperscriptFields, ['%all-inline*'])
-export class SuperscriptNode extends BaseNode {
+export class SuperscriptNode extends BaseNode implements SuperscriptNodeInterface {
   static domNodeName = 'sup';
 }

@@ -63,6 +63,6 @@ export function makeOl<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: `li+`
  */
 @makeComponent(makeOl, 'ol', isValidOlField, OlFields, ['li+'])
-export class OlNode extends BaseNode {
+export class OlNode extends BaseNode implements OlNodeInterface {
   static domNodeName = 'ol';
 }

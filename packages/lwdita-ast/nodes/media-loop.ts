@@ -64,4 +64,4 @@ export function makeMediaLoop<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link MediaLoopFields}
  */
 @makeComponent(makeMediaLoop, 'media-loop', isValidMediaLoopField, MediaLoopFields)
-export class MediaLoopNode extends BaseNode { }
+export class MediaLoopNode extends BaseNode implements MediaLoopNodeInterface { }

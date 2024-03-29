@@ -64,4 +64,4 @@ export function makeMediaControls<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link MediaControlsFields}
  */
 @makeComponent(makeMediaControls, 'media-controls', isValidMediaControlsField, MediaControlsFields)
-export class MediaControlsNode extends BaseNode { }
+export class MediaControlsNode extends BaseNode implements MediaControlsNodeInterface { }

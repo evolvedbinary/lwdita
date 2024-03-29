@@ -61,6 +61,6 @@ export function makeMediaSource<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link MediaSourceFields}
  */
 @makeComponent(makeMediaSource, 'media-source', isValidMediaSourceField, MediaSourceFields)
-export class MediaSourceNode extends BaseNode {
+export class MediaSourceNode extends BaseNode implements MediaSourceNodeInterface {
   static domNodeName = 'source';
 }

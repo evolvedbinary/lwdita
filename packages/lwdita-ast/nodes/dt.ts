@@ -64,6 +64,6 @@ export function makeDt<T extends Constructor>(constructor: T): T {
  * @returns A `dt` node
  */
 @makeComponent(makeDt, 'dt', isValidDtField, DtFields, ['%all-inline*'])
-export class DtNode extends BaseNode {
+export class DtNode extends BaseNode implements DtNodeInterface {
   static domNodeName = 'dt';
 }

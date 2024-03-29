@@ -96,6 +96,6 @@ export function makeTopic<T extends { new(...args: any[]): BaseNode }>(construct
  * @param childNodes - An Array of allowed child nodes: `title`, `shortdesc?`, `prolog?`, `body?`
  */
 @makeComponent(makeTopic, 'topic', isValidTopicField, TopicFields, ['title', 'shortdesc?', 'prolog?', 'body?'])
-export class TopicNode extends BaseNode {
+export class TopicNode extends BaseNode implements TopicNodeInterface {
   static domNodeName = 'article';
 }

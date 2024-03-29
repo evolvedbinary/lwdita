@@ -60,6 +60,6 @@ export function makeShortDesc<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makeShortDesc, 'shortdesc', isValidShortDescField, ShortDescFields, ['%all-inline*'])
-export class ShortDescNode extends BaseNode {
+export class ShortDescNode extends BaseNode implements ShortDescNodeInterface {
   static domNodeName = 'p';
 }

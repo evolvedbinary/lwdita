@@ -63,6 +63,6 @@ export function makeP<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makeP, 'p', isValidPField, PFields, ['%all-inline*'])
-export class PNode extends BaseNode {
+export class PNode extends BaseNode implements PNodeInterface {
   static domNodeName = 'p';
 }

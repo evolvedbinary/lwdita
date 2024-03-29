@@ -68,6 +68,6 @@ export function makeDlEntry<T extends Constructor>(constructor: T): T {
  * @returns A `dlentry` node
  */
 @makeComponent(makeDlEntry, 'dlentry', isValidDlEntryField, DlEntryFields, ['dt', 'dd'])
-export class DlEntryNode extends BaseNode {
+export class DlEntryNode extends BaseNode implements DlEntryNodeInterface {
   static domNodeName = '';
 }

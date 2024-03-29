@@ -63,6 +63,6 @@ export function makeStRow<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `stentry*`
  */
 @makeComponent(makeStRow, 'strow', isValidStRowField, StRowFields, ['stentry*'])
-export class StRowNode extends BaseNode {
+export class StRowNode extends BaseNode implements StRowNodeInterface {
   static domNodeName = 'tr';
 }

@@ -67,6 +67,6 @@ export function makeData<T extends Constructor>(constructor: T): T {
  * @param childNodes - An array containing all valid child node names: `text*`, `%data*`
  */
 @makeComponent(makeData, 'data', isValidDataField, DataFields, [['text*', '%data*']])
-export class DataNode extends BaseNode {
+export class DataNode extends BaseNode implements DataNodeInterface {
   static domNodeName = 'data';
 }

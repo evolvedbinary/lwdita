@@ -66,6 +66,6 @@ export function makeItalic<T extends Constructor>(constructor: T): T {
  * @returns A decorator
  */
 @makeComponent(makeItalic, 'i', isValidItalicField, ItalicFields, ['%all-inline*'])
-export class ItalicNode extends BaseNode {
+export class ItalicNode extends BaseNode implements ItalicNodeInterface {
   static domNodeName = 'i';
 }

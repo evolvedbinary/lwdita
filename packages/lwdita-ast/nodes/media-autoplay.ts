@@ -64,4 +64,4 @@ export function makeMediaAutoplay<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link MediaAutoplayFields}
  */
 @makeComponent(makeMediaAutoplay, 'media-autoplay', isValidMediaAutoplayField, MediaAutoplayFields)
-export class MediaAutoplayNode extends BaseNode { }
+export class MediaAutoplayNode extends BaseNode implements MediaAutoplayNodeInterface { }

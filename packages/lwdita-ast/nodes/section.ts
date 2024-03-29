@@ -63,6 +63,6 @@ export function makeSection<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: `title?`, `%all-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `fn`, `note`, `data`)
  */
 @makeComponent(makeSection, 'section', isValidSectionField, SectionFields, ['title?', '%all-blocks*'])
-export class SectionNode extends BaseNode {
+export class SectionNode extends BaseNode implements SectionNodeInterface {
   static domNodeName = 'section';
 }

@@ -81,6 +81,6 @@ export function makeNote<T extends { new(...args: any[]): BaseNode }>(constructo
  * @param childNodes - An Array of allowed child nodes: `%simple-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `note`, `data`)
  */
 @makeComponent(makeNote, 'note', isValidNoteField, NoteFields, ['%simple-blocks*'])
-export class NoteNode extends BaseNode {
+export class NoteNode extends BaseNode implements NoteNodeInterface {
   static domNodeName = 'div';
 }

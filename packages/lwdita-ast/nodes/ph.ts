@@ -62,6 +62,6 @@ export function makePh<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makePh, 'ph', isValidPhField, PhFields, ['%all-inline*'])
-export class PhNode extends BaseNode {
+export class PhNode extends BaseNode implements PhNodeInterface {
   static domNodeName = 'span';
 }

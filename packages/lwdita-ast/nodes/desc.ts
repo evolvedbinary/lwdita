@@ -64,6 +64,6 @@ export function makeDesc<T extends Constructor>(constructor: T): T {
  * @returns A `desc` node
  */
 @makeComponent(makeDesc, 'desc', isValidDescField, DescFields, ['%common-inline*'])
-export class DescNode extends BaseNode {
+export class DescNode extends BaseNode implements DescNodeInterface {
   static domNodeName = 'caption';
 }

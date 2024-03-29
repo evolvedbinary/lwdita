@@ -64,6 +64,6 @@ export function makeDd<T extends Constructor>(constructor: T): T {
  * @returns A `dd` node
  */
 @makeComponent(makeDd, 'dd', isValidDdField, DdFields, ['%list-blocks*'])
-export class DdNode extends BaseNode {
+export class DdNode extends BaseNode implements DdNodeInterface {
   static domNodeName = 'dd';
 }

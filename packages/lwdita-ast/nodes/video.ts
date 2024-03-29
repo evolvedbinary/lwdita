@@ -65,4 +65,4 @@ export function makeVideo<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: desc?', `video-poster?`, `media-controls?`, `media-autoplay?`, `media-loop?`, `media-muted?`, `media-source*`, `media-track*`
  */
 @makeComponent(makeVideo, 'video', isValidVideoField, VideoFields, ['desc?', 'video-poster?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'media-source*', 'media-track*'])
-export class VideoNode extends BaseNode {}
+export class VideoNode extends BaseNode implements VideoNodeInterface {}

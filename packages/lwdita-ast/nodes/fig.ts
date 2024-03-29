@@ -64,6 +64,6 @@ export function makeFig<T extends Constructor>(constructor: T): T {
  * @returns A `fig` node
  */
 @makeComponent(makeFig, 'fig', isValidFigField, FigFields, ['title?', 'desc?', ['%fig-blocks*', 'image*', 'xref*']])
-export class FigNode extends BaseNode {
+export class FigNode extends BaseNode implements FigNodeInterface {
   static domNodeName = 'figure';
 }

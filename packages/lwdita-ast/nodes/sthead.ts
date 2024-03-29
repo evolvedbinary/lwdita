@@ -63,6 +63,6 @@ export function makeStHead<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `stentry+`
  */
 @makeComponent(makeStHead, 'sthead', isValidStHeadField, StHeadFields, ['stentry+'])
-export class StHeadNode extends BaseNode {
+export class StHeadNode extends BaseNode implements StHeadNodeInterface {
   static domNodeName = 'thead';
 }

@@ -66,6 +66,6 @@ export function makeStEntry<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `%simple-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `fn`, `note`, `data`)
  */
 @makeComponent(makeStEntry, 'stentry', isValidStEntryField, StEntryFields, ['%simple-blocks*'])
-export class StEntryNode extends BaseNode {
+export class StEntryNode extends BaseNode implements StEntryNodeInterface {
   static domNodeName = 'td';
 }
