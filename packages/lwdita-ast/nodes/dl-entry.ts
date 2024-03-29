@@ -15,7 +15,7 @@ export const DlEntryFields = [...FiltersFields, ...LocalizationFields, ...ReuseF
 /**
  * Interface DlEntryNode defines the attribute types for `dlentry`
  */
-export interface DlEntryNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface DlEntryNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `dlentry` node are valid and match this list:

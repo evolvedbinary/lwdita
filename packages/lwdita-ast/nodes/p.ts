@@ -16,7 +16,7 @@ export const PFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields,
  * Interface PhNode defines the attribute types for `p`:
  * `CDATA`, `NMTOKEN`
  */
-export interface PNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface PNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `p` node are valid

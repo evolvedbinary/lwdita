@@ -15,7 +15,7 @@ export const DtFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields
 /**
  * Interface DtNode defines the attribute types for `dt`
  */
-export interface DtNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface DtNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `dt` node are valid and match this list:

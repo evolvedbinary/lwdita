@@ -16,7 +16,7 @@ export const UlFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields
  * Interface UlNode defines the attribute types for `ul`:
  * `CDATA`, `NMTOKEN`
  */
-export interface UlNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface UlNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `ul` node are valid

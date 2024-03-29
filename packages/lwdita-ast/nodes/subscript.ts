@@ -17,7 +17,7 @@ export const SubscriptFields = [...LocalizationFields, ...VariableContentFields,
  * Interface SubscriptNode defines the attribute types for `subscript`:
  * `CDATA`, `NMTOKEN`
  */
-export interface SubscriptNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface SubscriptNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `subscript` node are valid

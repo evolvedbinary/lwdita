@@ -15,7 +15,7 @@ export const AudioFields = [...FiltersFields, ...LocalizationFields, ...ReuseFie
 /**
  * Interface AudioNode defines the attribute types for `audio`:
  */
-export interface AudioNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface AudioNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `audio` node are valid and match this list:

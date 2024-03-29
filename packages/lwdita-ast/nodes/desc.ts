@@ -14,7 +14,7 @@ export const DescFields = [...FiltersFields, ...LocalizationFields, ...ClassFiel
 /**
  * Interface DescNode defines the attribute types for `desc`
  */
-export interface DescNode extends FiltersNode, LocalizationNode, ClassNode { }
+export interface DescNodeInterface extends FiltersNode, LocalizationNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `desc` node are valid and match this list:

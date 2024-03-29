@@ -13,7 +13,7 @@ export const FiltersFields = [...FiltersAddsFields, 'props'];
 /**
  * FiltersNode: `props`
  */
-export interface FiltersNode extends FiltersAddsNode {
+export interface FiltersNodeInterface extends FiltersAddsNode {
   'props'?: CDATA;
 }
 

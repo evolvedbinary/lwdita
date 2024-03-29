@@ -14,7 +14,7 @@ export const TitleFields = [...LocalizationFields, ...ClassFields];
  * Interface TitleNode defines the attribute types for `title`:
  * `CDATA`
  */
-export interface TitleNode extends LocalizationNode, ClassNode {}
+export interface TitleNodeInterface extends LocalizationNode, ClassNode {}
 
 /**
  * Check if the given attributes of the `title` node are valid

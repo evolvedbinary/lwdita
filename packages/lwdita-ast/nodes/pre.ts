@@ -17,7 +17,7 @@ export const PreFields = [...FiltersFields, ...LocalizationFields, ...ReuseField
  * Interface PreNode defines the attribute types for `pre`:
  * `CDATA`, `NMTOKEN`
  */
-export interface PreNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface PreNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given fields of the `pre` node are valid

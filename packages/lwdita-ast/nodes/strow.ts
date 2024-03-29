@@ -16,7 +16,7 @@ export const StRowFields = [...FiltersFields, ...LocalizationFields, ...ReuseFie
  * Interface StRowNode defines the attribute types for `strow`:
  * `CDATA`, `NMTOKEN`
  */
-export interface StRowNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface StRowNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `strow` node are valid

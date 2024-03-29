@@ -15,7 +15,7 @@ export const DlFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields
 /**
  * Interface DlNode defines the attribute types for `dl`
  */
-export interface DlNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface DlNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `dl` node are valid and match this list:

@@ -17,7 +17,7 @@ export const MediaTrackFields = [...LocalizationFields, ...FieldFields, ...Class
  * Interface MediaTrackNode defines the attribute types for `media-track`:
  * `CDATA`, `T`
  */
-export interface MediaTrackNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
+export interface MediaTrackNodeInterface extends LocalizationNode, FieldNode<boolean>, ClassNode { }
 
 /**
  * Check if the given fields of the `media-track` node are valid

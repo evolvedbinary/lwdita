@@ -16,7 +16,7 @@ export const StHeadFields = [...FiltersFields, ...LocalizationFields, ...ReuseFi
  * Interface StHeadNode defines the attribute types for `sthead`:
  * `CDATA`, `NMTOKEN`
  */
-export interface StHeadNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface StHeadNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `sthead` node are valid

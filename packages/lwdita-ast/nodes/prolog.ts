@@ -14,7 +14,7 @@ export const PrologFields = [...FiltersFields, ...LocalizationFields, 'class'];
 /**
  * Interface PrologNode defines the attribute type for `prolog`: `CDATA`
  */
-export interface PrologNode extends FiltersNode, LocalizationNode {
+export interface PrologNodeInterface extends FiltersNode, LocalizationNode {
   'class'?: CDATA;
 }
 

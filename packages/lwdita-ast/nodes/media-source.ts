@@ -16,7 +16,7 @@ export const MediaSourceFields = [...LocalizationFields, ...FieldFields, ...Clas
  * Interface MediaSourceNode defines the attribute types for `media-source`:
  * `CDATA`, `T`
  */
-export interface MediaSourceNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
+export interface MediaSourceNodeInterface extends LocalizationNode, FieldNode<boolean>, ClassNode { }
 
 /**
  * Check if the given attributes of the `media-source` node are valid

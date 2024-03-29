@@ -16,7 +16,7 @@ export const ItalicFields = [...LocalizationFields, ...VariableContentFields, ..
 /**
  * Interface ItalicNode defines the attribute types for `i`
  */
-export interface ItalicNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface ItalicNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `italic` node are valid and match this list:

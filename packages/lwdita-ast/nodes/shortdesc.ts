@@ -14,7 +14,7 @@ export const ShortDescFields = [...FiltersFields, ...LocalizationFields, ...Clas
 /**
  * Interface ShortDescNode defines the attribute types for `shortdesc`: `CDATA`
  */
-export interface ShortDescNode extends FiltersNode, LocalizationNode, ClassNode { }
+export interface ShortDescNodeInterface extends FiltersNode, LocalizationNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `shortdesc` node are valid

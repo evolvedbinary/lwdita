@@ -16,7 +16,7 @@ export const MediaAutoplayFields = [...LocalizationFields, ...FieldFields, ...Cl
  * Interface MediaAutoplayNode defines the attribute types for `media-autoplay`:
  * `CDATA`, `T`
  */
-export interface MediaAutoplayNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
+export interface MediaAutoplayNodeInterface extends LocalizationNode, FieldNode<boolean>, ClassNode { }
 
 /**
  * Check if the given attributes of the `media-autoplay` node are valid

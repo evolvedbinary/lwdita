@@ -15,7 +15,7 @@ export const PhFields = [...FiltersFields, ...LocalizationFields, ...VariableCon
 /**
  * Interface PhNode defines the attribute type for `ph`: `CDATA`
  */
-export interface PhNode extends FiltersNode, LocalizationNode, VariableContentNode, ClassNode { }
+export interface PhNodeInterface extends FiltersNode, LocalizationNode, VariableContentNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `ph` node are valid

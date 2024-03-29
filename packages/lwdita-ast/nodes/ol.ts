@@ -16,7 +16,7 @@ export const OlFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields
  * Interface olNode defines the attribute type for `ol`:
  * `CDATA`, `NMTOKEN`
  */
-export interface OlNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface OlNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `ol` node are valid

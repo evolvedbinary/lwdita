@@ -16,7 +16,7 @@ export const StEntryFields = [...FiltersFields, ...LocalizationFields, ...ReuseF
  * Interface StEntryNode defines the attribute types for `stentry`:
  * `CDATA`, `NMTOKEN`
  */
-export interface StEntryNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface StEntryNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `stentry` node are valid

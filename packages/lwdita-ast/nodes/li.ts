@@ -15,7 +15,7 @@ export const LiFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields
 /**
  * Interface LiNode defines the attribute types for `li`
  */
-export interface LiNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface LiNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `li` node are valid and match this list:

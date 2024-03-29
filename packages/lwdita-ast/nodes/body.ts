@@ -12,7 +12,7 @@ export const BodyFields = [...LocalizationFields, ...ClassFields];
 /**
  * Interface BodyNode defines the attribute types for `body`:
  */
-export interface BodyNode extends LocalizationNode, ClassNode { }
+export interface BodyNodeInterface extends LocalizationNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `body` node are valid and match this list:

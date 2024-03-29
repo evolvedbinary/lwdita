@@ -16,7 +16,7 @@ export const MediaLoopFields = [...LocalizationFields, ...FieldFields, ...ClassF
  * Interface MediaLoopNode defines the attribute types for `media-loop`:
  * `CDATA`, `T`
  */
-export interface MediaLoopNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
+export interface MediaLoopNodeInterface extends LocalizationNode, FieldNode<boolean>, ClassNode { }
 
 /**
  * Check if the given attributes of the `media-loop` node are valid

@@ -16,7 +16,7 @@ export const SimpleTableFields = [...FiltersFields, ...LocalizationFields, ...Re
  * Interface StEntryNode defines the attribute types for `simpletable`:
  * `CDATA`, `NMTOKEN`
  */
-export interface SimpleTableNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface SimpleTableNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `simpletable` node are valid

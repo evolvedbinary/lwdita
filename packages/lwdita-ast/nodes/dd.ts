@@ -15,7 +15,7 @@ export const DdFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields
 /**
  * Interface DdNode defines the attribute types for `dd`
  */
-export interface DdNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface DdNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `dd` node are valid and match this list:

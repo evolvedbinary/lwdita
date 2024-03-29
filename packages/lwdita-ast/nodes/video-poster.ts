@@ -16,7 +16,7 @@ export const VideoPosterFields = [...LocalizationFields, ...FieldFields, ...Clas
  * The interface `VideoPosterNode` defines all attribute types for `video-poster`:
  * `CDATA`, `T`
  */
-export interface VideoPosterNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
+export interface VideoPosterNodeInterface extends LocalizationNode, FieldNode<boolean>, ClassNode { }
 
 /**
  * Check if the given attributes of the `video-poster` node are valid

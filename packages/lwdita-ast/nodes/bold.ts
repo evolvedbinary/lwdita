@@ -18,7 +18,7 @@ export const BoldFields = [...LocalizationFields, ...VariableContentFields, ...C
 /**
  * Interface BoldNode defines the attribute types for `bold`
  */
-export interface BoldNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface BoldNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `bold` node are valid and match this list:

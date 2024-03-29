@@ -16,7 +16,7 @@ export const MediaControlsFields = [...LocalizationFields, ...FieldFields, ...Cl
  * Interface MediaControlsNode defines the attribute types for `media-controls`:
  * `CDATA`, `T`
  */
-export interface MediaControlsNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
+export interface MediaControlsNodeInterface extends LocalizationNode, FieldNode<boolean>, ClassNode { }
 
 /**
  * Check if the given attributes of the `media-controls` node are valid

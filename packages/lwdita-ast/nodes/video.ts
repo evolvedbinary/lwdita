@@ -17,7 +17,7 @@ export const VideoFields = [...FiltersFields, ...LocalizationFields, ...ReuseFie
  * The interface `VideoNode` defines all attribute types for `video`:
  * `CDATA`, `NMTOKEN`
  */
-export interface VideoNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode, SizeNode { }
+export interface VideoNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode, SizeNode { }
 
 /**
  * Check if the given attributes of the `video` node are valid

@@ -15,7 +15,7 @@ export const FigFields = [...DisplayFields, ...LocalizationFields, ...FiltersFie
 /**
  * Interface FigNode defines the attribute types for `fig`
  */
-export interface FigNode extends DisplayNode, LocalizationNode, FiltersNode, ClassNode { }
+export interface FigNodeInterface extends DisplayNode, LocalizationNode, FiltersNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `fig` node are valid and match this list:

@@ -17,7 +17,7 @@ export const SuperscriptFields = [...LocalizationFields, ...VariableContentField
  * Interface SuperscriptNode defines the attribute types for `superscript`:
  * `CDATA`, `NMTOKEN`
  */
-export interface SuperscriptNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface SuperscriptNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `superscript` node are valid

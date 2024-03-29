@@ -19,7 +19,7 @@ export const FnFields = [...FiltersFields, ...LocalizationFields, ...FnReuseFiel
 /**
  * Interface FnNode defines the attribute types for `fn`
  */
-export interface FnNode extends FiltersNode, LocalizationNode, FnReuseNode, ClassNode { }
+export interface FnNodeInterface extends FiltersNode, LocalizationNode, FnReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `fn` node are valid and match this list:

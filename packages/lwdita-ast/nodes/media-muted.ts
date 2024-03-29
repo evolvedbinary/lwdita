@@ -16,7 +16,7 @@ export const MediaMutedFields = [...LocalizationFields, ...FieldFields, ...Class
  * Interface MediaMutedNode defines the attribute types for `media-muted`:
  * `CDATA`, `T`
  */
-export interface MediaMutedNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
+export interface MediaMutedNodeInterface extends LocalizationNode, FieldNode<boolean>, ClassNode { }
 
 /**
  * Check if the given attributes of the `media-muted` node are valid

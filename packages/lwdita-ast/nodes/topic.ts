@@ -18,7 +18,7 @@ export const TopicFields = [...LocalizationFields, ...ClassFields, 'id', 'xmlns:
  * @privateRemarks
  * TODO: Implement type "&xdita-constraint; &included-domains;"
  */
-export interface TopicNode extends LocalizationNode, ClassNode {
+export interface TopicNodeInterface extends LocalizationNode, ClassNode {
   'id': ID;
   'xmlns:ditaarch': CDATA;
   'ditaarch:DITAArchVersion'?: CDATA;

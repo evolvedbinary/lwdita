@@ -17,7 +17,7 @@ export const UnderlinedFields = [...LocalizationFields, ...VariableContentFields
  * Interface UnderlinedNode defines the attribute types for `underlined`:
  * `CDATA`, `NMTOKEN`
  */
-export interface UnderlinedNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface UnderlinedNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `underlined` node are valid

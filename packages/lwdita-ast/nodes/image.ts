@@ -17,7 +17,7 @@ export const ImageFields = [...FiltersFields, ...LocalizationFields, ...Variable
 /**
  * Interface ImageNode defines the attribute types for `image`
  */
-export interface ImageNode extends FiltersNode, LocalizationNode, VariableContentNode, ReferenceContentNode, ClassNode, SizeNode { }
+export interface ImageNodeInterface extends FiltersNode, LocalizationNode, VariableContentNode, ReferenceContentNode, ClassNode, SizeNode { }
 
 /**
  * Check if the `image` node is valid

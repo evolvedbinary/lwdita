@@ -16,7 +16,7 @@ export const SectionFields = [...FiltersFields, ...LocalizationFields, ...ReuseF
  * Interface SectionNode defines the attribute types for `section`:
  * `CDATA`, `NMTOKEN`
  */
-export interface SectionNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface SectionNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
 
 /**
  * Check if the given attributes of the `section` node are valid

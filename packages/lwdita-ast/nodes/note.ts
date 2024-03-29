@@ -16,7 +16,7 @@ export const NoteFields = [...FiltersFields, ...LocalizationFields, ...ReuseFiel
 /**
  * Interface NoteNode defines the attribute type for `note`: `CDATA`
  */
-export interface NoteNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode {
+export interface NoteNodeInterface extends FiltersNode, LocalizationNode, ReuseNode, ClassNode {
   type: CDATA;
 }
 

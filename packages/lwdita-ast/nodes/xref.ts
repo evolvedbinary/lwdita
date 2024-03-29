@@ -17,7 +17,7 @@ export const XRefFields = [...FiltersFields, ...LocalizationFields, ...ClassFiel
  * Interface XRefNode defines the attribute types for `xref`:
  * `CDATA`, `local` | `peer` | `external`
  */
-export interface XRefNode extends FiltersNode, LocalizationNode, ClassNode, ReferenceContentNode, VariableContentNode { }
+export interface XRefNodeInterface extends FiltersNode, LocalizationNode, ClassNode, ReferenceContentNode, VariableContentNode { }
 
 /**
  * Check if the given attributes of the `xref` node are valid

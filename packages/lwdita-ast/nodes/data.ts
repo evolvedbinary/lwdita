@@ -17,7 +17,7 @@ export const DataFields = [...FiltersFields, ...LocalizationFields, ...Reference
 /**
  * Interface DataNode defines the attribute types for `data`:
  */
-export interface DataNode extends FiltersNode, LocalizationNode, ReferenceContentNode, ClassNode, VariableContentNode, FieldNode { }
+export interface DataNodeInterface extends FiltersNode, LocalizationNode, ReferenceContentNode, ClassNode, VariableContentNode, FieldNode { }
 
 /**
  * Check if the given attributes of the `data` node are valid and match this list:
