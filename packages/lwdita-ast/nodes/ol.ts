@@ -41,7 +41,7 @@ export const isValidOlField = (field: string, value: BasicValue): boolean => isV
  * @returns Boolean
  */
 export const isOlNode = (value?: {}): value is OlNode =>
-  typeof value === 'object' && areFieldsValid(OlFields, value as Record<string, BasicValue>, isValidOlField);
+  typeof value === 'object' && areFieldsValid(OlFields, value as unknown as Record<string, BasicValue>,  isValidOlField);
 
 /**
  * Construct an `ol` node with all available attributes

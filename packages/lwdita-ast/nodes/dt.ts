@@ -41,7 +41,7 @@ export const isValidDtField = (field: string, value: BasicValue): boolean => isV
  * @returns Boolean
  */
 export const isDtNode = (value?: {}): value is DtNode =>
-  typeof value === 'object' && areFieldsValid(DtFields, value as Record<string, BasicValue>, isValidDtField);
+  typeof value === 'object' && areFieldsValid(DtFields, value as unknown as Record<string, BasicValue>,  isValidDtField);
 
 /**
  * Construct a `dt` node with all available attributes

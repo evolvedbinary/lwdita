@@ -41,7 +41,7 @@ export const isValidSectionField = (field: string, value: BasicValue): boolean =
  * @returns Boolean
  */
 export const isSectionNode = (value?: {}): value is SectionNode =>
-  typeof value === 'object' && areFieldsValid(SectionFields, value as Record<string, BasicValue>, isValidSectionField);
+  typeof value === 'object' && areFieldsValid(SectionFields, value as unknown as Record<string, BasicValue>,  isValidSectionField);
 
 /**
  * Construct a `section` node with all available attributes

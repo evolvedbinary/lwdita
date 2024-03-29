@@ -53,7 +53,7 @@ export const isValidFnField = (field: string, value: BasicValue): boolean => {
  * @returns Boolean
  */
 export const isFnNode = (value?: {}): value is FnNode =>
-  typeof value === 'object' && areFieldsValid(FnFields, value as Record<string, BasicValue>, isValidFnField);
+  typeof value === 'object' && areFieldsValid(FnFields, value as unknown as Record<string, BasicValue>,  isValidFnField);
 
 /**
  * Create a `fn` node with an `id` and `callout` attribute

@@ -45,7 +45,7 @@ export const isValidDataField = (field: string, value: BasicValue): boolean => i
  * @returns Boolean
  */
 export const isDataNode = (value?: {}): value is DataNode =>
-  typeof value === 'object' && areFieldsValid(DataFields, value as Record<string, BasicValue>, isValidDataField);
+  typeof value === 'object' && areFieldsValid(DataFields, value as unknown as Record<string, BasicValue>,  isValidDataField);
 
 /**
  * Construct a `data` node with all available attributes

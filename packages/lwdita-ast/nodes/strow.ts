@@ -41,7 +41,7 @@ export const isValidStRowField = (field: string, value: BasicValue): boolean => 
  * @returns Boolean
  */
 export const isStRowNode = (value?: {}): value is StRowNode =>
-  typeof value === 'object' && areFieldsValid(StRowFields, value as Record<string, BasicValue>, isValidStRowField);
+  typeof value === 'object' && areFieldsValid(StRowFields, value as unknown as Record<string, BasicValue>,  isValidStRowField);
 
 /**
  * Construct a `strow` node with all available attributes

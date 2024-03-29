@@ -40,7 +40,7 @@ export const isValidMediaMutedField = (field: string, value: BasicValue): boolea
  * @returns Boolean
  */
 export const isMediaMutedNode = (value?: {}): value is MediaMutedNode =>
-  typeof value === 'object' && areFieldsValid(MediaMutedFields, value as Record<string, BasicValue>, isValidMediaMutedField);
+  typeof value === 'object' && areFieldsValid(MediaMutedFields, value as unknown as Record<string, BasicValue>,  isValidMediaMutedField);
 
 /**
  * Construct a `media-muted` node with all available attributes

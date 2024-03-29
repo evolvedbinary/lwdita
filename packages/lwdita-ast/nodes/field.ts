@@ -43,7 +43,7 @@ export const isValidFieldField = (validator: (val: BasicValue) => boolean = isCD
  * @returns Boolean
  */
 export const isFieldNode = (value?: {}): value is FieldNode =>
-  typeof value === 'object' && areFieldsValid(FieldFields, value as Record<string, BasicValue>, isValidFieldField());
+  typeof value === 'object' && areFieldsValid(FieldFields, value as unknown as Record<string, BasicValue>,  isValidFieldField());
 
 /**
  * `makeField` - Create a `field` node

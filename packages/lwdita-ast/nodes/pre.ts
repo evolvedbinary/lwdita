@@ -52,7 +52,7 @@ export const isValidPreField = (field: string, value: BasicValue): boolean => {
  * @returns Boolean
  */
 export const isPreNode = (value?: {}): value is PreNode =>
-  typeof value === 'object' && areFieldsValid(PreFields, value as Record<string, BasicValue>, isValidPreField);
+  typeof value === 'object' && areFieldsValid(PreFields, value as unknown as Record<string, BasicValue>,  isValidPreField);
 
 /**
  * Construct a `pre` node with all available attributes

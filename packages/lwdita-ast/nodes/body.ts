@@ -36,7 +36,7 @@ export const isValidBodyField = (field: string, value: BasicValue): boolean => i
  * @returns Boolean
  */
 export const isBodyNode = (value?: {}): value is BodyNode =>
-  typeof value === 'object' && areFieldsValid(BodyFields, value as Record<string, BasicValue>, isValidBodyField);
+  typeof value === 'object' && areFieldsValid(BodyFields, value as unknown as Record<string, BasicValue>,  isValidBodyField);
 
 /**
  * Construct a `body` node with all available attributes

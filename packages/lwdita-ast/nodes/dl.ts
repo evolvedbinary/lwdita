@@ -41,7 +41,7 @@ export const isValidDlField = (field: string, value: BasicValue): boolean => isV
  * @returns Boolean
  */
 export const isDlNode = (value?: {}): value is DlNode =>
-  typeof value === 'object' && areFieldsValid(DlFields, value as Record<string, BasicValue>, isValidDlField);
+  typeof value === 'object' && areFieldsValid(DlFields, value as unknown as Record<string, BasicValue>,  isValidDlField);
 
 /**
  * Construct a `dl` node with all available attributes

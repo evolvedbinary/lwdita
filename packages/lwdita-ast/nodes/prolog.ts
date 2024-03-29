@@ -45,7 +45,7 @@ export function isValidPrologField(field: string, value: BasicValue): boolean {
  * @returns Boolean
  */
 export const isPrologNode = (value?: {}): value is PrologNode =>
-  typeof value === 'object' && areFieldsValid(PrologFields, value as Record<string, BasicValue>, isValidPrologField);
+  typeof value === 'object' && areFieldsValid(PrologFields, value as unknown as Record<string, BasicValue>,  isValidPrologField);
 
 /**
  * Construct a `prolog` node with all available attributes

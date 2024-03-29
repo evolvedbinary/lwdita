@@ -41,7 +41,7 @@ export const isValidUlField = (field: string, value: BasicValue): boolean => isV
  * @returns Boolean
  */
 export const isUlNode = (value?: {}): value is UlNode =>
-  typeof value === 'object' && areFieldsValid(UlFields, value as Record<string, BasicValue>, isValidUlField);
+  typeof value === 'object' && areFieldsValid(UlFields, value as unknown as Record<string, BasicValue>,  isValidUlField);
 
 /**
  * Construct an `ul` node with all available attributes

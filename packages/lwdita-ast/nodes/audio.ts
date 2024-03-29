@@ -41,7 +41,7 @@ export const isValidAudioField = (field: string, value: BasicValue): boolean => 
  * @returns Boolean
  */
 export const isAudioNode = (value?: {}): value is AudioNode =>
-  typeof value === 'object' && areFieldsValid(AudioFields, value as Record<string, BasicValue>, isValidAudioField);
+  typeof value === 'object' && areFieldsValid(AudioFields, value as unknown as Record<string, BasicValue>,  isValidAudioField);
 
 /**
  * Construct an `audio` node with all available attributes

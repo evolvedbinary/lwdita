@@ -41,7 +41,7 @@ export const isValidItalicField = (field: string, value: BasicValue): boolean =>
  * @returns Boolean
  */
 export const isItalicNode = (value?: {}): value is ItalicNode =>
-  typeof value === 'object' && areFieldsValid(ItalicFields, value as Record<string, BasicValue>, isValidItalicField);
+  typeof value === 'object' && areFieldsValid(ItalicFields, value as unknown as Record<string, BasicValue>,  isValidItalicField);
 
 /**
  * Construct an `italic` node with all available attributes

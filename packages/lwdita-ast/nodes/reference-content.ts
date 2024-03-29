@@ -21,7 +21,7 @@ export function isValidReferenceContentField(field: string, value: BasicValue): 
 }
 
 export const isReferenceContentNode = (value?: {}): value is ReferenceContentNode =>
-  typeof value === 'object' && areFieldsValid(ReferenceContentFields, value as Record<string, BasicValue>, isValidReferenceContentField);
+  typeof value === 'object' && areFieldsValid(ReferenceContentFields, value as unknown as Record<string, BasicValue>,  isValidReferenceContentField);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeReferenceContent<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
