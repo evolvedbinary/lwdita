@@ -40,7 +40,7 @@ export const isValidDtField = (field: string, value: BasicValue): boolean => isV
  * @param value - The `dt` node to test
  * @returns Boolean
  */
-export const isDtNode = (value?: {}): value is DtNode =>
+export const isDtNode = (value?: DtNode): value is DtNode =>
   typeof value === 'object' && areFieldsValid(DtFields, value as unknown as Record<string, BasicValue>,  isValidDtField);
 
 /**

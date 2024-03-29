@@ -40,7 +40,7 @@ export const isValidPField = (field: string, value: BasicValue): boolean => isVa
  * @param value - The `p` node to test
  * @returns Boolean
  */
-export const isPNode = (value?: {}): value is PNode =>
+export const isPNode = (value?: PNode): value is PNode =>
   typeof value === 'object' && areFieldsValid(PFields, value as unknown as Record<string, BasicValue>,  isValidPField);
 
 /**

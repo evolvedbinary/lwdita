@@ -42,7 +42,7 @@ export const isValidBoldField = (field: string, value: BasicValue): boolean => i
  * @param value - The `bold` node to test
  * @returns Boolean
  */
-export const isBoldNode = (value?: {}): value is BoldNode =>
+export const isBoldNode = (value?: BoldNode): value is BoldNode =>
   typeof value === 'object' && areFieldsValid(BoldFields, value as unknown as Record<string, BasicValue>,  isValidBoldField);
 
 /**

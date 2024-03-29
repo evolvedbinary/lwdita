@@ -44,7 +44,7 @@ export function isValidPrologField(field: string, value: BasicValue): boolean {
  * @param value - The `prolog` node to test
  * @returns Boolean
  */
-export const isPrologNode = (value?: {}): value is PrologNode =>
+export const isPrologNode = (value?: PrologNode): value is PrologNode =>
   typeof value === 'object' && areFieldsValid(PrologFields, value as unknown as Record<string, BasicValue>,  isValidPrologField);
 
 /**

@@ -40,7 +40,7 @@ export const isValidSubscriptField = (field: string, value: BasicValue): boolean
  * @param value - The `subscript` node to test
  * @returns Boolean
  */
-export const isSubscriptNode = (value?: {}): value is SubscriptNode =>
+export const isSubscriptNode = (value?: SubscriptNode): value is SubscriptNode =>
   typeof value === 'object' && areFieldsValid(SubscriptFields, value as unknown as Record<string, BasicValue>,  isValidSubscriptField);
 
 /**

@@ -39,7 +39,7 @@ export function isValidFnReuseField(field: string, value: BasicValue): boolean {
  * @param value - The `fn-reuse` node to test
  * @returns Boolean
  */
-export const isFnReuseNode = (value?: {}): value is FnReuseNode =>
+export const isFnReuseNode = (value?: FnReuseNode): value is FnReuseNode =>
   typeof value === 'object' && areFieldsValid(FnReuseFields, value as unknown as Record<string, BasicValue>,  isValidFnReuseField);
 
 /**

@@ -38,7 +38,7 @@ export const isValidDescField = (field: string, value: BasicValue): boolean => i
  * @param value - The `desc` node to test
  * @returns Boolean
  */
-export const isDescNode = (value?: {}): value is DescNode =>
+export const isDescNode = (value?: DescNode): value is DescNode =>
   typeof value === 'object' && areFieldsValid(DescFields, value as unknown as Record<string, BasicValue>,  isValidDescField);
 
 /**

@@ -40,7 +40,7 @@ export const isValidStEntryField = (field: string, value: BasicValue): boolean =
  * @param value - The `stentry` node to test
  * @returns Boolean
  */
-export const isStEntryNode = (value?: {}): value is StEntryNode =>
+export const isStEntryNode = (value?: StEntryNode): value is StEntryNode =>
   typeof value === 'object' && areFieldsValid(StEntryFields, value as unknown as Record<string, BasicValue>,  isValidStEntryField);
 
 /**

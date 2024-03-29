@@ -40,7 +40,7 @@ export const isValidFigField = (field: string, value: BasicValue): boolean => is
  * @param value - The `fig` node to test
  * @returns Boolean
  */
-export const isFigNode = (value?: {}): value is FigNode =>
+export const isFigNode = (value?: FigNode): value is FigNode =>
   typeof value === 'object' && areFieldsValid(FigFields, value as unknown as Record<string, BasicValue>,  isValidFigField);
 
 /**

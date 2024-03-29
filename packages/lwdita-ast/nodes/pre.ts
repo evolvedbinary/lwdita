@@ -51,7 +51,7 @@ export const isValidPreField = (field: string, value: BasicValue): boolean => {
  * @param value - The `pre` node to test
  * @returns Boolean
  */
-export const isPreNode = (value?: {}): value is PreNode =>
+export const isPreNode = (value?: PreNode): value is PreNode =>
   typeof value === 'object' && areFieldsValid(PreFields, value as unknown as Record<string, BasicValue>,  isValidPreField);
 
 /**

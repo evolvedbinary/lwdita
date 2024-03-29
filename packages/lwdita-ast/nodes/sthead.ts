@@ -40,7 +40,7 @@ export const isValidStHeadField = (field: string, value: BasicValue): boolean =>
  * @param value - The `sthead` node to test
  * @returns Boolean
  */
-export const isStHeadNode = (value?: {}): value is StHeadNode =>
+export const isStHeadNode = (value?: StHeadNode): value is StHeadNode =>
   typeof value === 'object' && areFieldsValid(StHeadFields, value as unknown as Record<string, BasicValue>,  isValidStHeadField);
 
 /**

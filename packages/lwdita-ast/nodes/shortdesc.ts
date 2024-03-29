@@ -37,7 +37,7 @@ export const isValidShortDescField = (field: string, value: BasicValue): boolean
  * @param value - The `shortdesc` node to test
  * @returns Boolean
  */
-export const isShortDescNode = (value?: {}): value is ShortDescNode =>
+export const isShortDescNode = (value?: ShortDescNode): value is ShortDescNode =>
   typeof value === 'object' && areFieldsValid(ShortDescFields, value as unknown as Record<string, BasicValue>,  isValidShortDescField);
 
 /**

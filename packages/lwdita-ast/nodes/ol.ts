@@ -40,7 +40,7 @@ export const isValidOlField = (field: string, value: BasicValue): boolean => isV
  * @param value - The `ol` node to test
  * @returns Boolean
  */
-export const isOlNode = (value?: {}): value is OlNode =>
+export const isOlNode = (value?: OlNode): value is OlNode =>
   typeof value === 'object' && areFieldsValid(OlFields, value as unknown as Record<string, BasicValue>,  isValidOlField);
 
 /**

@@ -40,7 +40,7 @@ export const isValidSuperscriptField = (field: string, value: BasicValue): boole
  * @param value - The `superscript` node to test
  * @returns Boolean
  */
-export const isSuperscriptNode = (value?: {}): value is SuperscriptNode =>
+export const isSuperscriptNode = (value?: SuperscriptNode): value is SuperscriptNode =>
   typeof value === 'object' && areFieldsValid(SuperscriptFields, value as unknown as Record<string, BasicValue>,  isValidSuperscriptField);
 
 /**

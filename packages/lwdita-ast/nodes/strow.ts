@@ -40,7 +40,7 @@ export const isValidStRowField = (field: string, value: BasicValue): boolean => 
  * @param value - The `strow` node to test
  * @returns Boolean
  */
-export const isStRowNode = (value?: {}): value is StRowNode =>
+export const isStRowNode = (value?: StRowNode): value is StRowNode =>
   typeof value === 'object' && areFieldsValid(StRowFields, value as unknown as Record<string, BasicValue>,  isValidStRowField);
 
 /**

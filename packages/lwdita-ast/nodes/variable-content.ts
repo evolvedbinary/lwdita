@@ -40,7 +40,7 @@ export function isValidVariableContentField(field: string, value: BasicValue): b
  * @param value - The `variable-content` node to test
  * @returns Boolean
  */
-export const isVariableContentNode = (value?: {}): value is VariableContentNode =>
+export const isVariableContentNode = (value?: VariableContentNode): value is VariableContentNode =>
   typeof value === 'object' && areFieldsValid(VariableContentFields, value as unknown as Record<string, BasicValue>,  isValidVariableContentField);
 
 /**

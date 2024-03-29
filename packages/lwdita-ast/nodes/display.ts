@@ -42,7 +42,7 @@ export function isValidDisplayField(field: string, value: BasicValue): boolean {
  * @param value - The `display` node to test
  * @returns Boolean
  */
-export const isDisplayNode = (value?: {}): value is DisplayNode =>
+export const isDisplayNode = (value?: DisplayNode): value is DisplayNode =>
   typeof value === 'object' && areFieldsValid(DisplayFields, value as unknown as Record<string, BasicValue>,  isValidDisplayField);
 
 /**

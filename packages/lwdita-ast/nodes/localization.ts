@@ -44,7 +44,7 @@ export function isValidLocalizationField(field: string, value: BasicValue): bool
  * @param value - The `localization` node to test
  * @returns Boolean
  */
-export const isLocalizationNode = (value?: {}): value is LocalizationNode =>
+export const isLocalizationNode = (value?: LocalizationNode): value is LocalizationNode =>
   typeof value === 'object' && areFieldsValid(LocalizationFields, value as unknown as Record<string, BasicValue>,  isValidLocalizationField);
 
 /**

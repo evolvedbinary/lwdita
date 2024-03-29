@@ -40,7 +40,7 @@ export const isValidSimpleTableField = (field: string, value: BasicValue): boole
  * @param value - The `simpletable` node to test
  * @returns Boolean
  */
-export const isSimpleTableNode = (value?: {}): value is SimpleTableNode =>
+export const isSimpleTableNode = (value?: SimpleTableNode): value is SimpleTableNode =>
   typeof value === 'object' && areFieldsValid(SimpleTableFields, value as unknown as Record<string, BasicValue>,  isValidSimpleTableField);
 
 /**

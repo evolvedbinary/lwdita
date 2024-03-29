@@ -40,7 +40,7 @@ export const isValidItalicField = (field: string, value: BasicValue): boolean =>
  * @param value - The `italic` node to test
  * @returns Boolean
  */
-export const isItalicNode = (value?: {}): value is ItalicNode =>
+export const isItalicNode = (value?: ItalicNode): value is ItalicNode =>
   typeof value === 'object' && areFieldsValid(ItalicFields, value as unknown as Record<string, BasicValue>,  isValidItalicField);
 
 /**

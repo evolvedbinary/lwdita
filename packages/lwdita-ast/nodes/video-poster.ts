@@ -39,7 +39,7 @@ export const isValidVideoPosterField = (field: string, value: BasicValue): boole
  * @param value - The `video-poster` node to test
  * @returns Boolean
  */
-export const isVideoPosterNode = (value?: {}): value is VideoPosterNode =>
+export const isVideoPosterNode = (value?: VideoPosterNode): value is VideoPosterNode =>
   typeof value === 'object' && areFieldsValid(VideoPosterFields, value as unknown as Record<string, BasicValue>,  isValidVideoPosterField);
 
 /**

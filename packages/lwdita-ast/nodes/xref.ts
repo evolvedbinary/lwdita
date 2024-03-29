@@ -42,7 +42,7 @@ export const isValidXRefField = (field: string, value: BasicValue): boolean => i
  * @param value - The `xref` node to test
  * @returns Boolean
  */
-export const isXRefNode = (value?: {}): value is XRefNode =>
+export const isXRefNode = (value?: XRefNode): value is XRefNode =>
   typeof value === 'object' && areFieldsValid(XRefFields, value as unknown as Record<string, BasicValue>,  isValidXRefField);
 
 /**

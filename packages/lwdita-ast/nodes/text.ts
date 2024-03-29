@@ -39,7 +39,7 @@ export function isValidTextField(field: string, value: BasicValue): boolean {
  * @param value - A BasicValue-typed value containing the field value
  * @returns
  */
-export const isTextNode = (value?: BasicValue): value is TextNode =>
+export const isTextNode = (value?: TextNode,  BasicValue): value is TextNode =>
   typeof value === 'object' && 'content' in value && typeof value.content === 'string';
 
 

@@ -39,7 +39,7 @@ export const isValidMediaAutoplayField = (field: string, value: BasicValue): boo
  * @param value - The `media-autoplay` node to test
  * @returns Boolean
  */
-export const isMediaAutoplayNode = (value?: {}): value is MediaAutoplayNode =>
+export const isMediaAutoplayNode = (value?: MediaAutoplayNode): value is MediaAutoplayNode =>
   typeof value === 'object' && areFieldsValid(MediaAutoplayFields, value as unknown as Record<string, BasicValue>,  isValidMediaAutoplayField);
 
 /**

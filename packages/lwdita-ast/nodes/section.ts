@@ -40,7 +40,7 @@ export const isValidSectionField = (field: string, value: BasicValue): boolean =
  * @param value - The `section` node to test
  * @returns Boolean
  */
-export const isSectionNode = (value?: {}): value is SectionNode =>
+export const isSectionNode = (value?: SectionNode): value is SectionNode =>
   typeof value === 'object' && areFieldsValid(SectionFields, value as unknown as Record<string, BasicValue>,  isValidSectionField);
 
 /**
