@@ -7,6 +7,7 @@ import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, VariableContentNode, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { FieldFields, FieldNode, isValidCDATAFieldField, makeCDATAField } from "./field";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA, ReferenceContentScope } from "../ast-classes";
 
 /**
  * Define all allowed `data` attributes:
@@ -69,4 +70,15 @@ export function makeData<T extends Constructor>(constructor: T): T {
 @makeComponent(makeData, 'data', isValidDataField, DataFields, [['text*', '%data*']])
 export class DataNode extends BaseNode implements DataNodeInterface {
   static domNodeName = 'data';
+  // `props`, `dir`, `xml:lang`, `translate`, `href`, `format`, `scope`, `outputclass`, `class`, `keyref`
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "href"?: CDATA;
+  "format"?: CDATA;
+  "scope"?: ReferenceContentScope;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
+  "keyref"?: CDATA;
 }

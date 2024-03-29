@@ -5,6 +5,7 @@ import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `alt` (cross-reference) fields:
@@ -66,11 +67,11 @@ export function makeAlt<T extends Constructor>(constructor: T): T {
 export class AltNode extends BaseNode implements AltNodeInterface {
   // Add properties from AltNodeInterface here
   // dir, xml:lang, translate, keyref, outputclass, class, props
-  "dir"?: string;
-  "xml:lang"?: string;
-  "translate"?: string;
-  "keyref"?: string;
-  "outputclass"?: string;
-  "class"?: string;
-  "props"?: string;
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

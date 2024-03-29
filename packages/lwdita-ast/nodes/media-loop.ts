@@ -4,6 +4,7 @@ import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `media-loop` attributes:
@@ -64,4 +65,12 @@ export function makeMediaLoop<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link MediaLoopFields}
  */
 @makeComponent(makeMediaLoop, 'media-loop', isValidMediaLoopField, MediaLoopFields)
-export class MediaLoopNode extends BaseNode implements MediaLoopNodeInterface { }
+export class MediaLoopNode extends BaseNode implements MediaLoopNodeInterface {
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
+  "name"?: CDATA;
+  "value"?: boolean;
+}

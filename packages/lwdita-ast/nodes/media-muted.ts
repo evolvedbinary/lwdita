@@ -4,6 +4,7 @@ import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `media-muted` attributes:
@@ -64,4 +65,12 @@ export function makeMediaMuted<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link MediaMutedFields}
  */
 @makeComponent(makeMediaMuted, 'media-muted', isValidMediaMutedField, MediaMutedFields)
-export class MediaMutedNode extends BaseNode implements MediaMutedNodeInterface { }
+export class MediaMutedNode extends BaseNode implements MediaMutedNodeInterface {
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
+  "name"?: CDATA;
+  "value"?: boolean;
+}

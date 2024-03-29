@@ -4,6 +4,7 @@ import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `video-poster` attributes:
@@ -61,4 +62,12 @@ export function makeVideoPoster<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link VideoPosterFields}
  */
 @makeComponent(makeVideoPoster, 'video-poster', isValidVideoPosterField, VideoPosterFields)
-export class VideoPosterNode extends BaseNode implements VideoPosterNodeInterface { }
+export class VideoPosterNode extends BaseNode implements VideoPosterNodeInterface {
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
+  "name"?: CDATA;
+  "value"?: boolean;
+}

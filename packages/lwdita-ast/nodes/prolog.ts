@@ -89,4 +89,10 @@ export function makeProlog<T extends { new(...args: any[]): BaseNode }>(construc
 @makeComponent(makeProlog, 'prolog', isValidPrologField, PrologFields, ['%data*'])
 export class PrologNode extends BaseNode implements PrologNodeInterface {
   static domNodeName = '';
+  // `props`, `dir`, `xml:lang`, `translate`, `class`
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "class"?: CDATA;
 }

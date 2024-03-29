@@ -11,7 +11,7 @@ export const TextFields = ['content'];
 /**
  * Interface TextNode defines the `content` field type for node `text`: `string`
  */
-export interface TextNode {
+export interface TextNodeInterface {
   'content'?: string;
 }
 
@@ -71,7 +71,9 @@ export function makeText<T extends { new(...args: any[]): BaseNode }>(constructo
  * @param fields - The valid attribute `content` of type string See {@link TextFields}
  */
 @makeComponent(makeText, 'text', isValidTextField, TextFields)
-export class TextNode extends BaseNode {
+export class TextNode extends BaseNode implements TextNodeInterface {
+  'content'?: string;
+  
   constructor(content: string) {
     super({ content });
   }

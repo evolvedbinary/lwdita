@@ -4,6 +4,7 @@ import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./
 import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `shortdesc` attributes:
@@ -62,4 +63,11 @@ export function makeShortDesc<T extends Constructor>(constructor: T): T {
 @makeComponent(makeShortDesc, 'shortdesc', isValidShortDescField, ShortDescFields, ['%all-inline*'])
 export class ShortDescNode extends BaseNode implements ShortDescNodeInterface {
   static domNodeName = 'p';
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

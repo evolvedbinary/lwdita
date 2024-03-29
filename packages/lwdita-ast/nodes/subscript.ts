@@ -6,6 +6,7 @@ import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `subscript` attributes:
@@ -68,4 +69,10 @@ export function makeSubscript<T extends Constructor>(constructor: T): T {
 @makeComponent(makeSubscript, 'sub', isValidSubscriptField, SubscriptFields, ['%all-inline*'])
 export class SubscriptNode extends BaseNode implements SubscriptNodeInterface {
   static domNodeName = 'sub';
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

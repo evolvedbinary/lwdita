@@ -6,6 +6,7 @@ import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `underlined` attributes:
@@ -68,4 +69,10 @@ export function makeUnderlined<T extends Constructor>(constructor: T): T {
 @makeComponent(makeUnderlined, 'u', isValidUnderlinedField, UnderlinedFields, ['%all-inline*'])
 export class UnderlinedNode extends BaseNode implements UnderlinedNodeInterface {
   static domNodeName = 'u';
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

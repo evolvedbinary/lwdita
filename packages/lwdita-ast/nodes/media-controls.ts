@@ -4,6 +4,7 @@ import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `media-controls` attributes:
@@ -64,4 +65,12 @@ export function makeMediaControls<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link MediaControlsFields}
  */
 @makeComponent(makeMediaControls, 'media-controls', isValidMediaControlsField, MediaControlsFields)
-export class MediaControlsNode extends BaseNode implements MediaControlsNodeInterface { }
+export class MediaControlsNode extends BaseNode implements MediaControlsNodeInterface {
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
+  "name"?: CDATA;
+  "value"?: boolean;
+}

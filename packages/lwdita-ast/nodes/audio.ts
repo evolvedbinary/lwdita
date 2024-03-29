@@ -5,6 +5,7 @@ import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLoc
 import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `audio` attributes:
@@ -63,4 +64,15 @@ export function makeAudio<T extends Constructor>(constructor: T): T {
  * @param childNodes - An array containing all valid child node names: `desc?`, `media-controls?`, `media-autoplay?`, `media-loop?`, `media-muted?`, `media-source*`, `media-track*`
  */
 @makeComponent(makeAudio, 'audio', isValidAudioField, AudioFields, ['desc?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'media-source*', 'media-track*'])
-export class AudioNode extends BaseNode implements AudioNodeInterface {}
+export class AudioNode extends BaseNode implements AudioNodeInterface {
+  // `props`, `dir`, `xml:lang`, `translate`, `keyref`, `id`, `conref`, `outputclass`, `class`
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "id"?: NMTOKEN;
+  "conref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
+}

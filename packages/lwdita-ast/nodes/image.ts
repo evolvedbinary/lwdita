@@ -7,6 +7,7 @@ import { ClassNode, isClassNode, ClassFields, isValidClassField, makeClass } fro
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { SizeFields, SizeNode, isSizeNode, isValidSizeField, makeSize } from "./size";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA, ReferenceContentScope } from "../ast-classes";
 
 /**
  * Define all allowed `image` attributes:
@@ -91,4 +92,19 @@ export function makeImage<T extends Constructor>(constructor: T): T {
  * @returns An `image` node
  */
 @makeComponent(makeImage, 'image', isValidImageField, ImageFields, ['alt?'])
-export class ImageNode extends BaseNode implements ImageNodeInterface {}
+export class ImageNode extends BaseNode implements ImageNodeInterface {
+  // `props`, `dir`, `xml:lang`, `translate`, `keyref`, `outputclass`, `class`, `scale`, `href`, `format`, `scope`, `width`, `height`
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
+  "scale"?: SizeNode;
+  "href"?: CDATA;
+  "format"?: CDATA;
+  "scope"?: ReferenceContentScope;
+  "width"?: CDATA;
+  "height"?: CDATA;
+}

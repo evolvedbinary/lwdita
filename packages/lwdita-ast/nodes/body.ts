@@ -3,6 +3,7 @@ import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA } from "../ast-classes";
 /**
  * Define all allowed `body` attributes:
  * `dir`, `xml:lang`, `translate`, `outputclass`, `class`
@@ -60,4 +61,9 @@ export function makeBody<T extends Constructor>(constructor: T): T {
 @makeComponent(makeBody, 'body', isValidBodyField, BodyFields, ['%list-blocks*', 'section*', 'fn*'])
 export class BodyNode extends BaseNode implements BodyNodeInterface {
   static domNodeName = 'div';
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

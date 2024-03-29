@@ -5,6 +5,7 @@ import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./
 import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `ol` attributes:
@@ -65,4 +66,13 @@ export function makeOl<T extends Constructor>(constructor: T): T {
 @makeComponent(makeOl, 'ol', isValidOlField, OlFields, ['li+'])
 export class OlNode extends BaseNode implements OlNodeInterface {
   static domNodeName = 'ol';
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "id"?: NMTOKEN;
+  "conref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

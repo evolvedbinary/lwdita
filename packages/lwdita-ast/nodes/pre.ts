@@ -5,7 +5,7 @@ import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./
 import { areFieldsValid, isOrUndefined } from "@jdita/lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
-import { CDATA, isCDATA } from "../ast-classes";
+import { CDATA, NMTOKEN, isCDATA } from "../ast-classes";
 
 /**
  * Define all allowed `pre` fields:
@@ -87,4 +87,14 @@ export function makePre<T extends { new(...args: any[]): BaseNode }>(constructor
 @makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', '%data*']])
 export class PreNode extends BaseNode implements PreNodeInterface {
   static domNodeName = 'pre';
+  // `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `class`, `outputclass`, `xml:space`
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "id"?: NMTOKEN;
+  "conref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
+  "xmlns:space"?: CDATA;
 }

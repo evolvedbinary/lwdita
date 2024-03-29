@@ -5,6 +5,7 @@ import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { ReuseNode, isValidReuseField, ReuseFields, makeReuse } from "./reuse";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `dlentry` fields:
@@ -70,4 +71,13 @@ export function makeDlEntry<T extends Constructor>(constructor: T): T {
 @makeComponent(makeDlEntry, 'dlentry', isValidDlEntryField, DlEntryFields, ['dt', 'dd'])
 export class DlEntryNode extends BaseNode implements DlEntryNodeInterface {
   static domNodeName = '';
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "id"?: NMTOKEN;
+  "conref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

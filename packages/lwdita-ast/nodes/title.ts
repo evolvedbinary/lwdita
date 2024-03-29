@@ -3,6 +3,7 @@ import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `title` attributes:
@@ -61,4 +62,9 @@ export function makeTitle<T extends Constructor>(constructor: T): T  {
 @makeComponent(makeTitle, 'title', isValidTitleField, TitleFields, ['%common-inline*'])
 export class TitleNode extends BaseNode implements TitleNodeInterface {
   static domNodeName = 'h1';
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

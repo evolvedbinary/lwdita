@@ -5,6 +5,7 @@ import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./
 import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `strow` attributes:
@@ -65,4 +66,13 @@ export function makeStRow<T extends Constructor>(constructor: T): T {
 @makeComponent(makeStRow, 'strow', isValidStRowField, StRowFields, ['stentry*'])
 export class StRowNode extends BaseNode implements StRowNodeInterface {
   static domNodeName = 'tr';
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "id"?: NMTOKEN;
+  "conref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

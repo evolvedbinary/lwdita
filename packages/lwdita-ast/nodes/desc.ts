@@ -4,6 +4,7 @@ import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./
 import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `desc` attributes:
@@ -66,4 +67,11 @@ export function makeDesc<T extends Constructor>(constructor: T): T {
 @makeComponent(makeDesc, 'desc', isValidDescField, DescFields, ['%common-inline*'])
 export class DescNode extends BaseNode implements DescNodeInterface {
   static domNodeName = 'caption';
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

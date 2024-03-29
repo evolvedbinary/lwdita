@@ -98,4 +98,14 @@ export function makeTopic<T extends { new(...args: any[]): BaseNode }>(construct
 @makeComponent(makeTopic, 'topic', isValidTopicField, TopicFields, ['title', 'shortdesc?', 'prolog?', 'body?'])
 export class TopicNode extends BaseNode implements TopicNodeInterface {
   static domNodeName = 'article';
+  // `dir`, `xml:lang`, `translate`, `class`, `outputclass`, `id`, `xmlns:ditaarch`, `ditaarch:DITAArchVersion`, `domains`
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
+  'id': ID;
+  'xmlns:ditaarch': CDATA;
+  'ditaarch:DITAArchVersion'?: CDATA;
+  'domains'?: CDATA;
 }

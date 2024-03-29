@@ -5,6 +5,7 @@ import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { FiltersFields, FiltersNode, isValidFiltersField, makeFilters } from "./filters";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA, DisplayExpanse, DisplayFrame, DisplayScale } from "../ast-classes";
 
 /**
  * Define all allowed `fig` attributes:
@@ -66,4 +67,14 @@ export function makeFig<T extends Constructor>(constructor: T): T {
 @makeComponent(makeFig, 'fig', isValidFigField, FigFields, ['title?', 'desc?', ['%fig-blocks*', 'image*', 'xref*']])
 export class FigNode extends BaseNode implements FigNodeInterface {
   static domNodeName = 'figure';
+  // `scale`, `frame`, `expanse`, `props`, `dir`, `xml:lang`, `translate`, `outputclass`, `class`
+  "scale"?: DisplayScale;
+  "frame"?: DisplayFrame;
+  "expanse"?: DisplayExpanse;
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

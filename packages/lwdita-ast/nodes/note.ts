@@ -83,4 +83,14 @@ export function makeNote<T extends { new(...args: any[]): BaseNode }>(constructo
 @makeComponent(makeNote, 'note', isValidNoteField, NoteFields, ['%simple-blocks*'])
 export class NoteNode extends BaseNode implements NoteNodeInterface {
   static domNodeName = 'div';
+  // * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `class`, `outputclass`, `type`
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "id"?: CDATA;
+  "conref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
+  "type": CDATA;
 }

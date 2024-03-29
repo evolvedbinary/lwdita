@@ -6,6 +6,7 @@ import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { SizeNode, SizeFields, isValidSizeField, makeSize } from "./size";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `video` attributes:
@@ -65,4 +66,16 @@ export function makeVideo<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: desc?', `video-poster?`, `media-controls?`, `media-autoplay?`, `media-loop?`, `media-muted?`, `media-source*`, `media-track*`
  */
 @makeComponent(makeVideo, 'video', isValidVideoField, VideoFields, ['desc?', 'video-poster?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'media-source*', 'media-track*'])
-export class VideoNode extends BaseNode implements VideoNodeInterface {}
+export class VideoNode extends BaseNode implements VideoNodeInterface {
+  // `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `outputclass`, `class`, `width`, `height`
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "id"?: NMTOKEN
+  "conref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
+  "width"?: NMTOKEN;
+  "height"?: NMTOKEN;
+}

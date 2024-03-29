@@ -5,6 +5,7 @@ import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLoc
 import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `dl` attributes:
@@ -66,4 +67,13 @@ export function makeDl<T extends Constructor>(constructor: T): T {
 @makeComponent(makeDl, 'dl', isValidDlField, DlFields, ['dlentry+'])
 export class DlNode extends BaseNode implements DlNodeInterface {
   static domNodeName = 'dl';
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "id"?: NMTOKEN;
+  "conref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

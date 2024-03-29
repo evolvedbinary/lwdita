@@ -5,6 +5,7 @@ import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./
 import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `sthead` attributes:
@@ -65,4 +66,13 @@ export function makeStHead<T extends Constructor>(constructor: T): T {
 @makeComponent(makeStHead, 'sthead', isValidStHeadField, StHeadFields, ['stentry+'])
 export class StHeadNode extends BaseNode implements StHeadNodeInterface {
   static domNodeName = 'thead';
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "id"?: NMTOKEN;
+  "conref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

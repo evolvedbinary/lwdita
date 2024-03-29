@@ -6,6 +6,7 @@ import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { ReferenceContentFields, ReferenceContentNode, isValidReferenceContentField, makeReferenceContent } from "./reference-content";
 import { VariableContentFields, VariableContentNode, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA, ReferenceContentScope } from "../ast-classes";
 
 /**
  * Define all allowed `xref` (cross-reference) attributes:
@@ -67,4 +68,15 @@ export function makeXRef<T extends Constructor>(constructor: T): T {
 @makeComponent(makeXRef, 'xref', isValidXRefField, XRefFields, ['%common-inline*'])
 export class XRefNode extends BaseNode implements XRefNodeInterface {
   static domNodeName = 'a';
+  // `keyref`, `href`, `format`, `scope`, `outputclass`, `class`, `dir`, `xml:lang`, `translate`, `props`
+  "keyref"?: CDATA;
+  "href"?: CDATA;
+  "format"?: CDATA;
+  "scope"?: ReferenceContentScope;
+  "outputclass"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "props"?: CDATA;
+  "class"?: CDATA;
 }

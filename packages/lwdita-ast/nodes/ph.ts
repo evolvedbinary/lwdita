@@ -5,6 +5,7 @@ import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./
 import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `ph` attributes:
@@ -64,4 +65,12 @@ export function makePh<T extends Constructor>(constructor: T): T {
 @makeComponent(makePh, 'ph', isValidPhField, PhFields, ['%all-inline*'])
 export class PhNode extends BaseNode implements PhNodeInterface {
   static domNodeName = 'span';
+  // `props`, `dir`, `xml:lang`, `translate`, `keyref`, `class`, `outputclass`
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

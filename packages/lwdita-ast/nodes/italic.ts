@@ -6,6 +6,7 @@ import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `i` attributes:
@@ -68,4 +69,10 @@ export function makeItalic<T extends Constructor>(constructor: T): T {
 @makeComponent(makeItalic, 'i', isValidItalicField, ItalicFields, ['%all-inline*'])
 export class ItalicNode extends BaseNode implements ItalicNodeInterface {
   static domNodeName = 'i';
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

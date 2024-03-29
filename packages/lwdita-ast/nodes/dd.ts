@@ -5,6 +5,7 @@ import { areFieldsValid } from "@jdita/lwdita-xml/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { ReuseFields, ReuseNode, isValidReuseField, makeReuse } from "./reuse";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `dd` attributes:
@@ -66,4 +67,13 @@ export function makeDd<T extends Constructor>(constructor: T): T {
 @makeComponent(makeDd, 'dd', isValidDdField, DdFields, ['%list-blocks*'])
 export class DdNode extends BaseNode implements DdNodeInterface {
   static domNodeName = 'dd';
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "keyref"?: CDATA;
+  "id"?: NMTOKEN;
+  "conref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
 }

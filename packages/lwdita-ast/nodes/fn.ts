@@ -5,7 +5,7 @@ import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./
 import { areFieldsValid, isOrUndefined } from "@jdita/lwdita-xml/utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
 import { BasicValue } from "@jdita/lwdita-xml/classes";
-import { CDATA, isCDATA, ID } from "../ast-classes";
+import { CDATA, isCDATA, ID, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `fn` fields:
@@ -89,4 +89,14 @@ export function makeFn<T extends { new(...args: any[]): BaseNode }>(constructor:
 @makeComponent(makeFn, 'fn', isValidFnField, FnFields, ['%fn-blocks*'])
 export class FnNode extends BaseNode implements FnNodeInterface {
   static domNodeName = 'span';
+  // `id`, `callout`, `props`, `dir`, `xml:lang`, `translate`, `conref`, `outputclass`, `class`
+  "props"?: CDATA;
+  "dir"?: CDATA;
+  "xml:lang"?: CDATA;
+  "translate"?: CDATA;
+  "conref"?: CDATA;
+  "outputclass"?: CDATA;
+  "class"?: CDATA;
+  "id"?: NMTOKEN;
+  "callout"?: CDATA;
 }
