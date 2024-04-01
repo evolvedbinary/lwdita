@@ -33,7 +33,7 @@ export interface ImageNodeInterface extends FiltersNode, LocalizationNode, Varia
  * @param value - The `image` node to test
  * @returns Boolean
  */
-export const isImageNodes = (value?: {}): value is ImageNode =>
+export const isImageNodes = (value?: ImageNode): value is ImageNode =>
   typeof value === 'object' &&
   isClassNode(value) &&
   isFiltersNode(value) &&
