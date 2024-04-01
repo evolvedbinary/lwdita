@@ -9,7 +9,8 @@ import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError }
 export function doNodeTest(
   classType: typeof BaseNode,
   nodeName: string,
-  validator: (value?: {}) => boolean,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  validator: (value?: any) => boolean,
   fields: string[],
   children: OrArray<string> = [],
   attribute = 'dir',
