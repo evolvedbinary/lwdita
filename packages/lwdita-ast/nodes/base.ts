@@ -2,6 +2,7 @@ import { acceptsNodeName, isChildTypeRequired, stringToChildTypes, isChildTypeSi
 import { ChildTypes, ChildType, OrArray, BasicValue, Attributes, JDita } from "@jdita/lwdita-xml/classes";
 import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError } from "../ast-classes";
 import { nodeGroups } from "../ast-utils";
+import { Visitor } from "@jdita/lwdita-xml/visitor";
 
 /**
  * `BaseNode` - The base class for all nodes
@@ -240,8 +241,7 @@ export abstract class BaseNode {
    * @param indent - The indentation flag as a Boolean type, for an optional indentation of the outputXML
    * @returns void
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  accept(visitor: any, depth = 0, indent: boolean): void {
+  accept(visitor: Visitor, depth = 0, indent: boolean): void {
     if(this.children.length > 0) {
       visitor.startTag(this.static.nodeName, this._props || {}, depth, false, true, indent);
       this._children?.forEach(child => child.accept(visitor, depth + 1, indent));

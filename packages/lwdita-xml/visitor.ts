@@ -85,7 +85,7 @@ export class XMLTag {
  * TODO change this an array or any kind of method for saving the output
  */
 export class Visitor {
-  outStream: Array<XMLTag>;
+  outStream: Array<XMLTag | string>;
 
   // A tagsStack array for saving the tag names
   tagsStack: Array<string>;
@@ -95,17 +95,17 @@ export class Visitor {
    *
    * @param outStream - The output stream
    */
-  constructor(outStream: Array<XMLTag>) {
+  constructor(outStream: Array<XMLTag | string>) {
     this.outStream = outStream;
     this.tagsStack = [];
   }
 
   /**
-   * Visit a node
+   * Visit a Text node
    *
-   * @param text - The XML node
+   * @param text - Text node content
    */
-  visit(text: XMLTag) {
+  visit(text: string) {
     this.outStream.push(text);
   }
 

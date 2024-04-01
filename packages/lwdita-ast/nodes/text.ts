@@ -1,6 +1,7 @@
 import { BaseNode, makeComponent } from "./base";
 import { isOrUndefined } from "@jdita/lwdita-xml/utils";
 import { BasicValue, JDita } from "@jdita/lwdita-xml/classes";
+import { Visitor } from "@jdita/lwdita-xml/visitor";
 
 /**
  * Define the allowed `text` attribute:
@@ -92,7 +93,7 @@ export class TextNode extends BaseNode implements TextNodeInterface {
    * @param indent - Boolean, if the indentation of the output is set or not
    */
   /** @override */
-  accept(visitor: any, depth = 0, indent: boolean): void {
+  accept(visitor: Visitor, depth = 0, indent: boolean): void {
     const textContent = this._props['content'] as string;
     // Indentation: 2 single spaces per level
     const tab = `  `;
