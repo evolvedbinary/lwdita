@@ -1,5 +1,5 @@
 {
-  "name": "@jdita/lwdita-xdita",
+  "name": "@evolvedbinary/lwdita-xdita",
   "version": "1.0.0",
   "main": "./lib/index.js",
   "dependencies": {
