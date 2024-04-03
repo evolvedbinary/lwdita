@@ -1,7 +1,7 @@
-import { isOrUndefined, areFieldsValid } from "@jdita/lwdita-xdita/utils";
+import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { FiltersAddsNode, FiltersAddsFields } from "./filters-adds";
 import { BaseNode } from "./base";
-import { BasicValue } from "@jdita/lwdita-xdita/classes";
+import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA } from "../ast-classes";
 
 

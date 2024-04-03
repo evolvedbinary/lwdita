@@ -41,7 +41,7 @@ import { ItalicNode } from "./nodes/italic";
 import { UnderlinedNode } from "./nodes/underlined";
 import { SubscriptNode } from "./nodes/subscript";
 import { SuperscriptNode } from "./nodes/superscript";
-import { XMLNode } from "@jdita/lwdita-xdita/classes";
+import { XMLNode } from "@evolvedbinary/lwdita-xdita/classes";
 import { UnknownNodeError } from "./ast-classes";
 
 /**

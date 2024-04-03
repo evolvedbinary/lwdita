@@ -13,17 +13,17 @@ This tool generates JSON data from XDita files.
 You can add JDita to your project using `npm` or `yarn`
 
 ```bash
-npm install --save @jdita/lwdita-xdita
+npm install --save @evolvedbinary/lwdita-xdita
 ```
 
 or
 
 ```bash
-yarn add @jdita/lwdita-xdita
+yarn add @evolvedbinary/lwdita-xdita
 ```
 
 ```javascript
-const { xditaToJson } = require("@jdita/lwdita-xdita");
+const { xditaToJson } = require("@evolvedbinary/lwdita-xdita");
 
 const xml = `
 <?xml version="1.0" encoding="UTF-8"?>

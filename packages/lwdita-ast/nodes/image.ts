@@ -2,11 +2,11 @@ import { FiltersNode, isFiltersNode, FiltersFields, isValidFiltersField, makeFil
 import { LocalizationNode, isLocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { VariableContentNode, isVariableContentNode, VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { ReferenceContentNode, isReferenceContentNode, ReferenceContentFields, makeReferenceContent, isValidReferenceContentField } from "./reference-content";
-import { areFieldsValid } from "@jdita/lwdita-xdita/utils";
+import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { ClassNode, isClassNode, ClassFields, isValidClassField, makeClass } from "./class";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { SizeFields, SizeNode, isSizeNode, isValidSizeField, makeSize } from "./size";
-import { BasicValue } from "@jdita/lwdita-xdita/classes";
+import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 
 /**
  * Define all allowed `image` attributes:

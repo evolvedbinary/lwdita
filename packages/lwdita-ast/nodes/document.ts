@@ -1,5 +1,5 @@
 import { BaseNode } from "./base";
-import { stringToChildTypes } from "@jdita/lwdita-xdita/utils";
+import { stringToChildTypes } from "@evolvedbinary/lwdita-xdita/utils";
 
 /**
  * The `document` node is the root node of the document tree and the entry point for the parser

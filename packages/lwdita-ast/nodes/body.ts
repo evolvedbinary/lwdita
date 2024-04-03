@@ -1,8 +1,8 @@
 import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { areFieldsValid } from "@jdita/lwdita-xdita/utils";
+import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
-import { BasicValue } from "@jdita/lwdita-xdita/classes";
+import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 /**
  * Define all allowed `body` attributes:
  * `dir`, `xml:lang`, `translate`, `outputclass`, `class`

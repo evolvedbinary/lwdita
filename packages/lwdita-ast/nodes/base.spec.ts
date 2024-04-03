@@ -1,6 +1,6 @@
 import { expect, assert } from 'chai';
 import { BaseNode } from './base';
-import { stringToChildTypes } from "@jdita/lwdita-xdita";
+import { stringToChildTypes } from "@evolvedbinary/lwdita-xdita";
 import { NonAcceptedChildError } from '../ast-classes';
 
 // TODO: add tests for an unknown node

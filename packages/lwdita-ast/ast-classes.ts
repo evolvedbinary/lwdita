@@ -1,4 +1,4 @@
-import { BasicValue } from "@jdita/lwdita-xdita/classes";
+import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 
 /**
  * isReferenceContentScope - Checks if a value is a ReferenceContentScope

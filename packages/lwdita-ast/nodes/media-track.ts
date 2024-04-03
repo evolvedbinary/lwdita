@@ -1,9 +1,9 @@
 import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { areFieldsValid, isOrUndefined } from "@jdita/lwdita-xdita/utils";
+import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
 import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
-import { BasicValue } from "@jdita/lwdita-xdita/classes";
+import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA } from "../ast-classes";
 
 /**

@@ -4,7 +4,7 @@
   "main": "./lib/index.js",
   "dependencies": {
     "saxes": "^6.0.0",
-    "@jdita/lwdita-ast": "1.0.0"
+    "@evolvedbinary/lwdita-ast": "1.0.0"
   },
   "keywords": [
     "LwDITA",
