@@ -236,8 +236,8 @@ export abstract class BaseNode {
    * This function is used to traverse the AST
    *
    * @param visitor - The accepted visitor which is allowed to retrieve information
-   * @param depth - The node's level within the document tree, needed for indentation, by default set to root level "0"
-   * @param indent - The indentation flag as a Boolean type, for an optional indentation of the outputXML
+   * @param depth - The node's level within the document tree, needed for indentation, by default set to root level, i.e.: 0
+   * @param indent - The indentation flag as a Boolean type, for an optional indentation of the output XML
    * @returns void
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
