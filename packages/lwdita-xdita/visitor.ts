@@ -25,11 +25,12 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
  */
 export class XMLTag {
   tagName: string;
-  attributes?: Record<string, BasicValue>;
+  attributes: Record<string, BasicValue>;
   isSelfClosing: boolean;
   isStartTag: boolean;
   depth: number;
   indent: boolean;
+  tabSize?: number;
 
   constructor(
     tagName: string,
@@ -38,7 +39,8 @@ export class XMLTag {
     depth: number,
     isSelfClosing: boolean,
     isStartTag: boolean,
-    indent: boolean
+    indent: boolean,
+    tabSize?: number
   ){
     this.tagName = tagName;
     this.attributes = attributes;
@@ -46,6 +48,7 @@ export class XMLTag {
     this.isSelfClosing = isSelfClosing;
     this.isStartTag = isStartTag;
     this.indent = indent;
+    this.tabSize = tabSize;
   }
 
   toString() {
@@ -56,8 +59,8 @@ export class XMLTag {
       attrsPrint = Object.keys(this.attributes).filter(key => attr[key]).map(key => `${key}="${attr[key]}"`).join(' ');
     }
 
-    // Indentation: 2 single spaces per level
-    const tab = `  `;
+    // Indentation: 4 single spaces per level
+    const tab = this.tabSize ? ` `.repeat(this.tabSize) : '    ';
     const indentation = this.indent ? tab.repeat(this.depth) : '';
     const lineEnd = this.indent ? '\n' : '';
 
@@ -125,10 +128,11 @@ export class Visitor {
     depth: number,
     isSelfClosing = false,
     isStartTag = true,
-    indent: boolean
+    indent: boolean,
+    tabSize?: number
   ) {
     // create a new XMLTag object
-    const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing , isStartTag, indent);
+    const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing , isStartTag, indent, tabSize = 4);
     // push to the output stream
     this.outStream.push(xmlTag);
     // save the tag in the stack to use it later
@@ -147,12 +151,13 @@ export class Visitor {
     depth: number,
     isSelfClosing = false,
     isStartTag = false,
-    indent: boolean
+    indent: boolean,
+    tabSize?: number
   ) {
     // get the tag out of the stack
     const tagName = this.tagsStack.pop() as string;
     // create a new XMLTag object
-    const xmlTag = new XMLTag(tagName, {}, depth, isSelfClosing, isStartTag, indent);
+    const xmlTag = new XMLTag(tagName, {}, depth, isSelfClosing, isStartTag, indent, tabSize = 4);
     // add the closing tag to the output stream
     this.outStream.push(xmlTag);
   }
@@ -173,10 +178,11 @@ export class Visitor {
     depth: number,
     isSelfClosing = true,
     isStartTag = true,
-    indent: boolean
+    indent: boolean,
+    tabSize?: number
   ) {
     // create new self closing tag
-    const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing, isStartTag, indent);
+    const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing, isStartTag, indent, tabSize = 4);
     // push to the output stream
     this.outStream.push(xmlTag);
   }
