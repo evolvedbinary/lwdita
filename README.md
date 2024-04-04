@@ -68,6 +68,7 @@ xditaToJdita(xml)
   .then(result => {
     console.log(JSON.stringify(result.json, null, 2));
     const res = serializeToXML(result, true).join('');
+    console.log(res);
   })
   .catch(e => console.log('Failed to convert:', e));
 ```
