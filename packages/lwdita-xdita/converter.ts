@@ -116,5 +116,5 @@ export function serializeToXML(root: BaseNode, indent: boolean): XMLTag[] {
   const outStream: XMLTag[] = [];
   const visitor = new Visitor(outStream);
   root.accept(visitor, 0, indent);
-  return (outStream);
+  return outStream;
 }
