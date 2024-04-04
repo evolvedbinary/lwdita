@@ -14,14 +14,12 @@ You can add JDita to your project using `npm` or `yarn`
 
 ```bash
 npm install --save @evolvedbinary/lwdita-xdita
-npm install --save @evolvedbinary/lwdita-ast
 ```
 
 or
 
 ```bash
 yarn add @evolvedbinary/lwdita-xdita
-yarn add @evolvedbinary/lwdita-ast
 ```
 
 ### Basic example
