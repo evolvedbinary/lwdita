@@ -25,7 +25,7 @@ describe('XMLTag', () => {
 
   it('should print tags with attributes and indentation correctly', () => {
     const tag = new XMLTag('title', {dir: 'ltr', class: 'title', outputclass: 'title', translate: 'no', 'xml:lang': 'en'}, 1, true, true, true);
-    expect(tag.toString()).equal('  <title dir="ltr" class="title" outputclass="title" translate="no" xml:lang="en"/>\n');
+    expect(tag.toString()).equal('    <title dir="ltr" class="title" outputclass="title" translate="no" xml:lang="en"/>\n');
   });
 
 });
@@ -56,9 +56,9 @@ describe('Visitor', () => {
 
     // expect the outStream to contain the correct XMLTags
     expect(outStream).deep.equal([
-      new XMLTag('topic', {}, 0, false, true, false),
-      new XMLTag('title', {}, 1, true, true, false),
-      new XMLTag('topic', {}, 0, false, false, false)
+      new XMLTag('topic', {}, 0, false, true, false, 4),
+      new XMLTag('title', {}, 1, true, true, false, 4),
+      new XMLTag('topic', {}, 0, false, false, false, 4)
     ]);
     
   });
@@ -83,11 +83,11 @@ describe('Visitor', () => {
 
     // expect the outStream to contain the correct XMLTags
     expect(outStream).deep.equal([
-      new XMLTag('topic', {}, 0, false, true, false),
-      new XMLTag('title', {}, 1, false, true, false),
+      new XMLTag('topic', {}, 0, false, true, false, 4),
+      new XMLTag('title', {}, 1, false, true, false, 4),
       'Hello World',
-      new XMLTag('title', {}, 1, false, false, false),
-      new XMLTag('topic', {}, 0, false, false, false)
+      new XMLTag('title', {}, 1, false, false, false, 4),
+      new XMLTag('topic', {}, 0, false, false, false, 4)
     ]);
     
   });
@@ -109,9 +109,9 @@ describe('Visitor', () => {
 
     // expect the outStream to contain the correct XMLTags
     expect(outStream).deep.equal([
-      new XMLTag('topic', {}, 0, false, true, false),
-      new XMLTag('title', {dir: 'ltr', class: 'title', outputclass: 'title', translate: 'no', 'xml:lang': 'en'}, 1, true, true, false),
-      new XMLTag('topic', {}, 0, false, false, false)
+      new XMLTag('topic', {}, 0, false, true, false, 4),
+      new XMLTag('title', {dir: 'ltr', class: 'title', outputclass: 'title', translate: 'no', 'xml:lang': 'en'}, 1, true, true, false, 4),
+      new XMLTag('topic', {}, 0, false, false, false, 4)
     ]);
     
   });
@@ -153,7 +153,7 @@ describe('Visitor', () => {
     document.accept(visitor, 0 ,true);
 
     // expect the outStream to contain the correct XMLTags
-    expect(outStream.join("")).equal("<topic>\n  <title/>\n</topic>\n");
+    expect(outStream.join("")).equal("<topic>\n    <title/>\n</topic>\n");
     
   });
 
