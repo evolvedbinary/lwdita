@@ -22,7 +22,7 @@ or
 yarn add @evolvedbinary/lwdita-xdita
 ```
 
-### Basic example
+### Basic Example
 
 ```javascript
 import { xditaToJson, xditaToJdita, serializeToXML } from "./converter";
@@ -50,12 +50,12 @@ xditaToJson(xml, false)
 
 ### Serialization of the JDita AST to XML
 
-The full example with an additional option for serializing the JDita object back into XML can be found in file [example.ts](packages/lwdita-xdita/example.ts).
+A full example with an additional option for serializing the JDita object back into XML can be found in the file [example.ts](packages/lwdita-xdita/example.ts).
 
-The serialization function contains an option for indenting the output with 2 spaces according to the level of the node tag level and adding a newline after each tag.
+The serialization function contains an option for indenting the output with 4 spaces or a tab appropriately according to its depth and adding a newline after each tag.
 This is handled by the second parameter of `serializeToXML(root, indent)`.
-When set the second parameter to false, the output will be generated in one line.
-The generated XML will contain all XML nodes, their text content, and their attributes (`CDATA` is currently not processed).
+When the second parameter is set to false, no indenting will be performed and the output will be generated as a single line.
+The generated XML will faithfully contain all XML nodes apart from `CDATA` which is currently unsupported.
 
 ```javascript
 serializeToXML(result, true)
