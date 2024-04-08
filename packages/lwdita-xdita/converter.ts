@@ -110,11 +110,25 @@ export async function xditaToJson(xml: string, abortOnError = true): Promise<JDi
  *
  * @param root - The document root
  * @param indent - The indentation flag as a Boolean type, for an optional indentation of the output XML
- * @returns The output stream of the document
+ * @returns The transformed document as an array of XMLTag objects
+ *
+ * @example
+ * An example XMLTag output object:
+ * ```
+ *  XMLTag {
+ *      tagName: 'topic',
+ *      attributes: {},
+ *      depth: 0,
+ *      isSelfClosing: false,
+ *      isStartTag: false,
+ *      indent: true,
+ *      tabSize: 4
+ *  }
+ * ```
  */
 export function serializeToXML(root: BaseNode, indent: boolean): XMLTag[] {
-  const outStream: XMLTag[] = [];
-  const visitor = new Visitor(outStream);
+  const outputObjects: XMLTag[] = [];
+  const visitor = new Visitor(outputObjects);
   root.accept(visitor, 0, indent);
-  return outStream;
+  return outputObjects;
 }
