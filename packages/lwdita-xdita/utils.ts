@@ -278,7 +278,7 @@ export function areFieldsValid(fields: string[], value: Record<string, BasicValu
  * as properties on the root node of the AST tree.
  *
  * @param xml - The xml input string to store
- * @param path - The path in the filesystem to store the output stream
+ * @param path - The path in the filesystem to store the output array
  */
 export function storeOutputXML(xml: string, path: string): void {
     // This is a static & generic XML & DOCTYPE Declaration for the output XML,
