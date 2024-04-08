@@ -83,9 +83,6 @@ export class XMLTag {
 
 /**
  * Visitor class for traversing the AST
- *
- * @privateRemarks
- * TODO change this an array or any kind of method for saving the output
  */
 export class Visitor {
   outPutArray: Array<XMLTag>;
