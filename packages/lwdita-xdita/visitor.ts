@@ -88,7 +88,7 @@ export class XMLTag {
  * TODO change this an array or any kind of method for saving the output
  */
 export class Visitor {
-  outStream: Array<XMLTag>;
+  outPutArray: Array<XMLTag>;
 
   // A tagsStack array for saving the tag names
   tagsStack: Array<string>;
@@ -96,10 +96,10 @@ export class Visitor {
   /**
    * Constructor
    *
-   * @param outStream - The output stream
+   * @param outPutArray - The output array
    */
-  constructor(outStream: Array<XMLTag>) {
-    this.outStream = outStream;
+  constructor(outPutArray: Array<XMLTag>) {
+    this.outPutArray = outPutArray;
     this.tagsStack = [];
   }
 
@@ -109,7 +109,7 @@ export class Visitor {
    * @param text - The XML node
    */
   visit(text: XMLTag) {
-    this.outStream.push(text);
+    this.outPutArray.push(text);
   }
 
   /**
@@ -133,8 +133,8 @@ export class Visitor {
   ) {
     // create a new XMLTag object
     const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing , isStartTag, indent, tabSize = 4);
-    // push to the output stream
-    this.outStream.push(xmlTag);
+    // push to the output array
+    this.outPutArray.push(xmlTag);
     // save the tag in the stack to use it later
     this.tagsStack.push(tagName);
   }
@@ -158,8 +158,8 @@ export class Visitor {
     const tagName = this.tagsStack.pop() as string;
     // create a new XMLTag object
     const xmlTag = new XMLTag(tagName, {}, depth, isSelfClosing, isStartTag, indent, tabSize = 4);
-    // add the closing tag to the output stream
-    this.outStream.push(xmlTag);
+    // add the closing tag to the output array
+    this.outPutArray.push(xmlTag);
   }
 
   /**
@@ -183,7 +183,7 @@ export class Visitor {
   ) {
     // create new self closing tag
     const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing, isStartTag, indent, tabSize = 4);
-    // push to the output stream
-    this.outStream.push(xmlTag);
+    // push to the output array
+    this.outPutArray.push(xmlTag);
   }
 }

@@ -32,11 +32,11 @@ describe('XMLTag', () => {
 
 describe('Visitor', () => {
   let visitor: Visitor;
-  let outStream: XMLTag[];
+  let outPutArray: XMLTag[];
 
   beforeEach(() => {
-    outStream = [];
-    visitor = new Visitor(outStream);
+    outPutArray = [];
+    visitor = new Visitor(outPutArray);
   });
 
   it('should visit XMLNodes correctly', () => {
@@ -54,8 +54,8 @@ describe('Visitor', () => {
     // visit the document node
     document.accept(visitor, 0 ,false);
 
-    // expect the outStream to contain the correct XMLTags
-    expect(outStream).deep.equal([
+    // expect the outPutArray to contain the correct XMLTags
+    expect(outPutArray).deep.equal([
       new XMLTag('topic', {}, 0, false, true, false, 4),
       new XMLTag('title', {}, 1, true, true, false, 4),
       new XMLTag('topic', {}, 0, false, false, false, 4)
@@ -81,8 +81,8 @@ describe('Visitor', () => {
     // visit the document node
     document.accept(visitor, 0 ,false);
 
-    // expect the outStream to contain the correct XMLTags
-    expect(outStream).deep.equal([
+    // expect the outPutArray to contain the correct XMLTags
+    expect(outPutArray).deep.equal([
       new XMLTag('topic', {}, 0, false, true, false, 4),
       new XMLTag('title', {}, 1, false, true, false, 4),
       'Hello World',
@@ -107,8 +107,8 @@ describe('Visitor', () => {
     // visit the document node
     document.accept(visitor, 0 ,false);
 
-    // expect the outStream to contain the correct XMLTags
-    expect(outStream).deep.equal([
+    // expect the outPutArray to contain the correct XMLTags
+    expect(outPutArray).deep.equal([
       new XMLTag('topic', {}, 0, false, true, false, 4),
       new XMLTag('title', {dir: 'ltr', class: 'title', outputclass: 'title', translate: 'no', 'xml:lang': 'en'}, 1, true, true, false, 4),
       new XMLTag('topic', {}, 0, false, false, false, 4)
@@ -131,9 +131,9 @@ describe('Visitor', () => {
     // visit the document node
     document.accept(visitor, 0 ,false);
 
-    // expect the outStream to contain the correct XMLTags
-    expect(outStream.join("")).equal("<topic><title/></topic>");
-    
+    // expect the outPutArray to contain the correct XMLTags
+    expect(outPutArray.join("")).equal("<topic><title/></topic>");
+
   });
 
 
@@ -152,9 +152,9 @@ describe('Visitor', () => {
     // visit the document node
     document.accept(visitor, 0 ,true);
 
-    // expect the outStream to contain the correct XMLTags
-    expect(outStream.join("")).equal("<topic>\n    <title/>\n</topic>\n");
-    
+    // expect the outPutArray to contain the correct XMLTags
+    expect(outPutArray.join("")).equal("<topic>\n    <title/>\n</topic>\n");
+
   });
 
 });
