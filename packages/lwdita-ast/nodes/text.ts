@@ -90,7 +90,7 @@ export class TextNode extends BaseNode {
    * @param indent - Boolean, if the indentation of the output is set or not
    */
   /** @override */
-  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   accept(visitor: any, depth = 0, indent: boolean): void {
     const textContent = this._props['content'] as string;
     // Indentation: 2 single spaces per level
