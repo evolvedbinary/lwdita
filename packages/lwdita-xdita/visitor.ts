@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 
 /**
