@@ -49,11 +49,13 @@ export abstract class BaseNode {
   /**
    * `isValidField` - This is a function template for validation of attributes
    *
+   * @privateRemarks
+   * eslint-disable-next-line `@typescript-eslint/no-unused-vars`s
+   *
    * @param field - A string containing the attribute name
    * @param value - A BasicValue-typed value containing the attribute value
    * @returns Boolean
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   static isValidField(field: string, value: BasicValue): boolean {
     return true;
   }
@@ -260,17 +262,22 @@ export type Constructor = { new(attributes: Attributes): BaseNode };
 /**
  * `makeAll` - This is a template function for all nodes
  *
+ * @remarks
+ * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
+ *
  * @param constructor - The constructor
  * @param decorators - The decorator
  * @returns Instance of BaseNode
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeAll<T extends { new(...args: any[]): BaseNode }>(constructor: T, ...decorators: ((constructor: T) => T)[]): T {
   return decorators.reduce((result, decorator) => decorator(result), constructor);
 }
 
 /**
  * `makeComponent` -  A function that returns the constructor of a node
+ *
+ * @remarks
+ * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
  *
  * @privateRemarks
  * The concept or processing of `decorator` is not yet fully understood
@@ -282,7 +289,6 @@ export function makeAll<T extends { new(...args: any[]): BaseNode }>(constructor
  * @param childTypes - An Array of allowed child nodes
  * @returns The constructor function of an instance of BaseNode
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeComponent<T extends { new(...args: any[]): BaseNode }>(
   decorator: (constructor: T) => T,
   nodeName: string,

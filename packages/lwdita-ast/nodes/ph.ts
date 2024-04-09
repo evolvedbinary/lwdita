@@ -44,6 +44,9 @@ export const isPhNode = (value?: {}): value is PhNode =>
 /**
  * Construct a `ph` node with all available attributes
  *
+ * @remarks
+ * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
+ *
  * @param constructor - The constructor
  * @returns A `ph` node
  */
