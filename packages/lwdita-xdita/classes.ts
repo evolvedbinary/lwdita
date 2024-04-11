@@ -1,4 +1,4 @@
-import { SaxesAttributeNS } from "saxes";
+import { SaxesAttributeNS } from "@rubensworks/saxes";
 
 /**
  * JDita is a JSON representation of a DITA XML document

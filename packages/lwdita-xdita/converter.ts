@@ -1,4 +1,4 @@
-import * as saxes from "saxes";
+import * as saxes from "@rubensworks/saxes";
 import { BaseNode, DocumentNode } from "@evolvedbinary/lwdita-ast/nodes";
 import { createNode } from "@evolvedbinary/lwdita-ast/factory";
 import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
