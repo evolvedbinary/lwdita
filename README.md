@@ -110,7 +110,7 @@ To build the project, run:
 yarn run build
 ```
 
-This will create a `./lib` folder in the root of each sub-module, which contains binaries that can be copied to your own project.
+This will create a `./dist` folder in the root of each sub-module, which contains binaries that can be copied to your own project.
 
 ### Generate the TSDoc Documentation
 

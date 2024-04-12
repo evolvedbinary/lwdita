@@ -2,7 +2,7 @@ node_modules/
 .nyc_output
 coverage
 coverage.lcov
-lib/
+dist/
 generated-docs/
 yarn-error.log
 
