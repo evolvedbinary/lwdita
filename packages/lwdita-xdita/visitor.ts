@@ -39,7 +39,7 @@ export class XMLTag {
     this.isStartTag = isStartTag;
   }
 
-  serialize(indent = false, tabSize = 4, depth = 0): string {
+  serialize(indent = false, tabSize = 4, depth = 0, indentationChar = " ", EOL = '\n'): string {
     // prep the attributes string
     let attrsPrint = "";
     if (this.attributes) {
@@ -48,9 +48,9 @@ export class XMLTag {
     }
 
     // Indentation: 4 single spaces per level
-    const tab = ` `.repeat(tabSize);
+    const tab = indentationChar.repeat(tabSize);
     const indentation = indent ? tab.repeat(depth) : '';
-    const lineEnd = indent ? '\n' : '';
+    const lineEnd = indent ? EOL : '';
 
     // Handle selfclosing elements
     if (this.isSelfClosing) {
@@ -78,9 +78,9 @@ export class TextContent {
     this.content = content;
   }
 
-  serialize(indent = false, tabSize = 4, depth = 0): string {
+  serialize(indent = false, tabSize = 4, depth = 0, indentation = " ", EOL = '\n'): string {
     if (indent) {
-      return ` `.repeat(tabSize * depth) + this.content + '\n';
+      return indentation.repeat(tabSize * depth) + this.content + EOL;
     }
     return this.content;
   }
@@ -93,6 +93,8 @@ export class Visitor {
   outStream: Array<XMLTag | TextContent>;
   indent: boolean;
   tabSize: number;
+  indentation: string;
+  EOl: string;
 
   // A tagsStack array for saving the tag names
   tagsStack: Array<string>;
@@ -107,6 +109,8 @@ export class Visitor {
     this.tagsStack = [];
     this.indent = indent;
     this.tabSize = tabSize;
+    this.indentation = " ";
+    this.EOl = '\n';
   }
 
   /**
@@ -191,13 +195,13 @@ export class Visitor {
       if (tag instanceof XMLTag) {
         if (!tag.isStartTag) {
           currentDepth--;
-          print = tag.serialize(this.indent, this.tabSize, currentDepth);
+          print = tag.serialize(this.indent, this.tabSize, currentDepth, this.indentation, this.EOl);
         } else if(tag.isStartTag && !tag.isSelfClosing) {
-          print = tag.serialize(this.indent, this.tabSize, currentDepth);
+          print = tag.serialize(this.indent, this.tabSize, currentDepth, this.indentation, this.EOl);
           currentDepth++;
         }
       } else {
-        print = tag.serialize(this.indent, this.tabSize, currentDepth);
+        print = tag.serialize(this.indent, this.tabSize, currentDepth, this.indentation, this.EOl);
       }
     
       return print;
