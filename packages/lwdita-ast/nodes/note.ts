@@ -49,8 +49,8 @@ export function isValidNoteField(field: string, value: BasicValue): boolean {
  * @param value - The `note` node to test
  * @returns Boolean
  */
-export const isNoteNode = (value?: {}): value is NoteNode =>
-  typeof value === 'object' && areFieldsValid(NoteFields, value, isValidNoteField);
+export const isNoteNode = (value?: unknown): value is NoteNode =>
+  typeof value === 'object' && !!value && areFieldsValid(NoteFields, value as Record<string, BasicValue>, isValidNoteField);
 
 /**
  * Construct a `note` node with all available attributes

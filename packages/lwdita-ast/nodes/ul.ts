@@ -39,8 +39,8 @@ export const isValidUlField = (field: string, value: BasicValue): boolean => isV
  * @param value - The `ul` node to test
  * @returns Boolean
  */
-export const isUlNode = (value?: {}): value is UlNode =>
-  typeof value === 'object' && areFieldsValid(UlFields, value, isValidUlField);
+export const isUlNode = (value?: unknown): value is UlNode =>
+  typeof value === 'object' && !!value && areFieldsValid(UlFields, value as Record<string, BasicValue>, isValidUlField);
 
 /**
  * Construct an `ul` node with all available attributes

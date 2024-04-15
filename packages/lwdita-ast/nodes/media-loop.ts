@@ -38,8 +38,8 @@ export const isValidMediaLoopField = (field: string, value: BasicValue): boolean
  * @param value - The `media-loop` node to test
  * @returns Boolean
  */
-export const isMediaLoopNode = (value?: {}): value is MediaLoopNode =>
-  typeof value === 'object' && areFieldsValid(MediaLoopFields, value, isValidMediaLoopField);
+export const isMediaLoopNode = (value?: unknown): value is MediaLoopNode =>
+  typeof value === 'object' && !!value && areFieldsValid(MediaLoopFields, value as Record<string, BasicValue>, isValidMediaLoopField);
 
 /**
  * Construct a `media-loop` node with all available attributes

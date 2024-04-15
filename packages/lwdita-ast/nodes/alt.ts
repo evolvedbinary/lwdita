@@ -39,8 +39,8 @@ export const isValidAltField = (field: string, value: BasicValue): boolean => is
  * @param value - The `alt` node to test
  * @returns Boolean
  */
-export const isAltNode = (value?: {}): value is AltNode =>
-  typeof value === 'object' && areFieldsValid(AltFields, value, isValidAltField);
+export const isAltNode = (value?: unknown): value is AltNode =>
+  typeof value === 'object' && !!value && areFieldsValid(AltFields, value as Record<string, BasicValue>, isValidAltField);
 
 /**
  * Construct an `alt` node with all available attributes

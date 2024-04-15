@@ -54,8 +54,8 @@ export function isValidTopicField(field: string, value: BasicValue): boolean {
  * @param value - The `topic` node to test
  * @returns Boolean
  */
-export const isTopicNode = (value?: {}): value is TopicNode =>
-  typeof value === 'object' && areFieldsValid(TopicFields, value, isValidTopicField);
+export const isTopicNode = (value?: unknown): value is TopicNode =>
+  typeof value === 'object' && !!value && areFieldsValid(TopicFields, value as Record<string, BasicValue>, isValidTopicField);
 
 /**
  * Construct a `topic` node with all available attributes

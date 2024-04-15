@@ -47,8 +47,8 @@ export const isValidMediaTrackField = (field: string, value: BasicValue): boolea
  * @param value - The `media-track` node to test
  * @returns Boolean
  */
-export const isMediaTrackNode = (value?: {}): value is MediaTrackNode =>
-  typeof value === 'object' && areFieldsValid(MediaTrackFields, value, isValidMediaTrackField);
+export const isMediaTrackNode = (value?: unknown): value is MediaTrackNode =>
+  typeof value === 'object' && !!value && areFieldsValid(MediaTrackFields, value as Record<string, BasicValue>, isValidMediaTrackField);
 
 
 /**

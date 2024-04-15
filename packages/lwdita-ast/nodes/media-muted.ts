@@ -38,8 +38,8 @@ export const isValidMediaMutedField = (field: string, value: BasicValue): boolea
  * @param value - The `media-muted` node to test
  * @returns Boolean
  */
-export const isMediaMutedNode = (value?: {}): value is MediaMutedNode =>
-  typeof value === 'object' && areFieldsValid(MediaMutedFields, value, isValidMediaMutedField);
+export const isMediaMutedNode = (value?: unknown): value is MediaMutedNode =>
+  typeof value === 'object' && !!value && areFieldsValid(MediaMutedFields, value as Record<string, BasicValue>, isValidMediaMutedField);
 
 /**
  * Construct a `media-muted` node with all available attributes

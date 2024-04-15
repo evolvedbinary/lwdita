@@ -42,8 +42,8 @@ export const isValidFieldField = (validator: (val: BasicValue) => boolean = isCD
  * @param value - The `field` node to test
  * @returns Boolean
  */
-export const isFieldNode = (value?: {}): value is FieldNode =>
-  typeof value === 'object' && areFieldsValid(FieldFields, value, isValidFieldField());
+export const isFieldNode = (value?: unknown): value is FieldNode =>
+  typeof value === 'object' && !!value && areFieldsValid(FieldFields, value as Record<string, BasicValue>, isValidFieldField());
 
 /**
  * `makeField` - Create a `field` node

@@ -35,8 +35,8 @@ export const isValidTitleField = (field: string, value: BasicValue): boolean => 
  * @param value - The `title` node to test
  * @returns Boolean
  */
-export const isTitleNode = (value?: {}): value is TitleNode =>
-  typeof value === 'object' && areFieldsValid(TitleFields, value, isValidTitleField);
+export const isTitleNode = (value?: unknown): value is TitleNode =>
+  typeof value === 'object' && !!value && areFieldsValid(TitleFields, value as Record<string, BasicValue>, isValidTitleField);
 
 /**
  * Construct a `title` node with all available attributes

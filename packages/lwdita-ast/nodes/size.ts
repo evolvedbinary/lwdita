@@ -42,8 +42,8 @@ export function isValidSizeField(field: string, value: BasicValue): boolean {
  * @param value - The `size` node to test
  * @returns Boolean
  */
-export const isSizeNode = (value?: {}): value is SizeNode =>
-  typeof value === 'object' && areFieldsValid(SizeFields, value, isValidSizeField);
+export const isSizeNode = (value?: unknown): value is SizeNode =>
+  typeof value === 'object' && !!value && areFieldsValid(SizeFields, value as Record<string, BasicValue>, isValidSizeField);
 
 /**
  * Create a `size` node with a `width` and `height` attribute

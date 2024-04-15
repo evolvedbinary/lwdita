@@ -52,8 +52,8 @@ export const isValidFnField = (field: string, value: BasicValue): boolean => {
  * @param value - The `fn` node to test
  * @returns Boolean
  */
-export const isFnNode = (value?: {}): value is FnNode =>
-  typeof value === 'object' && areFieldsValid(FnFields, value, isValidFnField);
+export const isFnNode = (value?: unknown): value is FnNode =>
+  typeof value === 'object' && !!value && areFieldsValid(FnFields, value as Record<string, BasicValue>, isValidFnField);
 
 /**
  * Create a `fn` node with an `id` and `callout` attribute

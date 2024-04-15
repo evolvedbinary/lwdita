@@ -39,8 +39,8 @@ export const isValidUnderlinedField = (field: string, value: BasicValue): boolea
  * @param value - The `underlined` node to test
  * @returns Boolean
  */
-export const isUnderlinedNode = (value?: {}): value is UnderlinedNode =>
-  typeof value === 'object' && areFieldsValid(UnderlinedFields, value, isValidUnderlinedField);
+export const isUnderlinedNode = (value?: unknown): value is UnderlinedNode =>
+  typeof value === 'object' && !!value && areFieldsValid(UnderlinedFields, value as Record<string, BasicValue>, isValidUnderlinedField);
 
 /**
  * Construct an `underlined` node with all available attributes

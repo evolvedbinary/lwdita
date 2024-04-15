@@ -39,8 +39,8 @@ export function isValidClassField(field: string, value: BasicValue): boolean {
  * @param value - The `class` node to test
  * @returns Boolean
  */
-export const isClassNode = (value?: {}): value is ClassNode =>
-  typeof value === 'object' && areFieldsValid(ClassFields, value, isValidClassField);
+export const isClassNode = (value?: unknown): value is ClassNode =>
+  typeof value === 'object' && !!value && areFieldsValid(ClassFields, value as Record<string, BasicValue>, isValidClassField);
 
 
 /**

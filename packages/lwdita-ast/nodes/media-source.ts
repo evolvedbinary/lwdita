@@ -38,8 +38,8 @@ export const isValidMediaSourceField = (field: string, value: BasicValue): boole
  * @param value - The `media-source` node to test
  * @returns Boolean
  */
-export const isMediaSourceNode = (value?: {}): value is MediaSourceNode =>
-  typeof value === 'object' && areFieldsValid(MediaSourceFields, value, isValidMediaSourceField);
+export const isMediaSourceNode = (value?: unknown): value is MediaSourceNode =>
+  typeof value === 'object' && !!value && areFieldsValid(MediaSourceFields, value as Record<string, BasicValue>, isValidMediaSourceField);
 
 /**
  * Construct a `media-source` node with all available attributes

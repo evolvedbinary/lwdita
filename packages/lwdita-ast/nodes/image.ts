@@ -62,8 +62,8 @@ export const isValidImageField = (field: string, value: BasicValue): boolean => 
  * @param value - TODO
  * @returns TODO
  */
-export const isImageNode = (value?: {}): value is ImageNode =>
-  typeof value === 'object' && areFieldsValid(ImageFields, value, isValidImageField);
+export const isImageNode = (value?: unknown): value is ImageNode =>
+  typeof value === 'object' && !!value && areFieldsValid(ImageFields, value as Record<string, BasicValue>, isValidImageField);
 
 /**
  * Construct an `image` node with all available attributes
