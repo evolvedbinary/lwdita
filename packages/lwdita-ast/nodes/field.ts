@@ -54,7 +54,7 @@ export const isFieldNode = (value?: unknown): value is FieldNode =>
  * @param constructor - The constructor
  * @returns The `field` node
  */
-export function makeField<ValueType, T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+export function makeField<ValueType extends BasicValue, T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements FieldNode<ValueType> {
     get 'name'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('name');
@@ -62,11 +62,11 @@ export function makeField<ValueType, T extends { new(...args: any[]): BaseNode }
     set 'name'(value: CDATA | undefined) {
       this.writeProp<CDATA | undefined>('name', value);
     }
-    get 'value'(): ValueType | undefined {
-      return this.readProp<ValueType | undefined>('value');
+    get 'value'(): ValueType {
+      return this.readProp<ValueType>('value');
     }
-    set 'value'(value: ValueType | undefined) {
-      this.writeProp<ValueType | undefined>('value', value);
+    set 'value'(value: ValueType) {
+      this.writeProp<ValueType>('value', value);
     }
   }
 }
