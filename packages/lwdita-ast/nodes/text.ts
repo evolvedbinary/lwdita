@@ -93,9 +93,9 @@ export class TextNode extends BaseNode {
    * @param indent - Boolean, if the indentation of the output is set or not
    */
   /** @override */
-  accept(visitor: Visitor, depth = 0): void {
+  accept(visitor: Visitor): void {
     const textContent = this._props['content'] as string;
 
-    visitor.visit(textContent, depth);
+    visitor.visit(textContent);
   }
 }

@@ -243,13 +243,13 @@ export abstract class BaseNode {
    * @param indent - The indentation flag as a Boolean type, for an optional indentation of the output XML
    * @returns void
    */
-  accept(visitor: Visitor, depth = 0): void {
+  accept(visitor: Visitor): void {
     if(this.children.length > 0) {
-      visitor.startTag(this.static.nodeName, this._props || {}, depth, false, true);
-      this._children?.forEach(child => child.accept(visitor, depth + 1));
-      visitor.endTag(depth,false, false);
+      visitor.startTag(this.static.nodeName, this._props || {}, false, true);
+      this._children?.forEach(child => child.accept(visitor));
+      visitor.endTag(false, false);
     } else {
-      visitor.selfClosingTag(this.static.nodeName, this._props || {}, depth, true, true);
+      visitor.selfClosingTag(this.static.nodeName, this._props || {}, true, true);
     }
   }
 }

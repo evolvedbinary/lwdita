@@ -25,24 +25,21 @@ export class XMLTag {
   attributes: Record<string, BasicValue>;
   isSelfClosing: boolean;
   isStartTag: boolean;
-  depth: number;
 
   constructor(
     tagName: string,
     attributes: Record<string,
     BasicValue>,
-    depth: number,
     isSelfClosing: boolean,
     isStartTag: boolean,
   ){
     this.tagName = tagName;
     this.attributes = attributes;
-    this.depth = depth;
     this.isSelfClosing = isSelfClosing;
     this.isStartTag = isStartTag;
   }
 
-  serialize(indent = false, tabSize = 4): string {
+  serialize(indent = false, tabSize = 4, depth = 0): string {
     // prep the attributes string
     let attrsPrint = "";
     if (this.attributes) {
@@ -52,7 +49,7 @@ export class XMLTag {
 
     // Indentation: 4 single spaces per level
     const tab = ` `.repeat(tabSize);
-    const indentation = indent ? tab.repeat(this.depth) : '';
+    const indentation = indent ? tab.repeat(depth) : '';
     const lineEnd = indent ? '\n' : '';
 
     // Handle selfclosing elements
@@ -77,11 +74,14 @@ export class XMLTag {
 export class TextContent {
   content: string;
 
-  constructor(content: string, depth: number) {
+  constructor(content: string) {
     this.content = content;
   }
 
-  serialize(indent = false, tabSize = 4): string {
+  serialize(indent = false, tabSize = 4, depth = 0): string {
+    if (indent) {
+      return ` `.repeat(tabSize * depth) + this.content + '\n';
+    }
     return this.content;
   }
 }
@@ -114,8 +114,8 @@ export class Visitor {
    *
    * @param text - The XML node
    */
-  visit(text: string, depth: number): void {
-    const output = new TextContent(text, depth);
+  visit(text: string): void {
+    const output = new TextContent(text);
     this.outStream.push(output);
   }
 
@@ -124,19 +124,17 @@ export class Visitor {
    *
    * @param tagName - The tag name of the node
    * @param attrs - The attributes of the node
-   * @param depth - The node's level within the document tree, needed for indentation
    * @param isSelfClosing - Boolean, if the element is selfclosing or not
    * @param isStartTag - Boolean, if the tag is a start tag or not
    */
   startTag(
     tagName: string,
     attrs: Record<string, BasicValue>,
-    depth: number,
     isSelfClosing = false,
     isStartTag = true,
-  ) {
+  ): void {
     // create a new XMLTag object
-    const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing , isStartTag);
+    const xmlTag = new XMLTag(tagName, attrs, isSelfClosing , isStartTag);
     // push to the output stream
     this.outStream.push(xmlTag);
     // save the tag in the stack to use it later
@@ -146,19 +144,17 @@ export class Visitor {
   /**
    * EndTag Event
    *
-   * @param depth - The node's level within the document tree, needed for indentation
    * @param isSelfClosing - Boolean, if the element is selfclosing or not, the default is "false"
    * @param isStartTag - Boolean, if the tag is a start tag or not, the default is "false"
    */
   endTag(
-    depth: number,
     isSelfClosing = false,
     isStartTag = false,
-  ) {
+  ): void  {
     // get the tag out of the stack
     const tagName = this.tagsStack.pop() as string;
     // create a new XMLTag object
-    const xmlTag = new XMLTag(tagName, {}, depth, isSelfClosing, isStartTag);
+    const xmlTag = new XMLTag(tagName, {}, isSelfClosing, isStartTag);
     // add the closing tag to the output stream
     this.outStream.push(xmlTag);
   }
@@ -168,19 +164,17 @@ export class Visitor {
    *
    * @param tagName - The tag name of the node
    * @param attrs - The attributes of the node
-   * @param depth - The node's level within the document tree, needed for indentation
    * @param isSelfClosing - Boolean, if the element is selfclosing or not, the default is "true"
    * @param isStartTag - Boolean, if the tag is a start tag or not, the default is "true"
    */
   selfClosingTag(
     tagName: string,
     attrs: Record<string, BasicValue>,
-    depth: number,
     isSelfClosing = true,
     isStartTag = true,
-  ) {
+  ): void  {
     // create new self closing tag
-    const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing, isStartTag);
+    const xmlTag = new XMLTag(tagName, attrs, isSelfClosing, isStartTag);
     // push to the output stream
     this.outStream.push(xmlTag);
   }
@@ -190,7 +184,24 @@ export class Visitor {
    *
    * @returns The serialized output stream
    */
-  serialize() {
-    return this.outStream.map(tag => tag.serialize(this.indent, this.tabSize)).join('');
+  serialize(): string {
+    let currentDepth = 0;
+    const output = this.outStream.map(tag => {
+      let print = "";
+      if (tag instanceof XMLTag) {
+        if (!tag.isStartTag) {
+          currentDepth--;
+          print = tag.serialize(this.indent, this.tabSize, currentDepth);
+        } else if(tag.isStartTag && !tag.isSelfClosing) {
+          print = tag.serialize(this.indent, this.tabSize, currentDepth);
+          currentDepth++;
+        }
+      } else {
+        print = tag.serialize(this.indent, this.tabSize, currentDepth);
+      }
+    
+      return print;
+    });
+    return output.join('');
   }
 }

@@ -32,7 +32,7 @@ const xml =
  * ```
  * to this:
  * ```xml
- * <topic><title>valid title</title><body><<p>text</p></body></topic>
+ * <topic><title>valid title</title><body><p>text</p></body></topic>
  * ```
  */
 xditaToJdita(xml)
