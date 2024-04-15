@@ -9,7 +9,7 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
  * In case of selfclosing elements, return
  * a selfclosing tag.
  * Indent the tags by inserting
- * 2 spaces per level according to the element's nesting level.
+ * 4 spaces per level according to the element's nesting level.
  *
  * @example
  * Selfclosing tag: `<ph keyref="product-name"/>`
@@ -26,8 +26,6 @@ export class XMLTag {
   isSelfClosing: boolean;
   isStartTag: boolean;
   depth: number;
-  indent: boolean;
-  tabSize?: number;
 
   constructor(
     tagName: string,
@@ -36,19 +34,15 @@ export class XMLTag {
     depth: number,
     isSelfClosing: boolean,
     isStartTag: boolean,
-    indent: boolean,
-    tabSize?: number
   ){
     this.tagName = tagName;
     this.attributes = attributes;
     this.depth = depth;
     this.isSelfClosing = isSelfClosing;
     this.isStartTag = isStartTag;
-    this.indent = indent;
-    this.tabSize = tabSize;
   }
 
-  toString() {
+  serialize(indent = false, tabSize = 4): string {
     // prep the attributes string
     let attrsPrint = "";
     if (this.attributes) {
@@ -57,9 +51,9 @@ export class XMLTag {
     }
 
     // Indentation: 4 single spaces per level
-    const tab = this.tabSize ? ` `.repeat(this.tabSize) : '    ';
-    const indentation = this.indent ? tab.repeat(this.depth) : '';
-    const lineEnd = this.indent ? '\n' : '';
+    const tab = ` `.repeat(tabSize);
+    const indentation = indent ? tab.repeat(this.depth) : '';
+    const lineEnd = indent ? '\n' : '';
 
     // Handle selfclosing elements
     if (this.isSelfClosing) {
@@ -75,14 +69,30 @@ export class XMLTag {
     if(!this.isStartTag) {
       return indentation +  `</${this.tagName}>` + lineEnd;
     }
+
+    throw new Error('Invalid tag type');
    }
+}
+
+export class TextContent {
+  content: string;
+
+  constructor(content: string, depth: number) {
+    this.content = content;
+  }
+
+  serialize(indent = false, tabSize = 4): string {
+    return this.content;
+  }
 }
 
 /**
  * Visitor class for traversing the AST
  */
 export class Visitor {
-  outPutArray: Array<XMLTag>;
+  outStream: Array<XMLTag | TextContent>;
+  indent: boolean;
+  tabSize: number;
 
   // A tagsStack array for saving the tag names
   tagsStack: Array<string>;
@@ -92,9 +102,11 @@ export class Visitor {
    *
    * @param outPutArray - The output array
    */
-  constructor(outPutArray: Array<XMLTag>) {
-    this.outPutArray = outPutArray;
+  constructor(outStream: Array<XMLTag>, indent = false, tabSize = 4) {
+    this.outStream = outStream;
     this.tagsStack = [];
+    this.indent = indent;
+    this.tabSize = tabSize;
   }
 
   /**
@@ -102,8 +114,9 @@ export class Visitor {
    *
    * @param text - The XML node
    */
-  visit(text: XMLTag) {
-    this.outPutArray.push(text);
+  visit(text: string, depth: number): void {
+    const output = new TextContent(text, depth);
+    this.outStream.push(output);
   }
 
   /**
@@ -114,7 +127,6 @@ export class Visitor {
    * @param depth - The node's level within the document tree, needed for indentation
    * @param isSelfClosing - Boolean, if the element is selfclosing or not
    * @param isStartTag - Boolean, if the tag is a start tag or not
-   * @param indent - Boolean, if the indentation of the output is set or not
    */
   startTag(
     tagName: string,
@@ -122,13 +134,11 @@ export class Visitor {
     depth: number,
     isSelfClosing = false,
     isStartTag = true,
-    indent: boolean,
-    tabSize?: number
   ) {
     // create a new XMLTag object
-    const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing , isStartTag, indent, tabSize = 4);
-    // push to the output array
-    this.outPutArray.push(xmlTag);
+    const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing , isStartTag);
+    // push to the output stream
+    this.outStream.push(xmlTag);
     // save the tag in the stack to use it later
     this.tagsStack.push(tagName);
   }
@@ -139,21 +149,18 @@ export class Visitor {
    * @param depth - The node's level within the document tree, needed for indentation
    * @param isSelfClosing - Boolean, if the element is selfclosing or not, the default is "false"
    * @param isStartTag - Boolean, if the tag is a start tag or not, the default is "false"
-   * @param indent - Boolean, if the indentation of the output is set or not
    */
   endTag(
     depth: number,
     isSelfClosing = false,
     isStartTag = false,
-    indent: boolean,
-    tabSize?: number
   ) {
     // get the tag out of the stack
     const tagName = this.tagsStack.pop() as string;
     // create a new XMLTag object
-    const xmlTag = new XMLTag(tagName, {}, depth, isSelfClosing, isStartTag, indent, tabSize = 4);
-    // add the closing tag to the output array
-    this.outPutArray.push(xmlTag);
+    const xmlTag = new XMLTag(tagName, {}, depth, isSelfClosing, isStartTag);
+    // add the closing tag to the output stream
+    this.outStream.push(xmlTag);
   }
 
   /**
@@ -164,7 +171,6 @@ export class Visitor {
    * @param depth - The node's level within the document tree, needed for indentation
    * @param isSelfClosing - Boolean, if the element is selfclosing or not, the default is "true"
    * @param isStartTag - Boolean, if the tag is a start tag or not, the default is "true"
-   * @param indent - Boolean, if the indentation of the output is set or not
    */
   selfClosingTag(
     tagName: string,
@@ -172,12 +178,19 @@ export class Visitor {
     depth: number,
     isSelfClosing = true,
     isStartTag = true,
-    indent: boolean,
-    tabSize?: number
   ) {
     // create new self closing tag
-    const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing, isStartTag, indent, tabSize = 4);
-    // push to the output array
-    this.outPutArray.push(xmlTag);
+    const xmlTag = new XMLTag(tagName, attrs, depth, isSelfClosing, isStartTag);
+    // push to the output stream
+    this.outStream.push(xmlTag);
+  }
+
+  /**
+   * Serialize the output stream
+   *
+   * @returns The serialized output stream
+   */
+  serialize() {
+    return this.outStream.map(tag => tag.serialize(this.indent, this.tabSize)).join('');
   }
 }

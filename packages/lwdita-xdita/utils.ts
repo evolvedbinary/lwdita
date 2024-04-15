@@ -1,5 +1,5 @@
 import { BasicValue, OrArray, ChildTypes, ChildType} from "./classes";
-import fs from 'fs';
+// import fs from 'fs';
 
 /**
  * has - Check if an array has a value
@@ -285,6 +285,6 @@ export function storeOutputXML(xml: string, path: string): void {
     // see above's TODO for a future implementation
     const header = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`
     xml = header + xml;
-    fs.writeFileSync(path,xml)
+    // fs.writeFileSync(path,xml)
 }
 

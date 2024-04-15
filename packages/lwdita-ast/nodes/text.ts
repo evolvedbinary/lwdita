@@ -1,6 +1,7 @@
 import { BaseNode, makeComponent } from "./base";
 import { isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
 import { BasicValue, JDita } from "@evolvedbinary/lwdita-xdita/classes";
+import { Visitor } from "@evolvedbinary/lwdita-xdita/visitor";
 
 /**
  * Define the allowed `text` attribute:
@@ -92,12 +93,9 @@ export class TextNode extends BaseNode {
    * @param indent - Boolean, if the indentation of the output is set or not
    */
   /** @override */
-  accept(visitor: any, depth = 0, indent: boolean): void {
+  accept(visitor: Visitor, depth = 0): void {
     const textContent = this._props['content'] as string;
-    // Indentation: 2 single spaces per level
-    const tab = `  `;
-    const indentation = indent ? tab.repeat(depth) : '';
-    const lineEnd = indent ? '\n' : '';
-    visitor.visit(indentation + textContent + lineEnd);
+
+    visitor.visit(textContent, depth);
   }
 }

@@ -126,9 +126,9 @@ export async function xditaToJson(xml: string, abortOnError = true): Promise<JDi
  *  }
  * ```
  */
-export function serializeToXML(root: BaseNode, indent: boolean): XMLTag[] {
-  const outputObjects: XMLTag[] = [];
-  const visitor = new Visitor(outputObjects);
-  root.accept(visitor, 0, indent);
-  return outputObjects;
+export function serializeToXML(root: DocumentNode, indent: boolean): string {
+  const outStream: XMLTag[] = [];
+  const visitor = new Visitor(outStream, indent, 4);
+  root.accept(visitor, 0);
+  return visitor.serialize();
 }

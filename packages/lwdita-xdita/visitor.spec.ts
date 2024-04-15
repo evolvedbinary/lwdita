@@ -1,31 +1,31 @@
 import { expect } from 'chai';
-import { Visitor, XMLTag } from './visitor';
+import { TextContent, Visitor, XMLTag } from './visitor';
 import { DocumentNode, TextNode, TitleNode, TopicNode } from "@evolvedbinary/lwdita-ast"
 
 describe('XMLTag', () => {
   it('should print selfclosing tags correctly', () => {
-    const tag = new XMLTag('title', {}, 0, true, true, false);
-    expect(tag.toString()).equal('<title/>');
+    const tag = new XMLTag('title', {}, 0, true, true);
+    expect(tag.serialize()).equal('<title/>');
   });
 
   it('should print start tags correctly', () => {
-    const tag = new XMLTag('title', {}, 0, false, true, false);
-    expect(tag.toString()).equal('<title>');
+    const tag = new XMLTag('title', {}, 0, false, true);
+    expect(tag.serialize()).equal('<title>');
   });
 
   it('should print end tags correctly', () => {
-    const tag = new XMLTag('title', {}, 0, false, false, false);
-    expect(tag.toString()).equal('</title>');
+    const tag = new XMLTag('title', {}, 0, false, false);
+    expect(tag.serialize()).equal('</title>');
   });
 
   it('should print tags with attributes correctly', () => {
-    const tag = new XMLTag('title', {dir: 'ltr', class: 'title', outputclass: 'title', translate: 'no', 'xml:lang': 'en'}, 0, true, true, false);
-    expect(tag.toString()).equal('<title dir="ltr" class="title" outputclass="title" translate="no" xml:lang="en"/>');
+    const tag = new XMLTag('title', {dir: 'ltr', class: 'title', outputclass: 'title', translate: 'no', 'xml:lang': 'en'}, 0, true, true);
+    expect(tag.serialize()).equal('<title dir="ltr" class="title" outputclass="title" translate="no" xml:lang="en"/>');
   });
 
   it('should print tags with attributes and indentation correctly', () => {
-    const tag = new XMLTag('title', {dir: 'ltr', class: 'title', outputclass: 'title', translate: 'no', 'xml:lang': 'en'}, 1, true, true, true);
-    expect(tag.toString()).equal('    <title dir="ltr" class="title" outputclass="title" translate="no" xml:lang="en"/>\n');
+    const tag = new XMLTag('title', {dir: 'ltr', class: 'title', outputclass: 'title', translate: 'no', 'xml:lang': 'en'}, 1, true, true);
+    expect(tag.serialize(true, 4)).equal('    <title dir="ltr" class="title" outputclass="title" translate="no" xml:lang="en"/>\n');
   });
 
 });
@@ -52,13 +52,13 @@ describe('Visitor', () => {
     topic.add(title);
 
     // visit the document node
-    document.accept(visitor, 0 ,false);
+    document.accept(visitor, 0);
 
     // expect the outPutArray to contain the correct XMLTags
     expect(outPutArray).deep.equal([
-      new XMLTag('topic', {}, 0, false, true, false, 4),
-      new XMLTag('title', {}, 1, true, true, false, 4),
-      new XMLTag('topic', {}, 0, false, false, false, 4)
+      new XMLTag('topic', {}, 0, false, true),
+      new XMLTag('title', {}, 1, true, true),
+      new XMLTag('topic', {}, 0, false, false)
     ]);
     
   });
@@ -79,15 +79,15 @@ describe('Visitor', () => {
     //add text to the title node
     title.add(text);
     // visit the document node
-    document.accept(visitor, 0 ,false);
+    document.accept(visitor, 0);    
 
     // expect the outPutArray to contain the correct XMLTags
     expect(outPutArray).deep.equal([
-      new XMLTag('topic', {}, 0, false, true, false, 4),
-      new XMLTag('title', {}, 1, false, true, false, 4),
-      'Hello World',
-      new XMLTag('title', {}, 1, false, false, false, 4),
-      new XMLTag('topic', {}, 0, false, false, false, 4)
+      new XMLTag('topic', {}, 0, false, true),
+      new XMLTag('title', {}, 1, false, true),
+      new TextContent('Hello World', 2),
+      new XMLTag('title', {}, 1, false, false),
+      new XMLTag('topic', {}, 0, false, false)
     ]);
     
   });
@@ -105,13 +105,13 @@ describe('Visitor', () => {
     topic.add(title);
 
     // visit the document node
-    document.accept(visitor, 0 ,false);
+    document.accept(visitor, 0);
 
     // expect the outPutArray to contain the correct XMLTags
     expect(outPutArray).deep.equal([
-      new XMLTag('topic', {}, 0, false, true, false, 4),
-      new XMLTag('title', {dir: 'ltr', class: 'title', outputclass: 'title', translate: 'no', 'xml:lang': 'en'}, 1, true, true, false, 4),
-      new XMLTag('topic', {}, 0, false, false, false, 4)
+      new XMLTag('topic', {}, 0, false, true),
+      new XMLTag('title', {dir: 'ltr', class: 'title', outputclass: 'title', translate: 'no', 'xml:lang': 'en'}, 1, true, true),
+      new XMLTag('topic', {}, 0, false, false)
     ]);
     
   });
@@ -129,16 +129,18 @@ describe('Visitor', () => {
     topic.add(title);
 
     // visit the document node
-    document.accept(visitor, 0 ,false);
+    document.accept(visitor, 0);
 
     // expect the outPutArray to contain the correct XMLTags
-    expect(outPutArray.join("")).equal("<topic><title/></topic>");
+    expect(visitor.serialize()).equal("<topic><title/></topic>");
 
   });
 
 
   it('should visit XMLNodes and produce xml output with indentation', () => {
     // test setup
+    const outPutArray: XMLTag[] = [];
+    visitor = new Visitor(outPutArray, true, 4);
     //create a document node 
     const document = new DocumentNode();
     //create a topic node
@@ -150,10 +152,10 @@ describe('Visitor', () => {
     topic.add(title);
 
     // visit the document node
-    document.accept(visitor, 0 ,true);
+    document.accept(visitor, 0);
 
     // expect the outPutArray to contain the correct XMLTags
-    expect(outPutArray.join("")).equal("<topic>\n    <title/>\n</topic>\n");
+    expect(visitor.serialize()).equal("<topic>\n    <title/>\n</topic>\n");
 
   });
 
