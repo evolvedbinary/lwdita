@@ -39,8 +39,8 @@ export const isValidLiField = (field: string, value: BasicValue): boolean => isV
  * @param value - The `li` node to test
  * @returns Boolean
  */
-export const isLiNode = (value?: {}): value is LiNode =>
-  typeof value === 'object' && areFieldsValid(LiFields, value, isValidLiField);
+export const isLiNode = (value?: unknown): value is LiNode =>
+  typeof value === 'object' && !!value && areFieldsValid(LiFields, value as Record<string, BasicValue>, isValidLiField);
 
 /**
  * Construct a `li` node with all available attributes

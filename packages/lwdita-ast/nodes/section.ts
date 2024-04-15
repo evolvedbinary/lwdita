@@ -39,8 +39,8 @@ export const isValidSectionField = (field: string, value: BasicValue): boolean =
  * @param value - The `section` node to test
  * @returns Boolean
  */
-export const isSectionNode = (value?: {}): value is SectionNode =>
-  typeof value === 'object' && areFieldsValid(SectionFields, value, isValidSectionField);
+export const isSectionNode = (value?: unknown): value is SectionNode =>
+  typeof value === 'object' && !!value && areFieldsValid(SectionFields, value as Record<string, BasicValue>, isValidSectionField);
 
 /**
  * Construct a `section` node with all available attributes

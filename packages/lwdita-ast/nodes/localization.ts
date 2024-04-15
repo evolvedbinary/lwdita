@@ -44,8 +44,8 @@ export function isValidLocalizationField(field: string, value: BasicValue): bool
  * @param value - The `localization` node to test
  * @returns Boolean
  */
-export const isLocalizationNode = (value?: {}): value is LocalizationNode =>
-  typeof value === 'object' && areFieldsValid(LocalizationFields, value, isValidLocalizationField);
+export const isLocalizationNode = (value?: unknown): value is LocalizationNode =>
+  typeof value === 'object' && !!value && areFieldsValid(LocalizationFields, value as Record<string, BasicValue>, isValidLocalizationField);
 
 /**
  * Create a `localization` node with an `dir`, `xml:lang`, `translate` attribute

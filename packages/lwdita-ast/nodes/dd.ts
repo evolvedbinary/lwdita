@@ -39,8 +39,8 @@ export const isValidDdField = (field: string, value: BasicValue): boolean => isV
  * @param value - The `dd` node to test
  * @returns Boolean
  */
-export const isDdNode = (value?: {}): value is DdNode =>
-  typeof value === 'object' && areFieldsValid(DdFields, value, isValidDdField);
+export const isDdNode = (value?: unknown): value is DdNode =>
+  typeof value === 'object' && !!value && areFieldsValid(DdFields, value as Record<string, BasicValue>, isValidDdField);
 
 /**
  * Construct a `dd` node with all available attributes

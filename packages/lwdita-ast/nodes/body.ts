@@ -34,8 +34,8 @@ export const isValidBodyField = (field: string, value: BasicValue): boolean => i
  * @param value - The `body` node to test
  * @returns Boolean
  */
-export const isBodyNode = (value?: {}): value is BodyNode =>
-  typeof value === 'object' && areFieldsValid(BodyFields, value, isValidBodyField);
+export const isBodyNode = (value?: unknown): value is BodyNode =>
+  typeof value === 'object' && !!value && areFieldsValid(BodyFields, value as Record<string, BasicValue>, isValidBodyField);
 
 /**
  * Construct a `body` node with all available attributes

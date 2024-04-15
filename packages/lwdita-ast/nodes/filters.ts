@@ -41,8 +41,8 @@ export function isValidFiltersField(field: string, value: BasicValue): boolean {
  * @param value - The `filter` node to test
  * @returns Boolean
  */
-export const isFiltersNode = (value?: {}): value is FiltersNode =>
-  typeof value === 'object' && areFieldsValid(FiltersFields, value, isValidFiltersField);
+export const isFiltersNode = (value?: unknown): value is FiltersNode =>
+  typeof value === 'object' && !!value && areFieldsValid(FiltersFields, value as Record<string, BasicValue>, isValidFiltersField);
 
 /**
  * Create a `filter` node with an `props` attribute

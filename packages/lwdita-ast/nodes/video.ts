@@ -41,8 +41,8 @@ export const isValidVideoField = (field: string, value: BasicValue): boolean => 
  * @param value - The `video` node to test
  * @returns Boolean
  */
-export const isVideoNode = (value?: {}): value is VideoNode =>
-  typeof value === 'object' && areFieldsValid(VideoFields, value, isValidVideoField);
+export const isVideoNode = (value?: unknown): value is VideoNode =>
+  typeof value === 'object' && !!value && areFieldsValid(VideoFields, value as Record<string, BasicValue>, isValidVideoField);
 
 /**
  * Construct a `video` node with all available attributes

@@ -43,8 +43,8 @@ export function isValidReuseField(field: string, value: BasicValue): boolean {
  * @param value - The `reuse` node to test
  * @returns Boolean
  */
-export const isReuseNode = (value?: {}): value is ReuseNode =>
-  typeof value === 'object' && areFieldsValid(ReuseFields, value, isValidReuseField);
+export const isReuseNode = (value?: unknown): value is ReuseNode =>
+  typeof value === 'object' && !!value && areFieldsValid(ReuseFields, value as Record<string, BasicValue>, isValidReuseField);
 
 /**
  * Create a `reuse` node with an `id` and `conref` attribute

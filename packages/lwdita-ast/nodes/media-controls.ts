@@ -38,8 +38,8 @@ export const isValidMediaControlsField = (field: string, value: BasicValue): boo
  * @param value - The `media-controls` node to test
  * @returns Boolean
  */
-export const isMediaControlsNode = (value?: {}): value is MediaControlsNode =>
-  typeof value === 'object' && areFieldsValid(MediaControlsFields, value, isValidMediaControlsField);
+export const isMediaControlsNode = (value?: unknown): value is MediaControlsNode =>
+  typeof value === 'object' && !!value && areFieldsValid(MediaControlsFields, value as Record<string, BasicValue>, isValidMediaControlsField);
 
 /**
  * Construct a `media-controls` node with all available attributes

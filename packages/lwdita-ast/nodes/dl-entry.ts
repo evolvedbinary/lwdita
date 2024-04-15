@@ -39,8 +39,8 @@ export const isValidDlEntryField = (field: string, value: BasicValue): boolean =
  * @param value - The `display` node to test
  * @returns Boolean
  */
-export const isDlEntryNode = (value?: {}): value is DlEntryNode =>
-  typeof value === 'object' && areFieldsValid(DlEntryFields, value, isValidDlEntryField);
+export const isDlEntryNode = (value?: unknown): value is DlEntryNode =>
+  typeof value === 'object' && !!value && areFieldsValid(DlEntryFields, value as Record<string, BasicValue>, isValidDlEntryField);
 
 /**
  * Construct a `dlentry` node with all available attributes

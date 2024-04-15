@@ -40,8 +40,8 @@ export function isValidVariableContentField(field: string, value: BasicValue): b
  * @param value - The `variable-content` node to test
  * @returns Boolean
  */
-export const isVariableContentNode = (value?: {}): value is VariableContentNode =>
-  typeof value === 'object' && areFieldsValid(VariableContentFields, value, isValidVariableContentField);
+export const isVariableContentNode = (value?: unknown): value is VariableContentNode =>
+  typeof value === 'object' && !!value && areFieldsValid(VariableContentFields, value as Record<string, BasicValue>, isValidVariableContentField);
 
 /**
  * Create a `variable-content` node with a `keyref` attribute
