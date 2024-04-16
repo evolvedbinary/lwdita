@@ -76,7 +76,7 @@ export class XditaSerializer {
       this.outStream.emit(this.EOL);
     }
   }
-  
+
   /**
    * Emit the attributes to the output stream
    */
@@ -90,7 +90,7 @@ export class XditaSerializer {
     if (attrsPrint.length) attrsPrint = ` ${attrsPrint}`;
     this.outStream.emit(attrsPrint);
   }
-  
+
   /**
    * Emit the text content of text nodes to the output stream
    */
@@ -102,7 +102,7 @@ export class XditaSerializer {
   }
 
   /**
-   * Visit a node and emit it's printable tab to the output stream
+   * Visit a node and emit its printable tab to the output stream
    */
   visit(node: BaseNode): void {
     // do no emit anything if the node is a document node
