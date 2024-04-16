@@ -47,7 +47,7 @@ export class XditaSerializer {
   /**
    * Constructor
    *
-   * @param outPutArray - The output array
+   * @param outStream - The output array
    * @param indent - enable indentation
    * @param tabSize - size of the tab
    */
