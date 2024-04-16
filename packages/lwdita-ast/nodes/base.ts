@@ -2,7 +2,6 @@ import { acceptsNodeName, isChildTypeRequired, stringToChildTypes, isChildTypeSi
 import { ChildTypes, ChildType, OrArray, BasicValue, Attributes, JDita } from "@evolvedbinary/lwdita-xdita/classes";
 import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError } from "../ast-classes";
 import { nodeGroups } from "../ast-utils";
-import { Visitor } from "@evolvedbinary/lwdita-xdita/visitor";
 
 /**
  * `BaseNode` - The base class for all nodes
@@ -233,24 +232,11 @@ export abstract class BaseNode {
   }
 
   /**
-   * `accept` - Accept a visitor
-   *
-   * @remarks
-   * This function is used to traverse the AST
-   *
-   * @param visitor - The accepted visitor which is allowed to retrieve information
-   * @param depth - The node's level within the document tree, needed for indentation, by default set to root level, i.e.: 0
-   * @param indent - The indentation flag as a Boolean type, for an optional indentation of the output XML
-   * @returns void
+   * Get Props - Get all attributes of the node
+   * @returns Record<string, BasicValue> - A record of all attributes
    */
-  accept(visitor: Visitor): void {
-    if(this.children.length > 0) {
-      visitor.startTag(this.static.nodeName, this._props || {}, false, true);
-      this._children?.forEach(child => child.accept(visitor));
-      visitor.endTag(false, false);
-    } else {
-      visitor.selfClosingTag(this.static.nodeName, this._props || {}, true, true);
-    }
+  getProps(): Record<string, BasicValue> {
+    return this._props;
   }
 }
 

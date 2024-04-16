@@ -2,7 +2,7 @@ import * as saxes from "saxes";
 import { BaseNode, DocumentNode } from "@evolvedbinary/lwdita-ast/nodes";
 import { createNode } from "@evolvedbinary/lwdita-ast/factory";
 import { JDita } from "./classes";
-import { Visitor, XMLTag } from "@evolvedbinary/lwdita-xdita/visitor";
+import { InMemoryTextOutputStream, XditaSerializer } from "./xditaSerializer";
 
 /** TODO: Add tests for this module */
 
@@ -127,8 +127,9 @@ export async function xditaToJson(xml: string, abortOnError = true): Promise<JDi
  * ```
  */
 export function serializeToXML(root: DocumentNode, indent: boolean): string {
-  const outStream: XMLTag[] = [];
-  const visitor = new Visitor(outStream, indent, 4);
-  root.accept(visitor);
-  return visitor.serialize();
+  const outStream = new InMemoryTextOutputStream();
+  const visitor = new XditaSerializer(outStream, indent, 4);
+  visitor.visit(root);
+  
+  return outStream.getText();
 }

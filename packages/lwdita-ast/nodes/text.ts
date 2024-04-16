@@ -1,7 +1,6 @@
 import { BaseNode, makeComponent } from "./base";
 import { isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
 import { BasicValue, JDita } from "@evolvedbinary/lwdita-xdita/classes";
-import { Visitor } from "@evolvedbinary/lwdita-xdita/visitor";
 
 /**
  * Define the allowed `text` attribute:
@@ -83,19 +82,5 @@ export class TextNode extends BaseNode {
       nodeName: this.static.nodeName,
       content: this._props['content'] as string,
     };
-  }
-
-  /**
-   * Override the `accept` method of the `BaseNode` class
-   *
-   * @param visitor - The accepted visitor
-   * @param depth - The node's level within the document tree, needed for indentation
-   * @param indent - Boolean, if the indentation of the output is set or not
-   */
-  /** @override */
-  accept(visitor: Visitor): void {
-    const textContent = this._props['content'] as string;
-
-    visitor.visit(textContent);
   }
 }
