@@ -105,7 +105,7 @@ export class XditaSerializer {
    * Visit a node and emit its printable tab to the output stream
    */
   visit(node: BaseNode): void {
-    // do no emit anything if the node is a document node
+    // do not emit anything if the node is a document node
     if (node instanceof DocumentNode) {
       node.children.forEach(child => this.visit(child));
       // close the output stream after visiting all of the children
