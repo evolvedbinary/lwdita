@@ -25,9 +25,8 @@ yarn add @evolvedbinary/lwdita-xdita
 ### Basic Example
 
 ```javascript
-import { xditaToJson, xditaToJdita, serializeToXML } from "./converter";
+import { xditaToJson, xditaToJdita } from "./converter";
 import { BaseNode, TextNode, TopicNode } from "@evolvedbinary/lwdita-ast/nodes";
-import { storeOutputXML } from "./utils";
 
 const xml = `
 <?xml version="1.0" encoding="UTF-8"?>
@@ -67,7 +66,7 @@ And in context:
 xditaToJdita(xml)
   .then(result => {
     console.log(JSON.stringify(result.json, null, 2));
-    const res = serializeToXML(result, true).join('');
+    const res = serializeToXML(result, true);
     console.log(res);
   })
   .catch(e => console.log('Failed to convert:', e));
