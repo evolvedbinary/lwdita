@@ -76,7 +76,6 @@ export class XditaSerializer {
       this.outStream.emit(this.EOL);
     }
   }
-
   
   /**
    * Emit the attributes to the output stream
@@ -91,7 +90,6 @@ export class XditaSerializer {
     if (attrsPrint.length) attrsPrint = ` ${attrsPrint}`;
     this.outStream.emit(attrsPrint);
   }
-
   
   /**
    * Emit the text content of text nodes to the output stream
