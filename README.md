@@ -51,7 +51,7 @@ xditaToJson(xml, false)
 
 A full example with an additional option for serializing the JDita object back into XML can be found in the file [example.ts](packages/lwdita-xdita/example.ts).
 
-* The serialisation function includes an option to indent the output with 4 spaces or a tab depending on its depth, and to add a line break after each tag, you can control this with the second parameter of `serializeToXML(root, indentationChar, tabSize)`.
+* The serialisation function includes an option to indent the output with 4 spaces or a tab depending on its depth, and to add a line break after each tag, you can control this with the second and third parameter of `serializeToXML(root, indentationChar, tabSize)`.
 * If only the first parameter is provided, no formatting will be applied and the output will be generated as a single line.
 * The generated XML will faithfully contain all XML nodes apart from `CDATA` which is currently unsupported.
 
