@@ -107,37 +107,38 @@ export async function xditaToJson(xml: string, abortOnError = true): Promise<JDi
 
 /**
  * `serializeToXML` - Serialize the JDita AST and transform it into XML
- *
- * @param root - The document root
- * @param indentationChar - The indentation character to be used if none is provided, no indentation is used
- * @param tabSize - the number of spaces to be used for indentation when an indentation character other than tab is used
- * @returns The transformed document as an array of XMLTag objects
+ * The serialization is providing three options to output the document:
+ * 1. No indentation/formatting - all is output in one line (default)
+ * 2. Indentation with tabs
+ * 3. Indentation with Spaces - You can modify the desired number of spaces by setting `indentationSize`, per default it's set to 4 spaces.
  *
  * @example
- * An example XMLTag output object:
  * ```
- *  XMLTag {
- *      tagName: 'topic',
- *      attributes: {},
- *      depth: 0,
- *      isSelfClosing: false,
- *      isStartTag: false,
- *      indent: true,
- *      tabSize: 4
- *  }
+ * // 1. No formatting
+ *    serializeToXML(result);
+ * // 2. Indentation with tabs
+ *    serializeToXML(result, '\t');
+ * // 3. Indentation with Spaces
+ *    serializeToXML(result, ' ', 4);
  * ```
+ *
+ * @param root - The document root
+ * @param indentationChar - The indentation character to be used (tabs or spaces). If none is provided, no indentation is used.
+ * @param tabSize - The number of spaces to be used for indentation when an indentation character other than tab is used, the default is 4 spaces
+ * @returns The transformed document as an array of XMLTag objects
  */
-export function serializeToXML(root: DocumentNode, indentationChar?: string, tabSize = 4): string {
+export function serializeToXML(root: DocumentNode, indentationChar?: string, tabSize?: number): string {
   const outStream = new InMemoryTextOutputStream();
   let visitor: XditaSerializer;
   if(indentationChar === '\t') {
     visitor = new XditaSerializer(outStream, true, '\t');
-  } else if(indentationChar) {
+  } else if (indentationChar) {
+    tabSize = tabSize ? tabSize : 4;
     visitor = new XditaSerializer(outStream, true, indentationChar, tabSize);
   } else {
     visitor = new XditaSerializer(outStream,false);
   }
   visitor.visit(root);
-  
+
   return outStream.getText();
 }

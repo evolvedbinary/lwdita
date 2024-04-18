@@ -42,15 +42,23 @@ xditaToJdita(xml)
 
     /**
      * Start the serialization
-     * The second parameter is the indentation option:
-     * When set to true, indentation is added to the created XML tree
+     * `serializeToXML(root, indentationChar?, tabSize?)` is offering three options to output the document:
+     * 1. No indentation/formatting - all is output in one line (default)
+     * 2. Indentation with tabs
+     * 3. Indentation with Spaces - You can modify the desired number of spaces by setting `indentationSize`, per default it's set to 4 spaces.
      */
+
+    // 1. Default option: The document will have no indentation and will be output in one line
+    const res = serializeToXML(result);
+
+    // 2. Comment-in the following line to choose Tabs as indentation
     const tab = '\t';
+    //const res = serializeToXML(result, tab);
+
+    // 3. Comment-in the following line to choose spaces as indentation
     const space = ' ';
     const indentationSize = 4;
-    const res = serializeToXML(result); // this is when no indentation is needed
-    // const res = serializeToXML(result, tab); // this is when chosing tab
-    // const res = serializeToXML(result, space, indentationSize); // this is when chosing space and indentation size
+    //const res = serializeToXML(result, space, indentationSize);
 
     /**
      * For development and testing the above XML example,
