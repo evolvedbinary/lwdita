@@ -51,13 +51,19 @@ xditaToJson(xml, false)
 
 A full example with an additional option for serializing the JDita object back into XML can be found in the file [example.ts](packages/lwdita-xdita/example.ts).
 
-The serialization function contains an option for indenting the output with 4 spaces or a tab appropriately according to its depth and adding a newline after each tag, you can control
-This is handled by the second parameter of `serializeToXML(root, indentationChar, tabSize)`.
-When no second param is provided, no indenting will be performed and the output will be generated as a single line.
+The serialisation function includes an option to indent the output with 4 spaces or a tab depending on its depth, and to add a line break after each tag, you can control this with the second parameter of `serializeToXML(root, indentationChar, tabSize)`.
+If only the first parameter is provided, no formatting will be applied and the output will be generated as a single line.
 The generated XML will faithfully contain all XML nodes apart from `CDATA` which is currently unsupported.
 
+Examples:
+
 ```javascript
-serializeToXML(result, true)
+// 1. No formatting
+   serializeToXML(result);
+// 2. Indentation with tabs
+   serializeToXML(result, '\t');
+// 3. Indentation with Spaces
+   serializeToXML(result, ' ', 4);
 ```
 
 And in context:
@@ -66,7 +72,7 @@ And in context:
 xditaToJdita(xml)
   .then(result => {
     console.log(JSON.stringify(result.json, null, 2));
-    const res = serializeToXML(result.json, true);
+    const res = serializeToXML(result, ' ', 4);
     console.log(res);
   })
   .catch(e => console.log('Failed to convert:', e));
