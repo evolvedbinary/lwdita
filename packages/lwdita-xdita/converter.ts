@@ -109,7 +109,8 @@ export async function xditaToJson(xml: string, abortOnError = true): Promise<JDi
  * `serializeToXML` - Serialize the JDita AST and transform it into XML
  *
  * @param root - The document root
- * @param indent - The indentation flag as a Boolean type, for an optional indentation of the output XML
+ * @param indentationChar - The indentation character to be used if none is provided, no indentation is used
+ * @param tabSize - the number of spaces to be used for indentation when an indentation character other than tab is used
  * @returns The transformed document as an array of XMLTag objects
  *
  * @example
@@ -126,9 +127,16 @@ export async function xditaToJson(xml: string, abortOnError = true): Promise<JDi
  *  }
  * ```
  */
-export function serializeToXML(root: DocumentNode, indent: boolean): string {
+export function serializeToXML(root: DocumentNode, indentationChar?: string, tabSize = 4): string {
   const outStream = new InMemoryTextOutputStream();
-  const visitor = new XditaSerializer(outStream, indent, 4);
+  let visitor: XditaSerializer;
+  if(indentationChar === '\t') {
+    visitor = new XditaSerializer(outStream, true, '\t');
+  } else if(indentationChar) {
+    visitor = new XditaSerializer(outStream, true, indentationChar, tabSize);
+  } else {
+    visitor = new XditaSerializer(outStream,false);
+  }
   visitor.visit(root);
   
   return outStream.getText();

@@ -45,7 +45,12 @@ xditaToJdita(xml)
      * The second parameter is the indentation option:
      * When set to true, indentation is added to the created XML tree
      */
-    const res = serializeToXML(result, true);
+    const tab = '\t';
+    const space = ' ';
+    const indentationSize = 4;
+    const res = serializeToXML(result); // this is when no indentation is needed
+    // const res = serializeToXML(result, tab); // this is when chosing tab
+    // const res = serializeToXML(result, space, indentationSize); // this is when chosing space and indentation size
 
     /**
      * For development and testing the above XML example,

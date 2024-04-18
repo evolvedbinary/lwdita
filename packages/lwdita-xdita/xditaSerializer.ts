@@ -51,11 +51,14 @@ export class XditaSerializer {
    * @param indent - enable indentation
    * @param tabSize - size of the tab
    */
-  constructor(outStream: TextOutputStream, indent = false, tabSize = 4) {
+  constructor(outStream: TextOutputStream, indent = false, indentation = " ", tabSize = 4) {
     this.outStream = outStream;
     this.indent = indent;
     this.tabSize = tabSize;
-    this.indentation = " ";
+    this.indentation = indentation;
+    if(indentation === '\t') {
+      this.tabSize = 1;
+    }
     this.EOL = '\n';
   }
 

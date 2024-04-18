@@ -35,7 +35,7 @@ describe('XditaSerializer', () => {
     topic.add(title);
 
     // configure serializer with indentation
-    serializer = new XditaSerializer(outStream, true, 4);
+    serializer = new XditaSerializer(outStream, true, ' ', 4);
 
     // perform serialization
     serializer.visit(document);
