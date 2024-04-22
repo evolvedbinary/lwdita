@@ -74,3 +74,14 @@ workflows:
             - node/install-yarn:
                 version: << pipeline.parameters.yarn-version >>
           yarn-run: generate-docs
+      - node/run:
+          name: run example
+          requires:
+            - clone-and-install
+          version: << pipeline.parameters.node-image-tag >>
+          resource_class: << pipeline.parameters.resource-class >>
+          pkg-manager: yarn
+          setup:
+            - node/install-yarn:
+                version: << pipeline.parameters.yarn-version >>
+          yarn-run: example
