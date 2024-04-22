@@ -33,7 +33,7 @@ export class XditaSerializer {
   }
 
   /**
-   * Emit the indentation to the output stream
+   * Print the indentation to the output stream
    */
   printIndentation(): void {
     if (this.indent) {
@@ -42,7 +42,7 @@ export class XditaSerializer {
   }
 
   /**
-   * Emit the End of Line character to the output stream
+   * Print the End of Line character to the output stream
    */
   printEOL(): void {
     if (this.indent) {
@@ -51,7 +51,7 @@ export class XditaSerializer {
   }
 
   /**
-   * Emit the attributes to the output stream
+   * Print the attributes to the output stream
    *
    * @param node the node to serialize the attributes of
    */
@@ -67,7 +67,7 @@ export class XditaSerializer {
   }
 
   /**
-   * Emit the text content of the text node to the output stream
+   * Print the text content of the text node to the output stream
    *
    * @param node the text node to serialize the content of
    */
@@ -84,36 +84,39 @@ export class XditaSerializer {
    * @param node the node to serialize
    */
   visit(node: BaseNode): void {
-    // do not emit anything if the node is a document node
     if (node instanceof DocumentNode) {
+      // do not serialize anything if the node is a document node, move on to its children
       node.children.forEach(child => this.visit(child));
-      // close the output stream after visiting all of the children
+      // close the output stream as we have now serialized the document
       this.outputStream.close();
     } else {
       // print the indentation
       this.printIndentation();
 
-      // if the node is a text node, print the text content
       if (node instanceof TextNode) {
+        // if the node is a text node, print the text content
         this.printText(node);
       } else {
-        // print the node tag
+        // print the start of the element start tag
         this.outputStream.emit(`<${node.static.nodeName}`);
         // print the attributes
         this.printAttributes(node);
-        // increment the depth after printing the tag
+        // increment the depth after starting an element
         this.depth++;
         if (node.children?.length) {
-          // print the closing tag and visit the children
+          // as the element has children or attributes, print the remainder of the element start tag
           this.outputStream.emit(`>`);
           this.printEOL();
+          // visit the element's children
           node.children.forEach(child => this.visit(child));
+          // decrement the depth after printing the elements children
           this.depth--;
           this.printIndentation();
           this.outputStream.emit(`</${node.static.nodeName}>`);
         } else {
-          // print the self closing tag
+          // element has no attributes or children, so the remainder of the element start tag as a self-closing element
           this.outputStream.emit(`/>`);
+          // decrement the depth after printing the element
           this.depth--;
         }
       }
