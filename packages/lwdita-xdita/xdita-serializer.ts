@@ -33,45 +33,47 @@ export class XditaSerializer {
   }
 
   /**
-   * Print the indentation to the output stream
+   * Serialize the indentation to the output stream
    */
-  printIndentation(): void {
+  serializeIndentation(): void {
     if (this.indent) {
       this.outputStream.emit(this.indentation.repeat(this.depth * this.tabSize));
     }
   }
 
   /**
-   * Print the End of Line character to the output stream
+   * Serialize the End of Line character to the output stream
    */
-  printEOL(): void {
+  serializeEOL(): void {
     if (this.indent) {
       this.outputStream.emit(this.EOL);
     }
   }
 
   /**
-   * Print the attributes to the output stream
+   * Serialize the attributes to the output stream
    *
    * @param node the node to serialize the attributes of
    */
-  printAttributes(node: BaseNode): void {
-    let attrsPrint = '';
+  serializeAttributes(node: BaseNode): void {
+    let attrsStr = '';
     const props = node.getProps();
     if (props) {
       const attr = props as Record<string, string>;
-      attrsPrint = Object.keys(props).filter(key => attr[key]).map(key => `${key}="${attr[key]}"`).join(' ');
+      attrsStr = Object.keys(props).filter(key => attr[key]).map(key => `${key}="${attr[key]}"`).join(' ');
     }
-    if (attrsPrint.length) attrsPrint = ` ${attrsPrint}`;
-    this.outputStream.emit(attrsPrint);
+    if (attrsStr.length) {
+      attrsStr = ` ${attrsStr}`;
+    }
+    this.outputStream.emit(attrsStr);
   }
 
   /**
-   * Print the text content of the text node to the output stream
+   * Serialize the text content of the text node to the output stream
    *
    * @param node the text node to serialize the content of
    */
-  printText(node: TextNode): void {
+  serializeText(node: TextNode): void {
     const props = node.getProps();
     if (props['content']) {
       this.outputStream.emit(String(props['content']));
@@ -79,48 +81,48 @@ export class XditaSerializer {
   }
 
   /**
-   * Visit a node and emit its printable tab to the output stream
+   * Visit a node and serialize it to the output stream
    *
    * @param node the node to serialize
    */
-  visit(node: BaseNode): void {
+  serialize(node: BaseNode): void {
     if (node instanceof DocumentNode) {
       // do not serialize anything if the node is a document node, move on to its children
-      node.children.forEach(child => this.visit(child));
+      node.children.forEach(child => this.serialize(child));
       // close the output stream as we have now serialized the document
       this.outputStream.close();
     } else {
-      // print the indentation
-      this.printIndentation();
+      // serialize any indentation
+      this.serializeIndentation();
 
       if (node instanceof TextNode) {
-        // if the node is a text node, print the text content
-        this.printText(node);
+        // if the node is a text node, serialize its text content
+        this.serializeText(node);
       } else {
-        // print the start of the element start tag
+        // serialize the start of the element start tag
         this.outputStream.emit(`<${node.static.nodeName}`);
-        // print the attributes
-        this.printAttributes(node);
+        // serialize the attributes
+        this.serializeAttributes(node);
         // increment the depth after starting an element
         this.depth++;
         if (node.children?.length) {
-          // as the element has children or attributes, print the remainder of the element start tag
+          // as the element has children or attributes, serialize the remainder of the element start tag
           this.outputStream.emit(`>`);
-          this.printEOL();
+          this.serializeEOL();
           // visit the element's children
-          node.children.forEach(child => this.visit(child));
-          // decrement the depth after printing the elements children
+          node.children.forEach(child => this.serialize(child));
+          // decrement the depth after serializing the elements children
           this.depth--;
-          this.printIndentation();
+          this.serializeIndentation();
           this.outputStream.emit(`</${node.static.nodeName}>`);
         } else {
           // element has no attributes or children, so the remainder of the element start tag as a self-closing element
           this.outputStream.emit(`/>`);
-          // decrement the depth after printing the element
+          // decrement the depth after serializing the element
           this.depth--;
         }
       }
-      this.printEOL();
+      this.serializeEOL();
     }
   }
 }

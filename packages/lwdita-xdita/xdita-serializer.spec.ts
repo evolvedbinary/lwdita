@@ -21,7 +21,7 @@ describe('XditaSerializer', () => {
     topic.add(title);
 
     // perform serialization
-    serializer.visit(document);
+    serializer.serialize(document);
 
     // expect the output stream to contain the correct XML
     expect(outStream.getText()).equal("<topic><title/></topic>");
@@ -39,7 +39,7 @@ describe('XditaSerializer', () => {
     serializer = new XditaSerializer(outStream, true, ' ', 4);
 
     // perform serialization
-    serializer.visit(document);
+    serializer.serialize(document);
 
     // expect the output stream to contain the correct XML with indentation
     expect(outStream.getText()).equal("<topic>\n    <title/>\n</topic>\n");
@@ -56,7 +56,7 @@ describe('XditaSerializer', () => {
     title.add(text);
 
     // perform serialization
-    serializer.visit(document);
+    serializer.serialize(document);
 
     // expect the output stream to contain the correct XML with text content
     expect(outStream.getText()).equal("<topic><title>Hello World</title></topic>");
@@ -71,7 +71,7 @@ describe('XditaSerializer', () => {
     topic.add(title);
 
     // perform serialization
-    serializer.visit(document);
+    serializer.serialize(document);
 
     // expect the output stream to contain the correct XML with attributes
     expect(outStream.getText()).equal('<topic><title dir="ltr" class="title"/></topic>');

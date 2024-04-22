@@ -139,7 +139,7 @@ export function serializeToXML(root: DocumentNode, indentationChar?: string, tab
   } else {
     visitor = new XditaSerializer(outStream,false);
   }
-  visitor.visit(root);
+  visitor.serialize(root);
 
   return outStream.getText();
 }
