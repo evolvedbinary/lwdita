@@ -35,7 +35,7 @@ export class XditaSerializer {
   /**
    * Serialize the indentation to the output stream
    */
-  serializeIndentation(): void {
+  private serializeIndentation(): void {
     if (this.indent) {
       this.outputStream.emit(this.indentation.repeat(this.depth * this.tabSize));
     }
@@ -44,7 +44,7 @@ export class XditaSerializer {
   /**
    * Serialize the End of Line character to the output stream
    */
-  serializeEOL(): void {
+  private serializeEOL(): void {
     if (this.indent) {
       this.outputStream.emit(this.EOL);
     }
@@ -55,7 +55,7 @@ export class XditaSerializer {
    *
    * @param node the document node to serialize
    */
-  serializeDocument(node: DocumentNode): void {
+  private serializeDocument(node: DocumentNode): void {
     // a document node has no string representation, so move on to its children
     node.children.forEach(child => this.serialize(child));
   }
@@ -65,7 +65,7 @@ export class XditaSerializer {
    *
    * @param node the element node to serialize
    */
-  serializeElement(node: BaseNode): void {
+  private serializeElement(node: BaseNode): void {
     // serialize the start of the element start tag
     this.outputStream.emit(`<${node.static.nodeName}`);
     // serialize the attributes
@@ -93,7 +93,7 @@ export class XditaSerializer {
    *
    * @param node the node to serialize the attributes of
    */
-  serializeAttributes(node: BaseNode): void {
+  private serializeAttributes(node: BaseNode): void {
     let attrsStr = '';
     const props = node.getProps();
     if (props) {
@@ -111,7 +111,7 @@ export class XditaSerializer {
    *
    * @param node the text node to serialize the content of
    */
-  serializeText(node: TextNode): void {
+  private serializeText(node: TextNode): void {
     const props = node.getProps();
     if (props['content']) {
       this.outputStream.emit(String(props['content']));
