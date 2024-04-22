@@ -3,7 +3,7 @@ import { BaseNode, TextNode, TopicNode } from "@evolvedbinary/lwdita-ast/nodes";
 import { storeOutputXML } from "./utils";
 import path from 'path';
 import fs from 'fs';
-import { InMemorySimpleTextStreamCollector } from "./stream";
+import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
 import { XditaSerializer } from "./xdita-serializer";
 
 const xml =
