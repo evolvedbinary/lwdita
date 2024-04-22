@@ -1,43 +1,12 @@
 import { BaseNode, DocumentNode, TextNode } from "@evolvedbinary/lwdita-ast";
-
-/**
- * Stream interface
- */
-interface SimpleStream<T> {
-  emit(event: T): void;
-  close(): void;
-}
-
-/**
- * Output stream for text
- */
-export interface TextOutputStream extends SimpleStream<string> {}
-
-/**
- * In-memory text output stream implementation
- */
-export class InMemoryTextOutputStream implements TextOutputStream {
-  private text = '';
-
-  emit(event: string): void {
-    this.text += event;
-  }
-
-  close(): void {
-    // Do nothing
-  }
-
-  getText(): string {
-    return this.text;
-  }
-}
+import { SimpleTextStream } from "./stream";
 
 /**
  * Serializer for XDITA
  * Takes an AST and serializes it to XDITA
  */
 export class XditaSerializer {
-  outStream: TextOutputStream;
+  outStream: SimpleTextStream;
   indent: boolean;
   tabSize: number;
   indentation: string;
@@ -51,7 +20,7 @@ export class XditaSerializer {
    * @param indent - enable indentation
    * @param tabSize - size of the tab
    */
-  constructor(outStream: TextOutputStream, indent = false, indentation = " ", tabSize = 4) {
+  constructor(outStream: SimpleTextStream, indent = false, indentation = " ", tabSize = 4) {
     this.outStream = outStream;
     this.indent = indent;
     this.tabSize = tabSize;
