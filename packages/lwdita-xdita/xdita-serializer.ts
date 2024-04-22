@@ -1,12 +1,12 @@
 import { BaseNode, DocumentNode, TextNode } from "@evolvedbinary/lwdita-ast";
-import { SimpleTextStream } from "./stream";
+import { TextSimpleOutputStream } from "./stream";
 
 /**
  * Serializer for XDITA.
  * Takes an AST and serializes it to XDITA.
  */
 export class XditaSerializer {
-  outputStream: SimpleTextStream;
+  outputStream: TextSimpleOutputStream;
   indent: boolean;
   tabSize: number;
   indentation: string;
@@ -21,7 +21,7 @@ export class XditaSerializer {
    * @param indentation - the character (or string) to use as the indent
    * @param tabSize - size of the tab, only used when the `indentation` is not a '\t character.
    */
-  constructor(outputStream: SimpleTextStream, indent = false, indentation = " ", tabSize = 4) {
+  constructor(outputStream: TextSimpleOutputStream, indent = false, indentation = " ", tabSize = 4) {
     this.outputStream = outputStream;
     this.indent = indent;
     this.tabSize = tabSize;

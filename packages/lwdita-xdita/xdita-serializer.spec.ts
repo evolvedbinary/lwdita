@@ -1,14 +1,14 @@
 import { expect } from 'chai';
 import { XditaSerializer } from './xdita-serializer';
-import { InMemorySimpleTextStreamCollector, SimpleTextStream } from './stream';
+import { InMemoryTextSimpleOutputStreamCollector } from './stream';
 import { DocumentNode, TextNode, TitleNode, TopicNode } from "@evolvedbinary/lwdita-ast"
 
 describe('XditaSerializer', () => {
-  let outStream: InMemorySimpleTextStreamCollector;
+  let outStream: InMemoryTextSimpleOutputStreamCollector;
   let serializer: XditaSerializer;
 
   beforeEach(() => {
-    outStream = new InMemorySimpleTextStreamCollector();
+    outStream = new InMemoryTextSimpleOutputStreamCollector();
     serializer = new XditaSerializer(outStream);
   });
 

@@ -63,7 +63,7 @@ xditaToJdita(xml)
     //const xditaString = serializeToXML(jditaAst, space, indentationSize);
 
     // 4. Advanced - Instead of using `serializeToXML` you can use a streaming approach if you prefer...
-    // const outputStream = new InMemorySimpleTextStreamCollector();  // TODO replace InMemorySimpleTextStreamCollector with whatever Stream implementation you need
+    // const outputStream = new InMemoryTextSimpleOutputStreamCollector();  // TODO replace InMemoryTextSimpleOutputStreamCollector with whatever Stream implementation you need
     // const serializer = new XditaSerializer(outputStream, true, space, indentationSize);
     // const xditaString = serializer.serialize(jditaAst);
 

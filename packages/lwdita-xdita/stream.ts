@@ -1,47 +1,58 @@
 /**
- * A simple stream interface.
+ * A simple output stream interface.
  */
-interface SimpleStream<T> {
+interface SimpleOutputStream<T> {
   /**
-   * Emit an event to the stream.
+   * Emit an item to the output stream.
    * 
-   * @param event the event to emit to the stream.
+   * @param item the item to emit to the output stream.
    */
-  emit(event: T): void;
+  emit(item: T): void;
 
   /**
-   * Closes the stream after all events have been emitted.
+   * Closes the output stream after all items have been emitted.
    */
   close(): void;
+
+  /**
+   * Returns a value indicating if the stream has been closed.
+   *
+   * @return true if the stream has been closed, false otherwise.
+   */
+  isClosed(): boolean;
 }
-  
-/**
- * A simple text stream interface.
- */
-export interface SimpleTextStream extends SimpleStream<string> {}
 
 /**
- * An implementation of a SimpleTextStream that just collects
- * all of the events into an in-memory buffer.
+ * A simple text output stream interface.
+ */
+export interface TextSimpleOutputStream extends SimpleOutputStream<string> {}
+
+/**
+ * An implementation of a TextSimpleOutputStream that just collects
+ * all of the items into an in-memory buffer.
  * 
- * The string events are appended to an in-memory buffer
+ * The string items are appended to an in-memory buffer
  * until the stream is closed. The content of the buffer
  * can be retrieved by calling `getText()`.
  */
-export class InMemorySimpleTextStreamCollector implements SimpleTextStream {
+export class InMemoryTextSimpleOutputStreamCollector implements TextSimpleOutputStream {
   private buffer = '';
   private closed = false;
-  
-  emit(event: string): void {
+
+  emit(item: string): void {
     if (!this.closed) {
-      this.buffer += event;
+      this.buffer += item;
     }
   }
-  
+
   close(): void {
     this.closed = true;
   }
-  
+
+  isClosed(): boolean {
+    return this.closed;
+  }
+
   /**
    * Get the content of the in-memory buffer.
    * 

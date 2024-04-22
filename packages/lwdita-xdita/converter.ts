@@ -1,7 +1,7 @@
 import * as saxes from "saxes";
 import { BaseNode, DocumentNode } from "@evolvedbinary/lwdita-ast/nodes";
 import { createNode } from "@evolvedbinary/lwdita-ast/factory";
-import { InMemorySimpleTextStreamCollector } from "./stream";
+import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
 import { JDita } from "./classes";
 import { XditaSerializer } from "./xdita-serializer";
 
@@ -129,7 +129,7 @@ export async function xditaToJson(xml: string, abortOnError = true): Promise<JDi
  * @returns The transformed document as an array of XMLTag objects
  */
 export function serializeToXML(root: DocumentNode, indentationChar?: string, tabSize?: number): string {
-  const outStream = new InMemorySimpleTextStreamCollector();
+  const outStream = new InMemoryTextSimpleOutputStreamCollector();
   let visitor: XditaSerializer;
   if(indentationChar === '\t') {
     visitor = new XditaSerializer(outStream, true, '\t');
