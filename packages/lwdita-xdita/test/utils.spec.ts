@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { expect, assert } from 'chai';
 import { stringToChildTypes, splitTypenames, childTypesToString, customChildTypesToString } from '../utils';
 import { ChildTypes } from '../classes';
