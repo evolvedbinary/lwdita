@@ -103,12 +103,12 @@ export class XditaSerializer {
         this.outputStream.emit(`<${node.static.nodeName}`);
         // serialize the attributes
         this.serializeAttributes(node);
-        // increment the depth after starting an element
-        this.depth++;
         if (node.children?.length) {
           // as the element has children or attributes, serialize the remainder of the element start tag
           this.outputStream.emit(`>`);
           this.serializeEOL();
+          // increment the depth after starting an element
+          this.depth++;
           // visit the element's children
           node.children.forEach(child => this.serialize(child));
           // decrement the depth after serializing the elements children
@@ -118,8 +118,6 @@ export class XditaSerializer {
         } else {
           // element has no attributes or children, so the remainder of the element start tag as a self-closing element
           this.outputStream.emit(`/>`);
-          // decrement the depth after serializing the element
-          this.depth--;
         }
       }
       this.serializeEOL();
