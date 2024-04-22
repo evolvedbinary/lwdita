@@ -3,6 +3,7 @@ node_modules/
 coverage
 coverage.lcov
 dist/
+out/
 generated-docs/
 yarn-error.log
 
@@ -19,4 +20,3 @@ package-lock.json
 
 # Editor files
 .vscode/
-.idea/

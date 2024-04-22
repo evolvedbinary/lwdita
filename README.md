@@ -22,17 +22,22 @@ or
 yarn add @evolvedbinary/lwdita-xdita
 ```
 
+### Basic Example
+
 ```javascript
-const { xditaToJson } = require("@evolvedbinary/lwdita-xdita");
+import { xditaToJson, xditaToJdita } from "./converter";
+import { BaseNode, TextNode, TopicNode } from "@evolvedbinary/lwdita-ast/nodes";
 
 const xml = `
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">
 <topic>...</topic>
 `
-xditaToJson(xml)
-  .then(JDitaDocument => console.log(JSON.stringify(result, null, 2)))
-  .catch(error => console.log('Failed to convert:', error));
+xditaToJdita(xml)
+.then(result => {
+  console.log(JSON.stringify(result.json, null, 2));
+ })
+.catch(e => console.log('Failed to convert:', e));
 ```
 
 By default, `xditaToJson` will fail when it encounters any error (XML syntax errors, validation errors,...).
@@ -41,6 +46,39 @@ If you want to ignore any errors and work with whatever data the function could 
 ```javascript
 xditaToJson(xml, false)
 ```
+
+### Serialization of the JDita AST to XML
+
+A full example with an additional option for serializing the JDita object back into XML can be found in the file [example.ts](packages/lwdita-xdita/example.ts).
+
+* The serialisation function includes an option to indent the output with 4 spaces or a tab depending on its depth, and to add a line break after each tag, you can control this with the second and third parameter of `serializeToXML(root, indentationChar, tabSize)`.
+* If only the first parameter is provided, no formatting will be applied and the output will be generated as a single line.
+* The generated XML will faithfully contain all XML nodes apart from `CDATA` which is currently unsupported.
+
+Examples:
+
+```javascript
+// 1. No formatting
+   serializeToXML(result);
+// 2. Indentation with tabs
+   serializeToXML(result, '\t');
+// 3. Indentation with Spaces
+   serializeToXML(result, ' ', 4);
+```
+
+And in context:
+
+```javascript
+xditaToJdita(xml)
+  .then(result => {
+    console.log(JSON.stringify(result.json, null, 2));
+    const res = serializeToXML(result, ' ', 4);
+    console.log(res);
+  })
+  .catch(e => console.log('Failed to convert:', e));
+```
+
+If you want to store the XML output in a file, you can see an example in [example.ts](packages/lwdita-xdita/example.ts).
 
 ## Development
 

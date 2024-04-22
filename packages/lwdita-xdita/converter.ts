@@ -1,7 +1,9 @@
 import * as saxes from "saxes";
 import { BaseNode, DocumentNode } from "@evolvedbinary/lwdita-ast/nodes";
 import { createNode } from "@evolvedbinary/lwdita-ast/factory";
+import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
 import { JDita } from "./classes";
+import { XditaSerializer } from "./xdita-serializer";
 
 /** TODO: Add tests for this module */
 
@@ -102,4 +104,42 @@ export async function xditaToJdita(xml: string, abortOnError = true): Promise<Do
  */
 export async function xditaToJson(xml: string, abortOnError = true): Promise<JDita> {
   return xditaToJdita(xml, abortOnError).then(doc => doc.json);
+}
+
+/**
+ * `serializeToXML` - Serialize the JDita AST and transform it into XML
+ * The serialization is providing three options to output the document:
+ * 1. No indentation/formatting - all is output in one line (default)
+ * 2. Indentation with tabs
+ * 3. Indentation with Spaces - You can modify the desired number of spaces by setting `indentationSize`, per default it's set to 4 spaces.
+ *
+ * @example
+ * ```
+ * // 1. No formatting
+ *    serializeToXML(result);
+ * // 2. Indentation with tabs
+ *    serializeToXML(result, '\t');
+ * // 3. Indentation with Spaces
+ *    serializeToXML(result, ' ', 4);
+ * ```
+ *
+ * @param root - The document root
+ * @param indentationChar - The indentation character to be used (tabs or spaces). If none is provided, no indentation is used.
+ * @param tabSize - The number of spaces to be used for indentation when an indentation character other than tab is used, the default is 4 spaces
+ * @returns The transformed document as an array of XMLTag objects
+ */
+export function serializeToXML(root: DocumentNode, indentationChar?: string, tabSize?: number): string {
+  const outStream = new InMemoryTextSimpleOutputStreamCollector();
+  let visitor: XditaSerializer;
+  if(indentationChar === '\t') {
+    visitor = new XditaSerializer(outStream, true, '\t');
+  } else if (indentationChar) {
+    tabSize = tabSize ? tabSize : 4;
+    visitor = new XditaSerializer(outStream, true, indentationChar, tabSize);
+  } else {
+    visitor = new XditaSerializer(outStream,false);
+  }
+  visitor.serialize(root);
+
+  return outStream.getText();
 }

@@ -230,6 +230,14 @@ export abstract class BaseNode {
     // Else add attribute to element and document tree
     this._props[field] = value;
   }
+
+  /**
+   * Get Props - Get all attributes of the node
+   * @returns Record<string, BasicValue> - A record of all attributes
+   */
+  getProps(): Record<string, BasicValue> {
+    return this._props;
+  }
 }
 
 /**
