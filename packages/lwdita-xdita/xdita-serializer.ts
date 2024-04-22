@@ -2,8 +2,8 @@ import { BaseNode, DocumentNode, TextNode } from "@evolvedbinary/lwdita-ast";
 import { SimpleTextStream } from "./stream";
 
 /**
- * Serializer for XDITA
- * Takes an AST and serializes it to XDITA
+ * Serializer for XDITA.
+ * Takes an AST and serializes it to XDITA.
  */
 export class XditaSerializer {
   outStream: SimpleTextStream;
@@ -18,7 +18,8 @@ export class XditaSerializer {
    *
    * @param outStream - The output array
    * @param indent - enable indentation
-   * @param tabSize - size of the tab
+   * @param indentation - the character (or string) to use as the indent
+   * @param tabSize - size of the tab, only used when the `indentation` is not a '\t character.
    */
   constructor(outStream: SimpleTextStream, indent = false, indentation = " ", tabSize = 4) {
     this.outStream = outStream;
@@ -51,6 +52,8 @@ export class XditaSerializer {
 
   /**
    * Emit the attributes to the output stream
+   *
+   * @param node the node to serialize the attributes of
    */
   printAttributes(node: BaseNode): void {
     let attrsPrint = '';
@@ -64,7 +67,9 @@ export class XditaSerializer {
   }
 
   /**
-   * Emit the text content of text nodes to the output stream
+   * Emit the text content of the text node to the output stream
+   *
+   * @param node the text node to serialize the content of
    */
   printText(node: TextNode): void {
     const props = node.getProps();
@@ -75,6 +80,8 @@ export class XditaSerializer {
 
   /**
    * Visit a node and emit its printable tab to the output stream
+   *
+   * @param node the node to serialize
    */
   visit(node: BaseNode): void {
     // do not emit anything if the node is a document node
