@@ -3,6 +3,8 @@ import { BaseNode, TextNode, TopicNode } from "@evolvedbinary/lwdita-ast/nodes";
 import { storeOutputXML } from "./utils";
 import path from 'path';
 import fs from 'fs';
+import { InMemorySimpleTextStreamCollector } from "./stream";
+import { XditaSerializer } from "./xdita-serializer";
 
 const xml =
   `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd"><topic id="intro-product"><title><ph keyref="product-name"/>Overview</title><shortdesc>The<ph keyref="product-name"/> kit allows you to operate network-based home lighting through a remote control</shortdesc><body><p id="cdataTest"><![CDATA[ &%<tagname/><!--comment-->]]>The<ph keyref="product-name"/> kit includes a wireless smart lighting system that helps make the lighting in your home more energy efficient and easier to manage. The kit includes the following components:</p><dl><dlentry><dt>Remote Control</dt><dd><p>Allows you to power on, power off, and dim groups of lights on your network.</p></dd></dlentry><dlentry><dt>LED Light Bulbs</dt><dd><p>Energy-efficient network light bulbs you can install into standard light fixtures.</p></dd></dlentry></dl><fig><title><ph keyref="product-name"/>ready for installation</title><image href="../images/kit.png"><alt>Remote Lighting Kit</alt></image></fig><p id="warning">Electrical hazards can cause burns, shocks and electrocution (death).</p></body></topic>`
@@ -59,6 +61,11 @@ xditaToJdita(xml)
     const space = ' ';
     const indentationSize = 4;
     //const res = serializeToXML(result, space, indentationSize);
+
+    // 4. Advanced - Instead of using `serializeToXML` you can use a streaming approach if you prefer...
+    // const outputStream = new InMemorySimpleTextStreamCollector();  // TODO replace InMemorySimpleTextStreamCollector with whatever Stream implementation you need
+    // const serializer = new XditaSerializer(outputStream, true, space, indentationSize);
+    // const res = serializer.serialize(result);
 
     /**
      * For development and testing the above XML example,
