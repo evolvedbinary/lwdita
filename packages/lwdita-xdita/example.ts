@@ -38,9 +38,9 @@ const xml =
  * ```
  */
 xditaToJdita(xml)
-  .then(result => {
+  .then(jditaAst => {
     // Console log an object containing the AST:
-    console.log(JSON.stringify(result.json, null, 2));
+    console.log(JSON.stringify(jditaAst.json, null, 2));
 
     /**
      * Start the serialization
@@ -51,21 +51,21 @@ xditaToJdita(xml)
      */
 
     // 1. Default option: The document will have no indentation and will be output in one line
-    const res = serializeToXML(result);
+    const xditaString = serializeToXML(jditaAst);
 
     // 2. Comment-in the following line to choose Tabs as indentation
     const tab = '\t';
-    //const res = serializeToXML(result, tab);
+    //const xditaString = serializeToXML(jditaAst, tab);
 
     // 3. Comment-in the following line to choose spaces as indentation
     const space = ' ';
     const indentationSize = 4;
-    //const res = serializeToXML(result, space, indentationSize);
+    //const xditaString = serializeToXML(jditaAst, space, indentationSize);
 
     // 4. Advanced - Instead of using `serializeToXML` you can use a streaming approach if you prefer...
     // const outputStream = new InMemorySimpleTextStreamCollector();  // TODO replace InMemorySimpleTextStreamCollector with whatever Stream implementation you need
     // const serializer = new XditaSerializer(outputStream, true, space, indentationSize);
-    // const res = serializer.serialize(result);
+    // const xditaString = serializer.serialize(jditaAst);
 
     /**
      * For development and testing the above XML example,
@@ -80,7 +80,7 @@ xditaToJdita(xml)
       fs.mkdirSync(dir);
     }
     const outputFile = "/output.xml";
-    storeOutputXML(res, dir + outputFile);
+    storeOutputXML(xditaString, dir + outputFile);
     // ...and log the filepath with a success notification
     console.log("Success!\nSaved input to file " + "'./out" + outputFile + "'");
   })
