@@ -6,7 +6,7 @@ import { SimpleTextStream } from "./stream";
  * Takes an AST and serializes it to XDITA.
  */
 export class XditaSerializer {
-  outStream: SimpleTextStream;
+  outputStream: SimpleTextStream;
   indent: boolean;
   tabSize: number;
   indentation: string;
@@ -16,13 +16,13 @@ export class XditaSerializer {
   /**
    * Constructor
    *
-   * @param outStream - The output array
+   * @param outputStream - The output stream.
    * @param indent - enable indentation
    * @param indentation - the character (or string) to use as the indent
    * @param tabSize - size of the tab, only used when the `indentation` is not a '\t character.
    */
-  constructor(outStream: SimpleTextStream, indent = false, indentation = " ", tabSize = 4) {
-    this.outStream = outStream;
+  constructor(outputStream: SimpleTextStream, indent = false, indentation = " ", tabSize = 4) {
+    this.outputStream = outputStream;
     this.indent = indent;
     this.tabSize = tabSize;
     this.indentation = indentation;
@@ -37,7 +37,7 @@ export class XditaSerializer {
    */
   printIndentation(): void {
     if (this.indent) {
-      this.outStream.emit(this.indentation.repeat(this.depth * this.tabSize));
+      this.outputStream.emit(this.indentation.repeat(this.depth * this.tabSize));
     }
   }
 
@@ -46,7 +46,7 @@ export class XditaSerializer {
    */
   printEOL(): void {
     if (this.indent) {
-      this.outStream.emit(this.EOL);
+      this.outputStream.emit(this.EOL);
     }
   }
 
@@ -63,7 +63,7 @@ export class XditaSerializer {
       attrsPrint = Object.keys(props).filter(key => attr[key]).map(key => `${key}="${attr[key]}"`).join(' ');
     }
     if (attrsPrint.length) attrsPrint = ` ${attrsPrint}`;
-    this.outStream.emit(attrsPrint);
+    this.outputStream.emit(attrsPrint);
   }
 
   /**
@@ -74,7 +74,7 @@ export class XditaSerializer {
   printText(node: TextNode): void {
     const props = node.getProps();
     if (props['content']) {
-      this.outStream.emit(String(props['content']));
+      this.outputStream.emit(String(props['content']));
     }
   }
 
@@ -88,7 +88,7 @@ export class XditaSerializer {
     if (node instanceof DocumentNode) {
       node.children.forEach(child => this.visit(child));
       // close the output stream after visiting all of the children
-      this.outStream.close();
+      this.outputStream.close();
     } else {
       // print the indentation
       this.printIndentation();
@@ -98,22 +98,22 @@ export class XditaSerializer {
         this.printText(node);
       } else {
         // print the node tag
-        this.outStream.emit(`<${node.static.nodeName}`);
+        this.outputStream.emit(`<${node.static.nodeName}`);
         // print the attributes
         this.printAttributes(node);
         // increment the depth after printing the tag
         this.depth++;
         if (node.children?.length) {
           // print the closing tag and visit the children
-          this.outStream.emit(`>`);
+          this.outputStream.emit(`>`);
           this.printEOL();
           node.children.forEach(child => this.visit(child));
           this.depth--;
           this.printIndentation();
-          this.outStream.emit(`</${node.static.nodeName}>`);
+          this.outputStream.emit(`</${node.static.nodeName}>`);
         } else {
           // print the self closing tag
-          this.outStream.emit(`/>`);
+          this.outputStream.emit(`/>`);
           this.depth--;
         }
       }
