@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { InMemoryTextOutputStream, TextOutputStream, XditaSerializer } from './xditaSerializer';
+import { InMemoryTextOutputStream, TextOutputStream, XditaSerializer } from './xdita-serializer';
 import { DocumentNode, TextNode, TitleNode, TopicNode } from "@evolvedbinary/lwdita-ast"
 
 describe('XditaSerializer', () => {
