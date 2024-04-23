@@ -18,7 +18,7 @@
     "clean":"rimraf ./dist packages/lwdita-xdita/dist packages/lwdita-ast/dist",
     "copy-xml": "mv dist/lwdita-xdita packages/lwdita-xdita/dist",
     "copy-ast": "mv dist/lwdita-ast packages/lwdita-ast/dist",
-    "copy": "yarn copy-xml && yarn copy-ast",
+    "copy": "yarn copy-xml && yarn copy-ast && rmdir ./dist",
     "build": "yarn clean && tsc && yarn copy",
     "example": "yarn workspace @evolvedbinary/lwdita-xdita example",
     "test": "mocha",
