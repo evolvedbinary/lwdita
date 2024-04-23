@@ -1,7 +1,7 @@
 {
   "name": "@evolvedbinary/lwdita-xdita",
   "version": "1.0.0",
-  "main": "./dist/index.js",
+  "main": "./packages/lwdita-xdita/dist/index.js",
   "dependencies": {
     "saxes": "^6.0.0",
     "@evolvedbinary/lwdita-ast": "1.0.0"
