@@ -219,10 +219,8 @@ export function isChildTypeRequired(childType: string | ChildType | ChildTypes):
         // if one of the children in the array is required then return true
         childType.some(type => {
             result = !isChildTypeRequired(type);
-            //console.log("result Array - check if one item is required:", childType, !result);
             return !result;
         });
-        //console.log("result Array", childType, result);
         return result;
     } else {
         if (typeof childType === 'string') {
@@ -230,7 +228,6 @@ export function isChildTypeRequired(childType: string | ChildType | ChildTypes):
             return isChildTypeRequired(stringToChildTypes(childType));
         }
         // if the oject is already parsed then return the required property
-        //console.log("result childType property=", childType, !!childType.required);
         return !!childType.required;
     }
 }
