@@ -53,7 +53,7 @@ export function splitTypenames(value: string): string[] {
  * @param nodeGroups - Node groups
  * @returns - string
  */
-function childTypeToString(type: ChildType, nodeGroups: Record<string, string[]>, getNodeName?: (nodeName: string) => string): string {
+export function childTypeToString(type: ChildType, nodeGroups: Record<string, string[]>, getNodeName?: (nodeName: string) => string): string {
     return (type.isGroup
         ? nodeGroups[type.name].length === 1
             ? (getNodeName
@@ -213,7 +213,6 @@ export function isChildTypeSingle(childType: string | ChildType | ChildTypes): b
  * @returns Boolean - Whether the child is required or not
  */
 export function isChildTypeRequired(childType: string | ChildType | ChildTypes): boolean {
-    // console.log(childType);
     // if it's an Array
     if (Array.isArray(childType)) {
         let result = true;
