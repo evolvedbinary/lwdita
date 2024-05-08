@@ -15,7 +15,7 @@ export const AltFields = [...LocalizationFields, ...FiltersFields, ...VariableCo
 /**
  * Interface `AltNode` defines the attribute types for `alt`:
  */
-export interface AltNode extends LocalizationNode, FiltersNode, VariableContentNode, ClassNode { }
+export interface AltNodeAttributes extends LocalizationNode, FiltersNode, VariableContentNode, ClassNode { }
 
 /**
  * Check if the given fields of the `alt` node are valid and matches this list:
@@ -63,4 +63,6 @@ export function makeAlt<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `text*`, `%ph*`, `%data*`
  */
 @makeComponent(makeAlt, 'alt', isValidAltField, AltFields, [['text*', '%ph*', '%data*']])
-export class AltNode extends BaseNode { }
+export class AltNode extends BaseNode {
+  attributes?: AltNodeAttributes;
+}
