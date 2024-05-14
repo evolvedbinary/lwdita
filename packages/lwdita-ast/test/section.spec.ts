@@ -1,18 +1,15 @@
 import { doNodeTest } from "../tests";
 import { SectionNode, isSectionNode } from "../nodes/section";
 import { expect } from "chai";
+
 doNodeTest(SectionNode, 'section', isSectionNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
   ['title?', '%all-blocks*']);
 
-
-describe('Body Node attributes', () => {
-  it("can set correct attributes", () => {
-    // create a new node without setting anything. 
+describe('Class SectionNode', () => {
+  it("sets correct attributes", () => {
     const section = new SectionNode({});
-
-    // 'dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'
-
+    
     section.dir = "dir";
     section["xml:lang"] = "lang";
     section.translate = "translate";
@@ -30,6 +27,5 @@ describe('Body Node attributes', () => {
     expect(section.conref).to.equal("conref");
     expect(section.outputclass).to.equal("outputclass");
     expect(section.class).to.equal("class");
-
   });
 });

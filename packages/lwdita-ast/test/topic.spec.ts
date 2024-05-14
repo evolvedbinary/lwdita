@@ -9,6 +9,7 @@ doNodeTest(TopicNode, 'topic', isTopicNode,
 describe('Class TopicNode', () => {
   it("sets correct attributes", () => {
     const topic = new TopicNode({});
+    
     topic.dir = "dir";
     topic["xml:lang"] = "lang";
     topic.translate = "translate";
