@@ -6,7 +6,7 @@ doNodeTest(TopicNode, 'topic', isTopicNode,
   ['xmlns:ditaarch', 'ditaarch:DITAArchVersion', 'outputclass', 'class', 'dir', 'xml:lang', 'translate', 'domains', 'id'],
   ['title', 'shortdesc?', 'prolog?', 'body?']);
 
-describe.only('Class TopicNode', () => {
+describe('Class TopicNode', () => {
   it("sets correct attributes", () => {
     const topic = new TopicNode({});
     topic.dir = "dir";
