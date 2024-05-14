@@ -6,7 +6,7 @@ doNodeTest(BodyNode, 'body', isBodyNode,
   ['dir', 'xml:lang', 'translate', 'outputclass', 'class'],
   ['%list-blocks*', 'section*', 'fn*']);
 
-describe('Class Node', () => {
+describe('Class BodyNode', () => {
   it("sets correct attributes", () => {
     const body = new BodyNode({});
 
