@@ -11,7 +11,7 @@ export const ClassFields = ['outputclass', 'class'];
 /**
  * Interface ClassNode defines the attribute types
  */
-export interface ClassNode {
+export interface ClassNodeAttributes {
   'outputclass'?: CDATA;
   'class'?: CDATA;
 }
@@ -39,7 +39,7 @@ export function isValidClassField(field: string, value: BasicValue): boolean {
  * @param value - The `class` node to test
  * @returns Boolean
  */
-export const isClassNode = (value?: unknown): value is ClassNode =>
+export const isClassNode = (value?: unknown): value is ClassNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(ClassFields, value as Record<string, BasicValue>, isValidClassField);
 
 
@@ -56,7 +56,7 @@ export const isClassNode = (value?: unknown): value is ClassNode =>
  * @returns The `class` node
  */
 export function makeClass<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements ClassNode {
+  return class extends constructor implements ClassNodeAttributes {
     get 'outputclass'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('outputclass');
     }

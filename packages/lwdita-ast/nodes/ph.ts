@@ -1,10 +1,11 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { VariableContentNode, VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { VariableContentNodeAttributes, VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `ph` attributes:
@@ -13,9 +14,9 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const PhFields = [...FiltersFields, ...LocalizationFields, ...VariableContentFields, ...ClassFields];
 
 /**
- * Interface PhNode defines the attribute type for `ph`: `CDATA`
+ * Interface PhNodeAttributes defines the attribute type for `ph`: `CDATA`
  */
-export interface PhNode extends FiltersNode, LocalizationNode, VariableContentNode, ClassNode { }
+export interface PhNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, VariableContentNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `ph` node are valid
@@ -38,7 +39,7 @@ export const isValidPhField = (field: string, value: BasicValue): boolean => isV
  * @param value - The `ph` node to test
  * @returns Boolean
  */
-export const isPhNode = (value?: unknown): value is PhNode =>
+export const isPhNode = (value?: unknown): value is PhNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(PhFields, value as Record<string, BasicValue>, isValidPhField);
 
 /**
@@ -65,6 +66,21 @@ export function makePh<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makePh, 'ph', isValidPhField, PhFields, ['%all-inline*'])
-export class PhNode extends BaseNode {
+export class PhNode extends BaseNode implements PhNodeAttributes {
   static domNodeName = 'span';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // VariableContentNodeAttributes
+  'keyref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

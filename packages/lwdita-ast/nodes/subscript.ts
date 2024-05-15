@@ -1,11 +1,12 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `subscript` attributes:
@@ -14,10 +15,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const SubscriptFields = [...LocalizationFields, ...VariableContentFields, ...ClassFields];
 
 /**
- * Interface SubscriptNode defines the attribute types for `subscript`:
+ * Interface SubscriptNodeAttributes defines the attribute types for `subscript`:
  * `CDATA`, `NMTOKEN`
  */
-export interface SubscriptNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface SubscriptNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `subscript` node are valid
@@ -39,7 +40,7 @@ export const isValidSubscriptField = (field: string, value: BasicValue): boolean
  * @param value - The `subscript` node to test
  * @returns Boolean
  */
-export const isSubscriptNode = (value?: unknown): value is SubscriptNode =>
+export const isSubscriptNode = (value?: unknown): value is SubscriptNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(SubscriptFields, value as Record<string, BasicValue>, isValidSubscriptField);
 
 /**
@@ -66,6 +67,22 @@ export function makeSubscript<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makeSubscript, 'sub', isValidSubscriptField, SubscriptFields, ['%all-inline*'])
-export class SubscriptNode extends BaseNode {
-  static domNodeName = 'sub';
+export class SubscriptNode extends BaseNode implements SubscriptNodeAttributes {
+  static domNodeName = 'sub'
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

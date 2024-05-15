@@ -1,10 +1,11 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, } from "@evolvedbinary/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `ul` attributes:
@@ -13,10 +14,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const UlFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
 /**
- * Interface UlNode defines the attribute types for `ul`:
+ * Interface UlNodeAttributes defines the attribute types for `ul`:
  * `CDATA`, `NMTOKEN`
  */
-export interface UlNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface UlNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `ul` node are valid
@@ -39,7 +40,7 @@ export const isValidUlField = (field: string, value: BasicValue): boolean => isV
  * @param value - The `ul` node to test
  * @returns Boolean
  */
-export const isUlNode = (value?: unknown): value is UlNode =>
+export const isUlNode = (value?: unknown): value is UlNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(UlFields, value as Record<string, BasicValue>, isValidUlField);
 
 /**
@@ -63,6 +64,22 @@ export function makeUl<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: `li+`
  */
 @makeComponent(makeUl, 'ul', isValidUlField, UlFields, ['li+'])
-export class UlNode extends BaseNode {
-  static domNodeName = 'ul';
+export class UlNode extends BaseNode implements UlNodeAttributes {
+  static domNodeName = 'ul'
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

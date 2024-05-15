@@ -1,7 +1,7 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { FnReuseNode, FnReuseFields, isValidFnReuseField, makeFnReuse } from "./fn-reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { FnReuseNodeAttributes, FnReuseFields, isValidFnReuseField, makeFnReuse } from "./fn-reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
@@ -19,7 +19,7 @@ export const FnFields = [...FiltersFields, ...LocalizationFields, ...FnReuseFiel
 /**
  * Interface FnNode defines the attribute types for `fn`
  */
-export interface FnNode extends FiltersNode, LocalizationNode, FnReuseNode, ClassNode { }
+export interface FnNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, FnReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `fn` node are valid and match this list:
@@ -52,7 +52,7 @@ export const isValidFnField = (field: string, value: BasicValue): boolean => {
  * @param value - The `fn` node to test
  * @returns Boolean
  */
-export const isFnNode = (value?: unknown): value is FnNode =>
+export const isFnNode = (value?: unknown): value is FnNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(FnFields, value as Record<string, BasicValue>, isValidFnField);
 
 /**
@@ -89,6 +89,21 @@ export function makeFn<T extends { new(...args: any[]): BaseNode }>(constructor:
  * @returns A `fn` node
  */
 @makeComponent(makeFn, 'fn', isValidFnField, FnFields, ['%fn-blocks*'])
-export class FnNode extends BaseNode {
+export class FnNode extends BaseNode implements FnNodeAttributes {
   static domNodeName = 'span';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // FnReuseNodeAttributes
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

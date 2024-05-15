@@ -1,10 +1,11 @@
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
-import { ReuseNode, isValidReuseField, ReuseFields, makeReuse } from "./reuse";
+import { ReuseNodeAttributes, isValidReuseField, ReuseFields, makeReuse } from "./reuse";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `dlentry` fields:
@@ -13,9 +14,9 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const DlEntryFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
 /**
- * Interface DlEntryNode defines the attribute types for `dlentry`
+ * Interface DlEntryNodeAttributes defines the attribute types for `dlentry`
  */
-export interface DlEntryNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface DlEntryNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `dlentry` node are valid and match this list:
@@ -39,7 +40,7 @@ export const isValidDlEntryField = (field: string, value: BasicValue): boolean =
  * @param value - The `display` node to test
  * @returns Boolean
  */
-export const isDlEntryNode = (value?: unknown): value is DlEntryNode =>
+export const isDlEntryNode = (value?: unknown): value is DlEntryNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(DlEntryFields, value as Record<string, BasicValue>, isValidDlEntryField);
 
 /**
@@ -68,6 +69,22 @@ export function makeDlEntry<T extends Constructor>(constructor: T): T {
  * @returns A `dlentry` node
  */
 @makeComponent(makeDlEntry, 'dlentry', isValidDlEntryField, DlEntryFields, ['dt', 'dd'])
-export class DlEntryNode extends BaseNode {
+export class DlEntryNode extends BaseNode implements DlEntryNodeAttributes {
   static domNodeName = '';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

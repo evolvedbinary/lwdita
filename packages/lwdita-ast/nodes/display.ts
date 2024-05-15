@@ -12,7 +12,7 @@ export const DisplayFields = ['scale', 'frame', 'expanse'];
 /**
  * Interface DisplayNode defines the attribute types
  */
-export interface DisplayNode {
+export interface DisplayNodeAttributes {
   'scale'?: DisplayScale;
   'frame'?: DisplayFrame;
   'expanse'?: DisplayExpanse;
@@ -42,7 +42,7 @@ export function isValidDisplayField(field: string, value: BasicValue): boolean {
  * @param value - The `display` node to test
  * @returns Boolean
  */
-export const isDisplayNode = (value?: unknown): value is DisplayNode =>
+export const isDisplayNode = (value?: unknown): value is DisplayNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(DisplayFields, value as Record<string, BasicValue>, isValidDisplayField);
 
 /**
@@ -57,7 +57,7 @@ export const isDisplayNode = (value?: unknown): value is DisplayNode =>
  * @returns The `display` node
  */
 export function makeDisplay<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements DisplayNode {
+  return class extends constructor implements DisplayNodeAttributes {
     get 'scale'(): DisplayScale | undefined {
       return this.readProp<DisplayScale | undefined>('scale');
     }

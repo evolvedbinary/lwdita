@@ -1,11 +1,12 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `i` attributes:
@@ -14,9 +15,9 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const ItalicFields = [...LocalizationFields, ...VariableContentFields, ...ClassFields];
 
 /**
- * Interface ItalicNode defines the attribute types for `i`
+ * Interface ItalicNodeAttributes defines the attribute types for `i`
  */
-export interface ItalicNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface ItalicNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `italic` node are valid and match this list:
@@ -39,7 +40,7 @@ export const isValidItalicField = (field: string, value: BasicValue): boolean =>
  * @param value - The `italic` node to test
  * @returns Boolean
  */
-export const isItalicNode = (value?: unknown): value is ItalicNode =>
+export const isItalicNode = (value?: unknown): value is ItalicNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(ItalicFields, value as Record<string, BasicValue>, isValidItalicField);
 
 /**
@@ -66,6 +67,22 @@ export function makeItalic<T extends Constructor>(constructor: T): T {
  * @returns A decorator
  */
 @makeComponent(makeItalic, 'i', isValidItalicField, ItalicFields, ['%all-inline*'])
-export class ItalicNode extends BaseNode {
+export class ItalicNode extends BaseNode implements ItalicNodeAttributes {
   static domNodeName = 'i';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

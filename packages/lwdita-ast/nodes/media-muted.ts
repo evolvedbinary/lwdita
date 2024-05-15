@@ -1,9 +1,10 @@
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
-import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } from "./field";
-import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
+import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
+import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `media-muted` attributes:
@@ -13,10 +14,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const MediaMutedFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
 
 /**
- * Interface MediaMutedNode defines the attribute types for `media-muted`:
+ * Interface MediaMutedNodeAttributes defines the attribute types for `media-muted`:
  * `CDATA`, `T`
  */
-export interface MediaMutedNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
+export interface MediaMutedNodeAttributes extends LocalizationNodeAttributes, FieldNodeAttributes<boolean>, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `media-muted` node are valid
@@ -38,7 +39,7 @@ export const isValidMediaMutedField = (field: string, value: BasicValue): boolea
  * @param value - The `media-muted` node to test
  * @returns Boolean
  */
-export const isMediaMutedNode = (value?: unknown): value is MediaMutedNode =>
+export const isMediaMutedNode = (value?: unknown): value is MediaMutedNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(MediaMutedFields, value as Record<string, BasicValue>, isValidMediaMutedField);
 
 /**
@@ -64,4 +65,18 @@ export function makeMediaMuted<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link MediaMutedFields}
  */
 @makeComponent(makeMediaMuted, 'media-muted', isValidMediaMutedField, MediaMutedFields)
-export class MediaMutedNode extends BaseNode { }
+export class MediaMutedNode extends BaseNode implements MediaMutedNodeAttributes {
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // FieldNodeAttributes
+  'name'?: CDATA
+  'value'?: boolean
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+}

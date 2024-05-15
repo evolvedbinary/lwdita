@@ -11,7 +11,7 @@ export const FieldFields = ['name', 'value'];
 /**
  * Interface `FieldNode` defines the attribute types
  */
-export interface FieldNode<T = CDATA> {
+export interface FieldNodeAttributes<T = CDATA> {
   'name'?: CDATA;
   'value'?: T;
 }
@@ -42,7 +42,7 @@ export const isValidFieldField = (validator: (val: BasicValue) => boolean = isCD
  * @param value - The `field` node to test
  * @returns Boolean
  */
-export const isFieldNode = (value?: unknown): value is FieldNode =>
+export const isFieldNode = (value?: unknown): value is FieldNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(FieldFields, value as Record<string, BasicValue>, isValidFieldField());
 
 /**
@@ -55,7 +55,7 @@ export const isFieldNode = (value?: unknown): value is FieldNode =>
  * @returns The `field` node
  */
 export function makeField<ValueType extends BasicValue, T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements FieldNode<ValueType> {
+  return class extends constructor implements FieldNodeAttributes<ValueType> {
     get 'name'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('name');
     }
@@ -92,7 +92,7 @@ export const makeCDATAField = <T extends Constructor>(constructor: T): T => make
 /**
  * BooleanFieldNode
  */
-export type BooleanFieldNode = FieldNode<boolean>;
+export type BooleanFieldNode = FieldNodeAttributes<boolean>;
 
 /**
  * isValidBooleanFieldField  -  Checks if the boolean field node is valid

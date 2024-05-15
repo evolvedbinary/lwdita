@@ -1,9 +1,10 @@
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
-import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } from "./field";
-import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
+import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
+import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `media-autoplay` attributes:
@@ -13,10 +14,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const MediaAutoplayFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
 
 /**
- * Interface MediaAutoplayNode defines the attribute types for `media-autoplay`:
+ * Interface MediaAutoplayNodeAttributes defines the attribute types for `media-autoplay`:
  * `CDATA`, `T`
  */
-export interface MediaAutoplayNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
+export interface MediaAutoplayNodeAttributes extends LocalizationNodeAttributes, FieldNodeAttributes<boolean>, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `media-autoplay` node are valid
@@ -38,7 +39,7 @@ export const isValidMediaAutoplayField = (field: string, value: BasicValue): boo
  * @param value - The `media-autoplay` node to test
  * @returns Boolean
  */
-export const isMediaAutoplayNode = (value?: unknown): value is MediaAutoplayNode =>
+export const isMediaAutoplayNode = (value?: unknown): value is MediaAutoplayNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(MediaAutoplayFields, value as Record<string, BasicValue>, isValidMediaAutoplayField);
 
 /**
@@ -64,4 +65,18 @@ export function makeMediaAutoplay<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link MediaAutoplayFields}
  */
 @makeComponent(makeMediaAutoplay, 'media-autoplay', isValidMediaAutoplayField, MediaAutoplayFields)
-export class MediaAutoplayNode extends BaseNode { }
+export class MediaAutoplayNode extends BaseNode implements MediaAutoplayNodeAttributes {
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // FieldNodeAttributes
+  'name'?: CDATA
+  'value'?: boolean
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+}

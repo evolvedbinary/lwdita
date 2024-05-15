@@ -1,10 +1,11 @@
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { VariableContentNode, VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
+import { LocalizationNodeAttributes as LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes as FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { VariableContentNodeAttributes as VariableContentNodeAttributes, VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
+import { ClassNodeAttributes as ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `alt` (cross-reference) fields:
@@ -13,9 +14,9 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const AltFields = [...LocalizationFields, ...FiltersFields, ...VariableContentFields, ...ClassFields];
 
 /**
- * Interface `AltNode` defines the attribute types for `alt`:
+ * Interface `AltNodeAttributes` defines the attribute types for `alt`:
  */
-export interface AltNode extends LocalizationNode, FiltersNode, VariableContentNode, ClassNode { }
+export interface AltNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, VariableContentNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given fields of the `alt` node are valid and matches this list:
@@ -39,7 +40,7 @@ export const isValidAltField = (field: string, value: BasicValue): boolean => is
  * @param value - The `alt` node to test
  * @returns Boolean
  */
-export const isAltNode = (value?: unknown): value is AltNode =>
+export const isAltNode = (value?: unknown): value is AltNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(AltFields, value as Record<string, BasicValue>, isValidAltField);
 
 /**
@@ -63,4 +64,20 @@ export function makeAlt<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `text*`, `%ph*`, `%data*`
  */
 @makeComponent(makeAlt, 'alt', isValidAltField, AltFields, [['text*', '%ph*', '%data*']])
-export class AltNode extends BaseNode { }
+export class AltNode extends BaseNode implements AltNodeAttributes {
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // VariableContentNodeAttributes
+  'keyref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
+}

@@ -1,11 +1,12 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
-import { ReferenceContentFields, ReferenceContentNode, isValidReferenceContentField, makeReferenceContent } from "./reference-content";
-import { VariableContentFields, VariableContentNode, isValidVariableContentField, makeVariableContent } from "./variable-content";
+import { ReferenceContentFields, ReferenceContentNodeAttributes, isValidReferenceContentField, makeReferenceContent } from "./reference-content";
+import { VariableContentFields, VariableContentNodeAttributes, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, ReferenceContentScope } from "../ast-classes";
 
 /**
  * Define all allowed `xref` (cross-reference) attributes:
@@ -14,10 +15,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const XRefFields = [...FiltersFields, ...LocalizationFields, ...ClassFields, ...ReferenceContentFields, ...VariableContentFields];
 
 /**
- * Interface XRefNode defines the attribute types for `xref`:
+ * Interface XRefNodeAttributes defines the attribute types for `xref`:
  * `CDATA`, `local` | `peer` | `external`
  */
-export interface XRefNode extends FiltersNode, LocalizationNode, ClassNode, ReferenceContentNode, VariableContentNode { }
+export interface XRefNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReferenceContentNodeAttributes, VariableContentNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `xref` node are valid
@@ -41,7 +42,7 @@ export const isValidXRefField = (field: string, value: BasicValue): boolean => i
  * @param value - The `xref` node to test
  * @returns Boolean
  */
-export const isXRefNode = (value?: unknown): value is XRefNode =>
+export const isXRefNode = (value?: unknown): value is XRefNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(XRefFields, value as Record<string, BasicValue>, isValidXRefField);
 
 /**
@@ -65,6 +66,26 @@ export function makeXRef<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `%common-inline*`: `text`, `ph`, `b`, `i`, `u`, `sub`, `sup` , `image`, `data`
  */
 @makeComponent(makeXRef, 'xref', isValidXRefField, XRefFields, ['%common-inline*'])
-export class XRefNode extends BaseNode {
+export class XRefNode extends BaseNode implements XRefNodeAttributes {
   static domNodeName = 'a';
+
+ // ClassNodeAttributes
+ 'outputclass'?: CDATA
+ 'class'?: CDATA
+
+ // VariableContentNodeAttributes
+ 'keyref'?: CDATA
+
+ // ReferenceContentNodeAttributes
+ 'href'?: CDATA
+ 'format'?: CDATA
+ 'scope'?: ReferenceContentScope
+
+ // LocalizationNodeAttributes
+ 'dir'?: CDATA
+ 'xml:lang'?: CDATA
+ 'translate'?: CDATA
+
+ // FiltersNodeAttributes
+ 'props'?: CDATA
 }

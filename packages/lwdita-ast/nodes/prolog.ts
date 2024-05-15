@@ -1,5 +1,5 @@
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
@@ -14,7 +14,7 @@ export const PrologFields = [...FiltersFields, ...LocalizationFields, 'class'];
 /**
  * Interface PrologNode defines the attribute type for `prolog`: `CDATA`
  */
-export interface PrologNode extends FiltersNode, LocalizationNode {
+export interface PrologNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes {
   'class'?: CDATA;
 }
 
@@ -44,7 +44,7 @@ export function isValidPrologField(field: string, value: BasicValue): boolean {
  * @param value - The `prolog` node to test
  * @returns Boolean
  */
-export const isPrologNode = (value?: unknown): value is PrologNode =>
+export const isPrologNode = (value?: unknown): value is PrologNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(PrologFields, value as Record<string, BasicValue>, isValidPrologField);
 
 /**
@@ -86,6 +86,17 @@ export function makeProlog<T extends { new(...args: any[]): BaseNode }>(construc
  * @param childNodes - An Array of allowed child nodes: `%data*`
  */
 @makeComponent(makeProlog, 'prolog', isValidPrologField, PrologFields, ['%data*'])
-export class PrologNode extends BaseNode {
+export class PrologNode extends BaseNode implements PrologNodeAttributes {
   static domNodeName = '';
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
+
+  // PrologNodeAttributes
+  'class'?: CDATA
 }

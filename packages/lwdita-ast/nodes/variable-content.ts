@@ -3,7 +3,6 @@ import { BaseNode } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA } from "../ast-classes";
 
-
 /**
  * Define all allowed `variable-content` attributes:
  * The only allowed field is `keyref`
@@ -13,7 +12,7 @@ export const VariableContentFields = ['keyref'];
 /**
  * The interface `VariableContentNode` defines the attribute type for `variable-content`: 'CDATA'
  */
-export interface VariableContentNode {
+export interface VariableContentNodeAttributes {
   'keyref'?: CDATA;
 }
 
@@ -40,7 +39,7 @@ export function isValidVariableContentField(field: string, value: BasicValue): b
  * @param value - The `variable-content` node to test
  * @returns Boolean
  */
-export const isVariableContentNode = (value?: unknown): value is VariableContentNode =>
+export const isVariableContentNode = (value?: unknown): value is VariableContentNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(VariableContentFields, value as Record<string, BasicValue>, isValidVariableContentField);
 
 /**
@@ -53,7 +52,7 @@ export const isVariableContentNode = (value?: unknown): value is VariableContent
  * @returns The `variable-content` node with a `keyref` attribute and its value
  */
 export function makeVariableContent<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements VariableContentNode {
+  return class extends constructor implements VariableContentNodeAttributes {
     get 'keyref'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('keyref');
     }

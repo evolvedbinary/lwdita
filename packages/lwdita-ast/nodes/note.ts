@@ -1,11 +1,11 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
-import { CDATA, isCDATA } from "../ast-classes";
+import { CDATA, isCDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `note` attributes:
@@ -13,11 +13,20 @@ import { CDATA, isCDATA } from "../ast-classes";
  */
 export const NoteFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields, 'type'];
 
+export enum NoteType {
+  Caution = "caution",
+  Warning = "warning",
+  Danger = "danger",
+  Trouble = "trouble",
+  Notice = "notice",
+  Note = "note"
+}
+
 /**
  * Interface NoteNode defines the attribute type for `note`: `CDATA`
  */
-export interface NoteNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode {
-  type: CDATA;
+export interface NoteNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes {
+  type: NoteType
 }
 
 /**
@@ -49,7 +58,7 @@ export function isValidNoteField(field: string, value: BasicValue): boolean {
  * @param value - The `note` node to test
  * @returns Boolean
  */
-export const isNoteNode = (value?: unknown): value is NoteNode =>
+export const isNoteNode = (value?: unknown): value is NoteNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(NoteFields, value as Record<string, BasicValue>, isValidNoteField);
 
 /**
@@ -83,6 +92,25 @@ export function makeNote<T extends { new(...args: any[]): BaseNode }>(constructo
  * @param childNodes - An Array of allowed child nodes: `%simple-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `note`, `data`)
  */
 @makeComponent(makeNote, 'note', isValidNoteField, NoteFields, ['%simple-blocks*'])
-export class NoteNode extends BaseNode {
-  static domNodeName = 'div';
+export class NoteNode extends BaseNode implements NoteNodeAttributes {
+  static domNodeName = 'div'
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
+
+  // NoteNodeAttributes
+  type: NoteType = NoteType.Note
 }

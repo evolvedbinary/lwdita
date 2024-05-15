@@ -3,7 +3,6 @@ import { BaseNode } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA } from "../ast-classes";
 
-
 /**
  * `LocalizationFields`: `dir`, `xml:lang`, `translate`
  */
@@ -12,7 +11,7 @@ export const LocalizationFields = ['dir', 'xml:lang', 'translate'];
 /**
  * Interface LocalizationNode defines the attribute types for localization attributes: `CDATA`
  */
-export interface LocalizationNode {
+export interface LocalizationNodeAttributes {
   'dir'?: CDATA;
   'xml:lang'?: CDATA;
   'translate'?: CDATA;
@@ -44,7 +43,7 @@ export function isValidLocalizationField(field: string, value: BasicValue): bool
  * @param value - The `localization` node to test
  * @returns Boolean
  */
-export const isLocalizationNode = (value?: unknown): value is LocalizationNode =>
+export const isLocalizationNode = (value?: unknown): value is LocalizationNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(LocalizationFields, value as Record<string, BasicValue>, isValidLocalizationField);
 
 /**
@@ -56,8 +55,8 @@ export const isLocalizationNode = (value?: unknown): value is LocalizationNode =
  * @param constructor - The constructor
  * @returns The `localization` node with an `dir`, `xml:lang`, `translate` attribute and their values
  */
-export function makeLocalization<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements LocalizationNode {
+export function  makeLocalization<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+  return class extends constructor implements LocalizationNodeAttributes {
     get 'dir'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('dir');
     }

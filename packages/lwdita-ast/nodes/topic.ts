@@ -1,5 +1,5 @@
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { BaseNode, makeComponent, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
@@ -18,11 +18,11 @@ export const TopicFields = [...LocalizationFields, ...ClassFields, 'id', 'xmlns:
  * @privateRemarks
  * TODO: Implement type "&xdita-constraint; &included-domains;"
  */
-export interface TopicNode extends LocalizationNode, ClassNode {
-  'id': ID;
-  'xmlns:ditaarch': CDATA;
-  'ditaarch:DITAArchVersion'?: CDATA;
-  'domains'?: CDATA;
+export interface TopicNodeAttributes extends LocalizationNodeAttributes, ClassNodeAttributes {
+  'id': ID
+  'xmlns:ditaarch': CDATA
+  'ditaarch:DITAArchVersion'?: CDATA
+  'domains'?: CDATA
 }
 
 /**
@@ -54,7 +54,7 @@ export function isValidTopicField(field: string, value: BasicValue): boolean {
  * @param value - The `topic` node to test
  * @returns Boolean
  */
-export const isTopicNode = (value?: unknown): value is TopicNode =>
+export const isTopicNode = (value?: unknown): value is TopicNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(TopicFields, value as Record<string, BasicValue>, isValidTopicField);
 
 /**
@@ -98,6 +98,21 @@ export function makeTopic<T extends { new(...args: any[]): BaseNode }>(construct
  * @param childNodes - An Array of allowed child nodes: `title`, `shortdesc?`, `prolog?`, `body?`
  */
 @makeComponent(makeTopic, 'topic', isValidTopicField, TopicFields, ['title', 'shortdesc?', 'prolog?', 'body?'])
-export class TopicNode extends BaseNode {
+export class TopicNode extends BaseNode implements TopicNodeAttributes {
   static domNodeName = 'article';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // TopicNodeAttributes
+  'id': ID
+  'xmlns:ditaarch': CDATA
+  'ditaarch:DITAArchVersion'?: CDATA
+  'domains'?: CDATA
 }

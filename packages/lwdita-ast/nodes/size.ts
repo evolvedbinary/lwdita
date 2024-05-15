@@ -13,7 +13,7 @@ export const SizeFields = ['width', 'height'];
 /**
  * Interface SizeNode defines the attribute type for `size`: `NMTOKEN`
  */
-export interface SizeNode {
+export interface SizeNodeAttributes {
   'width'?: NMTOKEN;
   'height'?: NMTOKEN;
 }
@@ -42,7 +42,7 @@ export function isValidSizeField(field: string, value: BasicValue): boolean {
  * @param value - The `size` node to test
  * @returns Boolean
  */
-export const isSizeNode = (value?: unknown): value is SizeNode =>
+export const isSizeNode = (value?: unknown): value is SizeNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(SizeFields, value as Record<string, BasicValue>, isValidSizeField);
 
 /**
@@ -55,7 +55,7 @@ export const isSizeNode = (value?: unknown): value is SizeNode =>
  * @returns The `size` node with a `width` and `height` attribute and their values
  */
 export function makeSize<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements SizeNode {
+  return class extends constructor implements SizeNodeAttributes {
     get 'width'(): NMTOKEN | undefined {
       return this.readProp<NMTOKEN | undefined>('width');
     }

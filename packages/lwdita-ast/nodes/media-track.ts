@@ -1,8 +1,8 @@
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
-import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } from "./field";
-import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
+import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
+import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA } from "../ast-classes";
 
@@ -14,10 +14,10 @@ import { CDATA, isCDATA } from "../ast-classes";
 export const MediaTrackFields = [...LocalizationFields, ...FieldFields, ...ClassFields, 'type'];
 
 /**
- * Interface MediaTrackNode defines the attribute types for `media-track`:
+ * Interface MediaTrackNodeAttributes defines the attribute types for `media-track`:
  * `CDATA`, `T`
  */
-export interface MediaTrackNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
+export interface MediaTrackNodeAttributes extends LocalizationNodeAttributes, FieldNodeAttributes<boolean>, ClassNodeAttributes { }
 
 /**
  * Check if the given fields of the `media-track` node are valid
@@ -47,7 +47,7 @@ export const isValidMediaTrackField = (field: string, value: BasicValue): boolea
  * @param value - The `media-track` node to test
  * @returns Boolean
  */
-export const isMediaTrackNode = (value?: unknown): value is MediaTrackNode =>
+export const isMediaTrackNode = (value?: unknown): value is MediaTrackNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(MediaTrackFields, value as Record<string, BasicValue>, isValidMediaTrackField);
 
 
@@ -82,4 +82,17 @@ export function makeMediaTrack<T extends { new(...args: any[]): BaseNode }>(cons
  * @param fields - A List of valid attributes @See {@link MediaTrackFields}
  */
 @makeComponent(makeMediaTrack, 'media-track', isValidMediaTrackField, MediaTrackFields)
-export class MediaTrackNode extends BaseNode { }
+export class MediaTrackNode extends BaseNode implements MediaTrackNodeAttributes {
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // FieldNodeAttributes
+  'name'?: CDATA
+  'value'?: boolean
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+}

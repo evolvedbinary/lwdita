@@ -1,12 +1,13 @@
-import { FiltersNode, isFiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { LocalizationNode, isLocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { VariableContentNode, isVariableContentNode, VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
-import { ReferenceContentNode, isReferenceContentNode, ReferenceContentFields, makeReferenceContent, isValidReferenceContentField } from "./reference-content";
+import { FiltersNodeAttributes, isFiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { LocalizationNodeAttributes, isLocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { VariableContentNodeAttributes, isVariableContentNode, VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
+import { ReferenceContentNodeAttributes, isReferenceContentNode, ReferenceContentFields, makeReferenceContent, isValidReferenceContentField } from "./reference-content";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { ClassNode, isClassNode, ClassFields, isValidClassField, makeClass } from "./class";
+import { ClassNodeAttributes, isClassNode, ClassFields, isValidClassField, makeClass } from "./class";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
-import { SizeFields, SizeNode, isSizeNode, isValidSizeField, makeSize } from "./size";
+import { SizeFields, SizeNodeAttributes, isSizeNode, isValidSizeField, makeSize } from "./size";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN, ReferenceContentScope } from "../ast-classes";
 
 /**
  * Define all allowed `image` attributes:
@@ -15,9 +16,9 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const ImageFields = [...FiltersFields, ...LocalizationFields, ...VariableContentFields, ...ReferenceContentFields, ...ClassFields, ...SizeFields];
 
 /**
- * Interface ImageNode defines the attribute types for `image`
+ * Interface ImageNodeAttributes defines the attribute types for `image`
  */
-export interface ImageNode extends FiltersNode, LocalizationNode, VariableContentNode, ReferenceContentNode, ClassNode, SizeNode { }
+export interface ImageNodeAttributes extends SizeNodeAttributes, FiltersNodeAttributes, LocalizationNodeAttributes, VariableContentNodeAttributes, ReferenceContentNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the `image` node is valid
@@ -32,8 +33,9 @@ export interface ImageNode extends FiltersNode, LocalizationNode, VariableConten
  * @param value - The `image` node to test
  * @returns Boolean
  */
-export const isImageNodes = (value?: {}): value is ImageNode =>
+export const isImageNodes = (value?: unknown): value is ImageNodeAttributes =>
   typeof value === 'object' &&
+  !!value &&
   isClassNode(value) &&
   isFiltersNode(value) &&
   isLocalizationNode(value) &&
@@ -57,12 +59,15 @@ export const isValidImageField = (field: string, value: BasicValue): boolean => 
   || isValidSizeField(field, value);
 
 /**
- * `isImageNode` - TODO
+ * Check if the `image` node is valid
  *
- * @param value - TODO
- * @returns TODO
+ * @remarks
+ * Assert that the node is an object and has valid attributes
+ *
+ * @param value - The `image` node to test
+ * @returns Boolean
  */
-export const isImageNode = (value?: unknown): value is ImageNode =>
+export const isImageNode = (value?: unknown): value is ImageNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(ImageFields, value as Record<string, BasicValue>, isValidImageField);
 
 /**
@@ -91,4 +96,28 @@ export function makeImage<T extends Constructor>(constructor: T): T {
  * @returns An `image` node
  */
 @makeComponent(makeImage, 'image', isValidImageField, ImageFields, ['alt?'])
-export class ImageNode extends BaseNode {}
+export class ImageNode extends BaseNode implements ImageNodeAttributes {
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReferenceContentNodeAttributes
+  'href'?: CDATA
+  'format'?: CDATA
+  'scope'?: ReferenceContentScope
+
+  // VariableContentNodeAttributes
+  'keyref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
+
+  // SizeNodeAttributes
+  'width'?: NMTOKEN
+  'height'?: NMTOKEN
+}

@@ -1,11 +1,12 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `superscript` attributes:
@@ -14,10 +15,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const SuperscriptFields = [...LocalizationFields, ...VariableContentFields, ...ClassFields];
 
 /**
- * Interface SuperscriptNode defines the attribute types for `superscript`:
+ * Interface SuperscriptNodeAttributes defines the attribute types for `superscript`:
  * `CDATA`, `NMTOKEN`
  */
-export interface SuperscriptNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface SuperscriptNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `superscript` node are valid
@@ -39,7 +40,7 @@ export const isValidSuperscriptField = (field: string, value: BasicValue): boole
  * @param value - The `superscript` node to test
  * @returns Boolean
  */
-export const isSuperscriptNode = (value?: unknown): value is SuperscriptNode =>
+export const isSuperscriptNode = (value?: unknown): value is SuperscriptNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(SuperscriptFields, value as Record<string, BasicValue>, isValidSuperscriptField);
 
 /**
@@ -66,6 +67,22 @@ export function makeSuperscript<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makeSuperscript, 'sup', isValidSuperscriptField, SuperscriptFields, ['%all-inline*'])
-export class SuperscriptNode extends BaseNode {
-  static domNodeName = 'sup';
+export class SuperscriptNode extends BaseNode implements SuperscriptNodeAttributes {
+  static domNodeName = 'sup'
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

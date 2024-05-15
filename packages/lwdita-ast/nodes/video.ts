@@ -1,11 +1,12 @@
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
-import { SizeNode, SizeFields, isValidSizeField, makeSize } from "./size";
+import { SizeFields, isValidSizeField, makeSize, SizeNodeAttributes } from "./size";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `video` attributes:
@@ -14,10 +15,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const VideoFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields, ...SizeFields];
 
 /**
- * The interface `VideoNode` defines all attribute types for `video`:
+ * The interface `VideoNodeAttributes` defines all attribute types for `video`:
  * `CDATA`, `NMTOKEN`
  */
-export interface VideoNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode, SizeNode { }
+export interface VideoNodeAttributes extends SizeNodeAttributes, FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `video` node are valid
@@ -41,7 +42,7 @@ export const isValidVideoField = (field: string, value: BasicValue): boolean => 
  * @param value - The `video` node to test
  * @returns Boolean
  */
-export const isVideoNode = (value?: unknown): value is VideoNode =>
+export const isVideoNode = (value?: unknown): value is VideoNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(VideoFields, value as Record<string, BasicValue>, isValidVideoField);
 
 /**
@@ -65,4 +66,25 @@ export function makeVideo<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: desc?', `video-poster?`, `media-controls?`, `media-autoplay?`, `media-loop?`, `media-muted?`, `media-source*`, `media-track*`
  */
 @makeComponent(makeVideo, 'video', isValidVideoField, VideoFields, ['desc?', 'video-poster?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'media-source*', 'media-track*'])
-export class VideoNode extends BaseNode {}
+export class VideoNode extends BaseNode implements VideoNodeAttributes {
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
+
+  // SizeNodeAttributes
+  'width'?: NMTOKEN
+  'height'?: NMTOKEN
+}

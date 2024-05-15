@@ -14,7 +14,7 @@ export const ReuseFields = ['id', 'conref'];
  * Interface reuseNode defines the attribute types for `reuse`:
  * `CDATA`, `NMTOKEN`
  */
-export interface ReuseNode {
+export interface ReuseNodeAttributes {
   'id'?: NMTOKEN;
   'conref'?: CDATA;
 }
@@ -43,7 +43,7 @@ export function isValidReuseField(field: string, value: BasicValue): boolean {
  * @param value - The `reuse` node to test
  * @returns Boolean
  */
-export const isReuseNode = (value?: unknown): value is ReuseNode =>
+export const isReuseNode = (value?: unknown): value is ReuseNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(ReuseFields, value as Record<string, BasicValue>, isValidReuseField);
 
 /**
@@ -56,7 +56,7 @@ export const isReuseNode = (value?: unknown): value is ReuseNode =>
  * @returns The `reuse` node with an `id` and `conref` attribute and their values
  */
 export function makeReuse<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements ReuseNode {
+  return class extends constructor implements ReuseNodeAttributes {
     get 'id'(): NMTOKEN | undefined {
       return this.readProp<NMTOKEN | undefined>('id');
     }

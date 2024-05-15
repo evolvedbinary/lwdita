@@ -1,10 +1,11 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
-import { ReuseFields, ReuseNode, isValidReuseField, makeReuse } from "./reuse";
+import { ReuseFields, ReuseNodeAttributes, isValidReuseField, makeReuse } from "./reuse";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `dt` attributes:
@@ -13,9 +14,9 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const DtFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
 /**
- * Interface DtNode defines the attribute types for `dt`
+ * Interface DtNodeAttributes defines the attribute types for `dt`
  */
-export interface DtNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface DtNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `dt` node are valid and match this list:
@@ -39,7 +40,7 @@ export const isValidDtField = (field: string, value: BasicValue): boolean => isV
  * @param value - The `dt` node to test
  * @returns Boolean
  */
-export const isDtNode = (value?: unknown): value is DtNode =>
+export const isDtNode = (value?: unknown): value is DtNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(DtFields, value as Record<string, BasicValue>, isValidDtField);
 
 /**
@@ -64,6 +65,22 @@ export function makeDt<T extends Constructor>(constructor: T): T {
  * @returns A `dt` node
  */
 @makeComponent(makeDt, 'dt', isValidDtField, DtFields, ['%all-inline*'])
-export class DtNode extends BaseNode {
+export class DtNode extends BaseNode implements DtNodeAttributes {
   static domNodeName = 'dt';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

@@ -1,11 +1,11 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
-import { CDATA, isCDATA } from "../ast-classes";
+import { CDATA, isCDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `pre` fields:
@@ -14,10 +14,10 @@ import { CDATA, isCDATA } from "../ast-classes";
 export const PreFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields, 'xml:space'];
 
 /**
- * Interface PreNode defines the attribute types for `pre`:
+ * Interface PreNodeAttributes defines the attribute types for `pre`:
  * `CDATA`, `NMTOKEN`
  */
-export interface PreNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface PreNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given fields of the `pre` node are valid
@@ -51,7 +51,7 @@ export const isValidPreField = (field: string, value: BasicValue): boolean => {
  * @param value - The `pre` node to test
  * @returns Boolean
  */
-export const isPreNode = (value?: unknown): value is PreNode =>
+export const isPreNode = (value?: unknown): value is PreNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(PreFields, value as Record<string, BasicValue>, isValidPreField);
 
 /**
@@ -87,6 +87,22 @@ export function makePre<T extends { new(...args: any[]): BaseNode }>(constructor
  * @param childNodes - An Array of allowed child nodes `text*`, `%ph*`, `xref*`, `%data*`
  */
 @makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', '%data*']])
-export class PreNode extends BaseNode {
+export class PreNode extends BaseNode implements PreNodeAttributes {
   static domNodeName = 'pre';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

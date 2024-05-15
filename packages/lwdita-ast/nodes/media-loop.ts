@@ -1,9 +1,10 @@
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
-import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } from "./field";
-import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
+import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
+import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `media-loop` attributes:
@@ -16,7 +17,7 @@ export const MediaLoopFields = [...LocalizationFields, ...FieldFields, ...ClassF
  * Interface MediaLoopNode defines the attribute types for `media-loop`:
  * `CDATA`, `T`
  */
-export interface MediaLoopNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
+export interface MediaLoopNodeAttributes extends LocalizationNodeAttributes, FieldNodeAttributes<boolean>, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `media-loop` node are valid
@@ -38,7 +39,7 @@ export const isValidMediaLoopField = (field: string, value: BasicValue): boolean
  * @param value - The `media-loop` node to test
  * @returns Boolean
  */
-export const isMediaLoopNode = (value?: unknown): value is MediaLoopNode =>
+export const isMediaLoopNode = (value?: unknown): value is MediaLoopNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(MediaLoopFields, value as Record<string, BasicValue>, isValidMediaLoopField);
 
 /**
@@ -64,4 +65,18 @@ export function makeMediaLoop<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link MediaLoopFields}
  */
 @makeComponent(makeMediaLoop, 'media-loop', isValidMediaLoopField, MediaLoopFields)
-export class MediaLoopNode extends BaseNode { }
+export class MediaLoopNode extends BaseNode implements MediaLoopNodeAttributes {
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // FieldNodeAttributes
+  'name'?: CDATA
+  'value'?: boolean
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+}

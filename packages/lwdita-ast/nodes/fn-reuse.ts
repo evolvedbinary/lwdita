@@ -11,7 +11,7 @@ export const FnReuseFields = ['conref'];
 /**
  * FnReuseNode: `conref`
  */
-export interface FnReuseNode {
+export interface FnReuseNodeAttributes {
   'conref'?: CDATA;
 }
 
@@ -39,7 +39,7 @@ export function isValidFnReuseField(field: string, value: BasicValue): boolean {
  * @param value - The `fn-reuse` node to test
  * @returns Boolean
  */
-export const isFnReuseNode = (value?: unknown): value is FnReuseNode =>
+export const isFnReuseNode = (value?: unknown): value is FnReuseNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(FnReuseFields, value as Record<string, BasicValue>, isValidFnReuseField);
 
 /**
@@ -52,7 +52,7 @@ export const isFnReuseNode = (value?: unknown): value is FnReuseNode =>
  * @returns The `fn-reuse` node with a `conref` attribute and its value
  */
 export function makeFnReuse<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements FnReuseNode {
+  return class extends constructor implements FnReuseNodeAttributes {
     get 'conref'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('conref');
     }

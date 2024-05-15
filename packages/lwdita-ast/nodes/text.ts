@@ -9,10 +9,10 @@ import { BasicValue, JDita } from "@evolvedbinary/lwdita-xdita/classes";
 export const TextFields = ['content'];
 
 /**
- * Interface TextNode defines the `content` field type for node `text`: `string`
+ * Interface TextNodeAttributes defines the `content` field type for node `text`: `string`
  */
-export interface TextNode {
-  'content'?: string;
+export interface TextNodeAttributes {
+  'content'?: string
 }
 
 /**
@@ -36,11 +36,11 @@ export function isValidTextField(field: string, value: BasicValue): boolean {
  * Assert that the text node is an object, has content,
  * and that the content meets the required type `string`.
  *
- * @param value - A BasicValue-typed value containing the field value
+ * @param value - The `text` node to test
  * @returns
  */
-export const isTextNode = (value?: BasicValue): value is TextNode =>
-  typeof value === 'object' && 'content' in value && typeof value.content === 'string';
+export const isTextNode = (value?: unknown): value is TextNodeAttributes =>
+  typeof value === 'object' && !!value && 'content' in value && typeof value.content === 'string';
 
 
 /**
@@ -73,7 +73,11 @@ export function makeText<T extends { new(...args: any[]): BaseNode }>(constructo
  * @param fields - The valid attribute `content` of type string See {@link TextFields}
  */
 @makeComponent(makeText, 'text', isValidTextField, TextFields)
-export class TextNode extends BaseNode {
+export class TextNode extends BaseNode implements TextNodeAttributes {
+
+  // TextNodeAttributes {
+  'content'?: string
+
   constructor(content: string) {
     super({ content });
   }

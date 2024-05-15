@@ -5,7 +5,7 @@ import { CDATA, isReferenceContentScope, ReferenceContentScope, isCDATA } from "
 
 
 export const ReferenceContentFields = ['href', 'format', 'scope'];
-export interface ReferenceContentNode {
+export interface ReferenceContentNodeAttributes {
   'href'?: CDATA;
   'format'?: CDATA;
   'scope'?: ReferenceContentScope;
@@ -20,12 +20,12 @@ export function isValidReferenceContentField(field: string, value: BasicValue): 
   }
 }
 
-export const isReferenceContentNode = (value?: unknown): value is ReferenceContentNode =>
+export const isReferenceContentNode = (value?: unknown): value is ReferenceContentNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(ReferenceContentFields, value as Record<string, BasicValue>, isValidReferenceContentField);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeReferenceContent<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements ReferenceContentNode {
+  return class extends constructor implements ReferenceContentNodeAttributes {
     get 'href'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('dir');
     }
