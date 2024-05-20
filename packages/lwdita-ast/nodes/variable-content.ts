@@ -45,12 +45,10 @@ export const isVariableContentNode = (value?: unknown): value is VariableContent
 /**
  * Create a `variable-content` node with a `keyref` attribute
  *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
- *
  * @param constructor - The constructor
  * @returns The `variable-content` node with a `keyref` attribute and its value
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeVariableContent<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements VariableContentNodeAttributes {
     get 'keyref'(): CDATA | undefined {

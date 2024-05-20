@@ -47,12 +47,10 @@ export const isFiltersNode = (value?: unknown): value is FiltersNodeAttributes =
 /**
  * Create a `filter` node with an `props` attribute
  *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
- *
  * @param constructor - The constructor
  * @returns The `filter` node with an `props` attribute and their values
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeFilters<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements FiltersNodeAttributes {
     get 'props'(): CDATA | undefined {

@@ -46,12 +46,10 @@ export const isTextNode = (value?: unknown): value is TextNodeAttributes =>
 /**
  * Construct a `text` node containing a `content` property
  *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
- *
  * @param constructor - The constructor
  * @returns The `text` node
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeText<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements TextNode {
     get 'content'(): string {

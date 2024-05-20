@@ -50,12 +50,10 @@ export const isPrologNode = (value?: unknown): value is PrologNodeAttributes =>
 /**
  * Construct a `prolog` node with all available attributes
  *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
- *
  * @param constructor - The constructor
  * @returns A `prolog` node
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeProlog<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return makeAll(class extends constructor {
     get 'class'(): CDATA {

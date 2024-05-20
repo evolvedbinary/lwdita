@@ -48,12 +48,10 @@ export const isSizeNode = (value?: unknown): value is SizeNodeAttributes =>
 /**
  * Create a `size` node with a `width` and `height` attribute
  *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
- *
  * @param constructor - The constructor
  * @returns The `size` node with a `width` and `height` attribute and their values
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeSize<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
   return class extends constructor implements SizeNodeAttributes {
     get 'width'(): NMTOKEN | undefined {
