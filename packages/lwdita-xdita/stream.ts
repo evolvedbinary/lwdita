@@ -5,7 +5,7 @@ interface SimpleOutputStream<T> {
   /**
    * Emit an item to the output stream.
    * 
-   * @param item the item to emit to the output stream.
+   * @param item - the item to emit to the output stream.
    */
   emit(item: T): void;
 
@@ -17,7 +17,7 @@ interface SimpleOutputStream<T> {
   /**
    * Returns a value indicating if the stream has been closed.
    *
-   * @return true if the stream has been closed, false otherwise.
+   * @returns true if the stream has been closed, false otherwise.
    */
   isClosed(): boolean;
 }
@@ -56,7 +56,7 @@ export class InMemoryTextSimpleOutputStreamCollector implements TextSimpleOutput
   /**
    * Get the content of the in-memory buffer.
    * 
-   * @return the content of the in-memory buffer.
+   * @returns the content of the in-memory buffer.
    */
   getText(): string {
     return this.buffer;
