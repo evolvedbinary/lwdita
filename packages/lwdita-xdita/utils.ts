@@ -215,13 +215,8 @@ export function isChildTypeSingle(childType: string | ChildType | ChildTypes): b
 export function isChildTypeRequired(childType: string | ChildType | ChildTypes): boolean {
     // if it's an Array
     if (Array.isArray(childType)) {
-        let result = true;
         // if one of the children in the array is required then return true
-        childType.some(type => {
-            result = isChildTypeRequired(type);
-            return result;
-        });
-        return result;
+        return childType.some(isChildTypeRequired);
     } else {
         if (typeof childType === 'string') {
             // if it's a string parse it and check if it's required
