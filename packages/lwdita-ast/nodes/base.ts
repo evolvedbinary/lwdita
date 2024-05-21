@@ -49,13 +49,11 @@ export abstract class BaseNode {
   /**
    * `isValidField` - This is a function template for validation of attributes
    *
-   * @privateRemarks
-   * eslint-disable-next-line `@typescript-eslint/no-unused-vars`s
-   *
    * @param field - A string containing the attribute name
    * @param value - A BasicValue-typed value containing the attribute value
    * @returns Boolean
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   static isValidField(field: string, value: BasicValue): boolean {
     return true;
   }
@@ -232,8 +230,9 @@ export abstract class BaseNode {
   }
 
   /**
-   * Get Props - Get all attributes of the node
-   * @returns Record<string, BasicValue> - A record of all attributes
+   * Get Props gets all attributes of the node.
+   *
+   * @returns A record of all attributes
    */
   getProps(): Record<string, BasicValue> {
     return this._props;
