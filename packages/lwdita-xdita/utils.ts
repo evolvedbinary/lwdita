@@ -218,8 +218,8 @@ export function isChildTypeRequired(childType: string | ChildType | ChildTypes):
         let result = true;
         // if one of the children in the array is required then return true
         childType.some(type => {
-            result = !isChildTypeRequired(type);
-            return !result;
+            result = isChildTypeRequired(type);
+            return result;
         });
         return result;
     } else {
