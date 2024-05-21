@@ -1,5 +1,5 @@
 import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode } from "./base";
+import { AbstractBaseNode } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA } from "../ast-classes";
 
@@ -53,7 +53,7 @@ export const isLocalizationNode = (value?: unknown): value is LocalizationNodeAt
  * @returns The `localization` node with an `dir`, `xml:lang`, `translate` attribute and their values
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function  makeLocalization<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+export function  makeLocalization<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return class extends constructor implements LocalizationNodeAttributes {
     get 'dir'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('dir');

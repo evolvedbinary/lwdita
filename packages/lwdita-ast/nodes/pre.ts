@@ -3,7 +3,7 @@ import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA, NMTOKEN } from "../ast-classes";
 
@@ -61,7 +61,7 @@ export const isPreNode = (value?: unknown): value is PreNodeAttributes =>
  * @returns An `pre` node
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function makePre<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+export function makePre<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return makeAll(class extends constructor {
     get 'xmlns:space'(): CDATA {
       return this.readProp<CDATA>('xmlns:space'); }
@@ -85,7 +85,7 @@ export function makePre<T extends { new(...args: any[]): BaseNode }>(constructor
  * @param childNodes - An Array of allowed child nodes `text*`, `%ph*`, `xref*`, `%data*`
  */
 @makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', '%data*']])
-export class PreNode extends BaseNode implements PreNodeAttributes {
+export class PreNode extends AbstractBaseNode implements PreNodeAttributes {
   static domNodeName = 'pre';
 
   // ClassNodeAttributes

@@ -1,6 +1,6 @@
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll } from "./base";
 import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
@@ -58,7 +58,7 @@ export const isMediaTrackNode = (value?: unknown): value is MediaTrackNodeAttrib
  * @returns A `media-track` node
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function makeMediaTrack<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+export function makeMediaTrack<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return makeAll(class extends constructor {
     get 'type'(): CDATA {
       return this.readProp<CDATA>('type'); }
@@ -80,7 +80,7 @@ export function makeMediaTrack<T extends { new(...args: any[]): BaseNode }>(cons
  * @param fields - A List of valid attributes @See {@link MediaTrackFields}
  */
 @makeComponent(makeMediaTrack, 'media-track', isValidMediaTrackField, MediaTrackFields)
-export class MediaTrackNode extends BaseNode implements MediaTrackNodeAttributes {
+export class MediaTrackNode extends AbstractBaseNode implements MediaTrackNodeAttributes {
   // ClassNodeAttributes
   'outputclass'?: CDATA
   'class'?: CDATA

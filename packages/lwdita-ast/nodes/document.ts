@@ -1,4 +1,4 @@
-import { BaseNode } from "./base";
+import { AbstractBaseNode } from "./base";
 import { stringToChildTypes } from "@evolvedbinary/lwdita-xdita/utils";
 
 /**
@@ -16,7 +16,7 @@ export interface DocumentNodeAttributes {}
  * </document>
  * ```
  */
-export class DocumentNode extends BaseNode implements DocumentNodeAttributes {
+export class DocumentNode extends AbstractBaseNode implements DocumentNodeAttributes {
   // TODO rename this to undefined
   static nodeName = 'document';
   static childTypes = stringToChildTypes(['topic']);

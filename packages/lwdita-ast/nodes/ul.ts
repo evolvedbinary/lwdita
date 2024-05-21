@@ -3,7 +3,7 @@ import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
 
@@ -64,7 +64,7 @@ export function makeUl<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: `li+`
  */
 @makeComponent(makeUl, 'ul', isValidUlField, UlFields, ['li+'])
-export class UlNode extends BaseNode implements UlNodeAttributes {
+export class UlNode extends AbstractBaseNode implements UlNodeAttributes {
   static domNodeName = 'ul'
 
   // ClassNodeAttributes

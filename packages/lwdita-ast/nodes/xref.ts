@@ -2,7 +2,7 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { ReferenceContentFields, ReferenceContentNodeAttributes, isValidReferenceContentField, makeReferenceContent } from "./reference-content";
 import { VariableContentFields, VariableContentNodeAttributes, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
@@ -66,7 +66,7 @@ export function makeXRef<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `%common-inline*`: `text`, `ph`, `b`, `i`, `u`, `sub`, `sup` , `image`, `data`
  */
 @makeComponent(makeXRef, 'xref', isValidXRefField, XRefFields, ['%common-inline*'])
-export class XRefNode extends BaseNode implements XRefNodeAttributes {
+export class XRefNode extends AbstractBaseNode implements XRefNodeAttributes {
   static domNodeName = 'a';
 
  // ClassNodeAttributes

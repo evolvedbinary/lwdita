@@ -4,7 +4,7 @@ import { VariableContentNodeAttributes, isVariableContentNode, VariableContentFi
 import { ReferenceContentNodeAttributes, isReferenceContentNode, ReferenceContentFields, makeReferenceContent, isValidReferenceContentField } from "./reference-content";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { ClassNodeAttributes, isClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { SizeFields, SizeNodeAttributes, isSizeNode, isValidSizeField, makeSize } from "./size";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN, ReferenceContentScope } from "../ast-classes";
@@ -96,7 +96,7 @@ export function makeImage<T extends Constructor>(constructor: T): T {
  * @returns An `image` node
  */
 @makeComponent(makeImage, 'image', isValidImageField, ImageFields, ['alt?'])
-export class ImageNode extends BaseNode implements ImageNodeAttributes {
+export class ImageNode extends AbstractBaseNode implements ImageNodeAttributes {
   // ClassNodeAttributes
   'outputclass'?: CDATA
   'class'?: CDATA

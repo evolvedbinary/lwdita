@@ -2,7 +2,7 @@ import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters 
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { ReuseNodeAttributes, isValidReuseField, ReuseFields, makeReuse } from "./reuse";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
@@ -69,7 +69,7 @@ export function makeDlEntry<T extends Constructor>(constructor: T): T {
  * @returns A `dlentry` node
  */
 @makeComponent(makeDlEntry, 'dlentry', isValidDlEntryField, DlEntryFields, ['dt', 'dd'])
-export class DlEntryNode extends BaseNode implements DlEntryNodeAttributes {
+export class DlEntryNode extends AbstractBaseNode implements DlEntryNodeAttributes {
   static domNodeName = '';
 
   // ClassNodeAttributes

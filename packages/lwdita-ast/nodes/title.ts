@@ -1,7 +1,7 @@
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA } from "../ast-classes";
 
@@ -60,7 +60,7 @@ export function makeTitle<T extends Constructor>(constructor: T): T  {
  * @param childNodes - An Array of allowed child nodes: `%common-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `data`)
  */
 @makeComponent(makeTitle, 'title', isValidTitleField, TitleFields, ['%common-inline*'])
-export class TitleNode extends BaseNode implements TitleNodeAttributes {
+export class TitleNode extends AbstractBaseNode implements TitleNodeAttributes {
   static domNodeName = 'h1';
 
   // ClassNodeAttributes

@@ -3,7 +3,7 @@ import { ReuseNodeAttributes } from "./reuse";
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
@@ -67,7 +67,7 @@ export function makeItalic<T extends Constructor>(constructor: T): T {
  * @returns A decorator
  */
 @makeComponent(makeItalic, 'i', isValidItalicField, ItalicFields, ['%all-inline*'])
-export class ItalicNode extends BaseNode implements ItalicNodeAttributes {
+export class ItalicNode extends AbstractBaseNode implements ItalicNodeAttributes {
   static domNodeName = 'i';
 
   // ClassNodeAttributes

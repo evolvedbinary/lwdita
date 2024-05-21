@@ -1,7 +1,7 @@
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll } from "./base";
+import { AbstractBaseNode, makeComponent, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA, ID } from "../ast-classes";
 
@@ -64,7 +64,7 @@ export const isTopicNode = (value?: unknown): value is TopicNodeAttributes =>
  * @returns A `topic` node
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function makeTopic<T extends { new(...args: any[]): BaseNode }>(constructor: T): T  {
+export function makeTopic<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T  {
   return makeAll(class extends constructor {
     get 'id'(): ID {
       return this.readProp<ID>('id'); }
@@ -96,7 +96,7 @@ export function makeTopic<T extends { new(...args: any[]): BaseNode }>(construct
  * @param childNodes - An Array of allowed child nodes: `title`, `shortdesc?`, `prolog?`, `body?`
  */
 @makeComponent(makeTopic, 'topic', isValidTopicField, TopicFields, ['title', 'shortdesc?', 'prolog?', 'body?'])
-export class TopicNode extends BaseNode implements TopicNodeAttributes {
+export class TopicNode extends AbstractBaseNode implements TopicNodeAttributes {
   static domNodeName = 'article';
 
   // ClassNodeAttributes

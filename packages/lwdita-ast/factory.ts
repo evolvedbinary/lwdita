@@ -1,46 +1,46 @@
-import { TopicNode } from "./nodes/topic";
-import { TitleNode } from "./nodes/title";
-import { PhNode } from "./nodes/ph";
-import { ShortDescNode } from "./nodes/shortdesc";
-import { DlNode } from "./nodes/dl";
-import { DlEntryNode } from "./nodes/dl-entry";
-import { DtNode } from "./nodes/dt";
-import { DdNode } from "./nodes/dd";
-import { BodyNode } from "./nodes/body";
+import { TopicNode, TopicNodeAttributes } from "./nodes/topic";
+import { TitleNode, TitleNodeAttributes } from "./nodes/title";
+import { PhNode, PhNodeAttributes } from "./nodes/ph";
+import { ShortDescNode, ShortDescNodeAttributes } from "./nodes/shortdesc";
+import { DlNode, DlNodeAttributes} from "./nodes/dl";
+import { DlEntryNode, DlEntryNodeAttributes } from "./nodes/dl-entry";
+import { DtNode, DtNodeAttributes } from "./nodes/dt";
+import { DdNode, DdNodeAttributes } from "./nodes/dd";
+import { BodyNode, BodyNodeAttributes } from "./nodes/body";
 import { PNode, PNodeAttributes } from "./nodes/p";
-import { ImageNode } from "./nodes/image";
+import { ImageNode, ImageNodeAttributes } from "./nodes/image";
 import { AltNode, AltNodeAttributes } from "./nodes/alt";
-import { FigNode } from "./nodes/fig";
-import { BaseNode, TextNode, Constructor } from "./nodes";
-import { SectionNode } from "./nodes/section";
-import { LiNode } from "./nodes/li";
-import { UlNode } from "./nodes/ul";
-import { OlNode } from "./nodes/ol";
-import { SimpleTableNode } from "./nodes/simple-table";
-import { StHeadNode } from "./nodes/sthead";
-import { StRowNode } from "./nodes/strow";
-import { StEntryNode } from "./nodes/stentry";
-import { PrologNode } from "./nodes/prolog";
-import { DataNode } from "./nodes/data";
-import { NoteNode } from "./nodes/note";
-import { DescNode } from "./nodes/desc";
-import { XRefNode } from "./nodes/xref";
-import { AudioNode } from "./nodes/audio";
-import { VideoNode } from "./nodes/video";
-import { MediaControlsNode } from "./nodes/media-controls";
-import { VideoPosterNode } from "./nodes/video-poster";
-import { MediaAutoplayNode } from "./nodes/media-autoplay";
-import { MediaLoopNode } from "./nodes/media-loop";
-import { MediaMutedNode } from "./nodes/media-muted";
-import { MediaSourceNode } from "./nodes/media-source";
-import { MediaTrackNode } from "./nodes/media-track";
-import { PreNode } from "./nodes/pre";
-import { FnNode } from "./nodes/fn";
-import { BoldNode } from "./nodes/bold";
-import { ItalicNode } from "./nodes/italic";
-import { UnderlinedNode } from "./nodes/underlined";
-import { SubscriptNode } from "./nodes/subscript";
-import { SuperscriptNode } from "./nodes/superscript";
+import { FigNode, FigNodeAttributes } from "./nodes/fig";
+import { AbstractBaseNode, TextNode, TextNodeAttributes, Constructor } from "./nodes";
+import { SectionNode, SectionNodeAttributes } from "./nodes/section";
+import { LiNode, LiNodeAttributes } from "./nodes/li";
+import { UlNode, UlNodeAttributes } from "./nodes/ul";
+import { OlNode, OlNodeAttributes } from "./nodes/ol";
+import { SimpleTableNode, SimpleTableNodeAttributes } from "./nodes/simple-table";
+import { StHeadNode, StHeadNodeAttributes } from "./nodes/sthead";
+import { StRowNode, StRowNodeAttributes } from "./nodes/strow";
+import { StEntryNode, StEntryNodeAttributes } from "./nodes/stentry";
+import { PrologNode, PrologNodeAttributes } from "./nodes/prolog";
+import { DataNode, DataNodeAttributes } from "./nodes/data";
+import { NoteNode, NoteNodeAttributes } from "./nodes/note";
+import { DescNode, DescNodeAttributes } from "./nodes/desc";
+import { XRefNode, XRefNodeAttributes } from "./nodes/xref";
+import { AudioNode, AudioNodeAttributes } from "./nodes/audio";
+import { VideoNode, VideoNodeAttributes } from "./nodes/video";
+import { MediaControlsNode, MediaControlsNodeAttributes } from "./nodes/media-controls";
+import { VideoPosterNode, VideoPosterNodeAttributes } from "./nodes/video-poster";
+import { MediaAutoplayNode, MediaAutoplayNodeAttributes } from "./nodes/media-autoplay";
+import { MediaLoopNode, MediaLoopNodeAttributes } from "./nodes/media-loop";
+import { MediaMutedNode, MediaMutedNodeAttributes } from "./nodes/media-muted";
+import { MediaSourceNode, MediaSourceNodeAttributes } from "./nodes/media-source";
+import { MediaTrackNode, MediaTrackNodeAttributes } from "./nodes/media-track";
+import { PreNode, PreNodeAttributes } from "./nodes/pre";
+import { FnNode, FnNodeAttributes } from "./nodes/fn";
+import { BoldNode, BoldNodeAttributes } from "./nodes/bold";
+import { ItalicNode, ItalicNodeAttributes } from "./nodes/italic";
+import { UnderlinedNode, UnderlinedNodeAttributes } from "./nodes/underlined";
+import { SubscriptNode, SubscriptNodeAttributes } from "./nodes/subscript";
+import { SuperscriptNode, SuperscriptNodeAttributes } from "./nodes/superscript";
 import { XMLNode } from "@evolvedbinary/lwdita-xdita/classes";
 import { UnknownNodeError } from "./ast-classes";
 
@@ -109,8 +109,8 @@ export function getNodeClass(name: string): Constructor {
  * @param name - String
  * @returns A node of type BaseNode
  */
-export function getNodeClassType(name: string): typeof BaseNode {
-  return getNodeClass(name) as unknown as typeof BaseNode;
+export function getNodeClassType(name: string): typeof AbstractBaseNode {
+  return getNodeClass(name) as unknown as typeof AbstractBaseNode;
 }
 
 /**
@@ -130,53 +130,53 @@ export function getNodeClassType(name: string): typeof BaseNode {
  *
  * @throws Will throw an error if the node type is unknown.
  */
-export function createNode(node: string): TextNode;
-export function createNode(node: XMLNode<'audio'>): AudioNode;
+export function createNode(node: string): TextNodeAttributes;
+export function createNode(node: XMLNode<'audio'>): AudioNodeAttributes;
 export function createNode(node: XMLNode<'alt'>): AltNodeAttributes;
-export function createNode(node: XMLNode<'b'>): BoldNode;
-export function createNode(node: XMLNode<'body'>): BodyNode;
-export function createNode(node: XMLNode<'data'>): DataNode;
-export function createNode(node: XMLNode<'dd'>): DdNode;
-export function createNode(node: XMLNode<'desc'>): DescNode;
-export function createNode(node: XMLNode<'dl'>): DlNode;
-export function createNode(node: XMLNode<'dlentry'>): DlEntryNode;
-export function createNode(node: XMLNode<'dt'>): DtNode;
-export function createNode(node: XMLNode<'fig'>): FigNode;
-export function createNode(node: XMLNode<'fn'>): FnNode;
-export function createNode(node: XMLNode<'i'>): ItalicNode;
-export function createNode(node: XMLNode<'image'>): ImageNode;
-export function createNode(node: XMLNode<'li'>): LiNode;
-export function createNode(node: XMLNode<'media-autoplay'>): MediaAutoplayNode;
-export function createNode(node: XMLNode<'media-controls'>): MediaControlsNode;
-export function createNode(node: XMLNode<'media-loop'>): MediaLoopNode;
-export function createNode(node: XMLNode<'media-muted'>): MediaMutedNode;
-export function createNode(node: XMLNode<'media-source'>): MediaSourceNode;
-export function createNode(node: XMLNode<'media-track'>): MediaTrackNode;
-export function createNode(node: XMLNode<'note'>): NoteNode;
-export function createNode(node: XMLNode<'ol'>): OlNode;
+export function createNode(node: XMLNode<'b'>): BoldNodeAttributes;
+export function createNode(node: XMLNode<'body'>): BodyNodeAttributes;
+export function createNode(node: XMLNode<'data'>): DataNodeAttributes;
+export function createNode(node: XMLNode<'dd'>): DdNodeAttributes;
+export function createNode(node: XMLNode<'desc'>): DescNodeAttributes;
+export function createNode(node: XMLNode<'dl'>): DlNodeAttributes;
+export function createNode(node: XMLNode<'dlentry'>): DlEntryNodeAttributes;
+export function createNode(node: XMLNode<'dt'>): DtNodeAttributes;
+export function createNode(node: XMLNode<'fig'>): FigNodeAttributes;
+export function createNode(node: XMLNode<'fn'>): FnNodeAttributes;
+export function createNode(node: XMLNode<'i'>): ItalicNodeAttributes;
+export function createNode(node: XMLNode<'image'>): ImageNodeAttributes;
+export function createNode(node: XMLNode<'li'>): LiNodeAttributes;
+export function createNode(node: XMLNode<'media-autoplay'>): MediaAutoplayNodeAttributes;
+export function createNode(node: XMLNode<'media-controls'>): MediaControlsNodeAttributes;
+export function createNode(node: XMLNode<'media-loop'>): MediaLoopNodeAttributes;
+export function createNode(node: XMLNode<'media-muted'>): MediaMutedNodeAttributes;
+export function createNode(node: XMLNode<'media-source'>): MediaSourceNodeAttributes;
+export function createNode(node: XMLNode<'media-track'>): MediaTrackNodeAttributes;
+export function createNode(node: XMLNode<'note'>): NoteNodeAttributes;
+export function createNode(node: XMLNode<'ol'>): OlNodeAttributes;
 export function createNode(node: XMLNode<'p'>): PNodeAttributes;
-export function createNode(node: XMLNode<'ph'>): PhNode;
-export function createNode(node: XMLNode<'pre'>): PreNode;
-export function createNode(node: XMLNode<'prolog'>): PrologNode;
-export function createNode(node: XMLNode<'section'>): SectionNode;
-export function createNode(node: XMLNode<'simpletable'>): SimpleTableNode;
-export function createNode(node: XMLNode<'shortdesc'>): ShortDescNode;
-export function createNode(node: XMLNode<'stentry'>): StEntryNode;
-export function createNode(node: XMLNode<'sthead'>): StHeadNode;
-export function createNode(node: XMLNode<'strow'>): StRowNode;
-export function createNode(node: XMLNode<'sub'>): SubscriptNode;
-export function createNode(node: XMLNode<'sup'>): SuperscriptNode;
-export function createNode(node: XMLNode<'title'>): TitleNode;
-export function createNode(node: XMLNode<'topic'>): TopicNode;
-export function createNode(node: XMLNode<'u'>): UnderlinedNode;
-export function createNode(node: XMLNode<'ul'>): UlNode;
-export function createNode(node: XMLNode<'video'>): VideoNode;
-export function createNode(node: XMLNode<'video-poster'>): VideoPosterNode;
-export function createNode(node: XMLNode<'xref'>): XRefNode;
-export function createNode<T extends BaseNode = BaseNode>(node: XMLNode): T;
-export function createNode<T extends BaseNode>(node: XMLNode | string): T {
+export function createNode(node: XMLNode<'ph'>): PhNodeAttributes;
+export function createNode(node: XMLNode<'pre'>): PreNodeAttributes;
+export function createNode(node: XMLNode<'prolog'>): PrologNodeAttributes;
+export function createNode(node: XMLNode<'section'>): SectionNodeAttributes;
+export function createNode(node: XMLNode<'simpletable'>): SimpleTableNodeAttributes;
+export function createNode(node: XMLNode<'shortdesc'>): ShortDescNodeAttributes;
+export function createNode(node: XMLNode<'stentry'>): StEntryNodeAttributes;
+export function createNode(node: XMLNode<'sthead'>): StHeadNodeAttributes;
+export function createNode(node: XMLNode<'strow'>): StRowNodeAttributes;
+export function createNode(node: XMLNode<'sub'>): SubscriptNodeAttributes;
+export function createNode(node: XMLNode<'sup'>): SuperscriptNodeAttributes;
+export function createNode(node: XMLNode<'title'>): TitleNodeAttributes;
+export function createNode(node: XMLNode<'topic'>): TopicNodeAttributes;
+export function createNode(node: XMLNode<'u'>): UnderlinedNodeAttributes;
+export function createNode(node: XMLNode<'ul'>): UlNodeAttributes;
+export function createNode(node: XMLNode<'video'>): VideoNodeAttributes;
+export function createNode(node: XMLNode<'video-poster'>): VideoPosterNodeAttributes;
+export function createNode(node: XMLNode<'xref'>): XRefNodeAttributes;
+export function createNode<T extends AbstractBaseNode = AbstractBaseNode>(node: XMLNode): T;
+export function createNode<T extends AbstractBaseNode>(node: XMLNode | string): T {
 
-  let nodeObject: BaseNode;
+  let nodeObject: AbstractBaseNode;
   /**
    * @example
    * `node`is an object containing the node name, its attributes, and their values.

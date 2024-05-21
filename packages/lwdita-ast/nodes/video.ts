@@ -3,7 +3,7 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { SizeFields, isValidSizeField, makeSize, SizeNodeAttributes } from "./size";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
@@ -66,7 +66,7 @@ export function makeVideo<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: desc?', `video-poster?`, `media-controls?`, `media-autoplay?`, `media-loop?`, `media-muted?`, `media-source*`, `media-track*`
  */
 @makeComponent(makeVideo, 'video', isValidVideoField, VideoFields, ['desc?', 'video-poster?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'media-source*', 'media-track*'])
-export class VideoNode extends BaseNode implements VideoNodeAttributes {
+export class VideoNode extends AbstractBaseNode implements VideoNodeAttributes {
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

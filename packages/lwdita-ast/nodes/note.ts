@@ -3,7 +3,7 @@ import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA, NMTOKEN } from "../ast-classes";
 
@@ -68,7 +68,7 @@ export const isNoteNode = (value?: unknown): value is NoteNodeAttributes =>
  * @returns A `note` node
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function makeNote<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+export function makeNote<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return makeAll(class extends constructor {
     get 'type'(): CDATA {
       return this.readProp<CDATA>('type');
@@ -90,7 +90,7 @@ export function makeNote<T extends { new(...args: any[]): BaseNode }>(constructo
  * @param childNodes - An Array of allowed child nodes: `%simple-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `note`, `data`)
  */
 @makeComponent(makeNote, 'note', isValidNoteField, NoteFields, ['%simple-blocks*'])
-export class NoteNode extends BaseNode implements NoteNodeAttributes {
+export class NoteNode extends AbstractBaseNode implements NoteNodeAttributes {
   static domNodeName = 'div'
 
   // ClassNodeAttributes

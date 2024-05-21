@@ -1,5 +1,5 @@
 import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode } from "./base";
+import { AbstractBaseNode } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isReferenceContentScope, ReferenceContentScope, isCDATA } from "../ast-classes";
 
@@ -24,7 +24,7 @@ export const isReferenceContentNode = (value?: unknown): value is ReferenceConte
   typeof value === 'object' && !!value && areFieldsValid(ReferenceContentFields, value as Record<string, BasicValue>, isValidReferenceContentField);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function makeReferenceContent<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+export function makeReferenceContent<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return class extends constructor implements ReferenceContentNodeAttributes {
     get 'href'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('dir');

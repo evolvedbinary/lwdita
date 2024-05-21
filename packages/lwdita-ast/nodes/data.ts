@@ -3,7 +3,7 @@ import { ReferenceContentNodeAttributes, ReferenceContentFields, isValidReferenc
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, VariableContentNodeAttributes, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { FieldFields, FieldNodeAttributes, isValidCDATAFieldField, makeCDATAField } from "./field";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
@@ -68,7 +68,7 @@ export function makeData<T extends Constructor>(constructor: T): T {
  * @param childNodes - An array containing all valid child node names: `text*`, `%data*`
  */
 @makeComponent(makeData, 'data', isValidDataField, DataFields, [['text*', '%data*']])
-export class DataNode extends BaseNode implements DataNodeAttributes {
+export class DataNode extends AbstractBaseNode implements DataNodeAttributes {
   static domNodeName = 'data';
 
   // ClassNodeAttributes

@@ -2,7 +2,7 @@ import { DisplayNodeAttributes, DisplayFields, isValidDisplayField, makeDisplay 
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { FiltersFields, FiltersNodeAttributes, isValidFiltersField, makeFilters } from "./filters";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, DisplayExpanse, DisplayFrame, DisplayScale, } from "../ast-classes";
@@ -65,7 +65,7 @@ export function makeFig<T extends Constructor>(constructor: T): T {
  * @returns A `fig` node
  */
 @makeComponent(makeFig, 'fig', isValidFigField, FigFields, ['title?', 'desc?', ['%fig-blocks*', 'image*', 'xref*']])
-export class FigNode extends BaseNode implements FigNodeAttributes {
+export class FigNode extends AbstractBaseNode implements FigNodeAttributes {
   static domNodeName = 'figure';
 
   // ClassNodeAttributes

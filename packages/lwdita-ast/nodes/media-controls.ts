@@ -1,6 +1,6 @@
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
@@ -65,7 +65,7 @@ export function makeMediaControls<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link MediaControlsFields}
  */
 @makeComponent(makeMediaControls, 'media-controls', isValidMediaControlsField, MediaControlsFields)
-export class MediaControlsNode extends BaseNode implements MediaControlsNodeAttributes {
+export class MediaControlsNode extends AbstractBaseNode implements MediaControlsNodeAttributes {
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

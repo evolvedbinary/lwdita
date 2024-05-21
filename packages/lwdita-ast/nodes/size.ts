@@ -1,5 +1,5 @@
 import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode } from "./base";
+import { AbstractBaseNode } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { NMTOKEN, isNMTOKEN } from "../ast-classes";
 
@@ -52,7 +52,7 @@ export const isSizeNode = (value?: unknown): value is SizeNodeAttributes =>
  * @returns The `size` node with a `width` and `height` attribute and their values
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function makeSize<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+export function makeSize<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return class extends constructor implements SizeNodeAttributes {
     get 'width'(): NMTOKEN | undefined {
       return this.readProp<NMTOKEN | undefined>('width');

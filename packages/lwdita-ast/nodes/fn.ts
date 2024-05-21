@@ -3,7 +3,7 @@ import { FnReuseNodeAttributes, FnReuseFields, isValidFnReuseField, makeFnReuse 
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA, ID } from "../ast-classes";
 
@@ -62,7 +62,7 @@ export const isFnNode = (value?: unknown): value is FnNodeAttributes =>
  * @returns The `fn` node with an `id` and `callout` attribute and their values
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function makeFn<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+export function makeFn<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return makeAll(class extends constructor {
     get 'id'(): ID {
       return this.readProp<ID>('id'); }
@@ -87,7 +87,7 @@ export function makeFn<T extends { new(...args: any[]): BaseNode }>(constructor:
  * @returns A `fn` node
  */
 @makeComponent(makeFn, 'fn', isValidFnField, FnFields, ['%fn-blocks*'])
-export class FnNode extends BaseNode implements FnNodeAttributes {
+export class FnNode extends AbstractBaseNode implements FnNodeAttributes {
   static domNodeName = 'span';
 
   // ClassNodeAttributes

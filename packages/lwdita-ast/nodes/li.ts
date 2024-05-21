@@ -3,7 +3,7 @@ import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
 
@@ -64,7 +64,7 @@ export function makeLi<T extends Constructor>(constructor: T): T {
  * @returns A `li` node
  */
 @makeComponent(makeLi, 'li', isValidLiField, LiFields, ['%list-blocks*'])
-export class LiNode extends BaseNode implements LiNodeAttributes {
+export class LiNode extends AbstractBaseNode implements LiNodeAttributes {
   static domNodeName = 'li';
 
   // ClassNodeAttributes

@@ -1,4 +1,4 @@
-import { BaseNode, DocumentNode, TextNode } from "@evolvedbinary/lwdita-ast";
+import { AbstractBaseNode, DocumentNode, TextNode } from "@evolvedbinary/lwdita-ast";
 import { TextSimpleOutputStream } from "./stream";
 
 /**
@@ -65,7 +65,7 @@ export class XditaSerializer {
    *
    * @param node - the element node to serialize
    */
-  private serializeElement(node: BaseNode): void {
+  private serializeElement(node: AbstractBaseNode): void {
     // serialize the start of the element start tag
     this.outputStream.emit(`<${node.static.nodeName}`);
     // serialize the attributes
@@ -93,7 +93,7 @@ export class XditaSerializer {
    *
    * @param node - the node to serialize the attributes of
    */
-  private serializeAttributes(node: BaseNode): void {
+  private serializeAttributes(node: AbstractBaseNode): void {
     let attrsStr = '';
     const props = node.getProps();
     if (props) {
@@ -123,7 +123,7 @@ export class XditaSerializer {
    *
    * @param node - the node to serialize
    */
-  serialize(node: BaseNode): void {
+  serialize(node: AbstractBaseNode): void {
     if (node instanceof DocumentNode) {
       this.serializeDocument(node);
       // close the output stream as we have now serialized the document

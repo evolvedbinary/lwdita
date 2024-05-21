@@ -1,5 +1,5 @@
 import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, Constructor } from "./base";
+import { AbstractBaseNode, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA } from "../ast-classes";
 
@@ -52,7 +52,7 @@ export const isFieldNode = (value?: unknown): value is FieldNodeAttributes =>
  * @returns The `field` node
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function makeField<ValueType extends BasicValue, T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+export function makeField<ValueType extends BasicValue, T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return class extends constructor implements FieldNodeAttributes<ValueType> {
     get 'name'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('name');

@@ -1,5 +1,5 @@
 import { expect, assert } from 'chai';
-import { BaseNode } from '../nodes/base';
+import { AbstractBaseNode } from '../nodes/base';
 import { stringToChildTypes } from "@evolvedbinary/lwdita-xdita";
 import { NonAcceptedChildError } from '../ast-classes';
 
@@ -7,20 +7,20 @@ import { NonAcceptedChildError } from '../ast-classes';
 // Not enough information to implement this test
 
 describe('Base Node children (nodes)', () => {
-  class ChildNode extends BaseNode {
+  class ChildNode extends AbstractBaseNode {
     static nodeName = 'child';
   }
-  class Child2Node extends BaseNode {
+  class Child2Node extends AbstractBaseNode {
     static nodeName = 'child2';
   }
 
-  class WrongChildNode extends BaseNode {
+  class WrongChildNode extends AbstractBaseNode {
     static nodeName = 'wrong-child';
   }
 
   describe('Cardinality', () => {
     it('[0..1] should accept only one child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['child?']);
       }
@@ -33,7 +33,7 @@ describe('Base Node children (nodes)', () => {
       }).to.throw(NonAcceptedChildError, 'can\'t be a child');
     });
     it('[1..1] should accept only one child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['child']);
       }
@@ -46,7 +46,7 @@ describe('Base Node children (nodes)', () => {
       }).to.throw(NonAcceptedChildError, 'can\'t be a child');
     });
     it('[0..n] should accept more than one child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['child*']);
       }
@@ -57,7 +57,7 @@ describe('Base Node children (nodes)', () => {
       }).to.not.throw();
     });
     it('[1..n] should accept more than one child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['child+']);
       }
@@ -71,7 +71,7 @@ describe('Base Node children (nodes)', () => {
     // TODO: add tests for not throwing an exception on wrong children
     // It does throw an exception, why shouldn't it?
     it('should not accept wrong child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['child']);
       }
@@ -85,7 +85,7 @@ describe('Base Node children (nodes)', () => {
   // TODO: add going back in order tests for groups
   describe('Order', () => {
     it('[0..1] should skip first child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['first?', 'child']);
       }
@@ -95,7 +95,7 @@ describe('Base Node children (nodes)', () => {
       }).to.not.throw();
     });
     it('[1..1] should not skip first child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['first', 'child']);
       }
@@ -105,7 +105,7 @@ describe('Base Node children (nodes)', () => {
       }).to.throw(NonAcceptedChildError, 'can\'t be a child');
     });
     it('[0..n] should skip first child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['first*', 'child']);
       }
@@ -115,7 +115,7 @@ describe('Base Node children (nodes)', () => {
       }).to.not.throw();
     });
     it('[1..n] should not skip first child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['first+', 'child']);
       }
@@ -127,7 +127,7 @@ describe('Base Node children (nodes)', () => {
   });
   describe('Any order', () => {
     it('[0..1] should accept only one child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['(child|child2)?']);
       }
@@ -166,7 +166,7 @@ describe('Base Node children (nodes)', () => {
       }).to.throw(NonAcceptedChildError, 'can\'t be a child');
     });
     it('[1..1] should accept only one child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['child|child2']);
       }
@@ -205,7 +205,7 @@ describe('Base Node children (nodes)', () => {
       }).to.throw(NonAcceptedChildError, 'can\'t be a child');
     });
     it('[0..n] should accept many children', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['(child|child2)+']);
       }
@@ -236,7 +236,7 @@ describe('Base Node children (nodes)', () => {
       }).to.not.throw();
     });
     it('[1..n] should accept many children', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['(child|child2)*']);
       }
@@ -270,15 +270,15 @@ describe('Base Node children (nodes)', () => {
 });
 
 describe('Base Node children (groups)', () => {
-  class ChildInlineNode extends BaseNode {
+  class ChildInlineNode extends AbstractBaseNode {
     static nodeName = 'text';
   }
-  class ChildBlockNode extends BaseNode {
+  class ChildBlockNode extends AbstractBaseNode {
     static nodeName = 'video';
   }
   describe('Cardinality', () => {
     it('[0..1] should accept only one child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['%all-inline?']);
       }
@@ -291,7 +291,7 @@ describe('Base Node children (groups)', () => {
       }).to.throw(NonAcceptedChildError, 'can\'t be a child');
     });
     it('[1..1] should accept only one child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['%all-inline']);
       }
@@ -304,7 +304,7 @@ describe('Base Node children (groups)', () => {
       }).to.throw(NonAcceptedChildError, 'can\'t be a child');
     });
     it('[0..n] should accept more than one child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['%all-inline*']);
       }
@@ -315,7 +315,7 @@ describe('Base Node children (groups)', () => {
       }).to.not.throw();
     });
     it('[1..n] should accept more than one child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['%all-inline+']);
       }
@@ -328,7 +328,7 @@ describe('Base Node children (groups)', () => {
   });
   describe('Order', () => {
     it('[0..1] should skip first child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['first?', '%all-inline']);
       }
@@ -338,7 +338,7 @@ describe('Base Node children (groups)', () => {
       }).to.not.throw();
     });
     it('[1..1] should not skip first child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['first', '%all-inline']);
       }
@@ -348,7 +348,7 @@ describe('Base Node children (groups)', () => {
       }).to.throw(NonAcceptedChildError, 'can\'t be a child');
     });
     it('[0..n] should skip first child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['first*', '%all-inline']);
       }
@@ -358,7 +358,7 @@ describe('Base Node children (groups)', () => {
       }).to.not.throw();
     });
     it('[1..n] should not skip first child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['first+', '%all-inline']);
       }
@@ -370,7 +370,7 @@ describe('Base Node children (groups)', () => {
   });
   describe('Any order', () => {
     it('[0..1] should accept only one child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['(%all-inline|%all-blocks)?']);
       }
@@ -409,7 +409,7 @@ describe('Base Node children (groups)', () => {
       }).to.throw(NonAcceptedChildError, 'can\'t be a child');
     });
     it('[1..1] should accept only one child', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['%all-inline|%all-blocks']);
       }
@@ -448,7 +448,7 @@ describe('Base Node children (groups)', () => {
       }).to.throw(NonAcceptedChildError, 'can\'t be a child');
     });
     it('[0..n] should accept many children', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['(%all-inline|%all-blocks)+']);
       }
@@ -479,7 +479,7 @@ describe('Base Node children (groups)', () => {
       }).to.not.throw();
     });
     it('[1..n] should accept many children', () => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['(%all-inline|%all-blocks)*']);
       }
@@ -511,7 +511,7 @@ describe('Base Node children (groups)', () => {
     });
 
     it.skip('order for groups',() => {
-      class ParentNode extends BaseNode {
+      class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
         static childTypes = stringToChildTypes(['%all-block*, %all-inline*']);
       }
@@ -526,7 +526,7 @@ describe('Base Node children (groups)', () => {
 
 describe('JDita', () => {
   it('Empty node', () => {
-    class Node extends BaseNode {
+    class Node extends AbstractBaseNode {
       static nodeName = 'node';
     }
     const node = new Node();
@@ -537,7 +537,7 @@ describe('JDita', () => {
     });
   });
   it('Empty node with attributes', () => {
-    class Node extends BaseNode {
+    class Node extends AbstractBaseNode {
       static nodeName = 'node';
       static fields = ['field1', 'field2'];
     }
@@ -552,7 +552,7 @@ describe('JDita', () => {
     });
   });
   it('Empty node with attributesand values', () => {
-    class Node extends BaseNode {
+    class Node extends AbstractBaseNode {
       static nodeName = 'node';
       static fields = ['field1', 'field2'];
     }
@@ -570,12 +570,12 @@ describe('JDita', () => {
     });
   });
   it('Empty node with a child node', () => {
-    class ParentNode extends BaseNode {
+    class ParentNode extends AbstractBaseNode {
       static nodeName = 'parent';
       static fields = ['parent-field1', 'parent-field2'];
       static childTypes = stringToChildTypes(['node*']);
     }
-    class Node extends BaseNode {
+    class Node extends AbstractBaseNode {
       static nodeName = 'node';
       static fields = ['field1', 'field2'];
     }
@@ -604,12 +604,12 @@ describe('JDita', () => {
     });
   });
   it('Empty node with children of children', () => {
-    class ParentNode extends BaseNode {
+    class ParentNode extends AbstractBaseNode {
       static nodeName = 'parent';
       static fields = ['parent-field1', 'parent-field2'];
       static childTypes = stringToChildTypes(['node*']);
     }
-    class Node extends BaseNode {
+    class Node extends AbstractBaseNode {
       static nodeName = 'node';
       static fields = ['field1', 'field2'];
       static childTypes = stringToChildTypes(['node*']);

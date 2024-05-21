@@ -1,5 +1,5 @@
 import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode } from "./base";
+import { AbstractBaseNode } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN, isCDATA, isNMTOKEN } from "../ast-classes";
 
@@ -53,7 +53,7 @@ export const isReuseNode = (value?: unknown): value is ReuseNodeAttributes =>
  * @returns The `reuse` node with an `id` and `conref` attribute and their values
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function makeReuse<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+export function makeReuse<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return class extends constructor implements ReuseNodeAttributes {
     get 'id'(): NMTOKEN | undefined {
       return this.readProp<NMTOKEN | undefined>('id');

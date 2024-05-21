@@ -3,7 +3,7 @@ import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters 
 import { VariableContentNodeAttributes, VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA } from "../ast-classes";
 
@@ -16,7 +16,7 @@ export const AltFields = [...LocalizationFields, ...FiltersFields, ...VariableCo
 /**
  * Interface `AltNodeAttributes` defines the attribute types for `alt`:
  */
-export interface AltNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, VariableContentNodeAttributes, ClassNodeAttributes { }
+export interface AltNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, VariableContentNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given fields of the `alt` node are valid and matches this list:
@@ -64,7 +64,7 @@ export function makeAlt<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `text*`, `%ph*`, `%data*`
  */
 @makeComponent(makeAlt, 'alt', isValidAltField, AltFields, [['text*', '%ph*', '%data*']])
-export class AltNode extends BaseNode implements AltNodeAttributes {
+export class AltNode extends AbstractBaseNode implements AltNodeAttributes {
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

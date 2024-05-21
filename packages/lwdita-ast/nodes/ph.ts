@@ -3,7 +3,7 @@ import { VariableContentNodeAttributes, VariableContentFields, isValidVariableCo
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA } from "../ast-classes";
 
@@ -66,7 +66,7 @@ export function makePh<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makePh, 'ph', isValidPhField, PhFields, ['%all-inline*'])
-export class PhNode extends BaseNode implements PhNodeAttributes {
+export class PhNode extends AbstractBaseNode implements PhNodeAttributes {
   static domNodeName = 'span';
 
   // ClassNodeAttributes

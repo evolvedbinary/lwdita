@@ -1,7 +1,7 @@
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA } from "../ast-classes";
 
@@ -54,7 +54,7 @@ export const isPrologNode = (value?: unknown): value is PrologNodeAttributes =>
  * @returns A `prolog` node
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function makeProlog<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+export function makeProlog<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return makeAll(class extends constructor {
     get 'class'(): CDATA {
       return this.readProp<CDATA>('class');
@@ -84,7 +84,7 @@ export function makeProlog<T extends { new(...args: any[]): BaseNode }>(construc
  * @param childNodes - An Array of allowed child nodes: `%data*`
  */
 @makeComponent(makeProlog, 'prolog', isValidPrologField, PrologFields, ['%data*'])
-export class PrologNode extends BaseNode implements PrologNodeAttributes {
+export class PrologNode extends AbstractBaseNode implements PrologNodeAttributes {
   static domNodeName = '';
 
   // LocalizationNodeAttributes

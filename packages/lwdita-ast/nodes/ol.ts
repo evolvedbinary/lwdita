@@ -3,7 +3,7 @@ import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
 
@@ -64,7 +64,7 @@ export function makeOl<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: `li+`
  */
 @makeComponent(makeOl, 'ol', isValidOlField, OlFields, ['li+'])
-export class OlNode extends BaseNode implements OlNodeAttributes {
+export class OlNode extends AbstractBaseNode implements OlNodeAttributes {
   static domNodeName = 'ol';
 
   // ClassNodeAttributes

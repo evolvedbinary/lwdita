@@ -3,7 +3,7 @@ import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
 
@@ -64,7 +64,7 @@ export function makeStHead<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `stentry+`
  */
 @makeComponent(makeStHead, 'sthead', isValidStHeadField, StHeadFields, ['stentry+'])
-export class StHeadNode extends BaseNode implements StHeadNodeAttributes {
+export class StHeadNode extends AbstractBaseNode implements StHeadNodeAttributes {
   static domNodeName = 'thead'
 
   // ClassNodeAttributes

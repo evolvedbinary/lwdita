@@ -1,7 +1,7 @@
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA } from "../ast-classes";
 /**
@@ -59,7 +59,7 @@ export function makeBody<T extends Constructor>(constructor: T): T {
  * @param childNodes - An array containing all valid child node names: `%list-blocks*`, `section*`, `fn*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `note`, `data`)
  */
 @makeComponent(makeBody, 'body', isValidBodyField, BodyFields, ['%list-blocks*', 'section*', 'fn*'])
-export class BodyNode extends BaseNode implements BodyNodeAttributes {
+export class BodyNode extends AbstractBaseNode implements BodyNodeAttributes {
   static domNodeName = 'div';
 
     // ClassNodeAttributes

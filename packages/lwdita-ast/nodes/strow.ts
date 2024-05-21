@@ -3,7 +3,7 @@ import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
 
@@ -64,7 +64,7 @@ export function makeStRow<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `stentry*`
  */
 @makeComponent(makeStRow, 'strow', isValidStRowField, StRowFields, ['stentry*'])
-export class StRowNode extends BaseNode implements StRowNodeAttributes {
+export class StRowNode extends AbstractBaseNode implements StRowNodeAttributes {
   static domNodeName = 'tr'
 
   // ClassNodeAttributes

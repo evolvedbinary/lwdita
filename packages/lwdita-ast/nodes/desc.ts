@@ -2,7 +2,7 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA } from "../ast-classes";
 
@@ -65,7 +65,7 @@ export function makeDesc<T extends Constructor>(constructor: T): T {
  * @returns A `desc` node
  */
 @makeComponent(makeDesc, 'desc', isValidDescField, DescFields, ['%common-inline*'])
-export class DescNode extends BaseNode implements DescNodeAttributes {
+export class DescNode extends AbstractBaseNode implements DescNodeAttributes {
   static domNodeName = 'caption';
 
   // ClassNodeAttributes

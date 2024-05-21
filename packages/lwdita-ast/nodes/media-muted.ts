@@ -1,6 +1,6 @@
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
@@ -65,7 +65,7 @@ export function makeMediaMuted<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link MediaMutedFields}
  */
 @makeComponent(makeMediaMuted, 'media-muted', isValidMediaMutedField, MediaMutedFields)
-export class MediaMutedNode extends BaseNode implements MediaMutedNodeAttributes {
+export class MediaMutedNode extends AbstractBaseNode implements MediaMutedNodeAttributes {
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

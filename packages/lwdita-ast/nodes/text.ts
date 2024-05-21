@@ -1,4 +1,4 @@
-import { BaseNode, makeComponent } from "./base";
+import { AbstractBaseNode, BaseNode, makeComponent } from "./base";
 import { isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
 import { BasicValue, JDita } from "@evolvedbinary/lwdita-xdita/classes";
 
@@ -11,7 +11,7 @@ export const TextFields = ['content'];
 /**
  * Interface TextNodeAttributes defines the `content` field type for node `text`: `string`
  */
-export interface TextNodeAttributes {
+export interface TextNodeAttributes extends BaseNode {
   'content'?: string
 }
 
@@ -50,7 +50,7 @@ export const isTextNode = (value?: unknown): value is TextNodeAttributes =>
  * @returns The `text` node
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function makeText<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+export function makeText<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return class extends constructor implements TextNode {
     get 'content'(): string {
       return this.readProp('content');
@@ -71,7 +71,7 @@ export function makeText<T extends { new(...args: any[]): BaseNode }>(constructo
  * @param fields - The valid attribute `content` of type string See {@link TextFields}
  */
 @makeComponent(makeText, 'text', isValidTextField, TextFields)
-export class TextNode extends BaseNode implements TextNodeAttributes {
+export class TextNode extends AbstractBaseNode implements TextNodeAttributes {
 
   // TextNodeAttributes {
   'content'?: string
