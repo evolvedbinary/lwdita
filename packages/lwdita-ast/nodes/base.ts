@@ -27,8 +27,8 @@ export interface BaseNode {
    *
    * @privateRemarks
    * this is not real JSON it needs to be serialized (stringified) to be converted to actual JSON
-   * 
-   * @return the JSON
+   *
+   * @returns the JSON
    */
   get json(): JDita;
 
