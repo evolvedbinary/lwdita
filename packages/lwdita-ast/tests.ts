@@ -9,7 +9,7 @@ import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError }
 export function doNodeTest(
   classType: typeof BaseNode,
   nodeName: string,
-  validator: (value?: {}) => boolean,
+  validator: (value?: unknown) => boolean,
   fields: string[],
   children: OrArray<string> = [],
   attribute = 'dir',

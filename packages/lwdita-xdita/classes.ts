@@ -13,7 +13,7 @@ export interface JDita {
 /**
  * TypeDef for attributes Record BasicValue
  */
-export type DefinedBasicValue = number | boolean | string | Array<BasicValue> | {} | {
+export type DefinedBasicValue = number | boolean | string | Array<BasicValue> | NonNullable<unknown> | {
   [key: string]: BasicValue;
   [key: number]: BasicValue;
 };
