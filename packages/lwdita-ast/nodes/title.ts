@@ -1,7 +1,7 @@
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA } from "../ast-classes";
 
@@ -15,7 +15,7 @@ export const TitleFields = [...LocalizationFields, ...ClassFields];
  * Interface TitleNodeAttributes defines the attribute types for `title`:
  * `CDATA`
  */
-export interface TitleNodeAttributes extends LocalizationNodeAttributes, ClassNodeAttributes {}
+export interface TitleNodeAttributes extends LocalizationNodeAttributes, ClassNodeAttributes, BaseNode {}
 
 /**
  * Check if the given attributes of the `title` node are valid

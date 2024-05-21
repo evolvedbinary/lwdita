@@ -3,7 +3,7 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
 
@@ -16,7 +16,7 @@ export const DlFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields
 /**
  * Interface DlNodeAttributes defines the attribute types for `dl`
  */
-export interface DlNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
+export interface DlNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given attributes of the `dl` node are valid and match this list:

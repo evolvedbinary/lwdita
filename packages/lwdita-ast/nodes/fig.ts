@@ -2,7 +2,7 @@ import { DisplayNodeAttributes, DisplayFields, isValidDisplayField, makeDisplay 
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { FiltersFields, FiltersNodeAttributes, isValidFiltersField, makeFilters } from "./filters";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, DisplayExpanse, DisplayFrame, DisplayScale, } from "../ast-classes";
@@ -16,7 +16,7 @@ export const FigFields = [...DisplayFields, ...LocalizationFields, ...FiltersFie
 /**
  * Interface FigNode defines the attribute types for `fig`
  */
-export interface FigNodeAttributes extends DisplayNodeAttributes, FiltersNodeAttributes, LocalizationNodeAttributes, ClassNodeAttributes { }
+export interface FigNodeAttributes extends DisplayNodeAttributes, FiltersNodeAttributes, LocalizationNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given attributes of the `fig` node are valid and match this list:

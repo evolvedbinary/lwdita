@@ -1,6 +1,6 @@
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, AbstractBaseNode, makeAll } from "./base";
+import { makeComponent, AbstractBaseNode, BaseNode, makeAll } from "./base";
 import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
@@ -17,7 +17,7 @@ export const MediaTrackFields = [...LocalizationFields, ...FieldFields, ...Class
  * Interface MediaTrackNodeAttributes defines the attribute types for `media-track`:
  * `CDATA`, `T`
  */
-export interface MediaTrackNodeAttributes extends LocalizationNodeAttributes, FieldNodeAttributes<boolean>, ClassNodeAttributes { }
+export interface MediaTrackNodeAttributes extends LocalizationNodeAttributes, FieldNodeAttributes<boolean>, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given fields of the `media-track` node are valid

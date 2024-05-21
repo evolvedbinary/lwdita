@@ -2,7 +2,7 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { ReferenceContentFields, ReferenceContentNodeAttributes, isValidReferenceContentField, makeReferenceContent } from "./reference-content";
 import { VariableContentFields, VariableContentNodeAttributes, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
@@ -18,7 +18,7 @@ export const XRefFields = [...FiltersFields, ...LocalizationFields, ...ClassFiel
  * Interface XRefNodeAttributes defines the attribute types for `xref`:
  * `CDATA`, `local` | `peer` | `external`
  */
-export interface XRefNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReferenceContentNodeAttributes, VariableContentNodeAttributes, ClassNodeAttributes { }
+export interface XRefNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReferenceContentNodeAttributes, VariableContentNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given attributes of the `xref` node are valid

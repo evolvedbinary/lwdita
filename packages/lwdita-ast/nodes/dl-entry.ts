@@ -2,7 +2,7 @@ import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters 
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { ReuseNodeAttributes, isValidReuseField, ReuseFields, makeReuse } from "./reuse";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
@@ -16,7 +16,7 @@ export const DlEntryFields = [...FiltersFields, ...LocalizationFields, ...ReuseF
 /**
  * Interface DlEntryNodeAttributes defines the attribute types for `dlentry`
  */
-export interface DlEntryNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
+export interface DlEntryNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given attributes of the `dlentry` node are valid and match this list:

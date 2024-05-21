@@ -3,7 +3,7 @@ import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
 
@@ -17,7 +17,7 @@ export const SimpleTableFields = [...FiltersFields, ...LocalizationFields, ...Re
  * Interface SimpleTableNodeAttributes defines the attribute types for `simpletable`:
  * `CDATA`, `NMTOKEN`
  */
-export interface SimpleTableNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
+export interface SimpleTableNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given attributes of the `simpletable` node are valid

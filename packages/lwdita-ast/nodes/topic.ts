@@ -1,7 +1,7 @@
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { AbstractBaseNode, makeComponent, makeAll } from "./base";
+import { AbstractBaseNode, BaseNode, makeComponent, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA, ID } from "../ast-classes";
 
@@ -18,7 +18,7 @@ export const TopicFields = [...LocalizationFields, ...ClassFields, 'id', 'xmlns:
  * @privateRemarks
  * TODO: Implement type "&xdita-constraint; &included-domains;"
  */
-export interface TopicNodeAttributes extends LocalizationNodeAttributes, ClassNodeAttributes {
+export interface TopicNodeAttributes extends LocalizationNodeAttributes, ClassNodeAttributes, BaseNode {
   'id': ID
   'xmlns:ditaarch': CDATA
   'ditaarch:DITAArchVersion'?: CDATA

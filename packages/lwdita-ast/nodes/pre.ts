@@ -3,7 +3,7 @@ import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, AbstractBaseNode, makeAll } from "./base";
+import { makeComponent, AbstractBaseNode, BaseNode, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA, NMTOKEN } from "../ast-classes";
 
@@ -17,7 +17,7 @@ export const PreFields = [...FiltersFields, ...LocalizationFields, ...ReuseField
  * Interface PreNodeAttributes defines the attribute types for `pre`:
  * `CDATA`, `NMTOKEN`
  */
-export interface PreNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
+export interface PreNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given fields of the `pre` node are valid

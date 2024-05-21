@@ -2,7 +2,7 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA } from "../ast-classes";
 
@@ -15,7 +15,7 @@ export const DescFields = [...FiltersFields, ...LocalizationFields, ...ClassFiel
 /**
  * Interface DescNode defines the attribute types for `desc`
  */
-export interface DescNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ClassNodeAttributes { }
+export interface DescNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given attributes of the `desc` node are valid and match this list:

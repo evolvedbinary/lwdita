@@ -3,7 +3,7 @@ import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, AbstractBaseNode, makeAll } from "./base";
+import { makeComponent, AbstractBaseNode, BaseNode, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA, NMTOKEN } from "../ast-classes";
 
@@ -25,7 +25,7 @@ export enum NoteType {
 /**
  * Interface NoteNode defines the attribute type for `note`: `CDATA`
  */
-export interface NoteNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes {
+export interface NoteNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes, BaseNode {
   type: NoteType
 }
 
