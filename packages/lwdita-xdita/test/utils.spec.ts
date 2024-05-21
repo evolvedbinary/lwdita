@@ -384,7 +384,7 @@ describe('isChildTypeSingle', () => {
 });
 
 describe('isChildTypeRequired', () => {
-  it('returns true for required childType object', () => {
+  it('returns true for required childType', () => {
     const childType = {
       name: 'child',
       single: false,
@@ -395,17 +395,19 @@ describe('isChildTypeRequired', () => {
     expect(result).to.be.true;
   });
 
-  //TODO: This test is failing cuz the function is not implemented correctly
-  // Related PR: https://github.com/evolvedbinary/jdita/pull/145
-  it.skip('returns true for string as required childtype', () => {
-    const child = 'child+';
+  it('returns true for string as required childtype', () => {
+    const child = 'child';
     const result = isChildTypeRequired(child);
     expect(result).to.be.true;
   });
 
-  //TODO: This test is failing cuz the function is not implemented correctly
-  // Related PR: https://github.com/evolvedbinary/jdita/pull/145
-  it.skip('returns true for required childtypes array', () => {
+  it('returns false for string as non-required childtype', () => {
+    const child = 'child?';
+    const result = isChildTypeRequired(child);
+    expect(result).to.be.false;
+  });
+
+  it('returns true for childtypes array with one required member', () => {
     const childType: ChildTypes = [
       {
         name: 'group1',
@@ -416,12 +418,57 @@ describe('isChildTypeRequired', () => {
       {
         name: 'group2',
         single: false,
+        required: false,
+        isGroup: false,
+      },
+    ];
+    const result = isChildTypeRequired(childType);
+    expect(result).to.be.true;
+  });
+
+  it('returns true for childtypes array with multiple required members', () => {
+    const childType: ChildTypes = [
+      {
+        name: 'group1',
+        single: false,
+        required: true,
+        isGroup: false,
+      },
+      {
+        name: 'group2',
+        single: false,
+        required: false,
+        isGroup: false,
+      },
+      {
+        name: 'group3',
+        single: false,
         required: true,
         isGroup: false,
       },
     ];
     const result = isChildTypeRequired(childType);
     expect(result).to.be.true;
+  });
+
+
+  it('returns false for childtypes array without required member', () => {
+    const childType: ChildTypes = [
+      {
+        name: 'group1',
+        single: false,
+        required: false,
+        isGroup: false,
+      },
+      {
+        name: 'group2',
+        single: false,
+        required: false,
+        isGroup: false,
+      },
+    ];
+    const result = isChildTypeRequired(childType);
+    expect(result).to.be.false;
   });
 
 });
