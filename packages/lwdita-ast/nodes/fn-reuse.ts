@@ -1,5 +1,5 @@
 import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode } from "./base";
+import { AbstractBaseNode } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA } from "../ast-classes";
 
@@ -11,7 +11,7 @@ export const FnReuseFields = ['conref'];
 /**
  * FnReuseNode: `conref`
  */
-export interface FnReuseNode {
+export interface FnReuseNodeAttributes {
   'conref'?: CDATA;
 }
 
@@ -39,20 +39,18 @@ export function isValidFnReuseField(field: string, value: BasicValue): boolean {
  * @param value - The `fn-reuse` node to test
  * @returns Boolean
  */
-export const isFnReuseNode = (value?: {}): value is FnReuseNode =>
-  typeof value === 'object' && areFieldsValid(FnReuseFields, value, isValidFnReuseField);
+export const isFnReuseNode = (value?: unknown): value is FnReuseNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(FnReuseFields, value as Record<string, BasicValue>, isValidFnReuseField);
 
 /**
  * Create a `fn-reuse` node with a `conref` attribute
  *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
- *
  * @param constructor - The constructor
  * @returns The `fn-reuse` node with a `conref` attribute and its value
  */
-export function makeFnReuse<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements FnReuseNode {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function makeFnReuse<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
+  return class extends constructor implements FnReuseNodeAttributes {
     get 'conref'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('conref');
     }

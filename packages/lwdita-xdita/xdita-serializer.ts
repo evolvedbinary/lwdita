@@ -1,4 +1,4 @@
-import { BaseNode, DocumentNode, TextNode } from "@evolvedbinary/lwdita-ast";
+import { AbstractBaseNode, DocumentNode, TextNode } from "@evolvedbinary/lwdita-ast";
 import { TextSimpleOutputStream } from "./stream";
 
 /**
@@ -19,7 +19,7 @@ export class XditaSerializer {
    * @param outputStream - The output stream.
    * @param indent - enable indentation
    * @param indentation - the character (or string) to use as the indent
-   * @param tabSize - size of the tab, only used when the `indentation` is not a '\t character.
+   * @param tabSize - size of the tab, only used when the `indentation` is not a `\t` character.
    */
   constructor(outputStream: TextSimpleOutputStream, indent = false, indentation = " ", tabSize = 4) {
     this.outputStream = outputStream;
@@ -53,7 +53,7 @@ export class XditaSerializer {
   /**
    * Serialize a document node to the output stream.
    *
-   * @param node the document node to serialize
+   * @param node - the document node to serialize
    */
   private serializeDocument(node: DocumentNode): void {
     // a document node has no string representation, so move on to its children
@@ -63,9 +63,9 @@ export class XditaSerializer {
   /**
    * Serialize an element node to the output stream.
    *
-   * @param node the element node to serialize
+   * @param node - the element node to serialize
    */
-  private serializeElement(node: BaseNode): void {
+  private serializeElement(node: AbstractBaseNode): void {
     // serialize the start of the element start tag
     this.outputStream.emit(`<${node.static.nodeName}`);
     // serialize the attributes
@@ -91,9 +91,9 @@ export class XditaSerializer {
   /**
    * Serialize the attributes to the output stream
    *
-   * @param node the node to serialize the attributes of
+   * @param node - the node to serialize the attributes of
    */
-  private serializeAttributes(node: BaseNode): void {
+  private serializeAttributes(node: AbstractBaseNode): void {
     let attrsStr = '';
     const props = node.getProps();
     if (props) {
@@ -109,7 +109,7 @@ export class XditaSerializer {
   /**
    * Serialize the text content of the text node to the output stream
    *
-   * @param node the text node to serialize the content of
+   * @param node - the text node to serialize the content of
    */
   private serializeText(node: TextNode): void {
     const props = node.getProps();
@@ -121,9 +121,9 @@ export class XditaSerializer {
   /**
    * Visit a node and serialize it to the output stream
    *
-   * @param node the node to serialize
+   * @param node - the node to serialize
    */
-  serialize(node: BaseNode): void {
+  serialize(node: AbstractBaseNode): void {
     if (node instanceof DocumentNode) {
       this.serializeDocument(node);
       // close the output stream as we have now serialized the document

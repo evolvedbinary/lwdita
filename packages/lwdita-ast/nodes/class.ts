@@ -1,5 +1,5 @@
 import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode } from "./base";
+import { AbstractBaseNode } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA } from "../ast-classes";
 
@@ -11,7 +11,7 @@ export const ClassFields = ['outputclass', 'class'];
 /**
  * Interface ClassNode defines the attribute types
  */
-export interface ClassNode {
+export interface ClassNodeAttributes {
   'outputclass'?: CDATA;
   'class'?: CDATA;
 }
@@ -39,8 +39,8 @@ export function isValidClassField(field: string, value: BasicValue): boolean {
  * @param value - The `class` node to test
  * @returns Boolean
  */
-export const isClassNode = (value?: {}): value is ClassNode =>
-  typeof value === 'object' && areFieldsValid(ClassFields, value, isValidClassField);
+export const isClassNode = (value?: unknown): value is ClassNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(ClassFields, value as Record<string, BasicValue>, isValidClassField);
 
 
 /**
@@ -49,14 +49,12 @@ export const isClassNode = (value?: {}): value is ClassNode =>
  *
  * @see {@link https://dita-lang.org/lwdita/commonspec/specification/langref/attributes/attribute-groups#attribute-groups__universal-attributes}
  *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
- *
  * @param constructor - The constructor
  * @returns The `class` node
  */
-export function makeClass<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements ClassNode {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function makeClass<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
+  return class extends constructor implements ClassNodeAttributes {
     get 'outputclass'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('outputclass');
     }

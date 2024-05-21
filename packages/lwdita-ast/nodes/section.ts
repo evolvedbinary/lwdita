@@ -1,10 +1,11 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `section` attributes:
@@ -13,10 +14,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const SectionFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
 /**
- * Interface SectionNode defines the attribute types for `section`:
+ * Interface SectionNodeAttributes defines the attribute types for `section`:
  * `CDATA`, `NMTOKEN`
  */
-export interface SectionNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface SectionNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `section` node are valid
@@ -39,8 +40,8 @@ export const isValidSectionField = (field: string, value: BasicValue): boolean =
  * @param value - The `section` node to test
  * @returns Boolean
  */
-export const isSectionNode = (value?: {}): value is SectionNode =>
-  typeof value === 'object' && areFieldsValid(SectionFields, value, isValidSectionField);
+export const isSectionNode = (value?: unknown): value is SectionNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(SectionFields, value as Record<string, BasicValue>, isValidSectionField);
 
 /**
  * Construct a `section` node with all available attributes
@@ -63,6 +64,22 @@ export function makeSection<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: `title?`, `%all-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `fn`, `note`, `data`)
  */
 @makeComponent(makeSection, 'section', isValidSectionField, SectionFields, ['title?', '%all-blocks*'])
-export class SectionNode extends BaseNode {
-  static domNodeName = 'section';
+export class SectionNode extends AbstractBaseNode implements SectionNodeAttributes {
+  static domNodeName = 'section'
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

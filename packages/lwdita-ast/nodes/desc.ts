@@ -1,9 +1,10 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `desc` attributes:
@@ -14,7 +15,7 @@ export const DescFields = [...FiltersFields, ...LocalizationFields, ...ClassFiel
 /**
  * Interface DescNode defines the attribute types for `desc`
  */
-export interface DescNode extends FiltersNode, LocalizationNode, ClassNode { }
+export interface DescNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `desc` node are valid and match this list:
@@ -37,8 +38,8 @@ export const isValidDescField = (field: string, value: BasicValue): boolean => i
  * @param value - The `desc` node to test
  * @returns Boolean
  */
-export const isDescNode = (value?: {}): value is DescNode =>
-  typeof value === 'object' && areFieldsValid(DescFields, value, isValidDescField);
+export const isDescNode = (value?: unknown): value is DescNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(DescFields, value as Record<string, BasicValue>, isValidDescField);
 
 /**
  * Construct a `desc` node with all available attributes
@@ -64,6 +65,18 @@ export function makeDesc<T extends Constructor>(constructor: T): T {
  * @returns A `desc` node
  */
 @makeComponent(makeDesc, 'desc', isValidDescField, DescFields, ['%common-inline*'])
-export class DescNode extends BaseNode {
+export class DescNode extends AbstractBaseNode implements DescNodeAttributes {
   static domNodeName = 'caption';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

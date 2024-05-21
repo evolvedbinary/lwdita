@@ -1,10 +1,11 @@
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `audio` attributes:
@@ -15,7 +16,7 @@ export const AudioFields = [...FiltersFields, ...LocalizationFields, ...ReuseFie
 /**
  * Interface AudioNode defines the attribute types for `audio`:
  */
-export interface AudioNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface AudioNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `audio` node are valid and match this list:
@@ -39,8 +40,8 @@ export const isValidAudioField = (field: string, value: BasicValue): boolean => 
  * @param value - The `audio` node to test
  * @returns Boolean
  */
-export const isAudioNode = (value?: {}): value is AudioNode =>
-  typeof value === 'object' && areFieldsValid(AudioFields, value, isValidAudioField);
+export const isAudioNode = (value?: unknown): value is AudioNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(AudioFields, value as Record<string, BasicValue>, isValidAudioField);
 
 /**
  * Construct an `audio` node with all available attributes
@@ -63,4 +64,21 @@ export function makeAudio<T extends Constructor>(constructor: T): T {
  * @param childNodes - An array containing all valid child node names: `desc?`, `media-controls?`, `media-autoplay?`, `media-loop?`, `media-muted?`, `media-source*`, `media-track*`
  */
 @makeComponent(makeAudio, 'audio', isValidAudioField, AudioFields, ['desc?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'media-source*', 'media-track*'])
-export class AudioNode extends BaseNode {}
+export class AudioNode extends AbstractBaseNode implements AudioNodeAttributes {
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
+}

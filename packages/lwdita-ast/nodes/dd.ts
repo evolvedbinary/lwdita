@@ -1,10 +1,11 @@
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
-import { ReuseFields, ReuseNode, isValidReuseField, makeReuse } from "./reuse";
+import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { ReuseFields, ReuseNodeAttributes, isValidReuseField, makeReuse } from "./reuse";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `dd` attributes:
@@ -13,9 +14,9 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const DdFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
 /**
- * Interface DdNode defines the attribute types for `dd`
+ * Interface DdNodeAttributes defines the attribute types for `dd`
  */
-export interface DdNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface DdNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `dd` node are valid and match this list:
@@ -39,8 +40,8 @@ export const isValidDdField = (field: string, value: BasicValue): boolean => isV
  * @param value - The `dd` node to test
  * @returns Boolean
  */
-export const isDdNode = (value?: {}): value is DdNode =>
-  typeof value === 'object' && areFieldsValid(DdFields, value, isValidDdField);
+export const isDdNode = (value?: unknown): value is DdNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(DdFields, value as Record<string, BasicValue>, isValidDdField);
 
 /**
  * Construct a `dd` node with all available attributes
@@ -64,6 +65,22 @@ export function makeDd<T extends Constructor>(constructor: T): T {
  * @returns A `dd` node
  */
 @makeComponent(makeDd, 'dd', isValidDdField, DdFields, ['%list-blocks*'])
-export class DdNode extends BaseNode {
+export class DdNode extends AbstractBaseNode implements DdNodeAttributes {
   static domNodeName = 'dd';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

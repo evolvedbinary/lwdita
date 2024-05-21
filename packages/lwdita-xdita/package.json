@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "main": "./dist/index.js",
   "dependencies": {
-    "saxes": "^6.0.0",
+    "@rubensworks/saxes": "6.0.1",
     "@evolvedbinary/lwdita-ast": "1.0.0"
   },
+  "dependenciesComments": [
+    "(AR) Previously we were using `\"saxes\": \"^6.0.0\"`, see: https://github.com/lddubeau/saxes/pull/120"
+  ],
   "keywords": [
     "LwDITA",
     "DITA",

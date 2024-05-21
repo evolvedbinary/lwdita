@@ -1,10 +1,11 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `simpletable` attributes:
@@ -13,10 +14,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const SimpleTableFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
 /**
- * Interface StEntryNode defines the attribute types for `simpletable`:
+ * Interface SimpleTableNodeAttributes defines the attribute types for `simpletable`:
  * `CDATA`, `NMTOKEN`
  */
-export interface SimpleTableNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface SimpleTableNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `simpletable` node are valid
@@ -39,8 +40,8 @@ export const isValidSimpleTableField = (field: string, value: BasicValue): boole
  * @param value - The `simpletable` node to test
  * @returns Boolean
  */
-export const isSimpleTableNode = (value?: {}): value is SimpleTableNode =>
-  typeof value === 'object' && areFieldsValid(SimpleTableFields, value, isValidSimpleTableField);
+export const isSimpleTableNode = (value?: unknown): value is SimpleTableNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(SimpleTableFields, value as Record<string, BasicValue>, isValidSimpleTableField);
 
 /**
  * Construct a `simpletable` node with all available attributes
@@ -63,6 +64,22 @@ export function makeSimpleTable<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes `sthead?`, `strow+`
  */
 @makeComponent(makeSimpleTable, 'simpletable', isValidSimpleTableField, SimpleTableFields, ['sthead?', 'strow+'])
-export class SimpleTableNode extends BaseNode {
-  static domNodeName = 'table';
+export class SimpleTableNode extends AbstractBaseNode implements SimpleTableNodeAttributes {
+  static domNodeName = 'table'
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

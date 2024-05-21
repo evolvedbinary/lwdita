@@ -4,9 +4,99 @@ import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError }
 import { nodeGroups } from "../ast-utils";
 
 /**
- * `BaseNode` - The base class for all nodes
+ * The interface for all nodes.
  */
-export abstract class BaseNode {
+export interface BaseNode {
+
+  /**
+   * Getter for the class instance.
+   * 
+   * @returns the class instance
+   */
+  get static(): typeof AbstractBaseNode;
+
+  /**
+   * Getter for children.
+   * 
+   * @returns the children
+   */
+  get children(): BaseNode[];
+
+  /**
+   * Getter for JSON.
+   *
+   * @privateRemarks
+   * this is not real JSON it needs to be serialized (stringified) to be converted to actual JSON
+   *
+   * @returns the JSON
+   */
+  get json(): JDita;
+
+  /**
+   * Checks if a node can be added as a child.
+   * Also ensure it can be added in the correct order.
+   *
+   * @remarks
+   * This function tells you whether a child node can be added to this node.
+   * This is done by checking the child node name against the child types of this node
+   *
+   * @param child - BaseNode node to be added
+   * @returns true if the node can be added as a child
+   */
+  canAdd(child: BaseNode): boolean;
+
+  /**
+   * Add a child node to the document tree.
+   *
+   * @remarks
+   * If there is a child that cannot be added, throw a new error
+   *
+   * @param child - The child node to be added
+   * @param breakOnError - Boolean, if true, exit
+   * @throws NonAcceptedChildError
+   * @returns void
+   */
+  add(child: BaseNode, breakOnError: boolean): void;
+
+  /**
+   * Get the value of an attribute, if the attribute is not defined, throw an error
+   *
+   * @privateRemarks
+   * This function is never executed in the context of the converter,
+   * therefore the attributes are never validated.
+   *
+   * @param field - String name of the attribute
+   * @throws UnknownAttributeError
+   * @returns The value of the attribute
+   */
+  readProp<T = BasicValue>(field: string): T;
+
+  /**
+   * Set the value of an attribute,
+   * if the attribute is not valid, throw an error
+   *
+   * @privateRemarks
+   * This function is never executed in the context of the converter,
+   * therefore the attributes are never validated.
+   *
+   * @param field - String name of the attribute
+   * @param value - Value to be set
+   * @throws UnknownAttributeError, WrongAttributeTypeError
+   */
+  writeProp<T extends BasicValue>(field: string, value: T): void;
+
+  /**
+   * Gets all attributes of the node.
+   *
+   * @returns A record of all attributes
+   */
+  getProps(): Record<string, BasicValue>;
+}
+
+/**
+ * The base class for all nodes.
+ */
+export abstract class AbstractBaseNode implements BaseNode {
   // `nodeName` means node type (e.g. "image", "alt", "body", etc.)
   static nodeName = 'node';
 
@@ -16,7 +106,7 @@ export abstract class BaseNode {
   // `childTypes` are allowed child nodes
   static childTypes: ChildTypes[];
   // `_children` are already validated child elements
-  public _children?: BaseNode[];
+  public _children?: AbstractBaseNode[];
   protected _props!: Record<string, BasicValue>;
 
   constructor(attributes?: Attributes) {
@@ -49,37 +139,23 @@ export abstract class BaseNode {
   /**
    * `isValidField` - This is a function template for validation of attributes
    *
-   * @privateRemarks
-   * eslint-disable-next-line `@typescript-eslint/no-unused-vars`s
-   *
    * @param field - A string containing the attribute name
    * @param value - A BasicValue-typed value containing the attribute value
    * @returns Boolean
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   static isValidField(field: string, value: BasicValue): boolean {
     return true;
   }
 
-  /**
-   * Getter for the class instance
-   */
-  public get static(): typeof BaseNode {
-    return this.constructor as typeof BaseNode;
+  public get static(): typeof AbstractBaseNode {
+    return this.constructor as typeof AbstractBaseNode;
   }
 
-  /**
-   * Getter for children
-   */
-  get children(): BaseNode[] {
+  get children(): AbstractBaseNode[] {
     return this._children || [];
   }
 
-  /**
-   * Getter for json
-   *
-   * @privateRemarks
-   * this is not real json it needs to be stringified to be converted to actual json
-   */
   get json(): JDita {
     return {
       nodeName: this.static.nodeName,
@@ -88,18 +164,7 @@ export abstract class BaseNode {
     };
   }
 
-  /**
-   * `canAdd` - Checks if a node can be added as a child
-   * Also ensure it can be added in the right order
-   *
-   * @remarks
-   * This function tells you whether a child node can be added to this node.
-   * This is done by checking the child node name against the child types of this node
-   *
-   * @param child - BaseNode node to be added
-   * @returns true if the node can be added as a child
-   */
-  canAdd(child: BaseNode): boolean {
+  canAdd(child: AbstractBaseNode): boolean {
       // we are e.g. in a `<body>` node and we are trying to add an `<audio`> node
       const childNodeName = child.static.nodeName;
       let childType: ChildType | undefined;
@@ -160,18 +225,7 @@ export abstract class BaseNode {
       return true;
   }
 
-  /**
-   * `add` - Add a child node to the document tree
-   *
-   * @remarks
-   * If there is a child that cannot be added, throw a new error
-   *
-   * @param child - The child node to be added
-   * @param breakOnError - Boolean, if true, exit
-   * @throws NonAcceptedChildError
-   * @returns void
-   */
-  add(child: BaseNode, breakOnError = true): void {
+  add(child: AbstractBaseNode, breakOnError = true): void {
     // If there are no children, initialize an empty array
     if (!this._children) {
       this._children = [];
@@ -188,17 +242,6 @@ export abstract class BaseNode {
     this._children.push(child)
   }
 
-  /**
-   * Get the value of an attribute, if the attribute is not defined, throw an error
-   *
-   * @privateRemarks
-   * This function is never executed in the context of the converter,
-   * therefore the attributes are never validated.
-   *
-   * @param field - String name of the attribute
-   * @throws UnknownAttributeError
-   * @returns The value of the attribute
-   */
   readProp<T = BasicValue>(field: string): T {
     if (this.static.fields.indexOf(field) < 0) {
       throw new UnknownAttributeError('unknown attribute "' + field + '"');
@@ -206,18 +249,6 @@ export abstract class BaseNode {
     return this._props[field] as T;
   }
 
-  /**
-   * Set the value of an attribute,
-   * if the attribute is not valid, throw an error
-   *
-   * @privateRemarks
-   * This function is never executed in the context of the converter,
-   * therefore the attributes are never validated.
-   *
-   * @param field - String name of the attribute
-   * @param value - Value to be set
-   * @throws UnknownAttributeError, WrongAttributeTypeError
-   */
   writeProp<T extends BasicValue>(field: string, value: T): void {
     // If the attribute is identified as false then return error message
     if (this.static.fields.indexOf(field) < 0) {
@@ -231,10 +262,6 @@ export abstract class BaseNode {
     this._props[field] = value;
   }
 
-  /**
-   * Get Props - Get all attributes of the node
-   * @returns Record<string, BasicValue> - A record of all attributes
-   */
   getProps(): Record<string, BasicValue> {
     return this._props;
   }
@@ -243,27 +270,22 @@ export abstract class BaseNode {
 /**
  * This is a type definition for the constructor
  */
-export type Constructor = { new(attributes: Attributes): BaseNode };
+export type Constructor = { new(attributes: Attributes): AbstractBaseNode };
 
 /**
  * `makeAll` - This is a template function for all nodes
- *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
  *
  * @param constructor - The constructor
  * @param decorators - The decorator
  * @returns Instance of BaseNode
  */
-export function makeAll<T extends { new(...args: any[]): BaseNode }>(constructor: T, ...decorators: ((constructor: T) => T)[]): T {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function makeAll<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T, ...decorators: ((constructor: T) => T)[]): T {
   return decorators.reduce((result, decorator) => decorator(result), constructor);
 }
 
 /**
  * `makeComponent` -  A function that returns the constructor of a node
- *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
  *
  * @privateRemarks
  * The concept or processing of `decorator` is not yet fully understood
@@ -275,7 +297,8 @@ export function makeAll<T extends { new(...args: any[]): BaseNode }>(constructor
  * @param childTypes - An Array of allowed child nodes
  * @returns The constructor function of an instance of BaseNode
  */
-export function makeComponent<T extends { new(...args: any[]): BaseNode }>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function makeComponent<T extends { new(...args: any[]): AbstractBaseNode }>(
   decorator: (constructor: T) => T,
   nodeName: string,
   fieldValidator: (field: string, value: BasicValue) => boolean,

@@ -1,8 +1,7 @@
 import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode } from "./base";
+import { AbstractBaseNode } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA } from "../ast-classes";
-
 
 /**
  * `LocalizationFields`: `dir`, `xml:lang`, `translate`
@@ -12,7 +11,7 @@ export const LocalizationFields = ['dir', 'xml:lang', 'translate'];
 /**
  * Interface LocalizationNode defines the attribute types for localization attributes: `CDATA`
  */
-export interface LocalizationNode {
+export interface LocalizationNodeAttributes {
   'dir'?: CDATA;
   'xml:lang'?: CDATA;
   'translate'?: CDATA;
@@ -44,20 +43,18 @@ export function isValidLocalizationField(field: string, value: BasicValue): bool
  * @param value - The `localization` node to test
  * @returns Boolean
  */
-export const isLocalizationNode = (value?: {}): value is LocalizationNode =>
-  typeof value === 'object' && areFieldsValid(LocalizationFields, value, isValidLocalizationField);
+export const isLocalizationNode = (value?: unknown): value is LocalizationNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(LocalizationFields, value as Record<string, BasicValue>, isValidLocalizationField);
 
 /**
  * Create a `localization` node with an `dir`, `xml:lang`, `translate` attribute
  *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
- *
  * @param constructor - The constructor
  * @returns The `localization` node with an `dir`, `xml:lang`, `translate` attribute and their values
  */
-export function makeLocalization<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements LocalizationNode {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function  makeLocalization<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
+  return class extends constructor implements LocalizationNodeAttributes {
     get 'dir'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('dir');
     }

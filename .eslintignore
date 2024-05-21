@@ -1,2 +1,3 @@
+packages/lwdita-xdita/example.ts
 node_modules
-build
+dist

@@ -1,10 +1,11 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `ol` attributes:
@@ -13,10 +14,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const OlFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
 /**
- * Interface olNode defines the attribute type for `ol`:
+ * Interface OlNodeAttributes defines the attribute type for `ol`:
  * `CDATA`, `NMTOKEN`
  */
-export interface OlNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface OlNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `ol` node are valid
@@ -39,8 +40,8 @@ export const isValidOlField = (field: string, value: BasicValue): boolean => isV
  * @param value - The `ol` node to test
  * @returns Boolean
  */
-export const isOlNode = (value?: {}): value is OlNode =>
-  typeof value === 'object' && areFieldsValid(OlFields, value, isValidOlField);
+export const isOlNode = (value?: unknown): value is OlNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(OlFields, value as Record<string, BasicValue>, isValidOlField);
 
 /**
  * Construct an `ol` node with all available attributes
@@ -63,6 +64,22 @@ export function makeOl<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes: `li+`
  */
 @makeComponent(makeOl, 'ol', isValidOlField, OlFields, ['li+'])
-export class OlNode extends BaseNode {
+export class OlNode extends AbstractBaseNode implements OlNodeAttributes {
   static domNodeName = 'ol';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

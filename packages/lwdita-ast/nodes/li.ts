@@ -1,10 +1,11 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `li` attributes:
@@ -15,7 +16,7 @@ export const LiFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields
 /**
  * Interface LiNode defines the attribute types for `li`
  */
-export interface LiNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface LiNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `li` node are valid and match this list:
@@ -39,8 +40,8 @@ export const isValidLiField = (field: string, value: BasicValue): boolean => isV
  * @param value - The `li` node to test
  * @returns Boolean
  */
-export const isLiNode = (value?: {}): value is LiNode =>
-  typeof value === 'object' && areFieldsValid(LiFields, value, isValidLiField);
+export const isLiNode = (value?: unknown): value is LiNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(LiFields, value as Record<string, BasicValue>, isValidLiField);
 
 /**
  * Construct a `li` node with all available attributes
@@ -63,6 +64,22 @@ export function makeLi<T extends Constructor>(constructor: T): T {
  * @returns A `li` node
  */
 @makeComponent(makeLi, 'li', isValidLiField, LiFields, ['%list-blocks*'])
-export class LiNode extends BaseNode {
+export class LiNode extends AbstractBaseNode implements LiNodeAttributes {
   static domNodeName = 'li';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

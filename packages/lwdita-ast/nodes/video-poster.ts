@@ -1,9 +1,10 @@
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
-import { FieldFields, FieldNode, isValidBooleanFieldField, makeBooleanField } from "./field";
-import { ClassFields, ClassNode, isValidClassField, makeClass } from "./class";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
+import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
+import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `video-poster` attributes:
@@ -13,10 +14,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const VideoPosterFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
 
 /**
- * The interface `VideoPosterNode` defines all attribute types for `video-poster`:
+ * The interface `VideoPosterNodeAttributes` defines all attribute types for `video-poster`:
  * `CDATA`, `T`
  */
-export interface VideoPosterNode extends LocalizationNode, FieldNode<boolean>, ClassNode { }
+export interface VideoPosterNodeAttributes extends LocalizationNodeAttributes, FieldNodeAttributes<boolean>, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `video-poster` node are valid
@@ -38,8 +39,8 @@ export const isValidVideoPosterField = (field: string, value: BasicValue): boole
  * @param value - The `video-poster` node to test
  * @returns Boolean
  */
-export const isVideoPosterNode = (value?: {}): value is VideoPosterNode =>
-  typeof value === 'object' && areFieldsValid(VideoPosterFields, value, isValidVideoPosterField);
+export const isVideoPosterNode = (value?: unknown): value is VideoPosterNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(VideoPosterFields, value as Record<string, BasicValue>, isValidVideoPosterField);
 
 /**
  * Construct a `video-poster` node with all available attributes
@@ -61,4 +62,17 @@ export function makeVideoPoster<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link VideoPosterFields}
  */
 @makeComponent(makeVideoPoster, 'video-poster', isValidVideoPosterField, VideoPosterFields)
-export class VideoPosterNode extends BaseNode { }
+export class VideoPosterNode extends AbstractBaseNode implements VideoPosterNodeAttributes {
+    // ClassNodeAttributes
+    'outputclass'?: CDATA
+    'class'?: CDATA
+  
+    // FieldNodeAttributes
+    'name'?: CDATA
+    'value'?: boolean
+  
+    // LocalizationNodeAttributes
+    'dir'?: CDATA
+    'xml:lang'?: CDATA
+    'translate'?: CDATA
+}

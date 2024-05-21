@@ -1,4 +1,4 @@
-import * as saxes from "saxes";
+import * as saxes from "@rubensworks/saxes";
 import { BaseNode, DocumentNode } from "@evolvedbinary/lwdita-ast/nodes";
 import { createNode } from "@evolvedbinary/lwdita-ast/factory";
 import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
@@ -33,7 +33,8 @@ export async function xditaToJdita(xml: string, abortOnError = true): Promise<Do
     // Parse the text and add a new node item to the node-array
     // `text` is the content of any text node in the parsed xml document
     parser.on("text", function (text) {
-      stack[stack.length - 1].add(createNode(text), abortOnError);
+      const node: BaseNode = createNode(text)
+      stack[stack.length - 1].add(node, abortOnError);
     });
 
     // Look for the first open tag `<` and add the node to the array

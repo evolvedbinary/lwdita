@@ -1,11 +1,12 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /** TODO: Implement "+ topic/ph hi-d/b " */
 
@@ -18,7 +19,7 @@ export const BoldFields = [...LocalizationFields, ...VariableContentFields, ...C
 /**
  * Interface BoldNode defines the attribute types for `bold`
  */
-export interface BoldNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface BoldNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `bold` node are valid and match this list:
@@ -41,8 +42,8 @@ export const isValidBoldField = (field: string, value: BasicValue): boolean => i
  * @param value - The `bold` node to test
  * @returns Boolean
  */
-export const isBoldNode = (value?: {}): value is BoldNode =>
-  typeof value === 'object' && areFieldsValid(BoldFields, value, isValidBoldField);
+export const isBoldNode = (value?: unknown): value is BoldNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(BoldFields, value as Record<string, BasicValue>, isValidBoldField);
 
 /**
  * Construct a `bold` node with all available attributes
@@ -65,6 +66,22 @@ export function makeBold<T extends Constructor>(constructor: T): T {
  * @param childNodes - An array containing all valid child node names: `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
 */
 @makeComponent(makeBold, 'b', isValidBoldField, BoldFields, ['%all-inline*'])
-export class BoldNode extends BaseNode {
+export class BoldNode extends AbstractBaseNode implements BoldNodeAttributes {
   static domNodeName = 'b';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

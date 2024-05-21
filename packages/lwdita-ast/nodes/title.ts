@@ -1,8 +1,9 @@
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `title` attributes:
@@ -11,10 +12,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const TitleFields = [...LocalizationFields, ...ClassFields];
 
 /**
- * Interface TitleNode defines the attribute types for `title`:
+ * Interface TitleNodeAttributes defines the attribute types for `title`:
  * `CDATA`
  */
-export interface TitleNode extends LocalizationNode, ClassNode {}
+export interface TitleNodeAttributes extends LocalizationNodeAttributes, ClassNodeAttributes {}
 
 /**
  * Check if the given attributes of the `title` node are valid
@@ -35,8 +36,8 @@ export const isValidTitleField = (field: string, value: BasicValue): boolean => 
  * @param value - The `title` node to test
  * @returns Boolean
  */
-export const isTitleNode = (value?: {}): value is TitleNode =>
-  typeof value === 'object' && areFieldsValid(TitleFields, value, isValidTitleField);
+export const isTitleNode = (value?: unknown): value is TitleNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(TitleFields, value as Record<string, BasicValue>, isValidTitleField);
 
 /**
  * Construct a `title` node with all available attributes
@@ -59,6 +60,15 @@ export function makeTitle<T extends Constructor>(constructor: T): T  {
  * @param childNodes - An Array of allowed child nodes: `%common-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `data`)
  */
 @makeComponent(makeTitle, 'title', isValidTitleField, TitleFields, ['%common-inline*'])
-export class TitleNode extends BaseNode {
+export class TitleNode extends AbstractBaseNode implements TitleNodeAttributes {
   static domNodeName = 'h1';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
 }

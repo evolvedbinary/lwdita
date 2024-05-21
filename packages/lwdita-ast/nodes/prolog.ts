@@ -1,7 +1,7 @@
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA } from "../ast-classes";
 
@@ -14,7 +14,7 @@ export const PrologFields = [...FiltersFields, ...LocalizationFields, 'class'];
 /**
  * Interface PrologNode defines the attribute type for `prolog`: `CDATA`
  */
-export interface PrologNode extends FiltersNode, LocalizationNode {
+export interface PrologNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes {
   'class'?: CDATA;
 }
 
@@ -44,19 +44,17 @@ export function isValidPrologField(field: string, value: BasicValue): boolean {
  * @param value - The `prolog` node to test
  * @returns Boolean
  */
-export const isPrologNode = (value?: {}): value is PrologNode =>
-  typeof value === 'object' && areFieldsValid(PrologFields, value, isValidPrologField);
+export const isPrologNode = (value?: unknown): value is PrologNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(PrologFields, value as Record<string, BasicValue>, isValidPrologField);
 
 /**
  * Construct a `prolog` node with all available attributes
  *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
- *
  * @param constructor - The constructor
  * @returns A `prolog` node
  */
-export function makeProlog<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function makeProlog<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return makeAll(class extends constructor {
     get 'class'(): CDATA {
       return this.readProp<CDATA>('class');
@@ -86,6 +84,17 @@ export function makeProlog<T extends { new(...args: any[]): BaseNode }>(construc
  * @param childNodes - An Array of allowed child nodes: `%data*`
  */
 @makeComponent(makeProlog, 'prolog', isValidPrologField, PrologFields, ['%data*'])
-export class PrologNode extends BaseNode {
+export class PrologNode extends AbstractBaseNode implements PrologNodeAttributes {
   static domNodeName = '';
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
+
+  // PrologNodeAttributes
+  'class'?: CDATA
 }

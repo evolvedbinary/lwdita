@@ -1,9 +1,10 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA } from "../ast-classes";
 
 /**
  * Define all allowed `shortdesc` attributes:
@@ -12,9 +13,9 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const ShortDescFields = [...FiltersFields, ...LocalizationFields, ...ClassFields];
 
 /**
- * Interface ShortDescNode defines the attribute types for `shortdesc`: `CDATA`
+ * Interface ShortDescNodeAttributes defines the attribute types for `shortdesc`: `CDATA`
  */
-export interface ShortDescNode extends FiltersNode, LocalizationNode, ClassNode { }
+export interface ShortDescNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `shortdesc` node are valid
@@ -36,8 +37,8 @@ export const isValidShortDescField = (field: string, value: BasicValue): boolean
  * @param value - The `shortdesc` node to test
  * @returns Boolean
  */
-export const isShortDescNode = (value?: {}): value is ShortDescNode =>
-  typeof value === 'object' && areFieldsValid(ShortDescFields, value, isValidShortDescField);
+export const isShortDescNode = (value?: unknown): value is ShortDescNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(ShortDescFields, value as Record<string, BasicValue>, isValidShortDescField);
 
 /**
  * Construct a `shortdesc` node with all available attributes
@@ -60,6 +61,18 @@ export function makeShortDesc<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makeShortDesc, 'shortdesc', isValidShortDescField, ShortDescFields, ['%all-inline*'])
-export class ShortDescNode extends BaseNode {
-  static domNodeName = 'p';
+export class ShortDescNode extends AbstractBaseNode implements ShortDescNodeAttributes {
+  static domNodeName = 'p'
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

@@ -1,5 +1,5 @@
 import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode } from "./base";
+import { AbstractBaseNode } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN, isCDATA, isNMTOKEN } from "../ast-classes";
 
@@ -14,7 +14,7 @@ export const ReuseFields = ['id', 'conref'];
  * Interface reuseNode defines the attribute types for `reuse`:
  * `CDATA`, `NMTOKEN`
  */
-export interface ReuseNode {
+export interface ReuseNodeAttributes {
   'id'?: NMTOKEN;
   'conref'?: CDATA;
 }
@@ -43,20 +43,18 @@ export function isValidReuseField(field: string, value: BasicValue): boolean {
  * @param value - The `reuse` node to test
  * @returns Boolean
  */
-export const isReuseNode = (value?: {}): value is ReuseNode =>
-  typeof value === 'object' && areFieldsValid(ReuseFields, value, isValidReuseField);
+export const isReuseNode = (value?: unknown): value is ReuseNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(ReuseFields, value as Record<string, BasicValue>, isValidReuseField);
 
 /**
  * Create a `reuse` node with an `id` and `conref` attribute
  *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
- *
  * @param constructor - The constructor
  * @returns The `reuse` node with an `id` and `conref` attribute and their values
  */
-export function makeReuse<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements ReuseNode {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function makeReuse<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
+  return class extends constructor implements ReuseNodeAttributes {
     get 'id'(): NMTOKEN | undefined {
       return this.readProp<NMTOKEN | undefined>('id');
     }

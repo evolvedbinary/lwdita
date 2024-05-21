@@ -1,5 +1,5 @@
 import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, Constructor } from "./base";
+import { AbstractBaseNode, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA } from "../ast-classes";
 
@@ -11,7 +11,7 @@ export const FieldFields = ['name', 'value'];
 /**
  * Interface `FieldNode` defines the attribute types
  */
-export interface FieldNode<T = CDATA> {
+export interface FieldNodeAttributes<T = CDATA> {
   'name'?: CDATA;
   'value'?: T;
 }
@@ -42,31 +42,29 @@ export const isValidFieldField = (validator: (val: BasicValue) => boolean = isCD
  * @param value - The `field` node to test
  * @returns Boolean
  */
-export const isFieldNode = (value?: {}): value is FieldNode =>
-  typeof value === 'object' && areFieldsValid(FieldFields, value, isValidFieldField());
+export const isFieldNode = (value?: unknown): value is FieldNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(FieldFields, value as Record<string, BasicValue>, isValidFieldField());
 
 /**
  * `makeField` - Create a `field` node
  *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
- *
  * @param constructor - The constructor
  * @returns The `field` node
  */
-export function makeField<ValueType, T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements FieldNode<ValueType> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function makeField<ValueType extends BasicValue, T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
+  return class extends constructor implements FieldNodeAttributes<ValueType> {
     get 'name'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('name');
     }
     set 'name'(value: CDATA | undefined) {
       this.writeProp<CDATA | undefined>('name', value);
     }
-    get 'value'(): ValueType | undefined {
-      return this.readProp<ValueType | undefined>('value');
+    get 'value'(): ValueType {
+      return this.readProp<ValueType>('value');
     }
-    set 'value'(value: ValueType | undefined) {
-      this.writeProp<ValueType | undefined>('value', value);
+    set 'value'(value: ValueType) {
+      this.writeProp<ValueType>('value', value);
     }
   }
 }
@@ -92,7 +90,7 @@ export const makeCDATAField = <T extends Constructor>(constructor: T): T => make
 /**
  * BooleanFieldNode
  */
-export type BooleanFieldNode = FieldNode<boolean>;
+export type BooleanFieldNode = FieldNodeAttributes<boolean>;
 
 /**
  * isValidBooleanFieldField  -  Checks if the boolean field node is valid

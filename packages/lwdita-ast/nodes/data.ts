@@ -1,12 +1,13 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReferenceContentNode, ReferenceContentFields, isValidReferenceContentField, makeReferenceContent } from "./reference-content";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReferenceContentNodeAttributes, ReferenceContentFields, isValidReferenceContentField, makeReferenceContent } from "./reference-content";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
-import { VariableContentFields, VariableContentNode, isValidVariableContentField, makeVariableContent } from "./variable-content";
-import { FieldFields, FieldNode, isValidCDATAFieldField, makeCDATAField } from "./field";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
+import { VariableContentFields, VariableContentNodeAttributes, isValidVariableContentField, makeVariableContent } from "./variable-content";
+import { FieldFields, FieldNodeAttributes, isValidCDATAFieldField, makeCDATAField } from "./field";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, ReferenceContentScope } from "../ast-classes";
 
 /**
  * Define all allowed `data` attributes:
@@ -15,9 +16,9 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const DataFields = [...FiltersFields, ...LocalizationFields, ...ReferenceContentFields, ...ClassFields, ...VariableContentFields, ...FieldFields];
 
 /**
- * Interface DataNode defines the attribute types for `data`:
+ * Interface DataNodeAttributes defines the attribute types for `data`:
  */
-export interface DataNode extends FiltersNode, LocalizationNode, ReferenceContentNode, ClassNode, VariableContentNode, FieldNode { }
+export interface DataNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReferenceContentNodeAttributes, VariableContentNodeAttributes, FieldNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `data` node are valid and match this list:
@@ -43,8 +44,8 @@ export const isValidDataField = (field: string, value: BasicValue): boolean => i
  * @param value - The `data` node to test
  * @returns Boolean
  */
-export const isDataNode = (value?: {}): value is DataNode =>
-  typeof value === 'object' && areFieldsValid(DataFields, value, isValidDataField);
+export const isDataNode = (value?: unknown): value is DataNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(DataFields, value as Record<string, BasicValue>, isValidDataField);
 
 /**
  * Construct a `data` node with all available attributes
@@ -67,6 +68,30 @@ export function makeData<T extends Constructor>(constructor: T): T {
  * @param childNodes - An array containing all valid child node names: `text*`, `%data*`
  */
 @makeComponent(makeData, 'data', isValidDataField, DataFields, [['text*', '%data*']])
-export class DataNode extends BaseNode {
+export class DataNode extends AbstractBaseNode implements DataNodeAttributes {
   static domNodeName = 'data';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // FieldNodeAttributes
+  'name'?: CDATA
+  'value'?: CDATA
+
+  // VariableContentNodeAttributes
+  'keyref'?: CDATA
+
+  // ReferenceContentNodeAttributes
+  'href'?: CDATA
+  'format'?: CDATA
+  'scope'?: ReferenceContentScope
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

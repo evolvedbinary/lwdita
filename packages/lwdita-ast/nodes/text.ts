@@ -1,4 +1,4 @@
-import { BaseNode, makeComponent } from "./base";
+import { AbstractBaseNode, BaseNode, makeComponent } from "./base";
 import { isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
 import { BasicValue, JDita } from "@evolvedbinary/lwdita-xdita/classes";
 
@@ -9,10 +9,10 @@ import { BasicValue, JDita } from "@evolvedbinary/lwdita-xdita/classes";
 export const TextFields = ['content'];
 
 /**
- * Interface TextNode defines the `content` field type for node `text`: `string`
+ * Interface TextNodeAttributes defines the `content` field type for node `text`: `string`
  */
-export interface TextNode {
-  'content'?: string;
+export interface TextNodeAttributes extends BaseNode {
+  'content'?: string
 }
 
 /**
@@ -36,23 +36,21 @@ export function isValidTextField(field: string, value: BasicValue): boolean {
  * Assert that the text node is an object, has content,
  * and that the content meets the required type `string`.
  *
- * @param value - A BasicValue-typed value containing the field value
+ * @param value - The `text` node to test
  * @returns
  */
-export const isTextNode = (value?: BasicValue): value is TextNode =>
-  typeof value === 'object' && 'content' in value && typeof value.content === 'string';
+export const isTextNode = (value?: unknown): value is TextNodeAttributes =>
+  typeof value === 'object' && !!value && 'content' in value && typeof value.content === 'string';
 
 
 /**
  * Construct a `text` node containing a `content` property
  *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
- *
  * @param constructor - The constructor
  * @returns The `text` node
  */
-export function makeText<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function makeText<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return class extends constructor implements TextNode {
     get 'content'(): string {
       return this.readProp('content');
@@ -73,7 +71,11 @@ export function makeText<T extends { new(...args: any[]): BaseNode }>(constructo
  * @param fields - The valid attribute `content` of type string See {@link TextFields}
  */
 @makeComponent(makeText, 'text', isValidTextField, TextFields)
-export class TextNode extends BaseNode {
+export class TextNode extends AbstractBaseNode implements TextNodeAttributes {
+
+  // TextNodeAttributes {
+  'content'?: string
+
   constructor(content: string) {
     super({ content });
   }

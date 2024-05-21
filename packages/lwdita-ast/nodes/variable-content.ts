@@ -1,8 +1,7 @@
 import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode } from "./base";
+import { AbstractBaseNode } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA } from "../ast-classes";
-
 
 /**
  * Define all allowed `variable-content` attributes:
@@ -13,7 +12,7 @@ export const VariableContentFields = ['keyref'];
 /**
  * The interface `VariableContentNode` defines the attribute type for `variable-content`: 'CDATA'
  */
-export interface VariableContentNode {
+export interface VariableContentNodeAttributes {
   'keyref'?: CDATA;
 }
 
@@ -40,20 +39,18 @@ export function isValidVariableContentField(field: string, value: BasicValue): b
  * @param value - The `variable-content` node to test
  * @returns Boolean
  */
-export const isVariableContentNode = (value?: {}): value is VariableContentNode =>
-  typeof value === 'object' && areFieldsValid(VariableContentFields, value, isValidVariableContentField);
+export const isVariableContentNode = (value?: unknown): value is VariableContentNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(VariableContentFields, value as Record<string, BasicValue>, isValidVariableContentField);
 
 /**
  * Create a `variable-content` node with a `keyref` attribute
  *
- * @remarks
- * eslint-disable-next-line `@typescript-eslint/no-explicit-any`
- *
  * @param constructor - The constructor
  * @returns The `variable-content` node with a `keyref` attribute and its value
  */
-export function makeVariableContent<T extends { new(...args: any[]): BaseNode }>(constructor: T): T {
-  return class extends constructor implements VariableContentNode {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function makeVariableContent<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
+  return class extends constructor implements VariableContentNodeAttributes {
     get 'keyref'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('keyref');
     }

@@ -1,8 +1,9 @@
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA } from "../ast-classes";
 /**
  * Define all allowed `body` attributes:
  * `dir`, `xml:lang`, `translate`, `outputclass`, `class`
@@ -12,7 +13,7 @@ export const BodyFields = [...LocalizationFields, ...ClassFields];
 /**
  * Interface BodyNode defines the attribute types for `body`:
  */
-export interface BodyNode extends LocalizationNode, ClassNode { }
+export interface BodyNodeAttributes extends LocalizationNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `body` node are valid and match this list:
@@ -34,8 +35,8 @@ export const isValidBodyField = (field: string, value: BasicValue): boolean => i
  * @param value - The `body` node to test
  * @returns Boolean
  */
-export const isBodyNode = (value?: {}): value is BodyNode =>
-  typeof value === 'object' && areFieldsValid(BodyFields, value, isValidBodyField);
+export const isBodyNode = (value?: unknown): value is BodyNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(BodyFields, value as Record<string, BasicValue>, isValidBodyField);
 
 /**
  * Construct a `body` node with all available attributes
@@ -58,6 +59,15 @@ export function makeBody<T extends Constructor>(constructor: T): T {
  * @param childNodes - An array containing all valid child node names: `%list-blocks*`, `section*`, `fn*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `note`, `data`)
  */
 @makeComponent(makeBody, 'body', isValidBodyField, BodyFields, ['%list-blocks*', 'section*', 'fn*'])
-export class BodyNode extends BaseNode {
+export class BodyNode extends AbstractBaseNode implements BodyNodeAttributes {
   static domNodeName = 'div';
+
+    // ClassNodeAttributes
+    'outputclass'?: CDATA
+    'class'?: CDATA
+  
+    // LocalizationNodeAttributes
+    'dir'?: CDATA
+    'xml:lang'?: CDATA
+    'translate'?: CDATA
 }

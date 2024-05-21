@@ -1,10 +1,11 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `p` attributes:
@@ -13,10 +14,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const PFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
 /**
- * Interface PhNode defines the attribute types for `p`:
+ * Interface PNodeAttributes defines the attribute types for `p`:
  * `CDATA`, `NMTOKEN`
  */
-export interface PNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface PNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `p` node are valid
@@ -39,8 +40,8 @@ export const isValidPField = (field: string, value: BasicValue): boolean => isVa
  * @param value - The `p` node to test
  * @returns Boolean
  */
-export const isPNode = (value?: {}): value is PNode =>
-  typeof value === 'object' && areFieldsValid(PFields, value, isValidPField);
+export const isPNode = (value?: unknown): value is PNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(PFields, value as Record<string, BasicValue>, isValidPField);
 
 /**
  * Construct a `p` node with all available attributes
@@ -66,6 +67,22 @@ export function makeP<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child nodes `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
  */
 @makeComponent(makeP, 'p', isValidPField, PFields, ['%all-inline*'])
-export class PNode extends BaseNode {
+export class PNode extends AbstractBaseNode implements PNodeAttributes {
   static domNodeName = 'p';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

@@ -1,5 +1,5 @@
 import { assert, expect } from 'chai';
-import { BaseNode, Constructor, TextNode, DocumentNode } from './nodes';
+import { AbstractBaseNode, Constructor, TextNode, DocumentNode } from './nodes';
 import { stringToChildTypes } from '@evolvedbinary/lwdita-xdita/utils';
 import { OrArray } from '@evolvedbinary/lwdita-xdita/classes';
 import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError } from "./ast-classes";
@@ -7,9 +7,9 @@ import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError }
 // TODO: add a test for checking invalid node
 
 export function doNodeTest(
-  classType: typeof BaseNode,
+  classType: typeof AbstractBaseNode,
   nodeName: string,
-  validator: (value?: {}) => boolean,
+  validator: (value?: unknown) => boolean,
   fields: string[],
   children: OrArray<string> = [],
   attribute = 'dir',

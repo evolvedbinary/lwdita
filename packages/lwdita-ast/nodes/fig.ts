@@ -1,10 +1,11 @@
-import { DisplayNode, DisplayFields, isValidDisplayField, makeDisplay } from "./display";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
+import { DisplayNodeAttributes, DisplayFields, isValidDisplayField, makeDisplay } from "./display";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { BaseNode, makeComponent, makeAll, Constructor } from "./base";
-import { FiltersFields, FiltersNode, isValidFiltersField, makeFilters } from "./filters";
+import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { FiltersFields, FiltersNodeAttributes, isValidFiltersField, makeFilters } from "./filters";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, DisplayExpanse, DisplayFrame, DisplayScale, } from "../ast-classes";
 
 /**
  * Define all allowed `fig` attributes:
@@ -15,7 +16,7 @@ export const FigFields = [...DisplayFields, ...LocalizationFields, ...FiltersFie
 /**
  * Interface FigNode defines the attribute types for `fig`
  */
-export interface FigNode extends DisplayNode, LocalizationNode, FiltersNode, ClassNode { }
+export interface FigNodeAttributes extends DisplayNodeAttributes, FiltersNodeAttributes, LocalizationNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `fig` node are valid and match this list:
@@ -39,8 +40,8 @@ export const isValidFigField = (field: string, value: BasicValue): boolean => is
  * @param value - The `fig` node to test
  * @returns Boolean
  */
-export const isFigNode = (value?: {}): value is FigNode =>
-  typeof value === 'object' && areFieldsValid(FigFields, value, isValidFigField);
+export const isFigNode = (value?: unknown): value is FigNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(FigFields, value as Record<string, BasicValue>, isValidFigField);
 
 /**
  * Construct a `fig` node with all available attributes
@@ -64,6 +65,23 @@ export function makeFig<T extends Constructor>(constructor: T): T {
  * @returns A `fig` node
  */
 @makeComponent(makeFig, 'fig', isValidFigField, FigFields, ['title?', 'desc?', ['%fig-blocks*', 'image*', 'xref*']])
-export class FigNode extends BaseNode {
+export class FigNode extends AbstractBaseNode implements FigNodeAttributes {
   static domNodeName = 'figure';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
+
+  // DisplayNodeAttributes
+  'scale'?: DisplayScale;
+  'frame'?: DisplayFrame;
+  'expanse'?: DisplayExpanse;
 }

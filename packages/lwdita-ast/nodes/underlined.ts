@@ -1,11 +1,12 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `underlined` attributes:
@@ -14,10 +15,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const UnderlinedFields = [...LocalizationFields, ...VariableContentFields, ...ClassFields];
 
 /**
- * Interface UnderlinedNode defines the attribute types for `underlined`:
+ * Interface UnderlinedNodeAttributes defines the attribute types for `underlined`:
  * `CDATA`, `NMTOKEN`
  */
-export interface UnderlinedNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface UnderlinedNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `underlined` node are valid
@@ -39,8 +40,8 @@ export const isValidUnderlinedField = (field: string, value: BasicValue): boolea
  * @param value - The `underlined` node to test
  * @returns Boolean
  */
-export const isUnderlinedNode = (value?: {}): value is UnderlinedNode =>
-  typeof value === 'object' && areFieldsValid(UnderlinedFields, value, isValidUnderlinedField);
+export const isUnderlinedNode = (value?: unknown): value is UnderlinedNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(UnderlinedFields, value as Record<string, BasicValue>, isValidUnderlinedField);
 
 /**
  * Construct an `underlined` node with all available attributes
@@ -66,6 +67,22 @@ export function makeUnderlined<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `%all-inline*`
  */
 @makeComponent(makeUnderlined, 'u', isValidUnderlinedField, UnderlinedFields, ['%all-inline*'])
-export class UnderlinedNode extends BaseNode {
-  static domNodeName = 'u';
+export class UnderlinedNode extends AbstractBaseNode implements UnderlinedNodeAttributes {
+  static domNodeName = 'u'
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

@@ -1,10 +1,11 @@
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `sthead` attributes:
@@ -13,10 +14,10 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const StHeadFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
 /**
- * Interface StHeadNode defines the attribute types for `sthead`:
+ * Interface StHeadNodeAttributes defines the attribute types for `sthead`:
  * `CDATA`, `NMTOKEN`
  */
-export interface StHeadNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface StHeadNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `sthead` node are valid
@@ -39,8 +40,8 @@ export const isValidStHeadField = (field: string, value: BasicValue): boolean =>
  * @param value - The `sthead` node to test
  * @returns Boolean
  */
-export const isStHeadNode = (value?: {}): value is StHeadNode =>
-  typeof value === 'object' && areFieldsValid(StHeadFields, value, isValidStHeadField);
+export const isStHeadNode = (value?: unknown): value is StHeadNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(StHeadFields, value as Record<string, BasicValue>, isValidStHeadField);
 
 /**
  * Construct a `sthead` node with all available attributes
@@ -63,6 +64,22 @@ export function makeStHead<T extends Constructor>(constructor: T): T {
  * @param childNodes - An Array of allowed child node `stentry+`
  */
 @makeComponent(makeStHead, 'sthead', isValidStHeadField, StHeadFields, ['stentry+'])
-export class StHeadNode extends BaseNode {
-  static domNodeName = 'thead';
+export class StHeadNode extends AbstractBaseNode implements StHeadNodeAttributes {
+  static domNodeName = 'thead'
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }

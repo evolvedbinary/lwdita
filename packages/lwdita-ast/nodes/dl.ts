@@ -1,10 +1,11 @@
-import { FiltersNode, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { ClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { ReuseNode, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
-import { LocalizationNode, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
+import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
+import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
+import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
+import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, BaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `dl` attributes:
@@ -13,9 +14,9 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 export const DlFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
 /**
- * Interface DlNode defines the attribute types for `dl`
+ * Interface DlNodeAttributes defines the attribute types for `dl`
  */
-export interface DlNode extends FiltersNode, LocalizationNode, ReuseNode, ClassNode { }
+export interface DlNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
 
 /**
  * Check if the given attributes of the `dl` node are valid and match this list:
@@ -39,8 +40,8 @@ export const isValidDlField = (field: string, value: BasicValue): boolean => isV
  * @param value - The `dl` node to test
  * @returns Boolean
  */
-export const isDlNode = (value?: {}): value is DlNode =>
-  typeof value === 'object' && areFieldsValid(DlFields, value, isValidDlField);
+export const isDlNode = (value?: unknown): value is DlNodeAttributes =>
+  typeof value === 'object' && !!value && areFieldsValid(DlFields, value as Record<string, BasicValue>, isValidDlField);
 
 /**
  * Construct a `dl` node with all available attributes
@@ -64,6 +65,22 @@ export function makeDl<T extends Constructor>(constructor: T): T {
  * @returns A `dl` node
  */
 @makeComponent(makeDl, 'dl', isValidDlField, DlFields, ['dlentry+'])
-export class DlNode extends BaseNode {
+export class DlNode extends AbstractBaseNode implements DlNodeAttributes {
   static domNodeName = 'dl';
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
 }
