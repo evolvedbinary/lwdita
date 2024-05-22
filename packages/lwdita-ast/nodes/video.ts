@@ -3,7 +3,7 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, BaseNode, makeAll, Constructor } from "./base";
 import { SizeFields, isValidSizeField, makeSize, SizeNodeAttributes } from "./size";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
@@ -18,7 +18,7 @@ export const VideoFields = [...FiltersFields, ...LocalizationFields, ...ReuseFie
  * The interface `VideoNodeAttributes` defines all attribute types for `video`:
  * `CDATA`, `NMTOKEN`
  */
-export interface VideoNodeAttributes extends SizeNodeAttributes, FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes { }
+export interface VideoNodeAttributes extends SizeNodeAttributes, FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given attributes of the `video` node are valid

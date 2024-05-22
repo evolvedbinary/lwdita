@@ -3,7 +3,7 @@ import { FnReuseNodeAttributes, FnReuseFields, isValidFnReuseField, makeFnReuse 
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, AbstractBaseNode, makeAll } from "./base";
+import { makeComponent, AbstractBaseNode, BaseNode, makeAll } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, isCDATA, ID } from "../ast-classes";
 
@@ -19,7 +19,7 @@ export const FnFields = [...FiltersFields, ...LocalizationFields, ...FnReuseFiel
 /**
  * Interface FnNode defines the attribute types for `fn`
  */
-export interface FnNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, FnReuseNodeAttributes, ClassNodeAttributes { }
+export interface FnNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, FnReuseNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given attributes of the `fn` node are valid and match this list:

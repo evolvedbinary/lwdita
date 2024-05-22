@@ -3,7 +3,7 @@ import { ReferenceContentNodeAttributes, ReferenceContentFields, isValidReferenc
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, BaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, VariableContentNodeAttributes, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { FieldFields, FieldNodeAttributes, isValidCDATAFieldField, makeCDATAField } from "./field";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
@@ -18,7 +18,7 @@ export const DataFields = [...FiltersFields, ...LocalizationFields, ...Reference
 /**
  * Interface DataNodeAttributes defines the attribute types for `data`:
  */
-export interface DataNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReferenceContentNodeAttributes, VariableContentNodeAttributes, FieldNodeAttributes, ClassNodeAttributes { }
+export interface DataNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReferenceContentNodeAttributes, VariableContentNodeAttributes, FieldNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given attributes of the `data` node are valid and match this list:

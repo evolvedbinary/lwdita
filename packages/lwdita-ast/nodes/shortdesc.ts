@@ -2,7 +2,7 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA } from "../ast-classes";
 
@@ -15,7 +15,7 @@ export const ShortDescFields = [...FiltersFields, ...LocalizationFields, ...Clas
 /**
  * Interface ShortDescNodeAttributes defines the attribute types for `shortdesc`: `CDATA`
  */
-export interface ShortDescNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ClassNodeAttributes { }
+export interface ShortDescNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given attributes of the `shortdesc` node are valid

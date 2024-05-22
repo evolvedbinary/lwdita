@@ -1,6 +1,6 @@
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, BaseNode, makeAll, Constructor } from "./base";
 import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
@@ -17,7 +17,7 @@ export const MediaSourceFields = [...LocalizationFields, ...FieldFields, ...Clas
  * Interface MediaSourceNodeAttributes defines the attribute types for `media-source`:
  * `CDATA`, `T`
  */
-export interface MediaSourceNodeAttributes extends LocalizationNodeAttributes, FieldNodeAttributes<boolean>, ClassNodeAttributes { }
+export interface MediaSourceNodeAttributes extends LocalizationNodeAttributes, FieldNodeAttributes<boolean>, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given attributes of the `media-source` node are valid

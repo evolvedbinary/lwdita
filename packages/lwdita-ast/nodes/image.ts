@@ -4,7 +4,7 @@ import { VariableContentNodeAttributes, isVariableContentNode, VariableContentFi
 import { ReferenceContentNodeAttributes, isReferenceContentNode, ReferenceContentFields, makeReferenceContent, isValidReferenceContentField } from "./reference-content";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { ClassNodeAttributes, isClassNode, ClassFields, isValidClassField, makeClass } from "./class";
-import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { SizeFields, SizeNodeAttributes, isSizeNode, isValidSizeField, makeSize } from "./size";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN, ReferenceContentScope } from "../ast-classes";
@@ -18,7 +18,7 @@ export const ImageFields = [...FiltersFields, ...LocalizationFields, ...Variable
 /**
  * Interface ImageNodeAttributes defines the attribute types for `image`
  */
-export interface ImageNodeAttributes extends SizeNodeAttributes, FiltersNodeAttributes, LocalizationNodeAttributes, VariableContentNodeAttributes, ReferenceContentNodeAttributes, ClassNodeAttributes { }
+export interface ImageNodeAttributes extends SizeNodeAttributes, FiltersNodeAttributes, LocalizationNodeAttributes, VariableContentNodeAttributes, ReferenceContentNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the `image` node is valid

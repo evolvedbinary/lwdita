@@ -1,6 +1,6 @@
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { makeComponent, AbstractBaseNode, makeAll, Constructor } from "./base";
+import { makeComponent, AbstractBaseNode, BaseNode, makeAll, Constructor } from "./base";
 import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
@@ -17,7 +17,7 @@ export const MediaMutedFields = [...LocalizationFields, ...FieldFields, ...Class
  * Interface MediaMutedNodeAttributes defines the attribute types for `media-muted`:
  * `CDATA`, `T`
  */
-export interface MediaMutedNodeAttributes extends LocalizationNodeAttributes, FieldNodeAttributes<boolean>, ClassNodeAttributes { }
+export interface MediaMutedNodeAttributes extends LocalizationNodeAttributes, FieldNodeAttributes<boolean>, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given attributes of the `media-muted` node are valid

@@ -1,7 +1,7 @@
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
-import { AbstractBaseNode, makeComponent, makeAll, Constructor } from "./base";
+import { AbstractBaseNode, BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA } from "../ast-classes";
 /**
@@ -13,7 +13,7 @@ export const BodyFields = [...LocalizationFields, ...ClassFields];
 /**
  * Interface BodyNode defines the attribute types for `body`:
  */
-export interface BodyNodeAttributes extends LocalizationNodeAttributes, ClassNodeAttributes { }
+export interface BodyNodeAttributes extends LocalizationNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given attributes of the `body` node are valid and match this list:
