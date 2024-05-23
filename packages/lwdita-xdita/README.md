@@ -20,23 +20,23 @@ yarn add @evolvedbinary/lwdita-xdita
 ```
 
 ```javascript
-const { xditaToJson } = require("@evolvedbinary/lwdita-xdita");
+const { xditaToJdita } = require("@evolvedbinary/lwdita-xdita");
 
 const xml = `
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">
 <topic>...</topic>
 `
-xditaToJson(xml)
+xditaToJdita(xml)
   .then(JDitaDocument => console.log(JSON.stringify(result, null, 2)))
   .catch(error => console.log('Failed to convert:', error));
 ```
 
-By default, `xditaToJson` will fail when it encounters any error (XML syntax errors, validation errors,...).
+By default, `xditaToJdita` will fail when it encounters any error (XML syntax errors, validation errors,...).
 If you want to ignore any errors and work with whatever data the function could collect, set the second argument `abortOnError` to `false`:
 
 ```javascript
-xditaToJson(xml, false)
+xditaToJdita(xml, false)
 ```
 
 For more information, see [https://github.com/evolvedbinary/jdita](https://github.com/evolvedbinary/jdita).

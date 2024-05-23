@@ -1,11 +1,11 @@
 
 import { expect } from 'chai';
-import { serializeToXML, xditaToJdita, xditaToJson } from '../converter';
+import { serializeToXML, xditaToAst, xditaToJdita } from '../converter';
 
-describe('xditaToJdita', () => {
+describe('xditaToAst', () => {
   it('converts XDITA XML to JDITA DocumentNode', async () => {
     const xml = `<topic id="topicID"><title>text content</title></topic>`;
-    const jdita = await xditaToJdita(xml);
+    const jdita = await xditaToAst(xml);
 
     const topicNode = jdita.children[0];
 
@@ -32,7 +32,7 @@ describe('xditaToJdita', () => {
   it('rejects with errors if XML parsing fails', async () => {
     const xml = `<invalid-xml`;
 
-    expect(xditaToJdita(xml)).to.be.throw;
+    expect(xditaToAst(xml)).to.be.throw;
   });
 });
 
@@ -40,7 +40,7 @@ describe('jditaToXdita', () => {
   it('converts XDITA DocumentNode to JDITA json', async () => {
     const xdita = `<topic id="topicID"><title>text content</title></topic>`;
 
-    const xditaJson = await xditaToJson(xdita);
+    const xditaJson = await xditaToJdita(xdita);
     const json = {
       "nodeName": "document",
       "attributes": undefined,
@@ -88,7 +88,7 @@ describe('jditaToXdita', () => {
 describe('serializeToXML', () => {
   it('serializes the root node to XML', async () => {
     const xml = `<topic id="topicID"><title>text content</title></topic>`;
-    const jdita = await xditaToJdita(xml);
+    const jdita = await xditaToAst(xml);
 
     const result = serializeToXML(jdita);
 
@@ -98,7 +98,7 @@ describe('serializeToXML', () => {
 
   it('serializes the root node to XML with indentation', async () => {
     const xml = `<topic id="topicID"><title>text content</title></topic>`;
-    const jdita = await xditaToJdita(xml);
+    const jdita = await xditaToAst(xml);
 
     const result = serializeToXML(jdita, ' ', 2);
 

@@ -1,4 +1,4 @@
-import { xditaToJson, xditaToJdita, serializeToXML } from "./converter";
+import { xditaToJdita, xditaToAst, serializeToXML } from "./converter";
 import { BaseNode, TextNode, TopicNode } from "@evolvedbinary/lwdita-ast/nodes";
 import { storeOutputXML } from "./utils";
 import path from 'path';
@@ -37,7 +37,7 @@ const xml =
  * <topic><title>valid title</title><body><p>text</p></body></topic>
  * ```
  */
-xditaToJdita(xml)
+xditaToAst(xml)
   .then(jditaAst => {
     // Console log an object containing the AST:
     console.log(JSON.stringify(jditaAst.json, null, 2));
