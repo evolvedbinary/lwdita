@@ -1,6 +1,6 @@
 
 import { expect } from 'chai';
-import { serializeToXML, xditaToAst, xditaToJdita } from '../converter';
+import { serializeToXdita, xditaToAst, xditaToJdita } from '../converter';
 
 describe('xditaToAst', () => {
   it('converts XDITA XML to JDITA DocumentNode', async () => {
@@ -85,22 +85,22 @@ describe('jditaToXdita', () => {
   });
 });
 
-describe('serializeToXML', () => {
+describe('serializeToXdita', () => {
   it('serializes the root node to XML', async () => {
-    const xml = `<topic id="topicID"><title>text content</title></topic>`;
-    const jdita = await xditaToAst(xml);
+    const xdita = `<topic id="topicID"><title>text content</title></topic>`;
+    const ast = await xditaToAst(xdita);
 
-    const result = serializeToXML(jdita);
+    const result = serializeToXdita(ast);
 
     // Assert the serialized XML output
-    expect(result).to.equal(xml);
+    expect(result).to.equal(xdita);
   });
 
   it('serializes the root node to XML with indentation', async () => {
-    const xml = `<topic id="topicID"><title>text content</title></topic>`;
-    const jdita = await xditaToAst(xml);
+    const xdita = `<topic id="topicID"><title>text content</title></topic>`;
+    const ast = await xditaToAst(xdita);
 
-    const result = serializeToXML(jdita, ' ', 2);
+    const result = serializeToXdita(ast, ' ', 2);
 
     const expected = `<topic id="topicID">\n  <title>\n    text content\n  </title>\n</topic>\n`;
 

@@ -1,7 +1,7 @@
 import { SaxesAttributeNS } from "@rubensworks/saxes";
 
 /**
- * JDita is a Object representation of a DITA XML document
+ * JDita is a Object representation of a LwDITA document
  */
 export interface JDita {
   nodeName: string;

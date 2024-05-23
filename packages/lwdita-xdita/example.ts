@@ -1,4 +1,4 @@
-import { xditaToJdita, xditaToAst, serializeToXML } from "./converter";
+import { xditaToJdita, xditaToAst, serializeToXdita } from "./converter";
 import { BaseNode, TextNode, TopicNode } from "@evolvedbinary/lwdita-ast/nodes";
 import { storeOutputXML } from "./utils";
 import path from 'path';
@@ -44,25 +44,25 @@ xditaToAst(xml)
 
     /**
      * Start the serialization
-     * `serializeToXML(root, indentationChar?, tabSize?)` is offering three options to output the document:
+     * `serializeToXdita(root, indentationChar?, tabSize?)` is offering three options to output the document:
      * 1. No indentation/formatting - all is output in one line (default)
      * 2. Indentation with tabs
      * 3. Indentation with Spaces - You can modify the desired number of spaces by setting `indentationSize`, per default it's set to 4 spaces.
      */
 
     // 1. Default option: The document will have no indentation and will be output in one line
-    const xditaString = serializeToXML(ast);
+    const xditaString = serializeToXdita(ast);
 
     // 2. Comment-in the following line to choose Tabs as indentation
     const tab = '\t';
-    //const xditaString = serializeToXML(ast, tab);
+    //const xditaString = serializeToXdita(ast, tab);
 
     // 3. Comment-in the following line to choose spaces as indentation
     const space = ' ';
     const indentationSize = 4;
-    //const xditaString = serializeToXML(ast, space, indentationSize);
+    //const xditaString = serializeToXdita(ast, space, indentationSize);
 
-    // 4. Advanced - Instead of using `serializeToXML` you can use a streaming approach if you prefer...
+    // 4. Advanced - Instead of using `serializeToXdita` you can use a streaming approach if you prefer...
     // const outputStream = new InMemoryTextSimpleOutputStreamCollector();  // TODO replace InMemoryTextSimpleOutputStreamCollector with whatever Stream implementation you need
     // const serializer = new XditaSerializer(outputStream, true, space, indentationSize);
     // serializer.serialize(ast);
