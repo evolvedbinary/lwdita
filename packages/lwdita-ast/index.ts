@@ -1,5 +1,4 @@
 /*!
-LwDITA AST object model
 Copyright (C) 2020 Evolved Binary
 
 This program is free software: you can redistribute it and/or modify
