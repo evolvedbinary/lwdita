@@ -8,13 +8,13 @@ import { XditaSerializer } from "./xdita-serializer";
 /** TODO: Add tests for this module */
 
 /**
- * xditaToJdita - Converts XML to a JDita document tree
+ * Converts XML to an AST document tree
  *
  * @param xml - XML string
  * @param abortOnError - If true, abort on error
  * @returns - Promise of a DocumentNode
  */
-export async function xditaToJdita(xml: string, abortOnError = true): Promise<DocumentNode> {
+export async function xditaToAst(xml: string, abortOnError = true): Promise<DocumentNode> {
   return new Promise((resolve, reject) => {
     const errors: Error[] = [];
     // Create a Parser Object
@@ -97,14 +97,24 @@ export async function xditaToJdita(xml: string, abortOnError = true): Promise<Do
 }
 
 /**
- * xditaToJson - Convert the document tree to json
+ * Convert the document tree to JDita object
  *
  * @param xml - The XML input as string
  * @param abortOnError - Boolean, if true, stop execution and report errors
- * @returns The XML document tree object
+ * @returns JDita object
  */
-export async function xditaToJson(xml: string, abortOnError = true): Promise<JDita> {
-  return xditaToJdita(xml, abortOnError).then(doc => doc.json);
+export async function xditaToJdita(xml: string, abortOnError = true): Promise<JDita> {
+  return xditaToAst(xml, abortOnError).then(astToJdita);
+}
+
+/**
+ * Convert the document node to JDita object
+ * 
+ * @param document - DocumentNode
+ * @returns JDita object
+ */
+export function astToJdita(document: DocumentNode): JDita {
+  return document.json;
 }
 
 /**
