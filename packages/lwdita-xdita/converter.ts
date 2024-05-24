@@ -118,7 +118,7 @@ export function astToJdita(document: DocumentNode): JDita {
 }
 
 /**
- * `serializeToXML` - Serialize the JDita AST and transform it into XML
+ * `serializeToXML` - Serialize the AST and transform it into XDITA
  * The serialization is providing three options to output the document:
  * 1. No indentation/formatting - all is output in one line (default)
  * 2. Indentation with tabs
@@ -139,7 +139,7 @@ export function astToJdita(document: DocumentNode): JDita {
  * @param tabSize - The number of spaces to be used for indentation when an indentation character other than tab is used, the default is 4 spaces
  * @returns The transformed document as an array of XMLTag objects
  */
-export function serializeToXML(root: DocumentNode, indentationChar?: string, tabSize?: number): string {
+export function serializeToXdita(root: DocumentNode, indentationChar?: string, tabSize?: number): string {
   const outStream = new InMemoryTextSimpleOutputStreamCollector();
   let visitor: XditaSerializer;
   if(indentationChar === '\t') {

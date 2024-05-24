@@ -1,7 +1,7 @@
 {
-  "name": "jdita",
+  "name": "lwdita",
   "version": "0.2.4",
-  "description": "Converts LwDITA XDITA format into JSON (a.k.a JDITA)",
+  "description": "Tools and libraries for working with LwDITA",
   "engines": {
     "node": ">=20.1.0 <21",
     "yarn": ">=1.22.21 <2"
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/evolvedbinary/jdita.git"
+    "url": "git+https://github.com/evolvedbinary/lwdita.git"
   },
   "keywords": [
     "LwDITA",
@@ -40,9 +40,9 @@
   "author": "Evolved Binary",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/evolvedbinary/jdita/issues"
+    "url": "https://github.com/evolvedbinary/lwdita/issues"
   },
-  "homepage": "https://github.com/evolvedbinary/jdita#readme",
+  "homepage": "https://github.com/evolvedbinary/lwdita#readme",
   "directories": {
     "src": "./src",
     "test": "./test"
