@@ -8,14 +8,14 @@
   },
   "private": true,
   "workspaces": [
-   "packages/lwdita-xdita",
-   "packages/lwdita-ast"
+    "packages/lwdita-xdita",
+    "packages/lwdita-ast"
   ],
   "scripts": {
     "lint": "eslint packages/* --ext .ts",
     "lint:fix": "eslint packages/* --ext .ts --fix",
     "start:dev": "nodemon",
-    "clean":"rimraf ./dist packages/lwdita-xdita/dist packages/lwdita-ast/dist",
+    "clean": "rimraf ./dist packages/lwdita-xdita/dist packages/lwdita-ast/dist",
     "copy-xml": "mv dist/lwdita-xdita packages/lwdita-xdita/dist",
     "copy-ast": "mv dist/lwdita-ast packages/lwdita-ast/dist",
     "copy": "yarn copy-xml && yarn copy-ast",
