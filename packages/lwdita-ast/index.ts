@@ -17,3 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 export * from './factory';
 export * from './nodes';
+export * from './ast-classes';
+export * from './ast-utils';
+export * from './classes';
+export * from './utils';
