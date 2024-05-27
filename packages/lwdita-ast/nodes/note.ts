@@ -30,7 +30,7 @@ import { CDATA, isCDATA, NMTOKEN } from "../ast-classes";
  */
 export const NoteFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields, 'type'];
 
-export enum NoteType {
+export enum NoteTypes {
   Caution = "caution",
   Warning = "warning",
   Danger = "danger",
@@ -43,7 +43,7 @@ export enum NoteType {
  * Interface NoteNode defines the attribute type for `note`: `CDATA`
  */
 export interface NoteNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes, BaseNode {
-  type: NoteType
+  type: NoteTypes
 }
 
 /**
@@ -127,5 +127,5 @@ export class NoteNode extends AbstractBaseNode implements NoteNodeAttributes {
   'props'?: CDATA
 
   // NoteNodeAttributes
-  type: NoteType = NoteType.Note
+  type: NoteTypes = NoteTypes.Note
 }

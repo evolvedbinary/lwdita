@@ -16,7 +16,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { BasicValue, OrArray, ChildTypes, ChildType} from "./classes";
-import fs from 'fs';
+import * as fs  from 'fs';
 
 /**
  * has - Check if an array has a value

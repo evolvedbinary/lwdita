@@ -1,0 +1,8 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+  },
+
+  "include": ["nodes/**/*.ts", "index.ts", "factory.ts", "ast-utils.ts","ast-classes.ts"],
+}

@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+  },
+
+  "include": ["classes.ts", "converter.ts", "index.ts", "jdita-serializer.ts", "utils.ts", "xdita-serializer.ts"]
+}
+

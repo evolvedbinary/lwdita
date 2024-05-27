@@ -26,6 +26,7 @@
     "url": "https://github.com/evolvedbinary/lwdita/issues"
   },
   "scripts": {
-    "example": "ts-node ./example.ts"
+    "example": "ts-node ./example.ts",
+    "build": "tsc"
   }
 }
