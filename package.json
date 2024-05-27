@@ -1,5 +1,5 @@
 {
-  "name": "lwdita",
+  "name": "@evolvedbinary/lwdita",
   "version": "0.2.4",
   "description": "Tools and libraries for working with LwDITA",
   "engines": {
