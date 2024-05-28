@@ -1,10 +1,10 @@
 {
   "name": "@evolvedbinary/lwdita-xdita",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./dist/index.js",
   "dependencies": {
-    "@rubensworks/saxes": "6.0.1",
-    "@evolvedbinary/lwdita-ast": "1.0.0"
+    "@evolvedbinary/lwdita-ast": "1.0.0",
+    "@rubensworks/saxes": "6.0.1"
   },
   "dependenciesComments": [
     "(AR) Previously we were using `\"saxes\": \"^6.0.0\"`, see: https://github.com/lddubeau/saxes/pull/120"
