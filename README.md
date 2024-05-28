@@ -204,3 +204,26 @@ Here's how the nodes are created:
 Examples of the nodes `<title>` and `<topic>`:
 
 ![Diagram of example nodes](diagrams/lwdita-diagram-nodes.svg "Diagram of example nodes")
+
+# Contributing
+## Create a release
+If you want to create a new release of lwdita please follow these instructions:
+
+```shell
+# change the working directory to the package root
+cd packages/lwdita-xdita  # or packages/lwdita-ast when working on the AST package 
+```
+Ensure your package version is updated. Yarn uses semantic versioning. You can update your package version using:
+```shell
+# please pick the best option for your scenario
+yarn version --patch    # for bug fixes
+yarn version --minor    # for new features
+yarn version --major    # for breaking changes
+
+git push  # to commit your new version change
+```
+Publish the package:
+```shell
+yarn publish --access public
+# you will be prompted to login via a url and a password
+```
