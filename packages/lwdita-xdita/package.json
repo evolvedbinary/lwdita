@@ -27,6 +27,7 @@
   },
   "scripts": {
     "example": "ts-node ./example.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "yarn run build"
   }
 }
