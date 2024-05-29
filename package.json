@@ -25,7 +25,11 @@
     "test:watch": "mocha -w",
     "coverage": "rimraf coverage && nyc yarn mocha",
     "coveralls": "nyc --reporter=text-lcov report | coveralls",
-    "generate-docs": "typedoc"
+    "generate-docs": "typedoc",
+    "check-no-unstaged-git-changes": "[[ -z \"$(git status --porcelain --untracked-files=no)\" ]]",
+    "check-no-unpushed-git-commits": "[[ -z \"$(git log origin/main..HEAD)\" ]]",
+    "preversion": "yarn check-no-unstaged-git-changes && yarn check-no-unpushed-git-commits && yarn clean && yarn lint && yarn test  && yarn clean && yarn build",
+    "postversion": "git push --tags && yarn publish packages/lwdita-ast --tag $npm_package_version && yarn publish packages/lwdita-xdita --tag $npm_package_version && git push && echo \"Successfully released version $npm_package_version!\""
   },
   "repository": {
     "type": "git",
