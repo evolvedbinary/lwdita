@@ -7,95 +7,81 @@ parameters:
   resource-class:
     type: string
     default: "small"
-  pkg-manager:
+  yarn-version:
     type: string
-    default: "yarn-berry"
-  pkg-cache-version:
-    type: string
-    default: "v4"
+    default: "4.2.2"
 
 orbs:
-  node: circleci/node@5.2.0
   coveralls: coveralls/coveralls@2.2.1
 
-jobs:
-  clone-and-install:
-    docker:
-      - image: cimg/node:<< pipeline.parameters.node-image-tag >>
-    resource_class: << pipeline.parameters.resource-class >>
+commands:
+  install-yarn:
+    description: "Install Yarn"
     steps:
-      - checkout
-      - node/install-packages:
-          check-cache: always
-          cache-version: << pipeline.parameters.pkg-cache-version >>
-          pkg-manager: << pipeline.parameters.pkg-manager >>
-          with-cache: false
+      - run: corepack enable
+      - run: yarn set version << pipeline.parameters.yarn-version >>
+  install-dependencies:
+    description: "Install Dependencies"
+    steps:
+      - run: yarn install
+
+jobs:
   coverage:
     docker:
       - image: cimg/node:<< pipeline.parameters.node-image-tag >>
     resource_class: << pipeline.parameters.resource-class >>
     steps:
       - checkout
-      - node/install-packages:
-          check-cache: always
-          cache-version: << pipeline.parameters.pkg-cache-version >>
-          pkg-manager: << pipeline.parameters.pkg-manager >>
-          with-cache: false
+      - install-yarn
+      - install-dependencies
       - run:
           name: Run Code Coverage
           command: yarn coverage
       - run:
-          name: Create Code Coverage lcov file
+          name: Generate Code Coverage lcov File
           command: yarn run nyc --reporter=text-lcov report > coverage.lcov
       - coveralls/upload:
           coverage_file: coverage.lcov
+  lint:
+    docker:
+      - image: cimg/node:<< pipeline.parameters.node-image-tag >>
+    resource_class: << pipeline.parameters.resource-class >>
+    steps:
+      - checkout
+      - install-yarn
+      - install-dependencies
+      - run:
+          name: Lint
+          command: yarn lint
+
+  generate-docs:
+    docker:
+      - image: cimg/node:<< pipeline.parameters.node-image-tag >>
+    resource_class: << pipeline.parameters.resource-class >>
+    steps:
+      - checkout
+      - install-yarn
+      - install-dependencies
+      - run:
+          name: Generate Docs
+          command: yarn generate-docs
+
+  run-example:
+    docker:
+      - image: cimg/node:<< pipeline.parameters.node-image-tag >>
+    resource_class: << pipeline.parameters.resource-class >>
+    steps:
+      - checkout
+      - install-yarn
+      - install-dependencies
+      - run:
+          name: Run Example
+          command: yarn example
 
 workflows:
   build-and-test:
     jobs:
-      - clone-and-install
-      - node/run:
-          name: lint
-          requires:
-            - clone-and-install
-          version: << pipeline.parameters.node-image-tag >>
-          resource_class: << pipeline.parameters.resource-class >>
-          pkg-manager: << pipeline.parameters.pkg-manager >>
-          setup:
-            - node/install-packages:
-                check-cache: always
-                cache-version: << pipeline.parameters.pkg-cache-version >>
-                pkg-manager: << pipeline.parameters.pkg-manager >>
-                with-cache: false
-          yarn-run: lint
-      - coverage:
-          requires:
-            - clone-and-install
-      - node/run:
-          name: generate docs
-          requires:
-            - clone-and-install
-          version: << pipeline.parameters.node-image-tag >>
-          resource_class: << pipeline.parameters.resource-class >>
-          pkg-manager: << pipeline.parameters.pkg-manager >>
-          setup:
-            - node/install-packages:
-                check-cache: always
-                cache-version: << pipeline.parameters.pkg-cache-version >>
-                pkg-manager: << pipeline.parameters.pkg-manager >>
-                with-cache: false
-          yarn-run: generate-docs
-      - node/run:
-          name: run example
-          requires:
-            - clone-and-install
-          version: << pipeline.parameters.node-image-tag >>
-          resource_class: << pipeline.parameters.resource-class >>
-          pkg-manager: << pipeline.parameters.pkg-manager >>
-          setup:
-            - node/install-packages:
-                check-cache: always
-                cache-version: << pipeline.parameters.pkg-cache-version >>
-                pkg-manager: << pipeline.parameters.pkg-manager >>
-                with-cache: false
-          yarn-run: example
+      - lint
+      - coverage
+      - generate-docs
+      - run-example
