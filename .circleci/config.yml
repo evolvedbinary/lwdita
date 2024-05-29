@@ -4,84 +4,84 @@ parameters:
   node-image-tag:
     type: string
     default: "20.1.0"
-  yarn-version:
-    type: string
-    default: "1.22.21"
   resource-class:
     type: string
     default: "small"
+  yarn-version:
+    type: string
+    default: "4.2.2"
 
 orbs:
-  node: circleci/node@5.1.1
   coveralls: coveralls/coveralls@2.2.1
 
-jobs:
-  clone-and-install:
-    docker:
-     - image: cimg/node:<< pipeline.parameters.node-image-tag >>
-    resource_class: << pipeline.parameters.resource-class >>
+commands:
+  install-yarn:
+    description: "Install Yarn"
     steps:
-      - checkout
-      - node/install-yarn:
-          version: << pipeline.parameters.yarn-version >>
-      - node/install-packages:
-          pkg-manager: yarn
+      - run: corepack enable
+      - run: yarn set version << pipeline.parameters.yarn-version >>
+  install-dependencies:
+    description: "Install Dependencies"
+    steps:
+      - run: yarn install
+
+jobs:
   coverage:
     docker:
-    - image: cimg/node:<< pipeline.parameters.node-image-tag >>
+      - image: cimg/node:<< pipeline.parameters.node-image-tag >>
     resource_class: << pipeline.parameters.resource-class >>
     steps:
       - checkout
-      - node/install-yarn:
-          version: << pipeline.parameters.yarn-version >>
-      - node/install-packages:
-          pkg-manager: yarn
+      - install-yarn
+      - install-dependencies
       - run:
           name: Run Code Coverage
-          command: yarn run coverage
+          command: yarn coverage
       - run:
-          name: Create Code Coverage lcov file
+          name: Generate Code Coverage lcov File
           command: yarn run nyc --reporter=text-lcov report > coverage.lcov
       - coveralls/upload:
           coverage_file: coverage.lcov
+  lint:
+    docker:
+      - image: cimg/node:<< pipeline.parameters.node-image-tag >>
+    resource_class: << pipeline.parameters.resource-class >>
+    steps:
+      - checkout
+      - install-yarn
+      - install-dependencies
+      - run:
+          name: Lint
+          command: yarn lint
+
+  generate-docs:
+    docker:
+      - image: cimg/node:<< pipeline.parameters.node-image-tag >>
+    resource_class: << pipeline.parameters.resource-class >>
+    steps:
+      - checkout
+      - install-yarn
+      - install-dependencies
+      - run:
+          name: Generate Docs
+          command: yarn generate-docs
+
+  run-example:
+    docker:
+      - image: cimg/node:<< pipeline.parameters.node-image-tag >>
+    resource_class: << pipeline.parameters.resource-class >>
+    steps:
+      - checkout
+      - install-yarn
+      - install-dependencies
+      - run:
+          name: Run Example
+          command: yarn example
 
 workflows:
   build-and-test:
     jobs:
-      - clone-and-install
-      - node/run:
-          name: lint
-          requires:
-            - clone-and-install
-          version: << pipeline.parameters.node-image-tag >>
-          resource_class: << pipeline.parameters.resource-class >>
-          pkg-manager: yarn
-          setup:
-            - node/install-yarn:
-                version: << pipeline.parameters.yarn-version >>
-          yarn-run: lint
-      - coverage:
-          requires:
-            - clone-and-install
-      - node/run:
-          name: generate docs
-          requires:
-            - clone-and-install
-          version: << pipeline.parameters.node-image-tag >>
-          resource_class: << pipeline.parameters.resource-class >>
-          pkg-manager: yarn
-          setup:
-            - node/install-yarn:
-                version: << pipeline.parameters.yarn-version >>
-          yarn-run: generate-docs
-      - node/run:
-          name: run example
-          requires:
-            - clone-and-install
-          version: << pipeline.parameters.node-image-tag >>
-          resource_class: << pipeline.parameters.resource-class >>
-          pkg-manager: yarn
-          setup:
-            - node/install-yarn:
-                version: << pipeline.parameters.yarn-version >>
-          yarn-run: example
+      - lint
+      - coverage
+      - generate-docs
+      - run-example

@@ -5,7 +5,6 @@ coverage.lcov
 dist/
 out/
 generated-docs/
-yarn-error.log
 
 package-lock.json
 
@@ -20,3 +19,13 @@ package-lock.json
 
 # Editor files
 .vscode/
+
+# Yarn 4
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+#!.yarn/cache
+.pnp.*
