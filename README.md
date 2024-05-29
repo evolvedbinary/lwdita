@@ -88,7 +88,7 @@ console.log(xdita);
 For development, you will need Node.js and a node package manager to be installed in your environment.
 
 * Minimal Node version: v20.1.0
-* [Yarn](https://classic.yarnpkg.com/) version v1.22.21.
+* [Yarn](https://yarnpkg.com/) version v4.2.2.
 * Optional: This project uses Yarn as its build system. Although we don't support it, if you prefer, it should also be possible to use `npm` instead of `yarn`.
 
 ### Installation

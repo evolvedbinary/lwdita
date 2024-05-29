@@ -4,7 +4,7 @@
   "description": "Tools and libraries for working with LwDITA",
   "engines": {
     "node": ">=20.1.0 <21",
-    "yarn": ">=1.22.21 <2"
+    "yarn": ">=4.2.2"
   },
   "private": true,
   "workspaces": [
@@ -71,5 +71,6 @@
     "typedoc": "^0.25.13",
     "typedoc-plugin-missing-exports": "^2.2.0",
     "typescript": "5.4.5"
-  }
+  },
+  "packageManager": "yarn@4.2.2"
 }

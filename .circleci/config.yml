@@ -4,41 +4,46 @@ parameters:
   node-image-tag:
     type: string
     default: "20.1.0"
-  yarn-version:
-    type: string
-    default: "1.22.21"
   resource-class:
     type: string
     default: "small"
+  pkg-manager:
+    type: string
+    default: "yarn-berry"
+  pkg-cache-version:
+    type: string
+    default: "v4"
 
 orbs:
-  node: circleci/node@5.1.1
+  node: circleci/node@5.2.0
   coveralls: coveralls/coveralls@2.2.1
 
 jobs:
   clone-and-install:
     docker:
-     - image: cimg/node:<< pipeline.parameters.node-image-tag >>
+      - image: cimg/node:<< pipeline.parameters.node-image-tag >>
     resource_class: << pipeline.parameters.resource-class >>
     steps:
       - checkout
-      - node/install-yarn:
-          version: << pipeline.parameters.yarn-version >>
       - node/install-packages:
-          pkg-manager: yarn
+          check-cache: always
+          cache-version: << pipeline.parameters.pkg-cache-version >>
+          pkg-manager: << pipeline.parameters.pkg-manager >>
+          with-cache: false
   coverage:
     docker:
-    - image: cimg/node:<< pipeline.parameters.node-image-tag >>
+      - image: cimg/node:<< pipeline.parameters.node-image-tag >>
     resource_class: << pipeline.parameters.resource-class >>
     steps:
       - checkout
-      - node/install-yarn:
-          version: << pipeline.parameters.yarn-version >>
       - node/install-packages:
-          pkg-manager: yarn
+          check-cache: always
+          cache-version: << pipeline.parameters.pkg-cache-version >>
+          pkg-manager: << pipeline.parameters.pkg-manager >>
+          with-cache: false
       - run:
           name: Run Code Coverage
-          command: yarn run coverage
+          command: yarn coverage
       - run:
           name: Create Code Coverage lcov file
           command: yarn run nyc --reporter=text-lcov report > coverage.lcov
@@ -55,10 +60,13 @@ workflows:
             - clone-and-install
           version: << pipeline.parameters.node-image-tag >>
           resource_class: << pipeline.parameters.resource-class >>
-          pkg-manager: yarn
+          pkg-manager: << pipeline.parameters.pkg-manager >>
           setup:
-            - node/install-yarn:
-                version: << pipeline.parameters.yarn-version >>
+            - node/install-packages:
+                check-cache: always
+                cache-version: << pipeline.parameters.pkg-cache-version >>
+                pkg-manager: << pipeline.parameters.pkg-manager >>
+                with-cache: false
           yarn-run: lint
       - coverage:
           requires:
@@ -69,10 +77,13 @@ workflows:
             - clone-and-install
           version: << pipeline.parameters.node-image-tag >>
           resource_class: << pipeline.parameters.resource-class >>
-          pkg-manager: yarn
+          pkg-manager: << pipeline.parameters.pkg-manager >>
           setup:
-            - node/install-yarn:
-                version: << pipeline.parameters.yarn-version >>
+            - node/install-packages:
+                check-cache: always
+                cache-version: << pipeline.parameters.pkg-cache-version >>
+                pkg-manager: << pipeline.parameters.pkg-manager >>
+                with-cache: false
           yarn-run: generate-docs
       - node/run:
           name: run example
@@ -80,8 +91,11 @@ workflows:
             - clone-and-install
           version: << pipeline.parameters.node-image-tag >>
           resource_class: << pipeline.parameters.resource-class >>
-          pkg-manager: yarn
+          pkg-manager: << pipeline.parameters.pkg-manager >>
           setup:
-            - node/install-yarn:
-                version: << pipeline.parameters.yarn-version >>
+            - node/install-packages:
+                check-cache: always
+                cache-version: << pipeline.parameters.pkg-cache-version >>
+                pkg-manager: << pipeline.parameters.pkg-manager >>
+                with-cache: false
           yarn-run: example
