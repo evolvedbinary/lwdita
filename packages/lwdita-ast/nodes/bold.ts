@@ -19,10 +19,10 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { ReuseNodeAttributes } from "./reuse";
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes } from "./filters";
-import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
+import { areFieldsValid } from "../utils";
 import { makeComponent, AbstractBaseNode, BaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
-import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { BasicValue } from "../classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
 
 /** TODO: Implement "+ topic/ph hi-d/b " */

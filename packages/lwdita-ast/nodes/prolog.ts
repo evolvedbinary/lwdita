@@ -17,9 +17,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { areFieldsValid, isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
+import { areFieldsValid, isOrUndefined } from "../utils";
 import { makeComponent, AbstractBaseNode, BaseNode, makeAll } from "./base";
-import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { BasicValue } from "../classes";
 import { CDATA, isCDATA } from "../ast-classes";
 
 /**
