@@ -20,8 +20,8 @@ import { getNodeClass, createNode } from "../factory";
 import { AltNode } from "../nodes/alt";
 import { SectionNode } from "../nodes/section";
 import { VideoPosterNode } from "../nodes/video-poster";
-import { XMLNode } from "@evolvedbinary/lwdita-xdita/classes";
 import { XMLNODE_AUDIO, AUDIO_NODE_OBJECT, XMLNODE_UNKNOWN } from "./test-utils";
+import { XMLNode } from '../ast-utils';
 
 /**
  * Unit tests for factory.ts

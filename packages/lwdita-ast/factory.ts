@@ -58,8 +58,8 @@ import { ItalicNode, ItalicNodeAttributes } from "./nodes/italic";
 import { UnderlinedNode, UnderlinedNodeAttributes } from "./nodes/underlined";
 import { SubscriptNode, SubscriptNodeAttributes } from "./nodes/subscript";
 import { SuperscriptNode, SuperscriptNodeAttributes } from "./nodes/superscript";
-import { XMLNode } from "@evolvedbinary/lwdita-xdita/classes";
 import { UnknownNodeError } from "./ast-classes";
+import { XMLNode } from "./ast-utils";
 
 /**
  * getNodeClass - Get the Node class constructor based on the node type

@@ -17,9 +17,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { assert, expect } from 'chai';
 import { AbstractBaseNode, Constructor, TextNode, DocumentNode } from './nodes';
-import { stringToChildTypes } from '@evolvedbinary/lwdita-xdita/utils';
-import { OrArray } from '@evolvedbinary/lwdita-xdita/classes';
 import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError } from "./ast-classes";
+import { OrArray, stringToChildTypes } from './ast-utils';
 
 // TODO: add a test for checking invalid node
 

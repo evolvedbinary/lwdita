@@ -15,9 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { isOrUndefined, areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
+import { isOrUndefined, areFieldsValid } from "../ast-utils";
 import { AbstractBaseNode } from "./base";
-import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { NMTOKEN, isNMTOKEN } from "../ast-classes";
 
 

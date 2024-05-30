@@ -15,7 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { BasicValue, DefinedBasicValue } from "./ast-utils";
+
 
 /**
  * isReferenceContentScope - Checks if a value is a ReferenceContentScope
@@ -23,7 +24,7 @@ import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
  * @param value - String
  * @returns - If the value is a ReferenceContentScope
  */
-export const isReferenceContentScope = (value?: BasicValue): value is ReferenceContentScope => ['local', 'peer', 'external'].includes(value as string);
+export const isReferenceContentScope = (value?: DefinedBasicValue): value is ReferenceContentScope => ['local', 'peer', 'external'].includes(value as string);
 
 /**
  * ReferenceContentScope defines all possible values for the `scope` attribute

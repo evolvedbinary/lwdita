@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { expect, assert } from 'chai';
-import { stringToChildTypes, splitTypenames, childTypesToString, customChildTypesToString, has, isOrUndefined, childTypeToString, acceptsNodeName, isChildTypeSingle, isChildTypeRequired, childTypesArray, areFieldsValid } from '../utils';
+import { stringToChildTypes, splitTypenames, childTypesToString, customChildTypesToString, has, isOrUndefined, childTypeToString, acceptsNodeName, isChildTypeSingle, isChildTypeRequired, childTypesArray } from '../utils';
 import { BasicValue, ChildType, ChildTypes } from '../classes';
 
 const mockedNodeGroups = {
@@ -519,35 +519,5 @@ describe('childTypesArray', () => {
     };
     const result = childTypesArray([childType]);
     expect(result).to.deep.equal([childType]);
-  });
-});
-
-describe('areFieldsValid', () => {
-  it('returns true if all fields pass the validations', () => {
-    const fields = ['field1', 'field2'];
-    const value = {
-      field1: 'value1',
-      field2: 'value2',
-    };
-    const validations = [
-      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-      (field: string, value: BasicValue) => typeof value === 'string',
-    ];
-    const result = areFieldsValid(fields, value, ...validations);
-    expect(result).to.be.true;
-  });
-
-  it('returns false if one field fails the validations', () => {
-    const fields = ['field1', 'field2'];
-    const value = {
-      field1: 'value1',
-      field2: 'value2',
-    };
-    const validations = [
-      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-      (field: string, value: BasicValue) => value === 'value1',
-    ];
-    const result = areFieldsValid(fields, value, ...validations);
-    expect(result).to.be.false;
   });
 });

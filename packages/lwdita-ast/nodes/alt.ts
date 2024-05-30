@@ -19,10 +19,9 @@ import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationFiel
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
 import { VariableContentNodeAttributes, VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
-import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
 import { AbstractBaseNode, BaseNode, makeComponent, makeAll, Constructor } from "./base";
-import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA } from "../ast-classes";
+import { BasicValue, areFieldsValid } from "../ast-utils";
 
 /**
  * Define all allowed `alt` (cross-reference) fields:

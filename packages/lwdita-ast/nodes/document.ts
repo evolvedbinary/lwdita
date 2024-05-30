@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import { stringToChildTypes } from "../ast-utils";
 import { AbstractBaseNode } from "./base";
-import { stringToChildTypes } from "@evolvedbinary/lwdita-xdita/utils";
 
 /**
  * Interface DocumentNode defines the attribute types for a document node.

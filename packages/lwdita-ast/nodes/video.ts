@@ -19,10 +19,9 @@ import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters 
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
+import { BasicValue, areFieldsValid } from "../ast-utils";
 import { makeComponent, AbstractBaseNode, BaseNode, makeAll, Constructor } from "./base";
 import { SizeFields, isValidSizeField, makeSize, SizeNodeAttributes } from "./size";
-import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**

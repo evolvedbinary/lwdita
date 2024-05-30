@@ -18,10 +18,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { DisplayNodeAttributes, DisplayFields, isValidDisplayField, makeDisplay } from "./display";
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
-import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
+import { BasicValue, areFieldsValid } from "../ast-utils";
 import { AbstractBaseNode, BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { FiltersFields, FiltersNodeAttributes, isValidFiltersField, makeFilters } from "./filters";
-import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA, DisplayExpanse, DisplayFrame, DisplayScale, } from "../ast-classes";
 
 /**

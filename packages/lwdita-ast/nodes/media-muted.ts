@@ -16,11 +16,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
+import { BasicValue, areFieldsValid } from "../ast-utils";
 import { makeComponent, AbstractBaseNode, BaseNode, makeAll, Constructor } from "./base";
 import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
-import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA } from "../ast-classes";
 
 /**

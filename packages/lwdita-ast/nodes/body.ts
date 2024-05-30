@@ -17,9 +17,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
-import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
+import { BasicValue, areFieldsValid } from "../ast-utils";
 import { AbstractBaseNode, BaseNode, makeComponent, makeAll, Constructor } from "./base";
-import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
 import { CDATA } from "../ast-classes";
 /**
  * Define all allowed `body` attributes:

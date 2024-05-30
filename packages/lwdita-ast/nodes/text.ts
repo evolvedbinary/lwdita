@@ -16,8 +16,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { AbstractBaseNode, BaseNode, makeComponent } from "./base";
-import { isOrUndefined } from "@evolvedbinary/lwdita-xdita/utils";
-import { BasicValue, JDita } from "@evolvedbinary/lwdita-xdita/classes";
+import { BasicValue, isOrUndefined } from "../ast-utils";
+import { JDita } from "@evolvedbinary/lwdita-xdita/classes";
 
 /**
  * Define the allowed `text` attribute:

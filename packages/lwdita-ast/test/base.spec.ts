@@ -17,8 +17,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { expect, assert } from 'chai';
 import { AbstractBaseNode } from '../nodes/base';
-import { stringToChildTypes } from "@evolvedbinary/lwdita-xdita";
 import { NonAcceptedChildError } from '../ast-classes';
+import { stringToChildTypes } from '../ast-utils';
 
 // TODO: add tests for an unknown node
 // Not enough information to implement this test

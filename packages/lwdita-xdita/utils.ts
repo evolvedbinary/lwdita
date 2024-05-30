@@ -30,17 +30,6 @@ export function has<T>(array: Array<T>, value: T): boolean {
 }
 
 /**
- * isOrUndefined - Check if a value is undefined or not
- *
- * @param check - Function to check the value
- * @param value - Value
- * @returns - Boolean
- */
-export function isOrUndefined<T extends BasicValue>(check: (value?: BasicValue) => boolean, value?: BasicValue): value is T {
-    return typeof value === 'undefined' || check(value);
-}
-
-/**
  * splitTypenames - Converts a string to an array of strings
  * it splits the string by `|`
  *
@@ -85,81 +74,6 @@ export function childTypeToString(type: ChildType, nodeGroups: Record<string, st
     ) + (type.single
         ? type.required ? '' : '?'
         : type.required ? '+' : '*');
-}
-
-/**
- * customChildTypesToString - Serialize a child type object to a string with a custom function to get the node name
- *
- * @param type - ChildType Array
- * @param nodeGroups - Node groups
- * @param getNodeName - function to get the node name
- * @param topLevel - start of the document
- * @returns string - Serialized ChildType Array
- */
-export function customChildTypesToString(type: ChildTypes, nodeGroups: Record<string, string[]>, getNodeName?: (nodeName: string) => string, topLevel = true): string {
-    if (Array.isArray(type)) {
-        const types = type.map(subType => customChildTypesToString(subType, nodeGroups, getNodeName, false)).join('|');
-        return topLevel || type.length === 1 ? types : '(' + types + ')';
-    } else {
-        return childTypeToString(type, nodeGroups, getNodeName)
-    }
-}
-
-/**
- * childTypesToString - Serialize a child type object to a string
- *
- * @param type - ChildType Array
- * @param nodeGroups - Node groups
- * @param topLevel - start of the document
- * @returns string - Serialized ChildType Array
- */
-export function childTypesToString(type: ChildTypes, nodeGroups: Record<string, string[]>, topLevel = true): string {
-    return customChildTypesToString(type, nodeGroups, undefined, topLevel);
-}
-
-/**
- * stringToChildTypes - Convert the array list of string to child objects
- *
- * @remarks
- * `?` - optional
- * `+` - required
- * `*` - optional and multiple
- * `%` - group
- *
- * @param value - String or Array of strings
- * @param topLevel - Entry of the document
- * @returns Array of ChildType objects , @see {@link ChildType}
- */
-export function stringToChildTypes(value: OrArray<string>, topLevel = true): ChildTypes[] {
-    if (typeof value === 'string') {
-        if (value === '') {
-            return [];
-        }
-        if (value.indexOf('|') < 0) {
-            const last = value.slice(-1);
-            const result: ChildType = has(['+', '*', '?'], last)
-            ? {
-                name: value.slice(0, -1),
-                single: last === '?',
-                required: last === '+',
-                isGroup: false,
-            } : {
-                name: value,
-                single: true,
-                required: true,
-                isGroup: false,
-            };
-            if (result.name[0] === '%') {
-                result.name = result.name.substr(1);
-                result.isGroup = true;
-            }
-            return topLevel && !Array.isArray(result) ? [ result ] : result as unknown as ChildTypes[];
-        } else {
-            return stringToChildTypes(splitTypenames(value), false);
-        }
-    } else {
-        return value.map(subType => stringToChildTypes(subType, false)).filter(type => !Array.isArray(type) || type.length > 0);
-    }
 }
 
 /**
@@ -252,30 +166,6 @@ export function isChildTypeRequired(childType: string | ChildType | ChildTypes):
  */
 export function childTypesArray(childTypes: ChildTypes): ChildTypes[] {
     return Array.isArray(childTypes) ? childTypes : [childTypes];
-}
-
-/**
- * areFieldsValid - Attribute validator
- *
- * @param fields - Array of attribute names
- * @param value - Object of attribute values
- * @param validations - Validation functions
- * @returns Boolean - Whether the attributes are valid or not
- */
-export function areFieldsValid(fields: string[], value: Record<string, BasicValue>, ...validations: ((field: string, value: BasicValue) => boolean)[]): boolean {
-    for (const field of fields) {
-        let valid = false;
-        for (const validation of validations) {
-            if (validation(field, value[field])) {
-                valid = true;
-                break;
-            }
-        }
-        if (!valid) {
-            return false;
-        }
-    }
-    return true;
 }
 
 /**
