@@ -15,73 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { ChildTypes, ChildType} from "./classes";
 import fs from 'fs';
-
-/**
- * childTypeToString - Convert a child type to a string
- *
- * @param type - ChildType object
- * @param getNodeName - Get node name function
- * @param nodeGroups - Node groups
- * @returns - string
- */
-export function childTypeToString(type: ChildType, nodeGroups: Record<string, string[]>, getNodeName?: (nodeName: string) => string): string {
-    return (type.isGroup
-        ? nodeGroups[type.name].length === 1
-            ? (getNodeName
-                ? nodeGroups[type.name].map(getNodeName)
-                : nodeGroups[type.name]
-            ).join('|')
-            : '(' + (getNodeName
-                ? nodeGroups[type.name].map(getNodeName)
-                : nodeGroups[type.name]
-            ).join('|') + ')'
-        : getNodeName ? getNodeName(type.name) : type.name
-    ) + (type.single
-        ? type.required ? '' : '?'
-        : type.required ? '+' : '*');
-}
-
-/**
- * customChildTypesToString - Serialize a child type object to a string with a custom function to get the node name
- *
- * @param type - ChildType Array
- * @param nodeGroups - Node groups
- * @param getNodeName - function to get the node name
- * @param topLevel - start of the document
- * @returns string - Serialized ChildType Array
- */
-export function customChildTypesToString(type: ChildTypes, nodeGroups: Record<string, string[]>, getNodeName?: (nodeName: string) => string, topLevel = true): string {
-    if (Array.isArray(type)) {
-        const types = type.map(subType => customChildTypesToString(subType, nodeGroups, getNodeName, false)).join('|');
-        return topLevel || type.length === 1 ? types : '(' + types + ')';
-    } else {
-        return childTypeToString(type, nodeGroups, getNodeName)
-    }
-}
-
-/**
- * childTypesToString - Serialize a child type object to a string
- *
- * @param type - ChildType Array
- * @param nodeGroups - Node groups
- * @param topLevel - start of the document
- * @returns string - Serialized ChildType Array
- */
-export function childTypesToString(type: ChildTypes, nodeGroups: Record<string, string[]>, topLevel = true): string {
-    return customChildTypesToString(type, nodeGroups, undefined, topLevel);
-}
-
-/**
- * childTypesArray - Check whether the child types is an array or not and return an array
- *
- * @param childTypes - ChildType array or ChildType object
- * @returns - ChildType array
- */
-export function childTypesArray(childTypes: ChildTypes): ChildTypes[] {
-    return Array.isArray(childTypes) ? childTypes : [childTypes];
-}
 
 /**
  * Store Xml documents in the file system.
