@@ -19,11 +19,11 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { ReferenceContentNodeAttributes, ReferenceContentFields, isValidReferenceContentField, makeReferenceContent } from "./reference-content";
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { areFieldsValid } from "@evolvedbinary/lwdita-xdita/utils";
+import { areFieldsValid } from "../utils";
 import { makeComponent, AbstractBaseNode, BaseNode, makeAll, Constructor } from "./base";
 import { VariableContentFields, VariableContentNodeAttributes, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { FieldFields, FieldNodeAttributes, isValidCDATAFieldField, makeCDATAField } from "./field";
-import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { BasicValue } from "../classes";
 import { CDATA, ReferenceContentScope } from "../ast-classes";
 
 /**

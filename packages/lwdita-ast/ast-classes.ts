@@ -15,7 +15,31 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { BasicValue } from "@evolvedbinary/lwdita-xdita/classes";
+import { BasicValue } from "./classes";
+import { OrArray } from "./classes";
+
+/**
+ * ChildType Object
+ *
+ * name - Child name
+ *
+ * required - Defines if the child is required or not
+ *
+ * single - Does not belong to a group like `section`
+ *
+ * isGroup - Belong to a group like `all-line`
+ */
+export interface ChildType {
+  name: string;
+  required: boolean;
+  single: boolean;
+  isGroup: boolean;
+}
+
+/**
+* Array for @see {@link ChildType}
+*/
+export type ChildTypes = OrArray<ChildType>;
 
 /**
  * isReferenceContentScope - Checks if a value is a ReferenceContentScope
@@ -135,4 +159,15 @@ export class WrongAttributeTypeError extends Error {
  */
 export class NonAcceptedChildError extends Error {
   name = 'non-accepted-child';
+}
+
+// NOTE(AR) we need to decide what this is and where it lives; do we need to move it to an lwdita-jdita package?
+/**
+ * JDita is a Object representation of a LwDITA document
+ */
+export interface JDita {
+  nodeName: string;
+  attributes?: Record<string, BasicValue>;
+  content?: string;
+  children?: JDita[];
 }

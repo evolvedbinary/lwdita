@@ -17,9 +17,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import * as saxes from "@rubensworks/saxes";
 import { BaseNode, DocumentNode } from "@evolvedbinary/lwdita-ast/nodes";
-import { createNode } from "@evolvedbinary/lwdita-ast/factory";
+import { createNode } from "./factory";
 import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
-import { JDita } from "./classes";
+import { JDita } from "@evolvedbinary/lwdita-ast/ast-classes"
 import { XditaSerializer } from "./xdita-serializer";
 
 /** TODO: Add tests for this module */

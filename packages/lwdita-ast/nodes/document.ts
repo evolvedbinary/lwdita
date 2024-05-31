@@ -16,7 +16,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { AbstractBaseNode } from "./base";
-import { stringToChildTypes } from "@evolvedbinary/lwdita-xdita/utils";
+import { stringToChildTypes } from "../utils";
 
 /**
  * Interface DocumentNode defines the attribute types for a document node.

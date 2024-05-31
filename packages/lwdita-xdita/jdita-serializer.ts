@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // this is a temporary fix to serialize the JDita tree to XDita by by YB, signed-off by AR.
 import { TextSimpleOutputStream } from "./stream";
-import { JDita } from "./classes";
+import { JDita } from "@evolvedbinary/lwdita-ast/ast-classes"
 
 /**
  * Serializer for XDITA.

@@ -15,9 +15,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { acceptsNodeName, isChildTypeRequired, stringToChildTypes, isChildTypeSingle } from "@evolvedbinary/lwdita-xdita/utils";
-import { ChildTypes, ChildType, OrArray, BasicValue, Attributes, JDita } from "@evolvedbinary/lwdita-xdita/classes";
-import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError } from "../ast-classes";
+import { OrArray } from "../classes";
+import { acceptsNodeName, isChildTypeRequired, isChildTypeSingle, stringToChildTypes } from "../utils";
+import { Attributes, BasicValue } from "../classes";
+import { ChildTypes, ChildType, JDita, NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError } from "../ast-classes";
 import { nodeGroups } from "../ast-utils";
 
 /**
