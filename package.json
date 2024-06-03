@@ -17,6 +17,7 @@
     "start:dev": "nodemon",
     "clean": "yarn workspace @evolvedbinary/lwdita-xdita clean && yarn workspace @evolvedbinary/lwdita-ast clean",
     "build": "yarn clean && yarn workspace @evolvedbinary/lwdita-xdita build && yarn workspace @evolvedbinary/lwdita-ast build",
+    "prepack": "yarn run build",
     "example": "yarn workspace @evolvedbinary/lwdita-xdita example",
     "test": "mocha",
     "test:watch": "mocha -w",

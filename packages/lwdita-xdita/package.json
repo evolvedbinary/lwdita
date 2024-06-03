@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist",
+    "prepack": "yarn run build",
     "example": "ts-node ./example.ts"
   },
   "dependencies": {
