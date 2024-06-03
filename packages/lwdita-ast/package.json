@@ -2,6 +2,11 @@
   "name": "@evolvedbinary/lwdita-ast",
   "version": "1.0.0",
   "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "prepack": "yarn run build"
+  },
   "keywords": [
     "LwDITA",
     "DITA",
