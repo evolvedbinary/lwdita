@@ -17,7 +17,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { BasicValue } from "./classes";
 import { OrArray } from "./classes";
-import { NoteType } from "./nodes/note";
 
 /**
  * ChildType Object
@@ -125,9 +124,14 @@ export type DisplayExpanse = 'column' | 'page' | 'spread' | 'textline';
 export const isDisplayExpanse = (value?: BasicValue): value is DisplayExpanse => (['column', 'page', 'spread', 'textline'] as BasicValue[]).indexOf(value) > -1;
 
 /**
+ * NoteType defines all possible values for the `type` attribute
+ */
+export type NoteType = 'caution' | 'warning' | 'danger' | 'trouble' | 'notice' | 'note';
+
+/**
  * NoteType validation function
  */
-export const isNoteType = (value?: BasicValue) => isNaN(Number(value)) && (Object.values(NoteType) as BasicValue[]).includes(value);
+export const isNoteType = (value?: BasicValue): value is NoteType => (['caution', 'warning', 'danger', 'trouble', 'notice', 'note'] as BasicValue[]).indexOf(value) > -1;
 
 /**
  * Typedef for UnknownNodeError
