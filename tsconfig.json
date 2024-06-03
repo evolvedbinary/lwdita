@@ -11,7 +11,7 @@
   },
 
   "exclude": [
-    "**/*.spec.ts",
+    "**/test/*",
     "packages/lwdita-ast/tests.ts",
     "packages/lwdita-xdita/example.ts"
   ],

@@ -2,6 +2,11 @@
   "name": "@evolvedbinary/lwdita-xdita",
   "version": "1.0.0",
   "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "example": "ts-node ./example.ts"
+  },
   "dependencies": {
     "@evolvedbinary/lwdita-ast": "workspace:^",
     "@rubensworks/saxes": "6.0.1"
@@ -24,8 +29,5 @@
   },
   "bugs": {
     "url": "https://github.com/evolvedbinary/lwdita/issues"
-  },
-  "scripts": {
-    "example": "ts-node ./example.ts"
   }
 }
