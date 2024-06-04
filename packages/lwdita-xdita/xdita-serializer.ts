@@ -140,7 +140,9 @@ export class XditaSerializer {
    *
    * @param node - the node to serialize
    */
-  serialize(node: AbstractBaseNode): void {
+  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  serialize(node: any): void {
     if (node instanceof DocumentNode) {
       this.serializeDocument(node);
       // close the output stream as we have now serialized the document
