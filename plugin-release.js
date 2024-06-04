@@ -56,7 +56,7 @@ module.exports = {
 
           let executeOptions = {"cwd": project.cwd};
 
-          // Step 1. Check project status - requires no unstaged changes, and no un-pushed commits 
+          // Step 1 - Check project status - requires no unstaged changes, and no un-pushed commits
           // TODO(AR) figure out how to capture stdout from the git commands below and check the content
           this.context.stdout.write("1. Checking project status...\n");
           this.context.stdout.write("1.1. Checking for git 'main' branch...\n");
@@ -66,12 +66,20 @@ module.exports = {
           this.context.stdout.write("1.3. Checking for un-pushed commits...\n");
           //   await execute('git', ['log', 'origin/main..HEAD'], [], executeOptions);
 
-          // Step 2. Pre-release testing - Executes the `lint` and `test` scripts
+          // Step 2 - Pre-release testing - Executes the `lint` and `test` scripts
           this.context.stdout.write("2. Performing pre-release testing...\n");
           this.context.stdout.write("2.1. Performing lint...\n");
+          await this.cli.run(['clean'])
           await this.cli.run(['lint'])
-          this.context.stdout.write("2.2. Running tests...\n");
+          this.context.stdout.write("2.2. Performing build...\n");
+          await this.cli.run(['clean'])
+          await this.cli.run(['build'])
+          this.context.stdout.write("2.3. Running tests...\n");
+          await this.cli.run(['clean'])
           await this.cli.run(['test'])
+
+          // Cleanup after Step 2 - Pre-release testing
+          await this.cli.run(['clean'])
 
           // Step 3 - Increment the versions of all packages (including the project root)
           let packageFiles = [];
@@ -96,14 +104,14 @@ module.exports = {
           this.context.stdout.write(`5. git Committing the version update...\n`);
           await execute('git', ['tag', `--message=[release] Release version: ${this.version}`, '--sign', `v${this.version}`], executeOptions);
         
-          // Step 6. git push the updates.
+          // Step 6 - git push the updates.
           this.context.stdout.write(`6. git push the version update...\n`);
           this.context.stdout.write(`6.1. git pushing the branch...\n`);
           await execute('git', ['push'], executeOptions);
           this.context.stdout.write(`6.2. git pushing the tag...\n`);
           await execute('git', ['push', '--tags'], executeOptions);
 
-          // Step 7. Publish the packages to npm.js.
+          // Step 7 - Publish the packages to npm.js.
           this.context.stdout.write(`7. Running \`yarn npn publish\` to publish packages to npm.js...\n`);
           await this.cli.run(['npm', 'login']);
           for (let i = 0; i < project.workspaces.length; i++) {
