@@ -204,3 +204,13 @@ Here's how the nodes are created:
 Examples of the nodes `<title>` and `<topic>`:
 
 ![Diagram of example nodes](diagrams/lwdita-diagram-nodes.svg "Diagram of example nodes")
+
+## Publishing a Release
+To publish a new release of lwdita please follow these instructions:
+
+**NOTE** The project uses [Semantic Versioning](https://semver.org/), and you should make sure to choose the appropriate next version number to supply to `yarn release`.
+
+```shell
+cd lwdita
+yarn release 1.2.3
+```
