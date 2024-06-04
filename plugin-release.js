@@ -5,6 +5,7 @@ module.exports = {
       const {Configuration, Project} = require('@yarnpkg/core');
       const {execute} = require('@yarnpkg/shell');
       const {Command, Option} = require(`clipanion`);
+      const {copyFile, rm} = require('fs/promises');
       const t = require(`typanion`);
 
       const semver2Regex = "(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:\\-([1-9A-Za-z-][0-9A-Za-z-]*(?:\\.[1-9A-Za-z-][0-9A-Za-z-]*)*))?(?:\\+([1-9A-Za-z-][0-9A-Za-z-]*(?:\\.[1-9A-Za-z-][0-9A-Za-z-]*)*))?";
@@ -109,16 +110,17 @@ module.exports = {
             let projectWorkspace = project.workspaces[i];
 
             if (projectWorkspace.cwd == project.cwd) {
-              this.context.stdout.write("NOTE: Skipping publish of project root workspace!")
+              this.context.stdout.write("NOTE: Skipping publish of project root workspace!\n")
             } else {
               // Make a copy of the LICENSE file to the workspace so that it is published as part of the package
-              await execute('cp' [`${project.cwd}/LICENSE`, projectWorkspace.cwd]);
+              await copyFile(`${project.cwd}/LICENSE`, `${projectWorkspace.cwd}/LICENSE`);
 
+              // Publish the workspace package
               let projectWorkspaceName = `@${projectWorkspace.manifest.name.scope}/${projectWorkspace.manifest.name.name}`;
               await this.cli.run(['workspace', projectWorkspaceName, 'npm', 'publish', '--access', 'public']);
 
               // Remove the copy of the LICENSE file from the workspace
-              await execute('rm' [`${projectWorkspace.cwd}/LICENSE`]);
+              await rm(`${projectWorkspace.cwd}/LICENSE`);
             }
           }
 
