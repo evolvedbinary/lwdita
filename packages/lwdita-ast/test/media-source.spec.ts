@@ -15,7 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { MediaSourceNode, isMediaSourceNode } from "../nodes/media-source";
+import { doNodeTest } from "./tests";
+import { MediaSourceNode, isMediaSourceNode } from "../src/nodes/media-source";
 doNodeTest(MediaSourceNode, 'media-source', isMediaSourceNode,
   ['dir', 'xml:lang', 'translate', 'name', 'value', 'outputclass', 'class']);

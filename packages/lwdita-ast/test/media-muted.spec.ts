@@ -15,7 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { MediaMutedNode, isMediaMutedNode } from "../nodes/media-muted";
+import { doNodeTest } from "./tests";
+import { MediaMutedNode, isMediaMutedNode } from "../src/nodes/media-muted";
 doNodeTest(MediaMutedNode, 'media-muted', isMediaMutedNode,
   ['dir', 'xml:lang', 'translate', 'name', 'value', 'outputclass', 'class']);

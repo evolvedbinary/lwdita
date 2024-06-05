@@ -17,8 +17,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // this is a temporary fix to serialize the JDita tree to XDita by by YB, signed-off by AR.
 import { expect } from 'chai';
-import { JditaSerializer } from '../jdita-serializer';
-import { InMemoryTextSimpleOutputStreamCollector } from '../stream';
+import { JditaSerializer } from '../src/jdita-serializer';
+import { InMemoryTextSimpleOutputStreamCollector } from '../src/stream';
 import { DocumentNode, TextNode, TitleNode, TopicNode } from "@evolvedbinary/lwdita-ast"
 
 describe('jditaSerializer', () => {

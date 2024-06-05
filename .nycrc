@@ -11,7 +11,7 @@
   "exclude": [
     "coverage/**",
     "node_modules/**",
-    "src/tests.ts",
+    "test/tests.ts",
     "example.ts",
     "**/*.d.ts",
     "**/*.spec.ts"

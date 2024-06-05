@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { AudioNode, isAudioNode } from "../nodes/audio";
+import { doNodeTest } from "./tests";
+import { AudioNode, isAudioNode } from "../src/nodes/audio";
 doNodeTest(AudioNode, 'audio', isAudioNode,
   ['outputclass', 'class', 'dir', 'xml:lang', 'translate', 'props', 'id', 'conref'],
   ['desc?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'media-source*', 'media-track*']);

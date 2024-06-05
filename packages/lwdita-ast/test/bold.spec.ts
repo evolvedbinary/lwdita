@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { BoldNode, isBoldNode } from "../nodes/bold";
+import { doNodeTest } from "./tests";
+import { BoldNode, isBoldNode } from "../src/nodes/bold";
 doNodeTest(BoldNode, 'b', isBoldNode,
   ['dir', 'xml:lang', 'translate', 'keyref', 'outputclass', 'class'],
   ['%all-inline*']);

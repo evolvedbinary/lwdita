@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { FigNode, isFigNode } from "../nodes/fig";
+import { doNodeTest } from "./tests";
+import { FigNode, isFigNode } from "../src/nodes/fig";
 doNodeTest(FigNode, 'fig', isFigNode,
   ['scale', 'frame', 'expanse', 'dir', 'xml:lang', 'translate', 'props', 'outputclass', 'class'],
   ['title?', 'desc?', '(%fig-blocks|image|xref)*']);

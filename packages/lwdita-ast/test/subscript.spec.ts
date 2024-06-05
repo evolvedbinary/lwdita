@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { SubscriptNode, isSubscriptNode } from "../nodes/subscript";
+import { doNodeTest } from "./tests";
+import { SubscriptNode, isSubscriptNode } from "../src/nodes/subscript";
 doNodeTest(SubscriptNode, 'sub', isSubscriptNode,
   ['dir', 'xml:lang', 'translate', 'keyref', 'outputclass', 'class'],
   ['%all-inline*']);

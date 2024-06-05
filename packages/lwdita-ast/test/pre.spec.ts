@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { PreNode, isPreNode } from "../nodes/pre";
+import { doNodeTest } from "./tests";
+import { PreNode, isPreNode } from "../src/nodes/pre";
 doNodeTest(PreNode, 'pre', isPreNode,
   ['xml:space', 'dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
   ['(text|%ph|xref|%data)*']);

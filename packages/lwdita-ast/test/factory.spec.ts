@@ -16,10 +16,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { expect } from 'chai';
-import { getNodeClass } from "../factory";
-import { AltNode } from "../nodes/alt";
-import { SectionNode } from "../nodes/section";
-import { VideoPosterNode } from "../nodes/video-poster";
+import { getNodeClass } from "../src/factory";
+import { AltNode } from "../src/nodes/alt";
+import { SectionNode } from "../src/nodes/section";
+import { VideoPosterNode } from "../src/nodes/video-poster";
 
 /**
  * Unit tests for factory.ts

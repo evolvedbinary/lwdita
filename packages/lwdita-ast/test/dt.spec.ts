@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { DtNode, isDtNode } from "../nodes/dt";
+import { doNodeTest } from "./tests";
+import { DtNode, isDtNode } from "../src/nodes/dt";
 doNodeTest(DtNode, 'dt', isDtNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
   ['%all-inline*']);

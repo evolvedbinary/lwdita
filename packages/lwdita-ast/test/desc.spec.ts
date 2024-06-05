@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { DescNode, isDescNode } from "../nodes/desc";
+import { doNodeTest } from "./tests";
+import { DescNode, isDescNode } from "../src/nodes/desc";
 // TODO: caption/figcaption
 doNodeTest(DescNode, 'desc', isDescNode,
   ['dir', 'xml:lang', 'translate', 'props', 'outputclass', 'class'],

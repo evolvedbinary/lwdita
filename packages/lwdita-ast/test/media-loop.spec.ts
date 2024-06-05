@@ -15,7 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { MediaLoopNode, isMediaLoopNode } from "../nodes/media-loop";
+import { doNodeTest } from "./tests";
+import { MediaLoopNode, isMediaLoopNode } from "../src/nodes/media-loop";
 doNodeTest(MediaLoopNode, 'media-loop', isMediaLoopNode,
   ['dir', 'xml:lang', 'translate', 'name', 'value', 'outputclass', 'class']);

@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist",
-    "prepack": "yarn run build"
+    "prepack": "yarn run build",
+    "generate-docs": "typedoc"
   },
   "keywords": [
     "LwDITA",
@@ -25,6 +26,8 @@
   },
   "devDependencies": {
     "rimraf": "^5.0.7",
+    "typedoc": "^0.25.13",
+    "typedoc-plugin-missing-exports": "^2.2.0",
     "typescript": "5.4.5"
   },
   "packageManager": "yarn@4.2.2"

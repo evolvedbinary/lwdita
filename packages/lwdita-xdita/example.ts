@@ -1,10 +1,26 @@
-import { xditaToJdita, xditaToAst, serializeToXdita } from "./converter";
-import { BaseNode, TextNode, TopicNode } from "@evolvedbinary/lwdita-ast";
-import { storeOutputXML } from "./utils";
+/*!
+Copyright (C) 2020 Evolved Binary
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+import { xditaToAst, serializeToXdita } from "./src/converter";
+import { storeOutputXML } from "./src/utils";
 import path from 'path';
 import fs from 'fs';
-import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
-import { XditaSerializer } from "./xdita-serializer";
+// import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
+// import { XditaSerializer } from "./xdita-serializer";
 
 const xml =
   `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd"><topic id="intro-product"><title><ph keyref="product-name"/>Overview</title><shortdesc>The<ph keyref="product-name"/> kit allows you to operate network-based home lighting through a remote control</shortdesc><body><p id="cdataTest"><![CDATA[ &%<tagname/><!--comment-->]]>The<ph keyref="product-name"/> kit includes a wireless smart lighting system that helps make the lighting in your home more energy efficient and easier to manage. The kit includes the following components:</p><dl><dlentry><dt>Remote Control</dt><dd><p>Allows you to power on, power off, and dim groups of lights on your network.</p></dd></dlentry><dlentry><dt>LED Light Bulbs</dt><dd><p>Energy-efficient network light bulbs you can install into standard light fixtures.</p></dd></dlentry></dl><fig><title><ph keyref="product-name"/>ready for installation</title><image href="../images/kit.png"><alt>Remote Lighting Kit</alt></image></fig><p id="warning">Electrical hazards can cause burns, shocks and electrocution (death).</p></body></topic>`
@@ -54,12 +70,12 @@ xditaToAst(xml)
     const xditaString = serializeToXdita(ast);
 
     // 2. Comment-in the following line to choose Tabs as indentation
-    const tab = '\t';
+    // const tab = '\t';
     //const xditaString = serializeToXdita(ast, tab);
 
     // 3. Comment-in the following line to choose spaces as indentation
-    const space = ' ';
-    const indentationSize = 4;
+    // const space = ' ';
+    // const indentationSize = 4;
     //const xditaString = serializeToXdita(ast, space, indentationSize);
 
     // 4. Advanced - Instead of using `serializeToXdita` you can use a streaming approach if you prefer...

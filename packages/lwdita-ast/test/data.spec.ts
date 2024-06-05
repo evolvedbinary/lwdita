@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { DataNode, isDataNode } from "../nodes/data";
+import { doNodeTest } from "./tests";
+import { DataNode, isDataNode } from "../src/nodes/data";
 doNodeTest(DataNode, 'data', isDataNode,
   ['dir', 'xml:lang', 'translate', 'name', 'value', 'href', 'format', 'scope', 'keyref', 'props', 'outputclass', 'class'],
   ['(text|%data)*']);

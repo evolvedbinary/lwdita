@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { PNode, isPNode } from "../nodes/p";
+import { doNodeTest } from "./tests";
+import { PNode, isPNode } from "../src/nodes/p";
 import { expect } from "chai";
 
 doNodeTest(PNode, 'p', isPNode,

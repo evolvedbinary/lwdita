@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { ItalicNode, isItalicNode } from "../nodes/italic";
+import { doNodeTest } from "./tests";
+import { ItalicNode, isItalicNode } from "../src/nodes/italic";
 doNodeTest(ItalicNode, 'i', isItalicNode,
   ['dir', 'xml:lang', 'translate', 'keyref', 'outputclass', 'class'],
   ['%all-inline*']);
