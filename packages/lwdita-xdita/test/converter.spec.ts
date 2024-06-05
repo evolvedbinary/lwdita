@@ -18,16 +18,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { expect } from 'chai';
 import { serializeToXdita, xditaToAst, xditaToJdita } from '../src/converter';
+import { DocumentNode } from "@evolvedbinary/lwdita-ast";
 
 describe('xditaToAst', () => {
-  it('converts XDITA XML to JDITA DocumentNode', async () => {
-    const xml = `<topic id="topicID"><title>text content</title></topic>`;
-    const jdita = await xditaToAst(xml);
 
+  const expectConvertedJdita = function(jdita: DocumentNode) {
     const topicNode = jdita.children[0];
-
     const titleNode = topicNode.children[0];
-
     const textNode = titleNode.children[0];
 
     // Assert the structure of the converted JDITA DocumentNode
@@ -43,7 +40,62 @@ describe('xditaToAst', () => {
     // test the text node
     expect(textNode.static.nodeName).to.equal('text');
     expect(textNode.readProp("content")).to.equal('text content');
+  };
 
+  it('converts unindented XDITA XML without XML Declaration and without Document Type Declaration to JDITA DocumentNode', async () => {
+    const xml = '<topic id="topicID"><title>text content</title></topic>';
+    const jdita = await xditaToAst(xml);
+
+    expectConvertedJdita(jdita);
+  });
+
+  it('converts indented XDITA XML without XML Declaration and without Document Type Declaration to JDITA DocumentNode', async () => {
+    const xml = '<topic id="topicID">\n    <title>text content</title>\n</topic>';
+    const jdita = await xditaToAst(xml);
+
+    expectConvertedJdita(jdita);
+  });
+
+  it('converts unindented XDITA XML with XML Declaration to JDITA DocumentNode', async () => {
+    const xml = '<?xml version="1.0" encoding="UTF-8"?><topic id="topicID"><title>text content</title></topic>';
+    const jdita = await xditaToAst(xml);
+
+    expectConvertedJdita(jdita);
+  });
+
+  it('converts indented XDITA XML with XML Declaration to JDITA DocumentNode', async () => {
+    const xml = '<?xml version="1.0" encoding="UTF-8"?>\n<topic id="topicID">\n    <title>text content</title>\n</topic>';
+    const jdita = await xditaToAst(xml);
+
+    expectConvertedJdita(jdita);
+  });
+
+  it('converts unindented XDITA XML with Document Type Declaration to JDITA DocumentNode', async () => {
+    const xml = '<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd"><topic id="topicID"><title>text content</title></topic>';
+    const jdita = await xditaToAst(xml);
+
+    expectConvertedJdita(jdita);
+  });
+
+  it('converts indented XDITA XML with Document Type Declaration to JDITA DocumentNode', async () => {
+    const xml = '<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n<topic id="topicID">\n    <title>text content</title>\n</topic>';
+    const jdita = await xditaToAst(xml);
+
+    expectConvertedJdita(jdita);
+  });
+
+  it('converts unindented XDITA XML with XML Declaration and Document Type Declaration to JDITA DocumentNode', async () => {
+    const xml = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd"><topic id="topicID"><title>text content</title></topic>';
+    const jdita = await xditaToAst(xml);
+
+    expectConvertedJdita(jdita);
+  });
+
+  it('converts indented XDITA XML with XML Declaration and Document Type Declaration to JDITA DocumentNode', async () => {
+    const xml = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n<topic id="topicID">\n    <title>text content</title>\n</topic>';
+    const jdita = await xditaToAst(xml);
+
+    expectConvertedJdita(jdita);
   });
 
   it('rejects with errors if XML parsing fails', async () => {
