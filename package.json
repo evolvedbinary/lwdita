@@ -1,6 +1,6 @@
 {
   "name": "@evolvedbinary/lwdita",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Tools and libraries for working with LwDITA",
   "engines": {
     "node": ">=20.1.0 <21",
