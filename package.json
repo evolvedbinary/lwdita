@@ -23,7 +23,7 @@
     "test:watch": "mocha -w",
     "coverage": "rimraf coverage && nyc yarn mocha",
     "coveralls": "nyc --reporter=text-lcov report | coveralls",
-    "generate-docs": "typedoc"
+    "generate-docs": "yarn workspaces foreach --recursive --from '@evolvedbinary/lwdita-*' run generate-docs"
   },
   "repository": {
     "type": "git",
@@ -63,8 +63,6 @@
     "nodemon": "^3.1.2",
     "nyc": "^15.1.0",
     "rimraf": "^5.0.7",
-    "typedoc": "^0.25.13",
-    "typedoc-plugin-missing-exports": "^2.2.0",
     "typescript": "5.4.5"
   },
   "packageManager": "yarn@4.2.2"

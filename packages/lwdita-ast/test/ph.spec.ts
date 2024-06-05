@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { PhNode, isPhNode } from "../nodes/ph";
+import { doNodeTest } from "./tests";
+import { PhNode, isPhNode } from "../src/nodes/ph";
 doNodeTest(PhNode, 'ph', isPhNode,
   ['dir', 'xml:lang', 'translate', 'props', 'keyref', 'outputclass', 'class'],
   ['%all-inline*']);

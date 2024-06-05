@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { SimpleTableNode, isSimpleTableNode } from "../nodes/simple-table";
+import { doNodeTest } from "./tests";
+import { SimpleTableNode, isSimpleTableNode } from "../src/nodes/simple-table";
 doNodeTest(SimpleTableNode, 'simpletable', isSimpleTableNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
   ['sthead?', 'strow+']);

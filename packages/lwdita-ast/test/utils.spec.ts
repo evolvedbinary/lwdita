@@ -16,9 +16,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { assert, expect } from 'chai';
-import { ChildType, ChildTypes } from "../ast-classes";
-import { acceptsNodeName, areFieldsValid, has, isChildTypeRequired, isChildTypeSingle, isOrUndefined, splitTypenames, stringToChildTypes } from "../utils";
-import { BasicValue } from "../classes";
+import { ChildType, ChildTypes } from "../src/ast-classes";
+import { acceptsNodeName, areFieldsValid, has, isChildTypeRequired, isChildTypeSingle, isOrUndefined, splitTypenames, stringToChildTypes } from "../src/utils";
+import { BasicValue } from "../src/classes";
 
 describe('acceptsNodeName', () => {
   const mockedNodeGroups = {

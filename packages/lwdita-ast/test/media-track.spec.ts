@@ -15,7 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { MediaTrackNode, isMediaTrackNode } from "../nodes/media-track";
+import { doNodeTest } from "./tests";
+import { MediaTrackNode, isMediaTrackNode } from "../src/nodes/media-track";
 doNodeTest(MediaTrackNode, 'media-track', isMediaTrackNode,
   ['dir', 'xml:lang', 'translate', 'name', 'value', 'type', 'outputclass', 'class']);

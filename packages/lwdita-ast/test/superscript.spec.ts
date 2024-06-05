@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { SuperscriptNode, isSuperscriptNode } from "../nodes/superscript";
+import { doNodeTest } from "./tests";
+import { SuperscriptNode, isSuperscriptNode } from "../src/nodes/superscript";
 doNodeTest(SuperscriptNode, 'sup', isSuperscriptNode,
   ['dir', 'xml:lang', 'translate', 'keyref', 'outputclass', 'class'],
   ['%all-inline*']);

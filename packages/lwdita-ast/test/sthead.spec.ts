@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { StHeadNode, isStHeadNode } from "../nodes/sthead";
+import { doNodeTest } from "./tests";
+import { StHeadNode, isStHeadNode } from "../src/nodes/sthead";
 doNodeTest(StHeadNode, 'sthead', isStHeadNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
   ['stentry+']);

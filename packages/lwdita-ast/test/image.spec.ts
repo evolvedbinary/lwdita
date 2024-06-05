@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { ImageNode, isImageNode } from "../nodes/image";
+import { doNodeTest } from "./tests";
+import { ImageNode, isImageNode } from "../src/nodes/image";
 doNodeTest(ImageNode, 'image', isImageNode,
   ['href', 'format', 'scope', 'height', 'width', 'dir', 'xml:lang', 'translate', 'props', 'keyref', 'outputclass', 'class'],
   ['alt?']);

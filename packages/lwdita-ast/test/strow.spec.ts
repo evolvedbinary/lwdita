@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { StRowNode, isStRowNode } from "../nodes/strow";
+import { doNodeTest } from "./tests";
+import { StRowNode, isStRowNode } from "../src/nodes/strow";
 doNodeTest(StRowNode, 'strow', isStRowNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
   ['stentry*']);

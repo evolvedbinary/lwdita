@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { ShortDescNode, isShortDescNode } from "../nodes/shortdesc";
+import { doNodeTest } from "./tests";
+import { ShortDescNode, isShortDescNode } from "../src/nodes/shortdesc";
 doNodeTest(ShortDescNode, 'shortdesc', isShortDescNode,
   ['dir', 'xml:lang', 'translate', 'props', 'outputclass', 'class'],
   ['%all-inline*']);

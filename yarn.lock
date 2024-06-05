@@ -296,6 +296,8 @@ __metadata:
   resolution: "@evolvedbinary/lwdita-ast@workspace:packages/lwdita-ast"
   dependencies:
     rimraf: "npm:^5.0.7"
+    typedoc: "npm:^0.25.13"
+    typedoc-plugin-missing-exports: "npm:^2.2.0"
     typescript: "npm:5.4.5"
   languageName: unknown
   linkType: soft
@@ -309,6 +311,8 @@ __metadata:
     "@types/node": "npm:^20.14.0"
     rimraf: "npm:^5.0.7"
     ts-node: "npm:^10.9.2"
+    typedoc: "npm:^0.25.13"
+    typedoc-plugin-missing-exports: "npm:^2.2.0"
     typescript: "npm:5.4.5"
   languageName: unknown
   linkType: soft
@@ -331,8 +335,6 @@ __metadata:
     nodemon: "npm:^3.1.2"
     nyc: "npm:^15.1.0"
     rimraf: "npm:^5.0.7"
-    typedoc: "npm:^0.25.13"
-    typedoc-plugin-missing-exports: "npm:^2.2.0"
     typescript: "npm:5.4.5"
   languageName: unknown
   linkType: soft

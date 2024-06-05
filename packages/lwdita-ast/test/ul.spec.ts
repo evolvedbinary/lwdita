@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { UlNode, isUlNode } from "../nodes/ul";
+import { doNodeTest } from "./tests";
+import { UlNode, isUlNode } from "../src/nodes/ul";
 doNodeTest(UlNode, 'ul', isUlNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
   ['li+']);

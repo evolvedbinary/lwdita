@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { LiNode, isLiNode } from "../nodes/li";
+import { doNodeTest } from "./tests";
+import { LiNode, isLiNode } from "../src/nodes/li";
 doNodeTest(LiNode, 'li', isLiNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
   ['%list-blocks*']);

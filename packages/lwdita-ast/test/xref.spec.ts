@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { XRefNode, isXRefNode } from "../nodes/xref";
+import { doNodeTest } from "./tests";
+import { XRefNode, isXRefNode } from "../src/nodes/xref";
 doNodeTest(XRefNode, 'xref', isXRefNode,
   ['href', 'format', 'scope', 'dir', 'xml:lang', 'translate', 'props', 'keyref', 'outputclass', 'class'],
   ['%common-inline*']);

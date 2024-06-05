@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 import { expect } from 'chai';
-import { serializeToXdita, xditaToAst, xditaToJdita } from '../converter';
+import { serializeToXdita, xditaToAst, xditaToJdita } from '../src/converter';
 
 describe('xditaToAst', () => {
   it('converts XDITA XML to JDITA DocumentNode', async () => {

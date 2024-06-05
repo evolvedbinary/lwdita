@@ -16,8 +16,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { expect } from 'chai';
-import { createNode } from "../factory";
-import { XMLNode } from "../classes";
+import { createNode } from "../src/factory";
+import { XMLNode } from "../src/classes";
 import { XMLNODE_AUDIO, AUDIO_NODE_OBJECT, XMLNODE_UNKNOWN } from "./test-utils";
 
 // Creates different types of nodes based on the input XMLNode type

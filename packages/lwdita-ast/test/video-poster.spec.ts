@@ -15,7 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { VideoPosterNode, isVideoPosterNode } from "../nodes/video-poster";
+import { doNodeTest } from "./tests";
+import { VideoPosterNode, isVideoPosterNode } from "../src/nodes/video-poster";
 doNodeTest(VideoPosterNode, 'video-poster', isVideoPosterNode,
   ['dir', 'xml:lang', 'translate', 'name', 'value', 'outputclass', 'class']);

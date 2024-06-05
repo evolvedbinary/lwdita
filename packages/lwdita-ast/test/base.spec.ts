@@ -16,9 +16,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { expect, assert } from 'chai';
-import { AbstractBaseNode } from '../nodes/base';
-import { stringToChildTypes } from "../utils";
-import { NonAcceptedChildError } from '../ast-classes';
+import { AbstractBaseNode } from '../src/nodes/base';
+import { stringToChildTypes } from "../src/utils";
+import { NonAcceptedChildError } from '../src/ast-classes';
 
 // TODO: add tests for an unknown node
 // Not enough information to implement this test

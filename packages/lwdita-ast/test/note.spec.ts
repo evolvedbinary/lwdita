@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { NoteNode, isNoteNode } from "../nodes/note";
+import { doNodeTest } from "./tests";
+import { NoteNode, isNoteNode } from "../src/nodes/note";
 doNodeTest(NoteNode, 'note', isNoteNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class', 'type'],
   ['%simple-blocks*']);

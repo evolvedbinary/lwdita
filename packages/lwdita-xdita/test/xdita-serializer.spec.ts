@@ -16,8 +16,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { expect } from 'chai';
-import { XditaSerializer } from '../xdita-serializer';
-import { InMemoryTextSimpleOutputStreamCollector } from '../stream';
+import { XditaSerializer } from '../src/xdita-serializer';
+import { InMemoryTextSimpleOutputStreamCollector } from '../src/stream';
 import { DocumentNode, TextNode, TitleNode, TopicNode } from "@evolvedbinary/lwdita-ast"
 
 describe('XditaSerializer', () => {

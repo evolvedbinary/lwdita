@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { PrologNode, isPrologNode } from "../nodes/prolog";
+import { doNodeTest } from "./tests";
+import { PrologNode, isPrologNode } from "../src/nodes/prolog";
 doNodeTest(PrologNode, 'prolog', isPrologNode,
   ['dir', 'xml:lang', 'translate', 'props', 'class'],
   ['%data*']);

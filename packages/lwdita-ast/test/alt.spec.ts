@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { AltNode, isAltNode } from "../nodes/alt";
+import { doNodeTest } from "./tests";
+import { AltNode, isAltNode } from "../src/nodes/alt";
 import { expect } from "chai";
 
 doNodeTest(AltNode, 'alt', isAltNode,

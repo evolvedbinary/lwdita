@@ -15,7 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { MediaAutoplayNode, isMediaAutoplayNode } from "../nodes/media-autoplay";
+import { doNodeTest } from "./tests";
+import { MediaAutoplayNode, isMediaAutoplayNode } from "../src/nodes/media-autoplay";
 doNodeTest(MediaAutoplayNode, 'media-autoplay', isMediaAutoplayNode,
   ['dir', 'xml:lang', 'translate', 'name', 'value', 'outputclass', 'class']);

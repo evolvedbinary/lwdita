@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { UnderlinedNode, isUnderlinedNode } from "../nodes/underlined";
+import { doNodeTest } from "./tests";
+import { UnderlinedNode, isUnderlinedNode } from "../src/nodes/underlined";
 doNodeTest(UnderlinedNode, 'u', isUnderlinedNode,
   ['dir', 'xml:lang', 'translate', 'keyref', 'outputclass', 'class'],
   ['%all-inline*']);

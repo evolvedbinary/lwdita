@@ -16,10 +16,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { assert, expect } from 'chai';
-import { AbstractBaseNode, Constructor, TextNode, DocumentNode } from './nodes';
-import { stringToChildTypes } from './utils';
-import { OrArray } from './classes';
-import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError } from "./ast-classes";
+import { AbstractBaseNode, Constructor, TextNode, DocumentNode } from '../src/nodes';
+import { stringToChildTypes } from '../src/utils';
+import { OrArray } from '../src/classes';
+import { NonAcceptedChildError, UnknownAttributeError, WrongAttributeTypeError } from "../src/ast-classes";
 
 // TODO: add a test for checking invalid node
 

@@ -15,8 +15,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { doNodeTest } from "../tests";
-import { FnNode, isFnNode } from "../nodes/fn";
+import { doNodeTest } from "./tests";
+import { FnNode, isFnNode } from "../src/nodes/fn";
 doNodeTest(FnNode, 'fn', isFnNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class', 'callout'],
   ['%fn-blocks*']);
