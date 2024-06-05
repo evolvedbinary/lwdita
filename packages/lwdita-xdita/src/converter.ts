@@ -50,6 +50,9 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
     // Parse the text and add a new node item to the node-array
     // `text` is the content of any text node in the parsed xml document
     parser.on("text", function (text) {
+      //make sure the text is is in the right place or ignore it
+      if (text.trim() === '') return;
+      
       const node: BaseNode = createNode(text)
       stack[stack.length - 1].add(node, abortOnError);
     });
