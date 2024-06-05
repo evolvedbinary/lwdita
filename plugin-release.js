@@ -68,15 +68,18 @@ module.exports = {
 
           // Step 2 - Pre-release testing - Executes the `lint` and `test` scripts
           this.context.stdout.write("2. Performing pre-release testing...\n");
-          this.context.stdout.write("2.1. Performing lint...\n");
-          await this.cli.run(['clean'])
-          await this.cli.run(['lint'])
-          this.context.stdout.write("2.2. Performing build...\n");
-          await this.cli.run(['clean'])
-          await this.cli.run(['build'])
-          this.context.stdout.write("2.3. Running tests...\n");
-          await this.cli.run(['clean'])
-          await this.cli.run(['test'])
+          await this.cli.run(['build']);
+          await this.cli.run(['lint']);
+          await this.cli.run(['test']);
+          // this.context.stdout.write("2.1. Performing lint...\n");
+          // await this.cli.run(['clean'])
+          // await this.cli.run(['lint'])
+          // this.context.stdout.write("2.2. Performing build...\n");
+          // await this.cli.run(['clean'])
+          // await this.cli.run(['build'])
+          // this.context.stdout.write("2.3. Running tests...\n");
+          // await this.cli.run(['clean'])
+          // await this.cli.run(['test'])
 
           // Cleanup after Step 2 - Pre-release testing
           await this.cli.run(['clean'])
