@@ -1,5 +1,5 @@
 import { xditaToJdita, xditaToAst, serializeToXdita } from "./converter";
-import { BaseNode, TextNode, TopicNode } from "@evolvedbinary/lwdita-ast/nodes";
+import { BaseNode, TextNode, TopicNode } from "@evolvedbinary/lwdita-ast";
 import { storeOutputXML } from "./utils";
 import path from 'path';
 import fs from 'fs';

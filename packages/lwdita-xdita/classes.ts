@@ -15,7 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Attributes } from "@evolvedbinary/lwdita-ast/classes";
+import { Attributes } from "@evolvedbinary/lwdita-ast";
 
 /**
  * Base type for all XML nodes
