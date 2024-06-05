@@ -41,6 +41,9 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
       position: true
     });
 
+    // simple regex to detemine if string is only whitespace
+    const wsRegEx = new RegExp("^\\s+$");
+
     // Create a new document node
     const doc = new DocumentNode();
 
@@ -50,7 +53,18 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
     // Parse the text and add a new node item to the node-array
     // `text` is the content of any text node in the parsed xml document
     parser.on("text", function (text) {
-      const node: BaseNode = createNode(text)
+      const parentNode = stack[stack.length - 1];
+      const node: BaseNode = createNode(text);
+
+      // if the 'text' string is only whitespace characters,
+      // and the parent node cannot accept a text node (i.e. it does not support #PCDATA),
+      // then the whitespace is non-significant as far as the DTD is concerned... so just discard it!
+      // see: https://github.com/evolvedbinary/lwdita/issues/129#issuecomment-2150243338
+      if (wsRegEx.test(text) && !parentNode.canAdd(node)) {
+        return;
+      }
+
+      // add the text node to the parent
       stack[stack.length - 1].add(node, abortOnError);
     });
 
