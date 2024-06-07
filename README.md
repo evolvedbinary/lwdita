@@ -1,6 +1,7 @@
 # LwDITA
 
-[![Node.js Version](https://img.shields.io/node/v-lts/lwdita)](https://nodejs.org)
+[![Node.js Version](https://img.shields.io/node/v-lts/@evolvedbinary/lwdita-ast)](https://nodejs.org)
+[![Npm Package Version](https://img.shields.io/npm/v/@evolvedbinary/lwdita-ast)](https://www.npmjs.com/package/@evolvedbinary/prosemirror-ast)
 [![Build Status](https://circleci.com/gh/evolvedbinary/lwdita.svg?style=svg)](https://circleci.com/gh/evolvedbinary/lwdita)
 [![Coverage Status](https://coveralls.io/repos/github/evolvedbinary/lwdita/badge.svg?branch=main)](https://coveralls.io/github/evolvedbinary/lwdita?branch=main)
 
