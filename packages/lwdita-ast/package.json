@@ -3,6 +3,10 @@
   "version": "2.1.1",
   "description": "An Abstract Syntax Tree Model of the LwDITA elements",
   "main": "./dist/index.js",
+  "engines": {
+    "node": ">=20.1.0 <21",
+    "yarn": ">=4.2.2"
+  },
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist",
