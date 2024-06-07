@@ -1,6 +1,7 @@
 {
   "name": "@evolvedbinary/lwdita-ast",
   "version": "2.1.1",
+  "description": "An Abstract Syntax Tree Model of the LwDITA elements",
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
