@@ -16,7 +16,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
-import { makeFilters } from "./filters";
 import { VariableContentNodeAttributes, VariableContentFields, isValidVariableContentField, makeVariableContent } from "./variable-content";
 import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "./class";
 import { areFieldsValid } from "../utils";
@@ -68,7 +67,7 @@ export const isAltNode = (value?: unknown): value is AltNodeAttributes =>
  * @returns An `alt` node
  */
 export function makeAlt<T extends Constructor>(constructor: T): T {
-  return makeAll(constructor, makeLocalization, makeFilters, makeVariableContent, makeClass);
+  return makeAll(constructor, makeLocalization, makeVariableContent, makeClass);
 }
 
 /**
