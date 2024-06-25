@@ -38,4 +38,5 @@ export const nodeGroups: Record<string, Array<string>> = {
     'all-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', 'fig', 'fn', 'note', ...dataGroup],
     'list-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', 'fig', 'note', ...dataGroup],
     'fig-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', ...dataGroup],
+    'example-blocks': ['p','ul','ol','dl','pre','audio','video','simpletable','fig','note'],
 }

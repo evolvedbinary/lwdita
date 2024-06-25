@@ -28,6 +28,7 @@ import { DivNode } from "./nodes/div";
 import { DlEntryNode } from "./nodes/dl-entry";
 import { DlNode } from "./nodes/dl";
 import { DtNode } from "./nodes/dt";
+import { ExampleNode } from "./nodes/example";
 import { FigNode } from "./nodes/fig";
 import { FnNode } from "./nodes/fn";
 import { ImageNode } from "./nodes/image";
@@ -81,6 +82,7 @@ export function getNodeClass(name: string): Constructor {
     case 'dl': return DlNode;
     case 'dlentry': return DlEntryNode;
     case 'dt': return DtNode;
+    case 'example': return ExampleNode;
     case 'fig': return FigNode;
     case 'fn': return FnNode;
     case 'i': return ItalicNode;
