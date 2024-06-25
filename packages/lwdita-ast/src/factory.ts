@@ -33,6 +33,7 @@ import { FigNode } from "./nodes/fig";
 import { FnNode } from "./nodes/fn";
 import { ImageNode } from "./nodes/image";
 import { ItalicNode } from "./nodes/italic";
+import { KeytextNode } from "./nodes/keytext";
 import { LiNode } from "./nodes/li";
 import { MediaAutoplayNode } from "./nodes/media-autoplay";
 import { MediaControlsNode } from "./nodes/media-controls";
@@ -87,6 +88,7 @@ export function getNodeClass(name: string): Constructor {
     case 'fn': return FnNode;
     case 'i': return ItalicNode;
     case 'image': return ImageNode;
+    case 'keytext': return KeytextNode;
     case 'media-autoplay': return MediaAutoplayNode;
     case 'media-controls': return MediaControlsNode;
     case 'media-loop': return MediaLoopNode;
