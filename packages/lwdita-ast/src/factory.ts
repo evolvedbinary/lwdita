@@ -24,6 +24,7 @@ import { BoldNode } from "./nodes/bold";
 import { DataNode } from "./nodes/data";
 import { DescNode } from "./nodes/desc";
 import { DdNode } from "./nodes/dd";
+import { DivNode } from "./nodes/div";
 import { DlEntryNode } from "./nodes/dl-entry";
 import { DlNode } from "./nodes/dl";
 import { DtNode } from "./nodes/dt";
@@ -76,6 +77,7 @@ export function getNodeClass(name: string): Constructor {
     case 'data': return DataNode;
     case 'dd': return DdNode;
     case 'desc': return DescNode;
+    case 'div': return DivNode;
     case 'dl': return DlNode;
     case 'dlentry': return DlEntryNode;
     case 'dt': return DtNode;
