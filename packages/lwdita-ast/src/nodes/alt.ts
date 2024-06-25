@@ -26,8 +26,6 @@ import { CDATA } from "../ast-classes";
 /**
  * Define all allowed `alt` (Alternative content) fields:
  * `keyref`, `outputclass`, `class`, `dir`, `xml:lang`, `translate`, `props`
- * NEW: `dir`, `xml:lang`, `translate`, `keyref`, `outputclass`, `class`
- * AKA: ...LocalizationFields, ...ClassFields, ...VariableContentFields, but no ...FiltersFields!!
  */
 export const AltFields = [...LocalizationFields, ...VariableContentFields, ...ClassFields];
 
