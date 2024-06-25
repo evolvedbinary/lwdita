@@ -17,6 +17,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { DivNode, isDivNode } from "../src/nodes/div";
-doNodeTest(DivNode, 'div', isDivNode,
+
+doNodeTest(
+  DivNode,
+  'div',
+  isDivNode,
   ['dir', 'xml:lang', 'translate', 'props', 'outputclass', 'class'],
-  ['fn+']);
+  ['fn+']
+);
