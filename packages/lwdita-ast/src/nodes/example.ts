@@ -98,7 +98,7 @@ export function makeExample<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidExampleField - A boolean value, if the attribute is valid or not
  * @param ExampleFields - An array containing all valid attribute names, @see {@link ExampleFields}
- * @param childNodes - An array containing all valid child node names: `alt?`
+ * @param childNodes - An array containing all valid child node names: 'title?, 'p','ul','ol','dl','pre','audio','video','simpletable','fig','note'
  * @returns An `example` node
  */
 @makeComponent(makeExample, 'example', isValidExampleField, ExampleFields, ['title?', '%example-blocks'])
