@@ -27,7 +27,7 @@ doNodeTest(
   ['%inline.noimage*']
 );
 
-describe('Class StrongNode', () => {
+describe('Class TtNode', () => {
   it('sets correct attributes', () => {
     const tt = new TtNode({});
 
