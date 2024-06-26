@@ -44,6 +44,7 @@ import { MediaSourceNode } from "./nodes/media-source";
 import { MediaTrackNode } from "./nodes/media-track";
 import { NoteNode } from "./nodes/note";
 import { OlNode } from "./nodes/ol";
+import { OthermetaNode } from "./nodes/othermeta";
 import { PhNode } from "./nodes/ph";
 import { PNode } from "./nodes/p";
 import { PreNode } from "./nodes/pre";
@@ -102,6 +103,7 @@ export function getNodeClass(name: string): Constructor {
     case 'li': return LiNode;
     case 'note': return NoteNode;
     case 'ol': return OlNode;
+    case 'othermeta': return OthermetaNode;
     case 'p': return PNode;
     case 'ph': return PhNode;
     case 'pre': return PreNode;
