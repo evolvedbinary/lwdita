@@ -27,7 +27,7 @@ doNodeTest(
   ['alt?']
 );
 
-describe.only('Class ImageNode', () => {
+describe('Class ImageNode', () => {
   it('sets correct attributes', () => {
     const image = new ImageNode({});
 
@@ -39,22 +39,10 @@ describe.only('Class ImageNode', () => {
     image.format = 'format';
     image.scope = 'local';
     image.height = 'height';
-    image.width = 'height';
+    image.width = 'width';
     image.outputclass = 'outputclass';
     image.class = 'class';
 
-    console.log('image.dir=', image.dir);
-    console.log('image["xml:lang"]=', image['xml:lang']);
-    console.log('image.translate=', image.translate);
-    console.log('image.keyref=', image.keyref);
-    console.log('image.href=', image.href);
-    console.log('image.format=', image.format);
-    console.log('image.scope=', image.scope);
-    console.log('image.height=', image.height);
-    console.log('image.width=', image.width);
-    console.log('image.outputclass=', image.outputclass);
-
-    /*
     expect(image.dir).to.equal('dir');
     expect(image["xml:lang"]).to.equal('lang');
     expect(image.translate).to.equal('translate');
@@ -66,6 +54,5 @@ describe.only('Class ImageNode', () => {
     expect(image.width).to.equal('width');
     expect(image.outputclass).to.equal('outputclass');
     expect(image.class).to.equal('class');
-    */
   });
 });
