@@ -31,6 +31,8 @@ const dataGroup = ['data'];
 export const nodeGroups: Record<string, Array<string>> = {
     'ph': phGroup,
     'data': dataGroup,
+    'inline.noimage': ['text', 'ph', 'xref'],
+    'inline.noxref': ['text', 'ph', 'image'],
     'common-inline': ['text', ...phGroup, 'image', ...dataGroup],
     'all-inline': ['text', ...phGroup, 'image', 'xref', ...dataGroup],
     'simple-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'fn', 'note', ...dataGroup],
