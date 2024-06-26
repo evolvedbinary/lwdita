@@ -17,6 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { ExampleNode, isExampleNode } from "../src/nodes/example";
+import { expect } from "chai";
 
 doNodeTest(
   ExampleNode,
@@ -25,3 +26,33 @@ doNodeTest(
   ['scale', 'frame', 'expanse', 'dir', 'xml:lang', 'translate',  'props', 'id', 'conref', 'outputclass', 'class'],
   ['title?', '%example-blocks']
 );
+
+describe('Class ExampleNode', () => {
+  it('sets correct attributes', () => {
+    const example = new ExampleNode({});
+
+    example.scale = 50;
+    example.frame = 'all';
+    example.expanse = 'page';
+    example.dir = 'dir';
+    example['xml:lang'] = 'lang';
+    example.translate = 'translate';
+    example.props = 'props';
+    example.id = 'id';
+    example.conref = 'conref';
+    example.outputclass = 'outputclass';
+    example.class = 'class';
+
+    expect(example.scale).to.equal(50);
+    expect(example.frame).to.equal('all');
+    expect(example.expanse).to.equal('page');
+    expect(example.dir).to.equal('dir');
+    expect(example['xml:lang']).to.equal('lang');
+    expect(example.translate).to.equal('translate');
+    expect(example.props).to.equal('props');
+    expect(example.id).to.equal('id');
+    expect(example.conref).to.equal('conref');
+    expect(example.outputclass).to.equal('outputclass');
+    expect(example.class).to.equal('class');
+  });
+});
