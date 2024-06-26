@@ -27,9 +27,9 @@ import { CDATA, NMTOKEN, ReferenceContentScope } from "../ast-classes";
 
 /**
  * Define all allowed `image` attributes:
- * `dir`, `xml:lang`, `translate`, `keyref`, `outputclass`, `class`, `scale`, `href`, `format`, `scope`, `width`, `height`
+ * `dir`, `xml:lang`, `translate`, `href`, `format`, `scope`, `width`, `height`, `keyref`, `outputclass`, `class`
  */
-export const ImageFields = [...LocalizationFields, ...VariableContentFields, ...ReferenceContentFields, ...ClassFields, ...SizeFields];
+export const ImageFields = [...LocalizationFields, ...ReferenceContentFields, ...SizeFields, ...VariableContentFields, ...ClassFields];
 
 /**
  * Interface ImageNodeAttributes defines the attribute types for `image`
@@ -52,11 +52,11 @@ export interface ImageNodeAttributes extends SizeNodeAttributes, LocalizationNod
 export const isImageNodes = (value?: unknown): value is ImageNodeAttributes =>
   typeof value === 'object' &&
   !!value &&
-  isClassNode(value) &&
   isLocalizationNode(value) &&
   isReferenceContentNode(value) &&
+  isSizeNode(value) &&
   isVariableContentNode(value) &&
-  isSizeNode(value);
+  isClassNode(value);
 
 /**
  * Check if the given attributes of the `image` node are valid and match this list:
@@ -111,24 +111,25 @@ export function makeImage<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeImage, 'image', isValidImageField, ImageFields, ['alt?'])
 export class ImageNode extends AbstractBaseNode implements ImageNodeAttributes {
-  // ClassNodeAttributes
-  'outputclass'?: CDATA
-  'class'?: CDATA
-
-  // ReferenceContentNodeAttributes
-  'href'?: CDATA
-  'format'?: CDATA
-  'scope'?: ReferenceContentScope
-
-  // VariableContentNodeAttributes
-  'keyref'?: CDATA
 
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA
   'translate'?: CDATA
 
+  // ReferenceContentNodeAttributes
+  'href'?: CDATA
+  'format'?: CDATA
+  'scope'?: ReferenceContentScope
+
   // SizeNodeAttributes
-  'width'?: NMTOKEN
   'height'?: NMTOKEN
+  'width'?: NMTOKEN
+
+  // VariableContentNodeAttributes
+  'keyref'?: CDATA
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
 }

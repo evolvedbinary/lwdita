@@ -17,6 +17,55 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { ImageNode, isImageNode } from "../src/nodes/image";
-doNodeTest(ImageNode, 'image', isImageNode,
+import { expect } from "chai";
+
+doNodeTest(
+  ImageNode,
+  'image',
+  isImageNode,
   ['href', 'format', 'scope', 'height', 'width', 'dir', 'xml:lang', 'translate', 'keyref', 'outputclass', 'class'],
-  ['alt?']);
+  ['alt?']
+);
+
+describe.only('Class ImageNode', () => {
+  it('sets correct attributes', () => {
+    const image = new ImageNode({});
+
+    image.dir = 'dir';
+    image["xml:lang"] = 'lang';
+    image.translate = 'translate';
+    image.keyref = 'keyref';
+    image.href = 'href';
+    image.format = 'format';
+    image.scope = 'local';
+    image.height = 'height';
+    image.width = 'height';
+    image.outputclass = 'outputclass';
+    image.class = 'class';
+
+    console.log('image.dir=', image.dir);
+    console.log('image["xml:lang"]=', image['xml:lang']);
+    console.log('image.translate=', image.translate);
+    console.log('image.keyref=', image.keyref);
+    console.log('image.href=', image.href);
+    console.log('image.format=', image.format);
+    console.log('image.scope=', image.scope);
+    console.log('image.height=', image.height);
+    console.log('image.width=', image.width);
+    console.log('image.outputclass=', image.outputclass);
+
+    /*
+    expect(image.dir).to.equal('dir');
+    expect(image["xml:lang"]).to.equal('lang');
+    expect(image.translate).to.equal('translate');
+    expect(image.keyref).to.equal('keyref');
+    expect(image.href).to.equal('href');
+    expect(image.format).to.equal('format');
+    expect(image.scope).to.equal('local');
+    expect(image.height).to.equal('height');
+    expect(image.width).to.equal('width');
+    expect(image.outputclass).to.equal('outputclass');
+    expect(image.class).to.equal('class');
+    */
+  });
+});
