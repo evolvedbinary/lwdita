@@ -42,6 +42,7 @@ import { MediaLoopNode } from "./nodes/media-loop";
 import { MediaMutedNode } from "./nodes/media-muted";
 import { MediaSourceNode } from "./nodes/media-source";
 import { MediaTrackNode } from "./nodes/media-track";
+import { NavtitleNode } from "./nodes/navtitle";
 import { NoteNode } from "./nodes/note";
 import { OlNode } from "./nodes/ol";
 import { OthermetaNode } from "./nodes/othermeta";
@@ -101,6 +102,7 @@ export function getNodeClass(name: string): Constructor {
     case 'media-source': return MediaSourceNode;
     case 'media-track': return MediaTrackNode;
     case 'li': return LiNode;
+    case 'navtitle': return NavtitleNode;
     case 'note': return NoteNode;
     case 'ol': return OlNode;
     case 'othermeta': return OthermetaNode;
