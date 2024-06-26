@@ -17,6 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { DivNode, isDivNode } from "../src/nodes/div";
+import { expect } from "chai";
 
 doNodeTest(
   DivNode,
@@ -25,3 +26,23 @@ doNodeTest(
   ['dir', 'xml:lang', 'translate', 'props', 'outputclass', 'class'],
   ['fn+']
 );
+
+describe('Class DivNode', () => {
+  it('sets correct attributes', () => {
+    const div = new DivNode({});
+
+    div.dir = 'dir';
+    div['xml:lang'] = 'lang';
+    div.translate = 'translate';
+    div.props = 'props';
+    div.outputclass = 'outputclass';
+    div.class = 'class';
+
+    expect(div.dir).to.equal('dir');
+    expect(div['xml:lang']).to.equal('lang');
+    expect(div.translate).to.equal('translate');
+    expect(div.props).to.equal('props');
+    expect(div.outputclass).to.equal('outputclass');
+    expect(div.class).to.equal('class');
+  });
+});
