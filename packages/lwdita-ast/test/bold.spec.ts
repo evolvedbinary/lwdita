@@ -27,7 +27,7 @@ doNodeTest(
   ['%inline.noimage*']
 );
 
-describe('Class TtNode', () => {
+describe('Class BoldBode', () => {
   it('sets correct attributes', () => {
     const b = new BoldNode({});
 
