@@ -25,8 +25,6 @@ import { VariableContentFields, isValidVariableContentField, makeVariableContent
 import { BasicValue } from "../classes";
 import { CDATA, NMTOKEN } from "../ast-classes";
 
-/** TODO: Implement "+ topic/ph hi-d/b " */
-
 /**
  * Define all allowed `bold` attributes:
  * `dir`, `xml:lang`, `translate`, `keyref`, `outputclass`, `class`
@@ -80,25 +78,21 @@ export function makeBold<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidBodyField - A boolean value, if the attribute is valid or not
  * @param BodyFields - An array containing all valid attribute names
- * @param childNodes - An array containing all valid child node names: `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
+ * @param childNodes -An Array of allowed child nodes `text`, `ph`, `xref`
 */
-@makeComponent(makeBold, 'b', isValidBoldField, BoldFields, ['%all-inline*'])
+@makeComponent(makeBold, 'b', isValidBoldField, BoldFields, ['%inline.noimage*'])
 export class BoldNode extends AbstractBaseNode implements BoldNodeAttributes {
   static domNodeName = 'b';
-
-  // ClassNodeAttributes
-  'outputclass'?: CDATA
-  'class'?: CDATA
-
-  // ReuseNodeAttributes
-  'id'?: NMTOKEN
-  'conref'?: CDATA
 
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA
   'translate'?: CDATA
 
-  // FiltersNodeAttributes
-  'props'?: CDATA
+  // VariableContentNodeAttributes
+  'keyref'?: CDATA
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
 }
