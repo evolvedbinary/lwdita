@@ -36,7 +36,7 @@ export interface StrongNodeAttributes extends LocalizationNodeAttributes, Variab
 
 /**
  * Check if the given fields of the `strong` node are valid and matches this list:
- * `keyref`, `outputclass`, `class`, `dir`, `xml:lang`, `translate`, `props`
+ * `keyref`, `outputclass`, `class`, `dir`, `xml:lang`, `translate`
  *
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value
@@ -59,7 +59,7 @@ export const isStrongNode = (value?: unknown): value is StrongNodeAttributes =>
   typeof value === 'object' && !!value && areFieldsValid(StrongFields, value as Record<string, BasicValue>, isValidStrongField);
 
 /**
- * Construct an `strong` node with all available attributes
+ * Construct a `strong` node with all available attributes
  *
  * @param constructor - The constructor
  * @returns An `strong` node
@@ -69,7 +69,7 @@ export function makeStrong<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create an `strong` node
+ * Create a `strong` node
  *
  * @decorator `@makeComponent`
  * @param makeStrong - The `strong` node constructor
