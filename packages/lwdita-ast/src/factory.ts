@@ -59,6 +59,7 @@ import { SubscriptNode } from "./nodes/subscript";
 import { SuperscriptNode } from "./nodes/superscript";
 import { TitleNode } from "./nodes/title";
 import { TopicNode } from "./nodes/topic";
+import { TtNode } from "./nodes/tt";
 import { UlNode } from "./nodes/ul"
 import { UnderlinedNode } from "./nodes/underlined";
 import { VideoNode } from "./nodes/video";
@@ -116,6 +117,7 @@ export function getNodeClass(name: string): Constructor {
     case 'sup': return SuperscriptNode;
     case 'title': return TitleNode;
     case 'topic': return TopicNode;
+    case 'tt': return TtNode;
     case 'u': return UnderlinedNode;
     case 'ul': return UlNode;
     case 'video': return VideoNode;
