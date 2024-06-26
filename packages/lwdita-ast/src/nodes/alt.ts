@@ -76,7 +76,7 @@ export function makeAlt<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidAltField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child node `text*`, `%ph*`
+ * @param childNodes - An Array of allowed child node `text*` or `%ph*`
  */
 @makeComponent(makeAlt, 'alt', isValidAltField, AltFields, [['text*', '%ph*']])
 export class AltNode extends AbstractBaseNode implements AltNodeAttributes {
