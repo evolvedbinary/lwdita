@@ -53,6 +53,7 @@ import { ShortDescNode } from "./nodes/shortdesc";
 import { SimpleTableNode } from "./nodes/simple-table";
 import { StEntryNode } from "./nodes/stentry";
 import { StHeadNode } from "./nodes/sthead";
+import { StrongNode } from "./nodes/strong";
 import { StRowNode } from "./nodes/strow";
 import { SubscriptNode } from "./nodes/subscript";
 import { SuperscriptNode } from "./nodes/superscript";
@@ -109,6 +110,7 @@ export function getNodeClass(name: string): Constructor {
     case 'shortdesc': return ShortDescNode;
     case 'stentry': return StEntryNode;
     case 'sthead': return StHeadNode;
+    case 'strong': return StrongNode;
     case 'strow': return StRowNode;
     case 'sub': return SubscriptNode;
     case 'sup': return SuperscriptNode;
