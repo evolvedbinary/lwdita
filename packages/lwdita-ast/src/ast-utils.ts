@@ -41,4 +41,5 @@ export const nodeGroups: Record<string, Array<string>> = {
     'list-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', 'fig', 'note', ...dataGroup],
     'fig-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', ...dataGroup],
     'example-blocks': ['p','ul','ol','dl','pre','audio','video','simpletable','fig','note'],
+    'fallback-blocks': ['image','alt','p','ul','ol','dl','pre','note'],
 }
