@@ -21,19 +21,31 @@ import { areFieldsValid, isOrUndefined } from "../utils";
 import { AbstractBaseNode, BaseNode, makeComponent, makeAll } from "./base";
 import { BasicValue } from "../classes";
 import { CDATA, isCDATA, isProcessingRole, ProcessingRole, ReferenceContentScope } from "../ast-classes";
-import { isValidReferenceContentField, ReferenceContentFields, ReferenceContentNodeAttributes } from "./reference-content";
-import { FiltersFields, FiltersNodeAttributes, isValidFiltersField } from "./filters";
+import { isValidReferenceContentField, makeReferenceContent, ReferenceContentFields, ReferenceContentNodeAttributes } from "./reference-content";
+import { FiltersFields, FiltersNodeAttributes, isValidFiltersField, makeFilters } from "./filters";
 
 /**
  * Define all allowed `keydef` attributes:
  * `dir`, `xml:lang`, `translate`, `props`, `class`, `outputclass`, `href`, `format`, `scope`, `keys`, `processing-role`
  */
-export const KeydefFields = [...LocalizationFields, ...FiltersFields, ...ClassFields, ...ReferenceContentFields, 'keys', 'processing-role'];
+export const KeydefFields = [
+  ...LocalizationFields,
+  ...FiltersFields,
+  ...ClassFields,
+  ...ReferenceContentFields,
+  'keys',
+  'processing-role'
+];
 
 /**
  * Interface KeydefNode defines the attribute types for `keydef`
  */
-export interface KeydefNodeAttributes extends LocalizationNodeAttributes, FiltersNodeAttributes, ClassNodeAttributes, ReferenceContentNodeAttributes, BaseNode {
+export interface KeydefNodeAttributes extends
+  LocalizationNodeAttributes,
+  FiltersNodeAttributes,
+  ClassNodeAttributes,
+  ReferenceContentNodeAttributes,
+  BaseNode {
   'keys': CDATA
   'processing-role': ProcessingRole
 }
@@ -85,7 +97,12 @@ export function makeKeydef<T extends { new(...args: any[]): AbstractBaseNode }>(
       return this.readProp<CDATA>('keys'); }
     set 'keys'(value: CDATA) {
         this.writeProp<CDATA>('keys', value); }
-  }, makeLocalization, makeClass,);
+  },
+    makeLocalization,
+    makeClass,
+    makeReferenceContent,
+    makeFilters
+  );
 }
 
 /**
