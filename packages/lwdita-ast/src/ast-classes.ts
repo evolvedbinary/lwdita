@@ -107,6 +107,16 @@ export type NMTOKEN = string;
 export const isNMTOKEN = (value?: BasicValue): value is NMTOKEN => typeof value === 'string';
 
 /**
+ * INCLUDED_DOMAINS character data
+ */
+export type INCLUDED_DOMAINS = '&included-domains;';
+
+/**
+ * PCData validation function
+ */
+export const isINCLUDED_DOMAINS = (value?: BasicValue): value is INCLUDED_DOMAINS => typeof value === 'string';
+
+/**
  * DisplayScale defines all possible values for the `scale` attribute
  */
 export type DisplayScale = 50 | 60 | 70 | 80 | 90 | 100 | 110 | 120 | 140 | 160 | 180 | 200;
