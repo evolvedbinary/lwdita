@@ -37,6 +37,7 @@ import { ItalicNode } from "./nodes/italic";
 import { KeydefNode } from "./nodes/keydef";
 import { KeytextNode } from "./nodes/keytext";
 import { LiNode } from "./nodes/li";
+import { MapNode } from "./nodes/map";
 import { MediaAutoplayNode } from "./nodes/media-autoplay";
 import { MediaControlsNode } from "./nodes/media-controls";
 import { MediaLoopNode } from "./nodes/media-loop";
@@ -99,6 +100,7 @@ export function getNodeClass(name: string): Constructor {
     case 'image': return ImageNode;
     case 'keydef': return KeydefNode;
     case 'keytext': return KeytextNode;
+    case 'map': return MapNode;
     case 'media-autoplay': return MediaAutoplayNode;
     case 'media-controls': return MediaControlsNode;
     case 'media-loop': return MediaLoopNode;
