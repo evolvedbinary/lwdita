@@ -75,14 +75,14 @@ export function makeBody<T extends Constructor>(constructor: T): T {
  * @param BodyFields - An array containing all valid attribute names
  * @param childNodes - An array containing all valid child node names: `%list-blocks*`, `section*`, `fn*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `note`, `data`)
  */
-@makeComponent(makeBody, 'body', isValidBodyField, BodyFields, ['%list-blocks*', 'section*', 'fn*'])
+@makeComponent(makeBody, 'body', isValidBodyField, BodyFields, ['%list-blocks*', 'section*', 'div?'])
 export class BodyNode extends AbstractBaseNode implements BodyNodeAttributes {
   static domNodeName = 'div';
 
     // ClassNodeAttributes
     'outputclass'?: CDATA
     'class'?: CDATA
-  
+
     // LocalizationNodeAttributes
     'dir'?: CDATA
     'xml:lang'?: CDATA
