@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * @remarks
  * When a node is a group we use this list to check if a node name is valid
  */
-const phGroup = ['ph', 'b', 'i', 'u', 'sub', 'sup'];
+const phGroup = ['b', 'em', 'i', 'ph', 'strong', 'sub', 'sup', 'tt', 'u'];
 const dataGroup = ['data'];
 
 /**
@@ -33,6 +33,7 @@ export const nodeGroups: Record<string, Array<string>> = {
     'data': dataGroup,
     'inline.noimage': ['text', 'ph', 'xref'],
     'inline.noxref': ['text', 'ph', 'image'],
+    'inline': ['text', ...phGroup, 'image', 'xref'],
     'common-inline': ['text', ...phGroup, 'image', ...dataGroup],
     'all-inline': ['text', ...phGroup, 'image', 'xref', ...dataGroup],
     'simple-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'fn', 'note', ...dataGroup],
