@@ -101,7 +101,7 @@ export function makeFn<T extends { new(...args: any[]): AbstractBaseNode }>(cons
 }
 
 /**
- * Create an `fn` node
+ * Create an `fn` (Footnote) node
  *
  * @decorator `@makeComponent`
  * @param makeFn - The `Fn` node constructor
