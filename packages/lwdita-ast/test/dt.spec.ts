@@ -20,7 +20,9 @@ import { DtNode, isDtNode } from "../src/nodes/dt";
 import { expect } from "chai";
 
 doNodeTest(
-  DtNode, 'dt', isDtNode,
+  DtNode,
+  'dt',
+  isDtNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
   ['%inline*']
 );
