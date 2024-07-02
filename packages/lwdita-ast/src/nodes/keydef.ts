@@ -96,7 +96,14 @@ export function makeKeydef<T extends { new(...args: any[]): AbstractBaseNode }>(
     get 'keys'(): CDATA {
       return this.readProp<CDATA>('keys'); }
     set 'keys'(value: CDATA) {
-        this.writeProp<CDATA>('keys', value); }
+      this.writeProp<CDATA>('keys', value);
+    }
+    get 'processing-role'(): ProcessingRole | undefined {
+      return this.readProp<ProcessingRole | undefined>('processing-role');
+    }
+    set 'processing-role'(value: ProcessingRole | undefined) {
+      this.writeProp<ProcessingRole | undefined>('processing-role', value);
+    }
   },
     makeLocalization,
     makeClass,
