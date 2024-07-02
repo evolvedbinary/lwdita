@@ -98,10 +98,10 @@ export const isTopicrefNode = (value?: unknown): value is TopicrefNodeAttributes
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeTopicref<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T  {
   return makeAll(class extends constructor {
-    get 'keys'(): CDATA {
-      return this.readProp<CDATA>('keys'); }
-    set 'keys'(value: CDATA) {
-        this.writeProp<CDATA>('keys', value); }
+    get 'keys'(): CDATA | undefined {
+      return this.readProp<CDATA | undefined>('keys'); }
+    set 'keys'(value: CDATA | undefined) {
+        this.writeProp<CDATA | undefined>('keys', value); }
   },
     makeLocalization,
     makeClass,
