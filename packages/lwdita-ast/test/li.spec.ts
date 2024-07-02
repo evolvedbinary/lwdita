@@ -17,6 +17,36 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { LiNode, isLiNode } from "../src/nodes/li";
-doNodeTest(LiNode, 'li', isLiNode,
+import { expect } from "chai";
+
+doNodeTest(
+  LiNode,
+  'li',
+  isLiNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
-  ['%list-blocks*']);
+  ['%list-blocks*']
+);
+
+describe('Class LiNode', () => {
+  it("sets correct attributes", () => {
+    const li = new LiNode({});
+
+    li.dir = "dir";
+    li["xml:lang"] = "lang";
+    li.translate = "translate";
+    li.props = "props";
+    li.id = "id";
+    li.conref = "conref";
+    li.outputclass = "outputclass";
+    li.class = "class";
+
+    expect(li.dir).to.equal("dir");
+    expect(li["xml:lang"]).to.equal("lang");
+    expect(li.translate).to.equal("translate");
+    expect(li.props).to.equal("props");
+    expect(li.id).to.equal("id");
+    expect(li.conref).to.equal("conref");
+    expect(li.outputclass).to.equal("outputclass");
+    expect(li.class).to.equal("class");
+  });
+});
