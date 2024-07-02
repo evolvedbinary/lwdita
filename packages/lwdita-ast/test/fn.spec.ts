@@ -17,6 +17,38 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { FnNode, isFnNode } from "../src/nodes/fn";
-doNodeTest(FnNode, 'fn', isFnNode,
+import { expect } from "chai";
+
+doNodeTest(
+  FnNode,
+  'fn',
+  isFnNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class', 'callout'],
-  ['%fn-blocks*']);
+  ['%fn-blocks*']
+);
+
+describe('Class FnNode', () => {
+  it("sets correct attributes", () => {
+    const fn = new FnNode({});
+
+    fn.dir = "dir";
+    fn["xml:lang"] = "lang";
+    fn.translate = "translate";
+    fn.props = "props";
+    fn.id = "id";
+    fn.conref = "conref";
+    fn.outputclass = "outputclass";
+    fn.class = "class";
+    fn.callout = "callout";
+
+    expect(fn.dir).to.equal("dir");
+    expect(fn["xml:lang"]).to.equal("lang");
+    expect(fn.translate).to.equal("translate");
+    expect(fn.props).to.equal("props");
+    expect(fn.id).to.equal("id");
+    expect(fn.conref).to.equal("conref");
+    expect(fn.outputclass).to.equal("outputclass");
+    expect(fn.class).to.equal("class");
+    expect(fn.callout).to.equal("callout");
+  });
+});

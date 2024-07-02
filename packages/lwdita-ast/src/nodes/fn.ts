@@ -36,7 +36,15 @@ export const FnFields = [...FiltersFields, ...LocalizationFields, ...FnReuseFiel
 /**
  * Interface FnNode defines the attribute types for `fn`
  */
-export interface FnNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, FnReuseNodeAttributes, ClassNodeAttributes, BaseNode { }
+export interface FnNodeAttributes extends
+  FiltersNodeAttributes,
+  LocalizationNodeAttributes,
+  FnReuseNodeAttributes,
+  ClassNodeAttributes,
+  BaseNode {
+    'id': ID
+    'callout': CDATA
+  }
 
 /**
  * Check if the given attributes of the `fn` node are valid and match this list:
@@ -100,7 +108,7 @@ export function makeFn<T extends { new(...args: any[]): AbstractBaseNode }>(cons
  * @param nodeName - A string containing the node name
  * @param isValidFnField - A boolean value, if the field is valid or not
  * @param FnFields - An array containing all valid attributes @See {@link FnFields}
- * @param FnContent - An array containing all valid child nodes: '%fn-blocks*' (`p`, `ul`, `ol`, `dl`, `data`)
+ * @param FnContent - An array containing all valid child nodes: '%fn-blocks*' (`p`, `ul`, `ol`, `dl`)
  * @returns A `fn` node
  */
 @makeComponent(makeFn, 'fn', isValidFnField, FnFields, ['%fn-blocks*'])
@@ -121,4 +129,8 @@ export class FnNode extends AbstractBaseNode implements FnNodeAttributes {
 
   // FiltersNodeAttributes
   'props'?: CDATA
+
+  // FnNodeAttributes
+  'id': ID
+  'callout': CDATA
 }
