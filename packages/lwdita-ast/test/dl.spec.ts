@@ -27,26 +27,26 @@ doNodeTest(
   ['dlentry+']
 );
 
-describe('Class DescNode', () => {
+describe('Class DlNode', () => {
   it("sets correct attributes", () => {
-    const desc = new DlNode({});
+    const dl = new DlNode({});
 
-    desc.dir = "dir";
-    desc["xml:lang"] = "lang";
-    desc.translate = "translate";
-    desc.props = "props";
-    desc.id = "id";
-    desc.conref = "conref";
-    desc.outputclass = "outputclass";
-    desc.class = "class";
+    dl.dir = "dir";
+    dl["xml:lang"] = "lang";
+    dl.translate = "translate";
+    dl.props = "props";
+    dl.id = "id";
+    dl.conref = "conref";
+    dl.outputclass = "outputclass";
+    dl.class = "class";
 
-    expect(desc.dir).to.equal("dir");
-    expect(desc["xml:lang"]).to.equal("lang");
-    expect(desc.translate).to.equal("translate");
-    expect(desc.props).to.equal("props");
-    expect(desc.id).to.equal("id");
-    expect(desc.conref).to.equal("conref");
-    expect(desc.outputclass).to.equal("outputclass");
-    expect(desc.class).to.equal("class");
+    expect(dl.dir).to.equal("dir");
+    expect(dl["xml:lang"]).to.equal("lang");
+    expect(dl.translate).to.equal("translate");
+    expect(dl.props).to.equal("props");
+    expect(dl.id).to.equal("id");
+    expect(dl.conref).to.equal("conref");
+    expect(dl.outputclass).to.equal("outputclass");
+    expect(dl.class).to.equal("class");
   });
 });
