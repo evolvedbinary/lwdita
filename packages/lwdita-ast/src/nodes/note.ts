@@ -104,7 +104,7 @@ export function makeNote<T extends { new(...args: any[]): AbstractBaseNode }>(co
  * @param nodeName - A string containing the node name
  * @param isValidNoteField - A boolean value, if the attribute is valid or not
  * @param fields - A List of valid attributes @See {@link NoteFields}
- * @param childNodes - An Array of allowed child nodes: `%simple-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `note`, `data`)
+ * @param childNodes - An Array of allowed child nodes: `%simple-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `example`, `note`)
  */
 @makeComponent(makeNote, 'note', isValidNoteField, NoteFields, ['%simple-blocks*'])
 export class NoteNode extends AbstractBaseNode implements NoteNodeAttributes {

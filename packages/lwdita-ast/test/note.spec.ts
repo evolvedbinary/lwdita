@@ -16,7 +16,39 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { doNodeTest } from "./tests";
-import { NoteNode, isNoteNode } from "../src/nodes/note";
-doNodeTest(NoteNode, 'note', isNoteNode,
+import { NoteNode, NoteTypes, isNoteNode } from "../src/nodes/note";
+import { expect } from "chai";
+
+doNodeTest(
+  NoteNode,
+  'note',
+  isNoteNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class', 'type'],
-  ['%simple-blocks*']);
+  ['%simple-blocks*']
+);
+
+describe('Class NoteNode', () => {
+  it("sets correct attributes", () => {
+    const note = new NoteNode({});
+
+    note.dir = "dir";
+    note["xml:lang"] = "lang";
+    note.translate = "translate";
+    note.props = "props";
+    note.id = "id";
+    note.conref = "conref";
+    note.outputclass = "outputclass";
+    note.class = "class";
+    note.type = NoteTypes.Danger;
+
+    expect(note.dir).to.equal("dir");
+    expect(note["xml:lang"]).to.equal("lang");
+    expect(note.translate).to.equal("translate");
+    expect(note.props).to.equal("props");
+    expect(note.id).to.equal("id");
+    expect(note.conref).to.equal("conref");
+    expect(note.outputclass).to.equal("outputclass");
+    expect(note.class).to.equal("class");
+    expect(note.type).to.equal(NoteTypes.Danger);
+  });
+});
