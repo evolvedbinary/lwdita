@@ -17,6 +17,32 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { PrologNode, isPrologNode } from "../src/nodes/prolog";
-doNodeTest(PrologNode, 'prolog', isPrologNode,
-  ['dir', 'xml:lang', 'translate', 'props', 'class'],
-  ['%data*']);
+import { expect } from "chai";
+
+doNodeTest(
+  PrologNode,
+  'prolog',
+  isPrologNode,
+  ['dir', 'xml:lang', 'translate', 'props', 'outputclass', 'class'],
+  ['metadata*']
+);
+
+describe('Class PrologNode', () => {
+  it("sets correct attributes", () => {
+    const prolog = new PrologNode({});
+
+    prolog.dir = "dir";
+    prolog["xml:lang"] = "lang";
+    prolog.translate = "translate";
+    prolog.props = "props";
+    prolog.outputclass = "outputclass";
+    prolog.class = "class";
+
+    expect(prolog.dir).to.equal("dir");
+    expect(prolog["xml:lang"]).to.equal("lang");
+    expect(prolog.translate).to.equal("translate");
+    expect(prolog.props).to.equal("props");
+    expect(prolog.outputclass).to.equal("outputclass");
+    expect(prolog.class).to.equal("class");
+  });
+});

@@ -17,23 +17,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { areFieldsValid, isOrUndefined } from "../utils";
-import { makeComponent, AbstractBaseNode, BaseNode, makeAll } from "./base";
+import { areFieldsValid } from "../utils";
+import { makeComponent, AbstractBaseNode, BaseNode, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
-import { CDATA, isCDATA } from "../ast-classes";
+import { CDATA } from "../ast-classes";
+import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 
 /**
  * Define all allowed `prolog` attributes:
- * `props`, `dir`, `xml:lang`, `translate`, `class`
+ * `props`, `dir`, `xml:lang`, `translate`, `outputclass`, `class`
  */
-export const PrologFields = [...FiltersFields, ...LocalizationFields, 'class'];
+export const PrologFields = [...FiltersFields, ...LocalizationFields, ...ClassFields];
 
 /**
- * Interface PrologNode defines the attribute type for `prolog`: `CDATA`
+ * Interface PrologNode defines the attribute type for `prolog`
  */
-export interface PrologNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, BaseNode {
-  'class'?: CDATA;
-}
+export interface PrologNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ClassNodeAttributes, BaseNode { }
 
 /**
  * Check if the given attributes of the `prolog` node are valid
@@ -42,15 +41,9 @@ export interface PrologNodeAttributes extends FiltersNodeAttributes, Localizatio
  * @param value - A BasicValue-typed value containing the attributes value
  * @returns Boolean
  */
-export function isValidPrologField(field: string, value: BasicValue): boolean {
-  if (isValidFiltersField(field, value) || isValidLocalizationField(field, value)) {
-    return true;
-  }
-  switch (field) {
-    case 'class': return isOrUndefined(isCDATA, value);
-    default: return false;
-  }
-}
+export const isValidPrologField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
+  || isValidLocalizationField(field, value)
+  || isValidClassField(field, value);
 
 /**
  * Check if the `prolog` node is valid
@@ -71,24 +64,15 @@ export const isPrologNode = (value?: unknown): value is PrologNodeAttributes =>
  * @returns A `prolog` node
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function makeProlog<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
-  return makeAll(class extends constructor {
-    get 'class'(): CDATA {
-      return this.readProp<CDATA>('class');
-    }
-    set 'class'(value: CDATA) {
-      this.writeProp<CDATA>('class', value);
-    }
-  }, makeLocalization, makeFilters);
+export function makeProlog<T extends Constructor>(constructor: T): T {
+  return makeAll(constructor, makeLocalization, makeFilters, makeClass);
 }
 
 /**
  * Create a `prolog` node
  *
- * @remarks
- * Delete the default tag name from the BaseNode
- *
  * @privateRemarks
+ * Delete the default tag name from the BaseNode
  * Is overriding the domNodeName with an empty string intended??
  * TODO: Implement `head > meta`
  * TODO (Y.): Why is `domNodeName` set to an empty string?
@@ -98,9 +82,9 @@ export function makeProlog<T extends { new(...args: any[]): AbstractBaseNode }>(
  * @param nodeName - A string containing the node name
  * @param isValidPrologField - A boolean value, if the field is valid or not
  * @param fields - A List of valid attributes @See {@link PrologFields}
- * @param childNodes - An Array of allowed child nodes: `%data*`
+ * @param childNodes - An Array of allowed child node `metadata*`
  */
-@makeComponent(makeProlog, 'prolog', isValidPrologField, PrologFields, ['%data*'])
+@makeComponent(makeProlog, 'prolog', isValidPrologField, PrologFields, ['metadata*'])
 export class PrologNode extends AbstractBaseNode implements PrologNodeAttributes {
   static domNodeName = '';
 
@@ -112,6 +96,7 @@ export class PrologNode extends AbstractBaseNode implements PrologNodeAttributes
   // FiltersNodeAttributes
   'props'?: CDATA
 
-  // PrologNodeAttributes
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
   'class'?: CDATA
 }
