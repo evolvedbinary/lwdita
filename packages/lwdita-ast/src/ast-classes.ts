@@ -68,6 +68,19 @@ export type ProcessingRole = 'normal' | 'resource-only';
 export const isProcessingRole = (value?: BasicValue): value is ProcessingRole => ['normal', 'resource-only'].includes(value as string);
 
 /**
+ * XmlSpace defines the allowed string value for the `xml:space` attribute
+ */
+export type XmlSpace = 'preserve';
+
+/**
+ * XmlSpace validation function
+ *
+ * @param value - String
+ * @returns - If the value is a xmlSpace type
+ */
+export const isXmlSpace = (value?: BasicValue): value is XmlSpace => ['preserve'].includes(value as string);
+
+/**
  * TODO(AR) can we further refine these types?
  */
 export type ID = string;
