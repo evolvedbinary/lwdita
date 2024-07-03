@@ -21,8 +21,8 @@ import { AltNode } from "./nodes/alt";
 import { AudioNode } from "./nodes/audio";
 import { BodyNode } from "./nodes/body";
 import { BoldNode } from "./nodes/bold";
-import { DescNode } from "./nodes/desc";
 import { DdNode } from "./nodes/dd";
+import { DescNode } from "./nodes/desc";
 import { DivNode } from "./nodes/div";
 import { DlEntryNode } from "./nodes/dl-entry";
 import { DlNode } from "./nodes/dl";
@@ -101,6 +101,7 @@ export function getNodeClass(name: string): Constructor {
     case 'image': return ImageNode;
     case 'keydef': return KeydefNode;
     case 'keytext': return KeytextNode;
+    case 'li': return LiNode;
     case 'map': return MapNode;
     case 'media-autoplay': return MediaAutoplayNode;
     case 'media-controls': return MediaControlsNode;
@@ -109,7 +110,6 @@ export function getNodeClass(name: string): Constructor {
     case 'media-source': return MediaSourceNode;
     case 'media-track': return MediaTrackNode;
     case 'metadata': return MetadataNode;
-    case 'li': return LiNode;
     case 'navtitle': return NavtitleNode;
     case 'note': return NoteNode;
     case 'ol': return OlNode;
