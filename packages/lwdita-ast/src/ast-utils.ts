@@ -38,7 +38,7 @@ export const nodeGroups: Record<string, Array<string>> = {
     'all-inline': ['text', ...phGroup, 'image', 'xref', ...dataGroup],
     'simple-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'example', 'note'],
     'fn-blocks': ['p', 'ul', 'ol', 'dl'],
-    'all-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', 'fig', 'fn', 'note', ...dataGroup],
+    'all-blocks': ['p','ul','ol','dl','pre','audio','video','example','simpletable','fig','note'],
     'list-blocks': ['p','ul', 'ol', 'dl', 'pre', 'audio', 'video', 'example', 'simpletable', 'fig', 'note'],
     'fig-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'example', 'simpletable'],
     'example-blocks': ['p','ul','ol','dl','pre','audio','video','simpletable','fig','note'],
