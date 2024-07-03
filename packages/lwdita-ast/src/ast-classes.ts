@@ -107,12 +107,12 @@ export type NMTOKEN = string;
 export const isNMTOKEN = (value?: BasicValue): value is NMTOKEN => typeof value === 'string';
 
 /**
- * INCLUDED_DOMAINS character data
+ * INCLUDED_DOMAINS sets a fixed string value
  */
 export type INCLUDED_DOMAINS = '&included-domains;';
 
 /**
- * PCData validation function
+ * INCLUDED_DOMAINS validation function
  */
 export const isINCLUDED_DOMAINS = (value?: BasicValue): value is INCLUDED_DOMAINS => typeof value === 'string';
 
