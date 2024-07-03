@@ -21,7 +21,6 @@ import { AltNode } from "./nodes/alt";
 import { AudioNode } from "./nodes/audio";
 import { BodyNode } from "./nodes/body";
 import { BoldNode } from "./nodes/bold";
-import { DataNode } from "./nodes/data";
 import { DescNode } from "./nodes/desc";
 import { DdNode } from "./nodes/dd";
 import { DivNode } from "./nodes/div";
@@ -87,7 +86,6 @@ export function getNodeClass(name: string): Constructor {
     case 'audio': return AudioNode;
     case 'b': return BoldNode;
     case 'body': return BodyNode;
-    case 'data': return DataNode;
     case 'dd': return DdNode;
     case 'desc': return DescNode;
     case 'div': return DivNode;
