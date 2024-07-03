@@ -17,6 +17,36 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { OlNode, isOlNode } from "../src/nodes/ol";
-doNodeTest(OlNode, 'ol', isOlNode,
+import { expect } from "chai";
+
+doNodeTest(
+  OlNode,
+  'ol',
+  isOlNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
-  ['li+']);
+  ['li+']
+);
+
+describe('Class OlNode', () => {
+  it("sets correct attributes", () => {
+    const ol = new OlNode({});
+
+    ol.dir = "dir";
+    ol["xml:lang"] = "lang";
+    ol.translate = "translate";
+    ol.props = "props";
+    ol.id = "id";
+    ol.conref = "conref";
+    ol.outputclass = "outputclass";
+    ol.class = "class";
+
+    expect(ol.dir).to.equal("dir");
+    expect(ol["xml:lang"]).to.equal("lang");
+    expect(ol.translate).to.equal("translate");
+    expect(ol.props).to.equal("props");
+    expect(ol.id).to.equal("id");
+    expect(ol.conref).to.equal("conref");
+    expect(ol.outputclass).to.equal("outputclass");
+    expect(ol.class).to.equal("class");
+  });
+});
