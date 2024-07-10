@@ -20,7 +20,7 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { areFieldsValid, isOrUndefined } from "../utils";
 import { AbstractBaseNode, BaseNode, makeComponent, makeAll } from "./base";
 import { BasicValue } from "../classes";
-import { CDATA, isCDATA, ID } from "../ast-classes";
+import { CDATA, isCDATA, ID, isID } from "../ast-classes";
 
 /**
  * Define all allowed `topic` attributes:
@@ -54,7 +54,7 @@ export function isValidTopicField(field: string, value: BasicValue): boolean {
     return true;
   }
   switch(field) {
-    case 'id': return isOrUndefined(isCDATA, value);
+    case 'id': return isOrUndefined(isID, value);
     case 'xmlns:ditaarch': return isOrUndefined(isCDATA, value);
     case 'domains': return isOrUndefined(isCDATA, value);
     case 'ditaarch:DITAArchVersion': return isOrUndefined(isCDATA, value);
