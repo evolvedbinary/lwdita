@@ -17,6 +17,36 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { ShortDescNode, isShortDescNode } from "../src/nodes/shortdesc";
-doNodeTest(ShortDescNode, 'shortdesc', isShortDescNode,
-  ['dir', 'xml:lang', 'translate', 'props', 'outputclass', 'class'],
-  ['%all-inline*']);
+import { expect } from "chai";
+
+doNodeTest(
+  ShortDescNode,
+  'shortdesc',
+  isShortDescNode,
+  ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
+  ['%inline*']
+);
+
+describe('Class ShortDescNode', () => {
+  it("sets correct attributes", () => {
+    const shortdesc = new ShortDescNode({});
+
+    shortdesc.dir = "dir";
+    shortdesc["xml:lang"] = "lang";
+    shortdesc.translate = "translate";
+    shortdesc.props = "props";
+    shortdesc.id = "id";
+    shortdesc.conref = "conref";
+    shortdesc.outputclass = "outputclass";
+    shortdesc.class = "class";
+
+    expect(shortdesc.dir).to.equal("dir");
+    expect(shortdesc["xml:lang"]).to.equal("lang");
+    expect(shortdesc.translate).to.equal("translate");
+    expect(shortdesc.props).to.equal("props");
+    expect(shortdesc.id).to.equal("id");
+    expect(shortdesc.conref).to.equal("conref");
+    expect(shortdesc.outputclass).to.equal("outputclass");
+    expect(shortdesc.class).to.equal("class");
+  });
+});
