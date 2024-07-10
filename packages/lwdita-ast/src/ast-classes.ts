@@ -68,6 +68,19 @@ export type ProcessingRole = 'normal' | 'resource-only';
 export const isProcessingRole = (value?: BasicValue): value is ProcessingRole => ['normal', 'resource-only'].includes(value as string);
 
 /**
+ * TableScope defines all possible values for the `scope` (in context of table-cells) attribute
+ */
+export type TableScope = 'row' | 'col' | 'rowgroup' | 'colgroup';
+
+/**
+ * isScope validation function
+ *
+ * @param value - String
+ * @returns - If the value is a TableScope
+ */
+export const isTableScope = (value?: BasicValue): value is TableScope => ['row', 'col', 'rowgroup', 'colgroup'].includes(value as string);
+
+/**
  * XmlSpace defines the allowed string value for the `xml:space` attribute
  */
 export type XmlSpace = 'preserve';
@@ -118,6 +131,16 @@ export type NMTOKEN = string;
  * NMTOKEN validation function
  */
 export const isNMTOKEN = (value?: BasicValue): value is NMTOKEN => typeof value === 'string';
+
+/**
+ * NMTOKENS is a list of strings without any spaces
+ */
+export type NMTOKENS = string[];
+
+/**
+ * NMTOKENS validation function
+ */
+export const isNMTOKENS = (value?: BasicValue): value is NMTOKENS => typeof value === 'string';
 
 /**
  * INCLUDED_DOMAINS sets a fixed string value

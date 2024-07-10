@@ -19,22 +19,40 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { ReuseNodeAttributes, ReuseFields, isValidReuseField, makeReuse } from "./reuse";
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters } from "./filters";
-import { areFieldsValid } from "../utils";
-import { makeComponent, AbstractBaseNode, BaseNode, makeAll, Constructor } from "./base";
+import { areFieldsValid, isOrUndefined } from "../utils";
+import { makeComponent, AbstractBaseNode, BaseNode, makeAll } from "./base";
 import { BasicValue } from "../classes";
-import { CDATA, NMTOKEN } from "../ast-classes";
+import { CDATA, isCDATA, isNMTOKENS, isTableScope, NMTOKEN, NMTOKENS, TableScope } from "../ast-classes";
 
 /**
  * Define all allowed `stentry` attributes:
- * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `class`, `outputclass`
+ * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `class`, `outputclass`, `colspan`, `rowspan`, `scope`, `headers`
  */
-export const StEntryFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
+export const StEntryFields = [
+  ...FiltersFields,
+  ...LocalizationFields,
+  ...ReuseFields,
+  ...ClassFields,
+  'colspan',
+  'rowspan',
+  'scope',
+  'headers'
+];
 
 /**
- * Interface StEntryNodeAttributes defines the attribute types for `stentry`:
- * `CDATA`, `NMTOKEN`
+ * Interface StEntryNodeAttributes defines the attribute types for `stentry`
  */
-export interface StEntryNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes, BaseNode { }
+export interface StEntryNodeAttributes extends
+  FiltersNodeAttributes,
+  LocalizationNodeAttributes,
+  ReuseNodeAttributes,
+  ClassNodeAttributes,
+  BaseNode {
+    'colspan'?: NMTOKEN
+    'rowspan'?: NMTOKEN
+    'scope'?: TableScope
+    'headers'?: NMTOKENS
+  }
 
 /**
  * Check if the given attributes of the `stentry` node are valid
@@ -43,10 +61,24 @@ export interface StEntryNodeAttributes extends FiltersNodeAttributes, Localizati
  * @param value - A BasicValue-typed value containing the attribute value
  * @returns Boolean
  */
-export const isValidStEntryField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
-  || isValidLocalizationField(field, value)
-  || isValidReuseField(field, value)
-  || isValidClassField(field, value);
+export function isValidStEntryField(field: string, value: BasicValue): boolean {
+  if (
+    isValidFiltersField(field, value)
+    || isValidClassField(field, value)
+    || isValidLocalizationField(field, value)
+    || isValidReuseField(field, value)
+    || isValidClassField(field, value)
+  ){
+    return true;
+  }
+  switch(field) {
+  case 'colspan': return isOrUndefined(isCDATA, value);
+  case 'rowspan': return isOrUndefined(isCDATA, value);
+  case 'scope': return isOrUndefined(isTableScope, value);
+  case 'headers': return isOrUndefined(isNMTOKENS, value);
+  default: return false;
+  }
+}
 
 /**
  * Check if the `stentry` node is valid
@@ -66,8 +98,40 @@ export const isStEntryNode = (value?: unknown): value is StEntryNodeAttributes =
  * @param constructor - The constructor
  * @returns An `stentry` node
  */
-export function makeStEntry<T extends Constructor>(constructor: T): T {
-  return makeAll(constructor, makeLocalization, makeFilters, makeReuse, makeClass);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function makeStEntry<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T  {
+  return makeAll(
+    class extends constructor {
+      get 'colspan'(): CDATA {
+        return this.readProp<CDATA>('colspan');
+      }
+      set 'colspan'(value: CDATA) {
+        this.writeProp<CDATA>('colspan', value);
+      }
+      get 'rowspan'(): CDATA {
+        return this.readProp<CDATA>('rowspan');
+      }
+      set 'rowspan'(value: CDATA) {
+        this.writeProp<CDATA>('rowspan', value);
+      }
+      get 'scope'(): TableScope {
+        return this.readProp<TableScope>('scope');
+      }
+      set 'scope'(value: TableScope) {
+        this.writeProp<TableScope>('scope', value);
+      }
+      get 'headers'(): NMTOKENS {
+        return this.readProp<NMTOKENS>('headers');
+      }
+      set 'headers'(value: NMTOKENS) {
+        this.writeProp<NMTOKENS>('headers', value);
+      }
+     },
+    makeLocalization,
+    makeFilters,
+    makeReuse,
+    makeClass
+  );
 }
 
 /**
@@ -81,7 +145,7 @@ export function makeStEntry<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidStEntryField - A boolean value, if the field is valid or not
  * @param fields - A List of valid attributes @See {@link StEntryFields}
- * @param childNodes - An Array of allowed child node `%simple-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `fn`, `note`, `data`)
+ * @param childNodes - An Array of allowed child node `%simple-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `example`, `note`)
  */
 @makeComponent(makeStEntry, 'stentry', isValidStEntryField, StEntryFields, ['%simple-blocks*'])
 export class StEntryNode extends AbstractBaseNode implements StEntryNodeAttributes {
@@ -102,4 +166,10 @@ export class StEntryNode extends AbstractBaseNode implements StEntryNodeAttribut
 
   // FiltersNodeAttributes
   'props'?: CDATA
+
+  // StEntryNodeAttributes
+  'colspan'?: NMTOKEN
+  'rowspan'?: NMTOKEN
+  'scope'?: TableScope
+  'headers'?: NMTOKENS
 }
