@@ -80,7 +80,7 @@ export function makeSimpleTable<T extends Constructor>(constructor: T): T {
  * @param fields - A List of valid attributes @See {@link SimpleTableFields}
  * @param childNodes - An Array of allowed child nodes `sthead?`, `strow+`
  */
-@makeComponent(makeSimpleTable, 'simpletable', isValidSimpleTableField, SimpleTableFields, ['sthead?', 'strow+'])
+@makeComponent(makeSimpleTable, 'simpletable', isValidSimpleTableField, SimpleTableFields, ['title?', 'sthead?', 'strow+'])
 export class SimpleTableNode extends AbstractBaseNode implements SimpleTableNodeAttributes {
   static domNodeName = 'table'
 
