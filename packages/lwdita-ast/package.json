@@ -30,7 +30,7 @@
     "url": "https://github.com/evolvedbinary/lwdita/issues"
   },
   "devDependencies": {
-    "rimraf": "^5.0.7",
+    "rimraf": "^6.0.0",
     "typedoc": "^0.25.13",
     "typedoc-plugin-missing-exports": "^3.0.0",
     "typescript": "5.4.5"
