@@ -76,7 +76,7 @@ export function makeBold<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidBodyField - A boolean value, if the attribute is valid or not
  * @param BodyFields - An array containing all valid attribute names
- * @param childNodes - An Array of allowed child nodes `text`, `ph`, `xref`
+ * @param childNodes - An Array of allowed child nodes (`text`, `b`, `em`, `i`, `ph`, `strong`, `sub`, `sup`, `tt`, `u`, `xref`)
 */
 @makeComponent(makeBold, 'b', isValidBoldField, BoldFields, ['%inline.noimage*'])
 export class BoldNode extends AbstractBaseNode implements BoldNodeAttributes {

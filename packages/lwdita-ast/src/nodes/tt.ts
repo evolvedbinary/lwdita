@@ -76,7 +76,7 @@ export function makeTt<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidEmField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child nodes `text`, `ph`, `xref`
+ * @param childNodes - An Array of allowed child nodes (`text`, `b`, `em`, `i`, `ph`, `strong`, `sub`, `sup`, `tt`, `u`, `xref`)
  */
 @makeComponent(makeTt, 'tt', isValidTtField, TtFields, ['%inline.noimage*'])
 export class TtNode extends AbstractBaseNode implements TtNodeAttributes {

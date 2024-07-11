@@ -75,7 +75,7 @@ export function makeSubscript<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidSubscriptField - A boolean value, if the attribute is valid or not
  * @param fields - A List of valid attributes @See {@link SubscriptFields}
- * @param childNodes - An Array of allowed child nodes `text`, `ph`, `xref`
+ * @param childNodes - An Array of allowed child nodes (`text`, `b`, `em`, `i`, `ph`, `strong`, `sub`, `sup`, `tt`, `u`, `xref`)
  */
 @makeComponent(makeSubscript, 'sub', isValidSubscriptField, SubscriptFields, ['%inline.noimage*'])
 export class SubscriptNode extends AbstractBaseNode implements SubscriptNodeAttributes {

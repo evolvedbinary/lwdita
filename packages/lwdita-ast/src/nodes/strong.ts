@@ -76,7 +76,7 @@ export function makeStrong<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidEmField - A boolean value, if the field is valid or not
  * @param fields - A List of valid fields
- * @param childNodes - An Array of allowed child nodes `text`, `ph`, `xref`
+ * @param childNodes - An Array of allowed child nodes (`text`, `b`, `em`, `i`, `ph`, `strong`, `sub`, `sup`, `tt`, `u`, `xref`)
  */
 @makeComponent(makeStrong, 'strong', isValidStrongField, StrongFields, ['%inline.noimage*'])
 export class StrongNode extends AbstractBaseNode implements StrongNodeAttributes {

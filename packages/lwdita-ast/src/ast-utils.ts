@@ -29,8 +29,8 @@ const phGroup = ['b', 'em', 'i', 'ph', 'strong', 'sub', 'sup', 'tt', 'u'];
  */
 export const nodeGroups: Record<string, Array<string>> = {
     'ph': phGroup,
-    'inline.noimage': ['text', 'ph', 'xref'],
-    'inline.noxref': ['text', 'ph', 'image'],
+    'inline.noimage': ['text', ...phGroup, 'xref'],
+    'inline.noxref': ['text', ...phGroup, 'image'],
     'inline': ['text', ...phGroup, 'image', 'xref'],
     'common-inline': ['text', ...phGroup, 'image'],
     'all-inline': ['text', ...phGroup, 'image', 'xref'],

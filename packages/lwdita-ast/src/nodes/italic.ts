@@ -78,7 +78,7 @@ export function makeItalic<T extends Constructor>(constructor: T): T {
  * @param makeItalic - The `italic` node constructor
  * @param nodeName - A string containing the node name 'i'
  * @param isValidItalicField - A function to check if the field is valid see {@link isValidItalicField}
- * @param ItalicFields - An Array of allowed child nodes `text`, `ph`, `xref`
+ * @param ItalicFields - An Array of allowed child nodes (`text`, `b`, `em`, `i`, `ph`, `strong`, `sub`, `sup`, `tt`, `u`, `xref`)
  */
 @makeComponent(makeItalic, 'i', isValidItalicField, ItalicFields, ['%inline.noimage*'])
 export class ItalicNode extends AbstractBaseNode implements ItalicNodeAttributes {

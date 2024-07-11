@@ -78,7 +78,7 @@ export function makeDesc<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidDescField - A boolean value, if the attribute is valid or not
  * @param DescFields - An array containing all valid attribute names @See {@link DescFields}
- * @param childNodes - An array containing all valid child node names: `%inline.noxref*` (`text`, `ph`, `image`)
+ * @param childNodes - An array containing all valid child node names: `%inline.noxref*` (`text`, `b`, `em`,  `i`, `ph`, `strong`, `sub`, `sup`, `tt`, `u`, `image`)
  * @returns A `desc` node
  */
 @makeComponent(makeDesc, 'desc', isValidDescField, DescFields, ['%inline.noxref*'])
