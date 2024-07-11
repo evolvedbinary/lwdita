@@ -297,7 +297,7 @@ describe('Base Node children (groups)', () => {
     it('[0..1] should accept only one child', () => {
       class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
-        static childTypes = stringToChildTypes(['%all-inline?']);
+        static childTypes = stringToChildTypes(['%inline?']);
       }
       const parentNode = new ParentNode();
       expect(() => {
@@ -310,7 +310,7 @@ describe('Base Node children (groups)', () => {
     it('[1..1] should accept only one child', () => {
       class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
-        static childTypes = stringToChildTypes(['%all-inline']);
+        static childTypes = stringToChildTypes(['%inline']);
       }
       const parentNode = new ParentNode();
       expect(() => {
@@ -323,7 +323,7 @@ describe('Base Node children (groups)', () => {
     it('[0..n] should accept more than one child', () => {
       class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
-        static childTypes = stringToChildTypes(['%all-inline*']);
+        static childTypes = stringToChildTypes(['%inline*']);
       }
       const parentNode = new ParentNode();
       expect(() => {
@@ -334,7 +334,7 @@ describe('Base Node children (groups)', () => {
     it('[1..n] should accept more than one child', () => {
       class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
-        static childTypes = stringToChildTypes(['%all-inline+']);
+        static childTypes = stringToChildTypes(['%inline+']);
       }
       const parentNode = new ParentNode();
       expect(() => {
@@ -347,7 +347,7 @@ describe('Base Node children (groups)', () => {
     it('[0..1] should skip first child', () => {
       class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
-        static childTypes = stringToChildTypes(['first?', '%all-inline']);
+        static childTypes = stringToChildTypes(['first?', '%inline']);
       }
       const parentNode = new ParentNode();
       expect(() => {
@@ -357,7 +357,7 @@ describe('Base Node children (groups)', () => {
     it('[1..1] should not skip first child', () => {
       class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
-        static childTypes = stringToChildTypes(['first', '%all-inline']);
+        static childTypes = stringToChildTypes(['first', '%inline']);
       }
       const parentNode = new ParentNode();
       expect(() => {
@@ -367,7 +367,7 @@ describe('Base Node children (groups)', () => {
     it('[0..n] should skip first child', () => {
       class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
-        static childTypes = stringToChildTypes(['first*', '%all-inline']);
+        static childTypes = stringToChildTypes(['first*', '%inline']);
       }
       const parentNode = new ParentNode();
       expect(() => {
@@ -377,7 +377,7 @@ describe('Base Node children (groups)', () => {
     it('[1..n] should not skip first child', () => {
       class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
-        static childTypes = stringToChildTypes(['first+', '%all-inline']);
+        static childTypes = stringToChildTypes(['first+', '%inline']);
       }
       const parentNode = new ParentNode();
       expect(() => {
@@ -389,7 +389,7 @@ describe('Base Node children (groups)', () => {
     it('[0..1] should accept only one child', () => {
       class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
-        static childTypes = stringToChildTypes(['(%all-inline|%all-blocks)?']);
+        static childTypes = stringToChildTypes(['(%inline|%all-blocks)?']);
       }
       // child twice
       let parentNode: ParentNode;
@@ -428,7 +428,7 @@ describe('Base Node children (groups)', () => {
     it('[1..1] should accept only one child', () => {
       class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
-        static childTypes = stringToChildTypes(['%all-inline|%all-blocks']);
+        static childTypes = stringToChildTypes(['%inline|%all-blocks']);
       }
       // child twice
       let parentNode: ParentNode;
@@ -467,7 +467,7 @@ describe('Base Node children (groups)', () => {
     it('[0..n] should accept many children', () => {
       class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
-        static childTypes = stringToChildTypes(['(%all-inline|%all-blocks)+']);
+        static childTypes = stringToChildTypes(['(%inline|%all-blocks)+']);
       }
       // child twice
       let parentNode: ParentNode;
@@ -498,7 +498,7 @@ describe('Base Node children (groups)', () => {
     it('[1..n] should accept many children', () => {
       class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
-        static childTypes = stringToChildTypes(['(%all-inline|%all-blocks)*']);
+        static childTypes = stringToChildTypes(['(%inline|%all-blocks)*']);
       }
       // child twice
       let parentNode: ParentNode;
@@ -530,7 +530,7 @@ describe('Base Node children (groups)', () => {
     it.skip('order for groups',() => {
       class ParentNode extends AbstractBaseNode {
         static nodeName = 'parent';
-        static childTypes = stringToChildTypes(['%all-block*, %all-inline*']);
+        static childTypes = stringToChildTypes(['%all-block*, %inline*']);
       }
       const parentNode = new ParentNode();
       expect(() => {
