@@ -18,23 +18,38 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid, isOrUndefined } from "../utils";
 import { makeComponent, AbstractBaseNode, BaseNode, makeAll } from "./base";
-import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "../classes";
-import { CDATA, isCDATA } from "../ast-classes";
+import { CDATA, isCDATA, isKindType, KindType, ReferenceContentScope } from "../ast-classes";
+import { isValidReferenceContentField, makeReferenceContent, ReferenceContentFields, ReferenceContentNodeAttributes } from "./reference-content";
+import { isValidVariableContentField, makeVariableContent, VariableContentFields, VariableContentNodeAttributes } from "./variable-content";
 
 /**
  * Define all allowed `media-track` attributes:
- * `dir`, `xml:lang`, `translate`, `class`, `outputclass`, `type`
- * Custom attributes are `name`, `value`
+ * `dir`, `xml:lang`, `translate`, `href`, `format`, `scope`,
+ * `keyref`, `kind`, `srclang`, `class`, `outputclass`
  */
-export const MediaTrackFields = [...LocalizationFields, ...FieldFields, ...ClassFields, 'type'];
+export const MediaTrackFields = [
+  ...LocalizationFields,
+  ...ReferenceContentFields,
+  ...VariableContentFields,
+  ...ClassFields,
+  'kind',
+  'srclang'
+];
 
 /**
- * Interface MediaTrackNodeAttributes defines the attribute types for `media-track`:
- * `CDATA`, `T`
+ * Interface MediaTrackNodeAttributes defines the attribute types for `media-track`
  */
-export interface MediaTrackNodeAttributes extends LocalizationNodeAttributes, FieldNodeAttributes<boolean>, ClassNodeAttributes, BaseNode { }
+export interface MediaTrackNodeAttributes extends
+  LocalizationNodeAttributes,
+  ReferenceContentNodeAttributes,
+  VariableContentNodeAttributes,
+  ClassNodeAttributes,
+  BaseNode {
+  'kind'?: KindType
+  'srclang'?: CDATA
+}
 
 /**
  * Check if the given fields of the `media-track` node are valid
@@ -45,12 +60,14 @@ export interface MediaTrackNodeAttributes extends LocalizationNodeAttributes, Fi
  */
 export const isValidMediaTrackField = (field: string, value: BasicValue): boolean => {
   if (isValidLocalizationField(field, value)
-  || isValidBooleanFieldField(field, value)
-  || isValidClassField(field, value)) {
+    || isValidReferenceContentField(field, value)
+    || isValidVariableContentField(field,value)
+    || isValidClassField(field, value)) {
     return true;
   }
   switch (field) {
-    case 'type': return isOrUndefined(isCDATA, value);
+    case 'kind': return isOrUndefined(isKindType, value);
+    case 'srclang': return isOrUndefined(isCDATA, value);
     default: return false;
   }
 }
@@ -77,11 +94,24 @@ export const isMediaTrackNode = (value?: unknown): value is MediaTrackNodeAttrib
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeMediaTrack<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return makeAll(class extends constructor {
-    get 'type'(): CDATA {
-      return this.readProp<CDATA>('type'); }
-    set 'type'(value: CDATA) {
-        this.writeProp<CDATA>('type', value); }
-  }, makeLocalization, makeBooleanField, makeClass);
+    get 'kind'(): KindType {
+      return this.readProp<KindType>('kind');
+    }
+    set 'kind'(value: KindType) {
+      this.writeProp<KindType>('kind', value);
+    }
+    get 'srclang'(): CDATA {
+      return this.readProp<CDATA>('srclang');
+    }
+    set 'srclang'(value: CDATA) {
+      this.writeProp<CDATA>('srclang', value);
+    }
+  },
+    makeLocalization,
+    makeReferenceContent,
+    makeVariableContent,
+    makeClass
+  );
 }
 
 /**
@@ -95,19 +125,29 @@ export function makeMediaTrack<T extends { new(...args: any[]): AbstractBaseNode
  * @param nodeName - A string containing the node name
  * @param isValidMediaTrackField - A boolean value, if the attribute is valid or not
  * @param fields - A List of valid attributes @See {@link MediaTrackFields}
+ * @param childNodes - An array containing all valid child node names: `text`
  */
-@makeComponent(makeMediaTrack, 'media-track', isValidMediaTrackField, MediaTrackFields)
+@makeComponent(makeMediaTrack, 'media-track', isValidMediaTrackField, MediaTrackFields, ['text'])
 export class MediaTrackNode extends AbstractBaseNode implements MediaTrackNodeAttributes {
-  // ClassNodeAttributes
-  'outputclass'?: CDATA
-  'class'?: CDATA
-
-  // FieldNodeAttributes
-  'name'?: CDATA
-  'value'?: boolean
 
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA
   'translate'?: CDATA
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // ReferenceContentNodeAttributes
+  'href'?: CDATA
+  'format'?: CDATA
+  'scope'?: ReferenceContentScope
+
+  // VariableContentNodeAttributes
+  'keyref'?: CDATA
+
+  // MediaTrackNodeAttributes
+  'kind'?: KindType
+  'srclang'?: CDATA
 }
