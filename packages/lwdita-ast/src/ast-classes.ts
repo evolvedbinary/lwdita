@@ -213,6 +213,16 @@ export type NoteType = 'caution' | 'warning' | 'danger' | 'trouble' | 'notice' |
 export const isNoteType = (value?: BasicValue): value is NoteType => (['caution', 'warning', 'danger', 'trouble', 'notice', 'note'] as BasicValue[]).indexOf(value) > -1;
 
 /**
+ * KindType defines all possible values for the `kind` attribute
+ */
+export type KindType = 'subtitles' | 'captions' | 'descriptions' | 'chapters' | 'metadata';
+
+/**
+ * KindType validation function
+ */
+export const isKindType = (value?: BasicValue): value is KindType => (['subtitles', 'captions', 'descriptions', 'chapters', 'metadata'] as BasicValue[]).indexOf(value) > -1;
+
+/**
  * Typedef for UnknownNodeError
  */
 export class UnknownNodeError extends Error {
