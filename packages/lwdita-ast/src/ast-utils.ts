@@ -32,8 +32,6 @@ export const nodeGroups: Record<string, Array<string>> = {
     'inline.noimage': ['text', ...phGroup, 'xref'],
     'inline.noxref': ['text', ...phGroup, 'image'],
     'inline': ['text', ...phGroup, 'image', 'xref'],
-    'common-inline': ['text', ...phGroup, 'image'],
-    'all-inline': ['text', ...phGroup, 'image', 'xref'],
     'simple-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'example', 'note'],
     'fn-blocks': ['p', 'ul', 'ol', 'dl'],
     'all-blocks': ['p','ul','ol','dl','pre','audio','video','example','simpletable','fig','note'],
