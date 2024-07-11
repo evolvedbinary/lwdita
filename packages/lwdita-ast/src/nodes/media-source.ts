@@ -18,23 +18,32 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "../utils";
 import { makeComponent, AbstractBaseNode, BaseNode, makeAll, Constructor } from "./base";
-import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "../classes";
-import { CDATA } from "../ast-classes";
+import { CDATA, ReferenceContentScope } from "../ast-classes";
+import { isValidVariableContentField, makeVariableContent, VariableContentFields, VariableContentNodeAttributes } from "./variable-content";
+import { isValidReferenceContentField, makeReferenceContent, ReferenceContentFields, ReferenceContentNodeAttributes } from "./reference-content";
 
 /**
  * Define all allowed `media-source` attributes:
- * `dir`, `xml:lang`, `translate`, `class`, `outputclass`
- * Custom attributes are `name`, `value`
+ * `dir`, `xml:lang`, `translate`, `href`, `format`, `scope`, `keyref`, `class`, `outputclass`
  */
-export const MediaSourceFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
+export const MediaSourceFields = [
+  ...LocalizationFields,
+  ...ReferenceContentFields,
+  ...VariableContentFields,
+  ...ClassFields
+];
 
 /**
- * Interface MediaSourceNodeAttributes defines the attribute types for `media-source`:
- * `CDATA`, `T`
+ * Interface MediaSourceNodeAttributes defines the attribute types for `media-source`
  */
-export interface MediaSourceNodeAttributes extends LocalizationNodeAttributes, FieldNodeAttributes<boolean>, ClassNodeAttributes, BaseNode { }
+export interface MediaSourceNodeAttributes extends
+  LocalizationNodeAttributes,
+  ReferenceContentNodeAttributes,
+  VariableContentNodeAttributes,
+  ClassNodeAttributes,
+  BaseNode { }
 
 /**
  * Check if the given attributes of the `media-source` node are valid
@@ -44,7 +53,8 @@ export interface MediaSourceNodeAttributes extends LocalizationNodeAttributes, F
  * @returns Boolean
  */
 export const isValidMediaSourceField = (field: string, value: BasicValue): boolean => isValidLocalizationField(field, value)
-  || isValidBooleanFieldField(field, value)
+  || isValidReferenceContentField(field, value)
+  || isValidVariableContentField(field, value)
   || isValidClassField(field, value);
 
 /**
@@ -66,7 +76,7 @@ export const isMediaSourceNode = (value?: unknown): value is MediaSourceNodeAttr
  * @returns A `media-source` node
  */
 export function makeMediaSource<T extends Constructor>(constructor: T): T {
-  return makeAll(constructor, makeLocalization, makeBooleanField, makeClass);
+  return makeAll(constructor, makeLocalization, makeReferenceContent, makeVariableContent, makeClass);
 }
 
 /**
@@ -82,16 +92,20 @@ export function makeMediaSource<T extends Constructor>(constructor: T): T {
 export class MediaSourceNode extends AbstractBaseNode implements MediaSourceNodeAttributes {
   static domNodeName = 'source';
 
-  // ClassNodeAttributes
-  'outputclass'?: CDATA
-  'class'?: CDATA
-
-  // FieldNodeAttributes
-  'name'?: CDATA
-  'value'?: boolean
-
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA
   'translate'?: CDATA
+
+  // ReferenceContentNodeAttributes
+  'href'?: CDATA
+  'format'?: CDATA
+  'scope'?: ReferenceContentScope
+
+  // VariableContentNodeAttributes
+  'keyref'?: CDATA
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
 }
