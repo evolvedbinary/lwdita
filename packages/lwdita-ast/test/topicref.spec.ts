@@ -19,11 +19,15 @@ import { doNodeTest } from "./tests";
 import { TopicrefNode, isTopicrefNode } from "../src/nodes/topicref";
 import { expect } from "chai";
 
-doNodeTest(TopicrefNode, 'topicref', isTopicrefNode,
+doNodeTest(
+  TopicrefNode,
+  'topicref',
+  isTopicrefNode,
   [`dir`, `xml:lang`, `translate`, `props`, `class`, `outputclass`, `id`, `conref`, `href`, `format`, `scope`, `keyref`, `keys`],
-  ['topicmeta?', 'topicref?']);
+  ['topicmeta?', 'topicref?']
+);
 
-describe('Class KeydefNode', () => {
+describe('Class TopicrefNode', () => {
   it("sets correct attributes", () => {
     const topicref = new TopicrefNode({});
 
