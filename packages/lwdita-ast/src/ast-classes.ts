@@ -153,6 +153,16 @@ export type INCLUDED_DOMAINS = '&included-domains;';
 export const isINCLUDED_DOMAINS = (value?: BasicValue): value is INCLUDED_DOMAINS => typeof value === 'string';
 
 /**
+ * DITAARCH sets a fixed string value
+ */
+export type DITAARCH = 'http://dita.oasis-open.org/architecture/2005/';
+
+/**
+ * INCLUDED_DOMAINS validation function
+ */
+export const isDITAARCH = (value?: BasicValue): value is DITAARCH => typeof value === 'string';
+
+/**
  * DisplayScale defines all possible values for the `scale` attribute
  */
 export type DisplayScale = 50 | 60 | 70 | 80 | 90 | 100 | 110 | 120 | 140 | 160 | 180 | 200;
