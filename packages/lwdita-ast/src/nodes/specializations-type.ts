@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { areFieldsValid, isOrUndefined } from "../utils";
 import { AbstractBaseNode } from "./base";
 import { BasicValue } from "../classes";
-import { CDATA, isINCLUDED_DOMAINS } from "../ast-classes";
+import { INCLUDED_DOMAINS, isINCLUDED_DOMAINS } from "../ast-classes";
 
 /**
  * Define all allowed `specializations` attributes:
@@ -30,7 +30,7 @@ export const SpecializationsFields = ['specializations'];
  * The interface `SpecializationsNode` defines the attribute type for `specializations`: 'CDATA'
  */
 export interface SpecializationsNodeAttributes {
-  'specializations'?: CDATA;
+  'specializations'?: INCLUDED_DOMAINS;
 }
 
 /**
@@ -68,11 +68,11 @@ export const isSpecializationsNode = (value?: unknown): value is Specializations
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeSpecializations<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return class extends constructor implements SpecializationsNodeAttributes {
-    get 'specializations'(): CDATA | undefined {
-      return this.readProp<CDATA | undefined>('specializations');
+    get 'specializations'(): INCLUDED_DOMAINS | undefined {
+      return this.readProp<INCLUDED_DOMAINS | undefined>('specializations');
     }
-    set 'specializations'(value: CDATA | undefined) {
-      this.writeProp<CDATA | undefined>('specializations', value);
+    set 'specializations'(value: INCLUDED_DOMAINS | undefined) {
+      this.writeProp<INCLUDED_DOMAINS | undefined>('specializations', value);
     }
   }
 }
