@@ -20,7 +20,7 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { areFieldsValid, isOrUndefined } from "../utils";
 import { AbstractBaseNode, BaseNode, makeComponent, makeAll } from "./base";
 import { BasicValue } from "../classes";
-import { CDATA, ID, INCLUDED_DOMAINS, isCDATA, isID } from "../ast-classes";
+import { CDATA, DITAARCH, ID, INCLUDED_DOMAINS, isCDATA, isID } from "../ast-classes";
 import { isValidSpecializationsField, makeSpecializations, SpecializationsFields, SpecializationsNodeAttributes } from "./specializations-type";
 
 /**
@@ -45,7 +45,7 @@ export interface MapNodeAttributes extends
   SpecializationsNodeAttributes,
   BaseNode {
   'id'?: ID
-  'xmlns:ditaarch': CDATA
+  'xmlns:ditaarch': DITAARCH
   'ditaarch:DITAArchVersion'?: CDATA
 }
 
@@ -98,11 +98,11 @@ export function makeMap<T extends { new(...args: any[]): AbstractBaseNode }>(con
     set 'id'(value: ID) {
       this.writeProp<ID>('id', value);
     }
-    get 'xmlns:ditaarch'(): CDATA {
-      return this.readProp<CDATA>('xmlns:ditaarch');
+    get 'xmlns:ditaarch'(): DITAARCH {
+      return this.readProp<DITAARCH>('xmlns:ditaarch');
     }
-    set 'xmlns:ditaarch'(value: CDATA) {
-      this.writeProp<CDATA>('xmlns:ditaarch', value);
+    set 'xmlns:ditaarch'(value: DITAARCH) {
+      this.writeProp<DITAARCH>('xmlns:ditaarch', value);
     }
     get 'ditaarch:DITAArchVersion'(): CDATA | undefined {
       return this.readProp<CDATA | undefined>('ditaarch:DITAArchVersion');
@@ -140,7 +140,7 @@ export class MapNode extends AbstractBaseNode implements MapNodeAttributes {
 
   // MapNodeAttributes
   'id'?: ID
-  'xmlns:ditaarch': CDATA
+  'xmlns:ditaarch': DITAARCH
   'ditaarch:DITAArchVersion'?: CDATA
 
   // ClassNodeAttributes

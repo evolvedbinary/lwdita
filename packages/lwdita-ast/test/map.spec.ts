@@ -33,7 +33,7 @@ describe('Class MapNode', () => {
     map.class = "class";
     map.outputclass = "outputclass";
     map.id = "id";
-    map["xmlns:ditaarch"] = "xmlns:ditaarch";
+    map["xmlns:ditaarch"] = "http://dita.oasis-open.org/architecture/2005/";
     map["ditaarch:DITAArchVersion"] = "ditaarch:DITAArchVersion";
     map.specializations = "&included-domains;";
 
@@ -43,7 +43,7 @@ describe('Class MapNode', () => {
     expect(map.class).to.equal("class");
     expect(map.outputclass).to.equal("outputclass");
     expect(map.id).to.equal("id");
-    expect(map["xmlns:ditaarch"]).to.equal("xmlns:ditaarch");
+    expect(map["xmlns:ditaarch"]).to.equal("http://dita.oasis-open.org/architecture/2005/");
     expect(map["ditaarch:DITAArchVersion"]).to.equal("ditaarch:DITAArchVersion");
     expect(map.specializations).to.equal("&included-domains;");
   });
