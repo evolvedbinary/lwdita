@@ -193,6 +193,16 @@ export type DisplayExpanse = 'column' | 'page' | 'spread' | 'textline';
 export const isDisplayExpanse = (value?: BasicValue): value is DisplayExpanse => (['column', 'page', 'spread', 'textline'] as BasicValue[]).indexOf(value) > -1;
 
 /**
+ * BooleanString defines two possible string values
+ */
+export type BooleanString = 'true' | 'false';
+
+/**
+ * BooleanString validation function
+ */
+export const isBooleanString = (value?: BasicValue): value is BooleanString => (['true', 'false'] as BasicValue[]).indexOf(value) > -1;
+
+/**
  * NoteType defines all possible values for the `type` attribute
  */
 export type NoteType = 'caution' | 'warning' | 'danger' | 'trouble' | 'notice' | 'note';
