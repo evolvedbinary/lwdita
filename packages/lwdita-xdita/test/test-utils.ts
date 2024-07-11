@@ -22,5 +22,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 export const XMLNODE_AUDIO = `{"name":"audio","attributes":{},"ns":{},"prefix":"","local":"audio","uri":"","isSelfClosing":true}`;
-export const AUDIO_NODE_OBJECT = { "_props": { "props": undefined, "dir": undefined, "xml:lang": undefined, "translate": undefined, "id": undefined, "conref": undefined, "outputclass": undefined, "class": undefined } };
+export const AUDIO_NODE_OBJECT = {
+  "_props": {
+    "props": undefined,
+    "dir": undefined,
+    "xml:lang": undefined,
+    "translate": undefined,
+    "keyref": undefined,
+    "id": undefined,
+    "conref": undefined,
+    "outputclass": undefined,
+    "class": undefined,
+    "href": undefined,
+    "format": undefined,
+    "scope": undefined,
+    "autoplay": undefined,
+    "controls": undefined,
+    "loop": undefined,
+    "muted": undefined,
+    "tabindex": undefined
+  }
+};
 export const XMLNODE_UNKNOWN = `{"name":"unknown","attributes":{},"ns":{},"prefix":"","local":"audio","uri":"","isSelfClosing":true}`;
