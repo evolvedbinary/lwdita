@@ -71,7 +71,7 @@ export function makeUl<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create an `ul` node (unordered-list) and map the `ul` node with the LwDita tag name `ul`
+ * Create an `ul` node (Unordered list) and map the `ul` node with the LwDita tag name `ul`
  *
  * @decorator `@makeComponent`
  * @param makeUl - The `ul` node constructor
