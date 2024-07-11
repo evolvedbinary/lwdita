@@ -22,7 +22,7 @@ import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters 
 import { areFieldsValid, isOrUndefined } from "../utils";
 import { makeComponent, AbstractBaseNode, BaseNode, makeAll } from "./base";
 import { BasicValue } from "../classes";
-import { CDATA, isCDATA, ID, NMTOKEN, isNMTOKEN } from "../ast-classes";
+import { CDATA, isCDATA, NMTOKEN, isNMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `fn` fields:
