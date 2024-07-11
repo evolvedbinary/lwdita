@@ -20,7 +20,7 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { areFieldsValid, isOrUndefined } from "../utils";
 import { AbstractBaseNode, BaseNode, makeComponent, makeAll } from "./base";
 import { BasicValue } from "../classes";
-import { CDATA, ID, INCLUDED_DOMAINS, isCDATA } from "../ast-classes";
+import { CDATA, ID, INCLUDED_DOMAINS, isCDATA, isID } from "../ast-classes";
 import { isValidSpecializationsField, makeSpecializations, SpecializationsFields, SpecializationsNodeAttributes } from "./specializations-type";
 
 /**
@@ -44,7 +44,7 @@ export interface MapNodeAttributes extends
   ClassNodeAttributes,
   SpecializationsNodeAttributes,
   BaseNode {
-  'id': ID
+  'id'?: ID
   'xmlns:ditaarch': CDATA
   'ditaarch:DITAArchVersion'?: CDATA
 }
@@ -64,7 +64,7 @@ export function isValidMapField(field: string, value: BasicValue): boolean {
     return true;
   }
   switch(field) {
-    case 'id': return isOrUndefined(isCDATA, value);
+    case 'id': return isOrUndefined(isID, value);
     case 'xmlns:ditaarch': return isOrUndefined(isCDATA, value);
     case 'ditaarch:DITAArchVersion': return isOrUndefined(isCDATA, value);
     default: return false;
@@ -139,9 +139,9 @@ export class MapNode extends AbstractBaseNode implements MapNodeAttributes {
   'specializations': INCLUDED_DOMAINS
 
   // MapNodeAttributes
-  'id': ID
+  'id'?: ID
   'xmlns:ditaarch': CDATA
-  'ditaarch:DITAArchVersion': CDATA
+  'ditaarch:DITAArchVersion'?: CDATA
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

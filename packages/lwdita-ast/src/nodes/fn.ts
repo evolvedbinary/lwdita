@@ -22,7 +22,7 @@ import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters 
 import { areFieldsValid, isOrUndefined } from "../utils";
 import { makeComponent, AbstractBaseNode, BaseNode, makeAll } from "./base";
 import { BasicValue } from "../classes";
-import { CDATA, isCDATA, ID } from "../ast-classes";
+import { CDATA, isCDATA, ID, NMTOKEN, isNMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `fn` fields:
@@ -42,8 +42,8 @@ export interface FnNodeAttributes extends
   FnReuseNodeAttributes,
   ClassNodeAttributes,
   BaseNode {
-    'id': ID
-    'callout': CDATA
+    'id': NMTOKEN
+    'callout'?: CDATA
   }
 
 /**
@@ -62,7 +62,7 @@ export const isValidFnField = (field: string, value: BasicValue): boolean => {
     return true;
   }
   switch (field) {
-    case 'id': return isOrUndefined(isCDATA, value);
+    case 'id': return isOrUndefined(isNMTOKEN, value);
     case 'callout': return isOrUndefined(isCDATA, value);
     default: return false;
   }
@@ -89,10 +89,10 @@ export const isFnNode = (value?: unknown): value is FnNodeAttributes =>
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeFn<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return makeAll(class extends constructor {
-    get 'id'(): ID {
-      return this.readProp<ID>('id'); }
-    set 'id'(value: ID) {
-        this.writeProp<ID>('id', value); }
+    get 'id'(): NMTOKEN {
+      return this.readProp<NMTOKEN>('id'); }
+    set 'id'(value: NMTOKEN) {
+        this.writeProp<NMTOKEN>('id', value); }
     get 'callout'(): CDATA {
       return this.readProp<CDATA>('callout'); }
     set 'callout'(value: CDATA) {
@@ -131,6 +131,6 @@ export class FnNode extends AbstractBaseNode implements FnNodeAttributes {
   'props'?: CDATA
 
   // FnNodeAttributes
-  'id': ID
-  'callout': CDATA
+  'id': NMTOKEN
+  'callout'?: CDATA
 }
