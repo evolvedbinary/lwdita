@@ -42,7 +42,7 @@ describe('Class StEntryNode', () => {
     stentry.colspan = "colspan";
     stentry.rowspan = "rowspan";
     stentry.scope = "row";
-    // stentry.headers = ['firstID', 'secondID'];
+    stentry.headers = 'firstID secondID';
 
     expect(stentry.dir).to.equal("dir");
     expect(stentry["xml:lang"]).to.equal("lang");
@@ -55,6 +55,6 @@ describe('Class StEntryNode', () => {
     expect(stentry.colspan).to.equal("colspan");
     expect(stentry.rowspan).to.equal("rowspan");
     expect(stentry.scope).to.equal("row");
-    // expect(stentry.headers).to.equal('firstID', 'secondID');
+    expect(stentry.headers).to.equal('firstID secondID');
   });
 });

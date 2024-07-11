@@ -133,9 +133,9 @@ export type NMTOKEN = string;
 export const isNMTOKEN = (value?: BasicValue): value is NMTOKEN => typeof value === 'string';
 
 /**
- * NMTOKENS is a list of strings without any spaces
+ * NMTOKENS is a space-separated list of strings
  */
-export type NMTOKENS = string[];
+export type NMTOKENS = string;
 
 /**
  * NMTOKENS validation function
