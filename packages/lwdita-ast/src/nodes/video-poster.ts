@@ -18,23 +18,39 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { LocalizationNodeAttributes, LocalizationFields, isValidLocalizationField, makeLocalization } from "./localization";
 import { areFieldsValid } from "../utils";
 import { makeComponent, AbstractBaseNode, BaseNode, makeAll, Constructor } from "./base";
-import { FieldFields, FieldNodeAttributes, isValidBooleanFieldField, makeBooleanField } from "./field";
 import { ClassFields, ClassNodeAttributes, isValidClassField, makeClass } from "./class";
 import { BasicValue } from "../classes";
-import { CDATA } from "../ast-classes";
+import { CDATA, NMTOKEN, ReferenceContentScope } from "../ast-classes";
+import { FiltersFields, FiltersNodeAttributes, isValidFiltersField, makeFilters } from "./filters";
+import { isValidReferenceContentField, makeReferenceContent, ReferenceContentFields, ReferenceContentNodeAttributes } from "./reference-content";
+import { isValidReuseField, makeReuse, ReuseFields, ReuseNodeAttributes } from "./reuse";
+import { isValidVariableContentField, makeVariableContent, VariableContentFields, VariableContentNodeAttributes } from "./variable-content";
 
 /**
  * Define all allowed `video-poster` attributes:
- * `dir`, `xml:lang`, `translate`, `class`, `outputclass`
- * Custom attributes are `name`, `value`
+ * `dir`, `xml:lang`, `translate`, `props`,  `href`,
+ * `format`, `scope`, `id`, `conref`, `keyref`, `outputclass`, `class`
  */
-export const VideoPosterFields = [...LocalizationFields, ...FieldFields, ...ClassFields];
+export const VideoPosterFields = [
+  ...LocalizationFields,
+  ...FiltersFields,
+  ...ReferenceContentFields,
+  ...ReuseFields,
+  ...VariableContentFields,
+  ...ClassFields
+];
 
 /**
  * The interface `VideoPosterNodeAttributes` defines all attribute types for `video-poster`:
- * `CDATA`, `T`
  */
-export interface VideoPosterNodeAttributes extends LocalizationNodeAttributes, FieldNodeAttributes<boolean>, ClassNodeAttributes, BaseNode { }
+export interface VideoPosterNodeAttributes extends
+  LocalizationNodeAttributes,
+  FiltersNodeAttributes,
+  ReferenceContentNodeAttributes,
+  ReuseNodeAttributes,
+  VariableContentNodeAttributes,
+  ClassNodeAttributes,
+  BaseNode { }
 
 /**
  * Check if the given attributes of the `video-poster` node are valid
@@ -44,7 +60,10 @@ export interface VideoPosterNodeAttributes extends LocalizationNodeAttributes, F
  * @returns Boolean
  */
 export const isValidVideoPosterField = (field: string, value: BasicValue): boolean => isValidLocalizationField(field, value)
-  || isValidBooleanFieldField(field, value)
+  || isValidFiltersField(field, value)
+  || isValidReferenceContentField(field, value)
+  || isValidReuseField(field, value)
+  || isValidVariableContentField(field, value)
   || isValidClassField(field, value);
 
 /**
@@ -66,7 +85,15 @@ export const isVideoPosterNode = (value?: unknown): value is VideoPosterNodeAttr
  * @returns A `video-poster` node
  */
 export function makeVideoPoster<T extends Constructor>(constructor: T): T {
-  return makeAll(constructor, makeLocalization, makeBooleanField, makeClass);
+  return makeAll(
+    constructor,
+    makeLocalization,
+    makeFilters,
+    makeReferenceContent,
+    makeReuse,
+    makeVariableContent,
+    makeClass
+  );
 }
 
 /**
@@ -80,16 +107,28 @@ export function makeVideoPoster<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeVideoPoster, 'video-poster', isValidVideoPosterField, VideoPosterFields)
 export class VideoPosterNode extends AbstractBaseNode implements VideoPosterNodeAttributes {
-    // ClassNodeAttributes
-    'outputclass'?: CDATA
-    'class'?: CDATA
-  
-    // FieldNodeAttributes
-    'name'?: CDATA
-    'value'?: boolean
-  
-    // LocalizationNodeAttributes
-    'dir'?: CDATA
-    'xml:lang'?: CDATA
-    'translate'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
+
+  // FiltersNodeAttributes
+  'props'?: CDATA
+
+  // ReferenceContentNodeAttributes
+  'href'?: CDATA
+  'format'?: CDATA
+  'scope'?: ReferenceContentScope
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
+
+  // VariableContentNodeAttributes
+  'keyref'?: CDATA
+
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
 }
