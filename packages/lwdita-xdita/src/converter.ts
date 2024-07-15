@@ -16,8 +16,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import * as saxes from "@rubensworks/saxes";
-import { BaseNode, DocumentNode, JDita } from "@evolvedbinary/lwdita-ast";
 import { createCDataSectionNode, createNode } from "./factory";
+import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, CDataNode } from "@evolvedbinary/lwdita-ast";
 import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
 import { XditaSerializer } from "./xdita-serializer";
 
@@ -154,6 +154,64 @@ export async function xditaToJdita(xml: string, abortOnError = true): Promise<JD
  */
 export function astToJdita(document: DocumentNode): JDita {
   return document.json;
+}
+
+/**
+ * convert JDita attributes to Saxes attributes
+ * @param attr - JDita attributes
+ * @returns 
+ */
+function jditaAttrToSaxesAttr(attr: Record<string, BasicValue> | undefined): Attributes {
+  if (!attr) return {};
+  for (const key in attr) {
+    if (!attr[key]) {
+      delete attr[key];
+    }
+  }
+  const attributes: Attributes = {};
+  for (const key in attr) {
+    attributes[key] = {
+      name: key,
+      value: attr[key] as string,
+      local: key,
+      prefix: "",
+      uri: "",
+    }
+  }
+
+  return attributes;
+
+}
+
+/**
+ * Convert JDita object to AST
+ *
+ * @param jdita - JDita object
+ * @returns DocumentNode
+ */
+export function jditaToAst(jdita: JDita): DocumentNode {
+  if(jdita.nodeName === 'document') {
+    const doc = new DocumentNode();
+    jdita.children?.forEach(child => {
+      doc.add(jditaToAst(child));
+    });
+    return doc;
+  }
+
+  if(jdita.nodeName === 'text') {
+    return new TextNode(jdita.content as string);
+  }
+
+  if(jdita.nodeName === 'cdata') {
+    return new CDataNode(jdita.content as string);
+  }
+
+  const classType = getNodeClass(jdita.nodeName);
+  const node = new classType(jditaAttrToSaxesAttr(jdita.attributes))
+  jdita.children?.forEach(child => {
+    node.add(jditaToAst(child));
+  });
+  return node;
 }
 
 /**
