@@ -16,16 +16,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 /**
- * @remarks
- * When a node is a group we use this list to check if a node name is valid
+ * Phrase elements group
+ *
+ * @see {@link https://github.com/oasis-tcs/dita-lwdita/blob/b2985f254746b2614c1b9d6a5e6043f82335506f/org.oasis.xdita/dtd/lw-topic.dtd#L50}
  */
 const phGroup = ['b', 'em', 'i', 'ph', 'strong', 'sub', 'sup', 'tt', 'u'];
 
 /**
- * Node groups
+ * Content groups
  *
- * @remarks
- * Group all similar nodes
+ * @see {@link https://github.com/oasis-tcs/dita-lwdita/blob/f267f1e8eac5d41703eef950770e62a8972b5cd6/org.oasis.xdita/dtd/lw-common.ent#L20-L40}
  */
 export const nodeGroups: Record<string, Array<string>> = {
     'ph': phGroup,
