@@ -71,13 +71,13 @@ export function makeLi<T extends Constructor>(constructor: T): T {
 }
 
 /**
- * Create a `li` node
+ * Create a `li` (List item) node
  *
  * @decorator `@makeComponent`
  * @param makeLi - The `li` node constructor
  * @param nodeName - A string containing the node name 'li'
  * @param isValidLiField - A function to check if the attribute is valid see {@link isValidLiField}
- * @param LiFields - A list of valid attributes `%list-blocks*` (`p`, `ul`, `ol`, `dl`, `pre`, `audio`, `video`, `simpletable`, `fig`, `note`, `data`)
+ * @param LiFields - A list of valid attributes `%list-blocks*` (`p`,`ul`, `ol`, `dl`, `pre`, `audio`, `video`, `example`, `simpletable`, `fig`, `note`)
  * @returns A `li` node
  */
 @makeComponent(makeLi, 'li', isValidLiField, LiFields, ['%list-blocks*'])

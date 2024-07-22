@@ -17,5 +17,45 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { VideoPosterNode, isVideoPosterNode } from "../src/nodes/video-poster";
-doNodeTest(VideoPosterNode, 'video-poster', isVideoPosterNode,
-  ['dir', 'xml:lang', 'translate', 'name', 'value', 'outputclass', 'class']);
+import { expect } from "chai";
+
+doNodeTest(
+  VideoPosterNode,
+  'video-poster',
+  isVideoPosterNode,
+  ['dir', 'xml:lang', 'translate', 'props',  'href', 'format', 'scope', 'id', 'conref', 'keyref', 'outputclass', 'class']
+);
+
+describe('Class VideoPosterNode', () => {
+  it('sets correct attributes', () => {
+    const videoPoster = new VideoPosterNode({});
+
+    videoPoster.keyref = "keyref";
+    videoPoster.dir = "dir";
+    videoPoster["xml:lang"] = "lang";
+    videoPoster.translate = "translate";
+    videoPoster.props = "props";
+    videoPoster.href = "href";
+    videoPoster.format = "format";
+    videoPoster.scope = "local";
+    videoPoster.id = "id";
+    videoPoster.conref = "conref";
+    videoPoster.keyref = "keyref";
+    videoPoster.outputclass = "outputclass";
+    videoPoster.class = "class";
+
+    expect(videoPoster.keyref).to.equal("keyref");
+    expect(videoPoster.dir).to.equal("dir");
+    expect(videoPoster["xml:lang"]).to.equal("lang");
+    expect(videoPoster.translate).to.equal("translate");
+    expect(videoPoster.props).to.equal("props");
+    expect(videoPoster.href).to.equal("href");
+    expect(videoPoster.format).to.equal("format");
+    expect(videoPoster.scope).to.equal("local");
+    expect(videoPoster.id).to.equal("id");
+    expect(videoPoster.conref).to.equal("conref");
+    expect(videoPoster.keyref).to.equal("keyref");
+    expect(videoPoster.outputclass).to.equal("outputclass");
+    expect(videoPoster.class).to.equal("class");
+  });
+});

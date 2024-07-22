@@ -17,6 +17,36 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { DlNode, isDlNode } from "../src/nodes/dl";
-doNodeTest(DlNode, 'dl', isDlNode,
+import { expect } from "chai";
+
+doNodeTest(
+  DlNode,
+  'dl',
+  isDlNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
-  ['dlentry+']);
+  ['dlentry+']
+);
+
+describe('Class DlNode', () => {
+  it("sets correct attributes", () => {
+    const dl = new DlNode({});
+
+    dl.dir = "dir";
+    dl["xml:lang"] = "lang";
+    dl.translate = "translate";
+    dl.props = "props";
+    dl.id = "id";
+    dl.conref = "conref";
+    dl.outputclass = "outputclass";
+    dl.class = "class";
+
+    expect(dl.dir).to.equal("dir");
+    expect(dl["xml:lang"]).to.equal("lang");
+    expect(dl.translate).to.equal("translate");
+    expect(dl.props).to.equal("props");
+    expect(dl.id).to.equal("id");
+    expect(dl.conref).to.equal("conref");
+    expect(dl.outputclass).to.equal("outputclass");
+    expect(dl.class).to.equal("class");
+  });
+});

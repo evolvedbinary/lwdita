@@ -16,26 +16,27 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 /**
- * @remarks
- * When a node is a group we use this list to check if a node name is valid
+ * Phrase elements group
+ *
+ * @see {@link https://github.com/oasis-tcs/dita-lwdita/blob/b2985f254746b2614c1b9d6a5e6043f82335506f/org.oasis.xdita/dtd/lw-topic.dtd#L50}
  */
-const phGroup = ['ph', 'b', 'i', 'u', 'sub', 'sup'];
-const dataGroup = ['data'];
+const phGroup = ['b', 'em', 'i', 'ph', 'strong', 'sub', 'sup', 'tt', 'u'];
 
 /**
- * Node groups
+ * Content groups
  *
- * @remarks
- * Group all similar nodes
+ * @see {@link https://github.com/oasis-tcs/dita-lwdita/blob/f267f1e8eac5d41703eef950770e62a8972b5cd6/org.oasis.xdita/dtd/lw-common.ent#L20-L40}
  */
 export const nodeGroups: Record<string, Array<string>> = {
     'ph': phGroup,
-    'data': dataGroup,
-    'common-inline': ['text', ...phGroup, 'image', ...dataGroup],
-    'all-inline': ['text', ...phGroup, 'image', 'xref', ...dataGroup],
-    'simple-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'fn', 'note', ...dataGroup],
-    'fn-blocks': ['p', 'ul', 'ol', 'dl', ...dataGroup],
-    'all-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', 'fig', 'fn', 'note', ...dataGroup],
-    'list-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', 'fig', 'note', ...dataGroup],
-    'fig-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'simpletable', ...dataGroup],
+    'inline.noimage': ['text', ...phGroup, 'xref'],
+    'inline.noxref': ['text', ...phGroup, 'image'],
+    'inline': ['text', ...phGroup, 'image', 'xref'],
+    'simple-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'example', 'note'],
+    'fn-blocks': ['p', 'ul', 'ol', 'dl'],
+    'all-blocks': ['p','ul','ol','dl','pre','audio','video','example','simpletable','fig','note'],
+    'list-blocks': ['p','ul', 'ol', 'dl', 'pre', 'audio', 'video', 'example', 'simpletable', 'fig', 'note'],
+    'fig-blocks': ['p', 'ul', 'ol', 'dl', 'pre', 'audio', 'video', 'example', 'simpletable'],
+    'example-blocks': ['p','ul','ol','dl','pre','audio','video','simpletable','fig','note'],
+    'fallback-blocks': ['image','alt','p','ul','ol','dl','pre','note'],
 }

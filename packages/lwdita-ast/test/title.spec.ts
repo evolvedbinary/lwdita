@@ -19,9 +19,13 @@ import { doNodeTest } from "./tests";
 import { TitleNode, isTitleNode } from "../src/nodes/title";
 import { expect } from "chai";
 
-doNodeTest(TitleNode, 'title', isTitleNode,
+doNodeTest(
+  TitleNode,
+  'title',
+  isTitleNode,
   ['dir', 'xml:lang', 'translate', 'outputclass', 'class'],
-  ['%common-inline*']);
+  ['%inline.noxref*']
+);
 
 describe('Class TitleNode', () => {
   it("sets correct attributes", () => {

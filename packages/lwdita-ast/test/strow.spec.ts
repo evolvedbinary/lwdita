@@ -17,6 +17,36 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { StRowNode, isStRowNode } from "../src/nodes/strow";
-doNodeTest(StRowNode, 'strow', isStRowNode,
+import { expect } from "chai";
+
+doNodeTest(
+  StRowNode,
+  'strow',
+  isStRowNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
-  ['stentry*']);
+  ['stentry*']
+);
+
+describe('Class StRowNode', () => {
+  it("sets correct attributes", () => {
+    const strow = new StRowNode({});
+
+    strow.dir = "dir";
+    strow["xml:lang"] = "lang";
+    strow.translate = "translate";
+    strow.props = "props";
+    strow.id = "id";
+    strow.conref = "conref";
+    strow.outputclass = "outputclass";
+    strow.class = "class";
+
+    expect(strow.dir).to.equal("dir");
+    expect(strow["xml:lang"]).to.equal("lang");
+    expect(strow.translate).to.equal("translate");
+    expect(strow.props).to.equal("props");
+    expect(strow.id).to.equal("id");
+    expect(strow.conref).to.equal("conref");
+    expect(strow.outputclass).to.equal("outputclass");
+    expect(strow.class).to.equal("class");
+  });
+});

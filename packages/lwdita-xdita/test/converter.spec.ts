@@ -125,7 +125,7 @@ describe('jditaToXdita', () => {
             "id": "topicID",
             "xmlns:ditaarch": undefined,
             "ditaarch:DITAArchVersion": undefined,
-            "domains": undefined
+            "specializations": undefined
           },
           "children": [
             {

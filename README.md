@@ -10,6 +10,7 @@ This repository contains a number of tools and libraries for working with LwDITA
   A parser and serializer for XDITA (which is the XML representation of LwDITA). This can serialize/deserialize XDITA to an lwdita-ast object tree.
 2. lwdita-ast
   An object representation of the LwDITA conceptual model. This is used by lwdita-xdita.
+  The `lwdita-ast` AST complies with the LwDITA specs v0.3.0.2, see: [https://github.com/oasis-tcs/dita-lwdita/releases/tag/v0.3.0.2](https://github.com/oasis-tcs/dita-lwdita/releases/tag/v0.3.0.2)
 
 ---
 

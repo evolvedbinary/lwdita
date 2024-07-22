@@ -17,5 +17,37 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { MediaSourceNode, isMediaSourceNode } from "../src/nodes/media-source";
-doNodeTest(MediaSourceNode, 'media-source', isMediaSourceNode,
-  ['dir', 'xml:lang', 'translate', 'name', 'value', 'outputclass', 'class']);
+import { expect } from "chai";
+
+doNodeTest(
+  MediaSourceNode,
+  'media-source',
+  isMediaSourceNode,
+  ['dir', 'xml:lang', 'translate', 'href', 'format', 'scope', 'keyref', 'class', 'outputclass']
+);
+
+describe('Class MediaSourceNode', () => {
+  it('sets correct attributes', () => {
+    const mediaSource = new MediaSourceNode({});
+
+    mediaSource.keyref = "keyref";
+    mediaSource.outputclass = "outputclass";
+    mediaSource.class = "class";
+    mediaSource.dir = "dir";
+    mediaSource["xml:lang"] = "lang";
+    mediaSource.translate = "translate";
+    mediaSource.href = "href";
+    mediaSource.format = "format";
+    mediaSource.scope = "local";
+
+    expect(mediaSource.keyref).to.equal("keyref");
+    expect(mediaSource.outputclass).to.equal("outputclass");
+    expect(mediaSource.class).to.equal("class");
+    expect(mediaSource.dir).to.equal("dir");
+    expect(mediaSource["xml:lang"]).to.equal("lang");
+    expect(mediaSource.translate).to.equal("translate");
+    expect(mediaSource.href).to.equal("href");
+    expect(mediaSource.format).to.equal("format");
+    expect(mediaSource.scope).to.equal("local");
+  });
+});

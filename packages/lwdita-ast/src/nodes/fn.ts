@@ -22,7 +22,7 @@ import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters 
 import { areFieldsValid, isOrUndefined } from "../utils";
 import { makeComponent, AbstractBaseNode, BaseNode, makeAll } from "./base";
 import { BasicValue } from "../classes";
-import { CDATA, isCDATA, ID } from "../ast-classes";
+import { CDATA, isCDATA, NMTOKEN, isNMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `fn` fields:
@@ -36,7 +36,15 @@ export const FnFields = [...FiltersFields, ...LocalizationFields, ...FnReuseFiel
 /**
  * Interface FnNode defines the attribute types for `fn`
  */
-export interface FnNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, FnReuseNodeAttributes, ClassNodeAttributes, BaseNode { }
+export interface FnNodeAttributes extends
+  FiltersNodeAttributes,
+  LocalizationNodeAttributes,
+  FnReuseNodeAttributes,
+  ClassNodeAttributes,
+  BaseNode {
+    'id': NMTOKEN
+    'callout'?: CDATA
+  }
 
 /**
  * Check if the given attributes of the `fn` node are valid and match this list:
@@ -54,7 +62,7 @@ export const isValidFnField = (field: string, value: BasicValue): boolean => {
     return true;
   }
   switch (field) {
-    case 'id': return isOrUndefined(isCDATA, value);
+    case 'id': return isOrUndefined(isNMTOKEN, value);
     case 'callout': return isOrUndefined(isCDATA, value);
     default: return false;
   }
@@ -81,10 +89,10 @@ export const isFnNode = (value?: unknown): value is FnNodeAttributes =>
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeFn<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return makeAll(class extends constructor {
-    get 'id'(): ID {
-      return this.readProp<ID>('id'); }
-    set 'id'(value: ID) {
-        this.writeProp<ID>('id', value); }
+    get 'id'(): NMTOKEN {
+      return this.readProp<NMTOKEN>('id'); }
+    set 'id'(value: NMTOKEN) {
+        this.writeProp<NMTOKEN>('id', value); }
     get 'callout'(): CDATA {
       return this.readProp<CDATA>('callout'); }
     set 'callout'(value: CDATA) {
@@ -93,14 +101,14 @@ export function makeFn<T extends { new(...args: any[]): AbstractBaseNode }>(cons
 }
 
 /**
- * Create an `fn` node
+ * Create an `fn` (Footnote) node
  *
  * @decorator `@makeComponent`
  * @param makeFn - The `Fn` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidFnField - A boolean value, if the field is valid or not
  * @param FnFields - An array containing all valid attributes @See {@link FnFields}
- * @param FnContent - An array containing all valid child nodes: '%fn-blocks*' (`p`, `ul`, `ol`, `dl`, `data`)
+ * @param FnContent - An array containing all valid child nodes: '%fn-blocks*' (`p`, `ul`, `ol`, `dl`)
  * @returns A `fn` node
  */
 @makeComponent(makeFn, 'fn', isValidFnField, FnFields, ['%fn-blocks*'])
@@ -121,4 +129,8 @@ export class FnNode extends AbstractBaseNode implements FnNodeAttributes {
 
   // FiltersNodeAttributes
   'props'?: CDATA
+
+  // FnNodeAttributes
+  'id': NMTOKEN
+  'callout'?: CDATA
 }

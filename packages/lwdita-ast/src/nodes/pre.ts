@@ -22,7 +22,7 @@ import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters 
 import { areFieldsValid, isOrUndefined } from "../utils";
 import { makeComponent, AbstractBaseNode, BaseNode, makeAll } from "./base";
 import { BasicValue } from "../classes";
-import { CDATA, isCDATA, NMTOKEN } from "../ast-classes";
+import { CDATA, isCDATA, NMTOKEN, XmlSpace } from "../ast-classes";
 
 /**
  * Define all allowed `pre` fields:
@@ -32,9 +32,15 @@ export const PreFields = [...FiltersFields, ...LocalizationFields, ...ReuseField
 
 /**
  * Interface PreNodeAttributes defines the attribute types for `pre`:
- * `CDATA`, `NMTOKEN`
  */
-export interface PreNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ReuseNodeAttributes, ClassNodeAttributes, BaseNode { }
+export interface PreNodeAttributes extends
+  FiltersNodeAttributes,
+  LocalizationNodeAttributes,
+  ReuseNodeAttributes,
+  ClassNodeAttributes,
+  BaseNode {
+   'xml:space': XmlSpace
+  }
 
 /**
  * Check if the given fields of the `pre` node are valid
@@ -80,19 +86,15 @@ export const isPreNode = (value?: unknown): value is PreNodeAttributes =>
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makePre<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T {
   return makeAll(class extends constructor {
-    get 'xmlns:space'(): CDATA {
-      return this.readProp<CDATA>('xmlns:space'); }
-    set 'xmlns:space'(value: CDATA) {
-        this.writeProp<CDATA>('xmlns:space', value); }
+    get 'xml:space'(): XmlSpace {
+      return this.readProp<XmlSpace>('xml:space'); }
+    set 'xml:space'(value: XmlSpace) {
+        this.writeProp<XmlSpace>('xml:space', value); }
   }, makeLocalization, makeFilters, makeReuse, makeClass);
 }
 
 /**
  * Create a `pre` node (preformatted text) and map the `pre` node with the LwDita tag name `pre`
- *
- * @privateRemarks
- * TODO (A.): Is the syntax of the child nodes array [[...]] really correct?
- * TODO (Y.): Alex is correct and this needs to be fixed
  *
  * @decorator `@makeComponent`
  * @param makePre - The `pre` node constructor
@@ -101,7 +103,7 @@ export function makePre<T extends { new(...args: any[]): AbstractBaseNode }>(con
  * @param fields - A List of valid attributes @See {@link PreFields}
  * @param childNodes - An Array of allowed child nodes `text*`, `%ph*`, `xref*`, `%data*`
  */
-@makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', '%data*']])
+@makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*']])
 export class PreNode extends AbstractBaseNode implements PreNodeAttributes {
   static domNodeName = 'pre';
 
@@ -120,4 +122,7 @@ export class PreNode extends AbstractBaseNode implements PreNodeAttributes {
 
   // FiltersNodeAttributes
   'props'?: CDATA
+
+  // PreNodeAttributes
+  'xml:space': XmlSpace
 }

@@ -20,26 +20,34 @@ import { ClassNodeAttributes, ClassFields, isValidClassField, makeClass } from "
 import { areFieldsValid, isOrUndefined } from "../utils";
 import { AbstractBaseNode, BaseNode, makeComponent, makeAll } from "./base";
 import { BasicValue } from "../classes";
-import { CDATA, isCDATA, ID } from "../ast-classes";
+import { CDATA, isCDATA, ID, isID, DITAARCH, isDITAARCH, INCLUDED_DOMAINS } from "../ast-classes";
+import { isValidSpecializationsField, makeSpecializations, SpecializationsFields, SpecializationsNodeAttributes } from "./specializations-type";
 
 /**
  * Define all allowed `topic` attributes:
- * `dir`, `xml:lang`, `translate`, `class`, `outputclass`, `id`, `xmlns:ditaarch`, `ditaarch:DITAArchVersion`, `domains`
+ * `dir`, `xml:lang`, `translate`, `class`, `outputclass`, `id`, `xmlns:ditaarch`, `ditaarch:DITAArchVersion`
  */
-export const TopicFields = [...LocalizationFields, ...ClassFields, 'id', 'xmlns:ditaarch', 'ditaarch:DITAArchVersion', 'domains'];
+export const TopicFields = [
+  ...LocalizationFields,
+  ...ClassFields,
+  ...SpecializationsFields,
+  'id',
+  'xmlns:ditaarch',
+  'ditaarch:DITAArchVersion'
+];
 
 /**
  * Interface TopicNode defines the attribute types for `topic`:
  * `CDATA`, `ID`
- *
- * @privateRemarks
- * TODO: Implement type "&xdita-constraint; &included-domains;"
  */
-export interface TopicNodeAttributes extends LocalizationNodeAttributes, ClassNodeAttributes, BaseNode {
+export interface TopicNodeAttributes extends
+  LocalizationNodeAttributes,
+  ClassNodeAttributes,
+  SpecializationsNodeAttributes,
+  BaseNode {
   'id': ID
-  'xmlns:ditaarch': CDATA
+  'xmlns:ditaarch': DITAARCH
   'ditaarch:DITAArchVersion'?: CDATA
-  'domains'?: CDATA
 }
 
 /**
@@ -50,13 +58,15 @@ export interface TopicNodeAttributes extends LocalizationNodeAttributes, ClassNo
  * @returns Boolean
  */
 export function isValidTopicField(field: string, value: BasicValue): boolean {
-  if (isValidLocalizationField(field, value) || isValidClassField(field, value)) {
+  if (isValidLocalizationField(field, value)
+    || isValidClassField(field, value)
+    || isValidSpecializationsField(field, value)
+  ) {
     return true;
   }
   switch(field) {
-    case 'id': return isOrUndefined(isCDATA, value);
-    case 'xmlns:ditaarch': return isOrUndefined(isCDATA, value);
-    case 'domains': return isOrUndefined(isCDATA, value);
+    case 'id': return isOrUndefined(isID, value);
+    case 'xmlns:ditaarch': return isOrUndefined(isDITAARCH, value);
     case 'ditaarch:DITAArchVersion': return isOrUndefined(isCDATA, value);
     default: return false;
   }
@@ -84,22 +94,28 @@ export const isTopicNode = (value?: unknown): value is TopicNodeAttributes =>
 export function makeTopic<T extends { new(...args: any[]): AbstractBaseNode }>(constructor: T): T  {
   return makeAll(class extends constructor {
     get 'id'(): ID {
-      return this.readProp<ID>('id'); }
+      return this.readProp<ID>('id');
+    }
     set 'id'(value: ID) {
-        this.writeProp<ID>('id', value); }
-    get 'xmlns:ditaarch'(): CDATA {
-      return this.readProp<CDATA>('xmlns:ditaarch'); }
-    set 'xmlns:ditaarch'(value: CDATA) {
-        this.writeProp<CDATA>('xmlns:ditaarch', value); }
+      this.writeProp<ID>('id', value);
+    }
+    get 'xmlns:ditaarch'(): DITAARCH {
+      return this.readProp<DITAARCH>('xmlns:ditaarch');
+    }
+    set 'xmlns:ditaarch'(value: DITAARCH) {
+      this.writeProp<DITAARCH>('xmlns:ditaarch', value);
+    }
     get 'ditaarch:DITAArchVersion'(): CDATA | undefined {
-      return this.readProp<CDATA | undefined>('ditaarch:DITAArchVersion'); }
+      return this.readProp<CDATA | undefined>('ditaarch:DITAArchVersion');
+    }
     set 'ditaarch:DITAArchVersion'(value: CDATA | undefined) {
-        this.writeProp<CDATA | undefined>('ditaarch:DITAArchVersion', value); }
-    get 'domains'(): CDATA | undefined {
-      return this.readProp<CDATA | undefined>('domains'); }
-    set 'domains'(value: CDATA | undefined) {
-        this.writeProp<CDATA | undefined>('domains', value); }
-  }, makeLocalization, makeClass,);
+      this.writeProp<CDATA | undefined>('ditaarch:DITAArchVersion', value);
+    }
+  },
+    makeLocalization,
+    makeClass,
+    makeSpecializations
+  );
 }
 
 /**
@@ -125,9 +141,11 @@ export class TopicNode extends AbstractBaseNode implements TopicNodeAttributes {
   'xml:lang'?: CDATA
   'translate'?: CDATA
 
+  // SpecializationsNodeAttributes
+  'specializations'?: INCLUDED_DOMAINS
+
   // TopicNodeAttributes
   'id': ID
-  'xmlns:ditaarch': CDATA
+  'xmlns:ditaarch': DITAARCH
   'ditaarch:DITAArchVersion'?: CDATA
-  'domains'?: CDATA
 }

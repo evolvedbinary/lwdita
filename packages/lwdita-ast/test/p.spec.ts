@@ -19,9 +19,13 @@ import { doNodeTest } from "./tests";
 import { PNode, isPNode } from "../src/nodes/p";
 import { expect } from "chai";
 
-doNodeTest(PNode, 'p', isPNode,
+doNodeTest(
+  PNode,
+  'p',
+  isPNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
-  ['%all-inline*']);
+  ['%inline*']
+);
 
 describe('Class PNode', () => {
   it("sets correct attributes", () => {

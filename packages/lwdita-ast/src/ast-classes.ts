@@ -55,6 +55,45 @@ export const isReferenceContentScope = (value?: BasicValue): value is ReferenceC
 export type ReferenceContentScope = 'local' | 'peer' | 'external';
 
 /**
+ * ProcessingRole defines all possible values for the `processing-role` attribute
+ */
+export type ProcessingRole = 'normal' | 'resource-only';
+
+/**
+ * ProcessingRole validation function
+ *
+ * @param value - String
+ * @returns - If the value is a ProcessingRole
+ */
+export const isProcessingRole = (value?: BasicValue): value is ProcessingRole => ['normal', 'resource-only'].includes(value as string);
+
+/**
+ * TableScope defines all possible values for the `scope` (in context of table-cells) attribute
+ */
+export type TableScope = 'row' | 'col' | 'rowgroup' | 'colgroup';
+
+/**
+ * isScope validation function
+ *
+ * @param value - String
+ * @returns - If the value is a TableScope
+ */
+export const isTableScope = (value?: BasicValue): value is TableScope => ['row', 'col', 'rowgroup', 'colgroup'].includes(value as string);
+
+/**
+ * XmlSpace defines the allowed string value for the `xml:space` attribute
+ */
+export type XmlSpace = 'preserve';
+
+/**
+ * XmlSpace validation function
+ *
+ * @param value - String
+ * @returns - If the value is a xmlSpace type
+ */
+export const isXmlSpace = (value?: BasicValue): value is XmlSpace => ['preserve'].includes(value as string);
+
+/**
  * TODO(AR) can we further refine these types?
  */
 export type ID = string;
@@ -94,6 +133,36 @@ export type NMTOKEN = string;
 export const isNMTOKEN = (value?: BasicValue): value is NMTOKEN => typeof value === 'string';
 
 /**
+ * NMTOKENS is a space-separated list of strings
+ */
+export type NMTOKENS = string;
+
+/**
+ * NMTOKENS validation function
+ */
+export const isNMTOKENS = (value?: BasicValue): value is NMTOKENS => typeof value === 'string';
+
+/**
+ * INCLUDED_DOMAINS sets a fixed string value
+ */
+export type INCLUDED_DOMAINS = '&included-domains;';
+
+/**
+ * INCLUDED_DOMAINS validation function
+ */
+export const isINCLUDED_DOMAINS = (value?: BasicValue): value is INCLUDED_DOMAINS => typeof value === 'string';
+
+/**
+ * DITAARCH sets a fixed string value
+ */
+export type DITAARCH = 'http://dita.oasis-open.org/architecture/2005/';
+
+/**
+ * INCLUDED_DOMAINS validation function
+ */
+export const isDITAARCH = (value?: BasicValue): value is DITAARCH => typeof value === 'string';
+
+/**
  * DisplayScale defines all possible values for the `scale` attribute
  */
 export type DisplayScale = 50 | 60 | 70 | 80 | 90 | 100 | 110 | 120 | 140 | 160 | 180 | 200;
@@ -124,6 +193,16 @@ export type DisplayExpanse = 'column' | 'page' | 'spread' | 'textline';
 export const isDisplayExpanse = (value?: BasicValue): value is DisplayExpanse => (['column', 'page', 'spread', 'textline'] as BasicValue[]).indexOf(value) > -1;
 
 /**
+ * BooleanString defines two possible string values
+ */
+export type BooleanString = 'true' | 'false';
+
+/**
+ * BooleanString validation function
+ */
+export const isBooleanString = (value?: BasicValue): value is BooleanString => (['true', 'false'] as BasicValue[]).indexOf(value) > -1;
+
+/**
  * NoteType defines all possible values for the `type` attribute
  */
 export type NoteType = 'caution' | 'warning' | 'danger' | 'trouble' | 'notice' | 'note';
@@ -132,6 +211,16 @@ export type NoteType = 'caution' | 'warning' | 'danger' | 'trouble' | 'notice' |
  * NoteType validation function
  */
 export const isNoteType = (value?: BasicValue): value is NoteType => (['caution', 'warning', 'danger', 'trouble', 'notice', 'note'] as BasicValue[]).indexOf(value) > -1;
+
+/**
+ * KindType defines all possible values for the `kind` attribute
+ */
+export type KindType = 'subtitles' | 'captions' | 'descriptions' | 'chapters' | 'metadata';
+
+/**
+ * KindType validation function
+ */
+export const isKindType = (value?: BasicValue): value is KindType => (['subtitles', 'captions', 'descriptions', 'chapters', 'metadata'] as BasicValue[]).indexOf(value) > -1;
 
 /**
  * Typedef for UnknownNodeError

@@ -26,7 +26,7 @@ import { CDATA, NMTOKEN } from "../ast-classes";
 
 /**
  * Define all allowed `p` attributes:
- * `props`, `dir`, `xml:lang`, `translate`, `'id`, `conref'`, `class`, `outputclass`
+ * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `class`, `outputclass`
  */
 export const PFields = [...FiltersFields, ...LocalizationFields, ...ReuseFields, ...ClassFields];
 
@@ -81,9 +81,9 @@ export function makeP<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidPField - A boolean value, if the field is valid or not
  * @param fields - A List of valid attributes @See {@link PFields}
- * @param childNodes - An Array of allowed child nodes `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
+ * @param childNodes - An Array of allowed child nodes `%inline*` (`text`, `b`, `em`, `i`, `ph`, `strong`, `sub`, `sup`, `tt`, `u`, `image`, `xref`)
  */
-@makeComponent(makeP, 'p', isValidPField, PFields, ['%all-inline*'])
+@makeComponent(makeP, 'p', isValidPField, PFields, ['%inline*'])
 export class PNode extends AbstractBaseNode implements PNodeAttributes {
   static domNodeName = 'p';
 

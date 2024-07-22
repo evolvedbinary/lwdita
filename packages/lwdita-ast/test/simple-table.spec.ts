@@ -17,6 +17,36 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { SimpleTableNode, isSimpleTableNode } from "../src/nodes/simple-table";
-doNodeTest(SimpleTableNode, 'simpletable', isSimpleTableNode,
+import { expect } from "chai";
+
+doNodeTest(
+  SimpleTableNode,
+  'simpletable',
+  isSimpleTableNode,
   ['dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
-  ['sthead?', 'strow+']);
+  ['title?', 'sthead?', 'strow+']
+);
+
+describe('Class SimpleTableNode', () => {
+  it("sets correct attributes", () => {
+    const simpletable = new SimpleTableNode({});
+
+    simpletable.dir = "dir";
+    simpletable["xml:lang"] = "lang";
+    simpletable.translate = "translate";
+    simpletable.props = "props";
+    simpletable.id = "id";
+    simpletable.conref = "conref";
+    simpletable.outputclass = "outputclass";
+    simpletable.class = "class";
+
+    expect(simpletable.dir).to.equal("dir");
+    expect(simpletable["xml:lang"]).to.equal("lang");
+    expect(simpletable.translate).to.equal("translate");
+    expect(simpletable.props).to.equal("props");
+    expect(simpletable.id).to.equal("id");
+    expect(simpletable.conref).to.equal("conref");
+    expect(simpletable.outputclass).to.equal("outputclass");
+    expect(simpletable.class).to.equal("class");
+  });
+});

@@ -17,6 +17,38 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { PreNode, isPreNode } from "../src/nodes/pre";
-doNodeTest(PreNode, 'pre', isPreNode,
+import { expect } from "chai";
+
+doNodeTest(
+  PreNode,
+  'pre',
+  isPreNode,
   ['xml:space', 'dir', 'xml:lang', 'translate', 'props', 'id', 'conref', 'outputclass', 'class'],
-  ['(text|%ph|xref|%data)*']);
+  ['(text|%ph|xref)*']
+);
+
+describe('Class PreNode', () => {
+  it("sets correct attributes", () => {
+    const pre = new PreNode({});
+
+    pre["xml:space"]= "preserve";
+    pre.dir = "dir";
+    pre["xml:lang"] = "lang";
+    pre.translate = "translate";
+    pre.props = "props";
+    pre.id = "id";
+    pre.conref = "conref";
+    pre.outputclass = "outputclass";
+    pre.class = "class";
+
+    expect(pre['xml:space']).to.equal("preserve");
+    expect(pre.dir).to.equal("dir");
+    expect(pre["xml:lang"]).to.equal("lang");
+    expect(pre.translate).to.equal("translate");
+    expect(pre.props).to.equal("props");
+    expect(pre.id).to.equal("id");
+    expect(pre.conref).to.equal("conref");
+    expect(pre.outputclass).to.equal("outputclass");
+    expect(pre.class).to.equal("class");
+  });
+});

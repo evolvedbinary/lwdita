@@ -17,6 +17,57 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { doNodeTest } from "./tests";
 import { AudioNode, isAudioNode } from "../src/nodes/audio";
-doNodeTest(AudioNode, 'audio', isAudioNode,
-  ['outputclass', 'class', 'dir', 'xml:lang', 'translate', 'props', 'id', 'conref'],
-  ['desc?', 'media-controls?', 'media-autoplay?', 'media-loop?', 'media-muted?', 'media-source*', 'media-track*']);
+import { expect } from "chai";
+
+doNodeTest(
+  AudioNode,
+  'audio',
+  isAudioNode,
+  ['props', 'dir', 'xml:lang', 'translate', 'keyref',
+    'id', 'conref', 'outputclass', 'class', 'href', 'format',
+    'scope', 'autoplay', 'controls', 'loop', 'muted', 'tabindex'
+  ],
+  ['desc?', 'fallback?', 'media-source*', 'media-track*']
+);
+
+describe('Class AudioNode', () => {
+  it("sets correct attributes", () => {
+    const audio = new AudioNode({});
+
+    audio.props = "props";
+    audio.dir = "dir";
+    audio["xml:lang"] = "lang";
+    audio.translate = "translate";
+    audio.keyref = "keyref";
+    audio.id = "id";
+    audio.conref = "conref";
+    audio.class = "class";
+    audio.outputclass = "outputclass";
+    audio.href = "href";
+    audio.format = "format";
+    audio.scope = "local";
+    audio.autoplay = "false";
+    audio.controls = "true";
+    audio.loop = "false";
+    audio.muted = "false";
+    audio.tabindex = "1";
+
+    expect(audio.props).to.equal("props");
+    expect(audio.dir).to.equal("dir");
+    expect(audio["xml:lang"]).to.equal("lang");
+    expect(audio.translate).to.equal("translate");
+    expect(audio.keyref).to.equal("keyref");
+    expect(audio.id).to.equal("id");
+    expect(audio.conref).to.equal("conref");
+    expect(audio.class).to.equal("class");
+    expect(audio.outputclass).to.equal("outputclass");
+    expect(audio.href).to.equal("href");
+    expect(audio.format).to.equal("format");
+    expect(audio.scope).to.equal("local");
+    expect(audio.autoplay).to.equal("false");
+    expect(audio.controls).to.equal("true");
+    expect(audio.loop).to.equal("false");
+    expect(audio.muted).to.equal("false");
+    expect(audio.tabindex).to.equal("1");
+  });
+});

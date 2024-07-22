@@ -21,18 +21,24 @@ import { FiltersNodeAttributes, FiltersFields, isValidFiltersField, makeFilters 
 import { areFieldsValid } from "../utils";
 import { AbstractBaseNode, BaseNode, makeComponent, makeAll, Constructor } from "./base";
 import { BasicValue } from "../classes";
-import { CDATA } from "../ast-classes";
+import { CDATA, NMTOKEN } from "../ast-classes";
+import { isValidReuseField, makeReuse, ReuseFields, ReuseNodeAttributes } from "./reuse";
 
 /**
  * Define all allowed `shortdesc` attributes:
- * `props`, `dir`, `xml:lang`, `translate`, `class`, `outputclass`
+ * `props`, `dir`, `xml:lang`, `translate`, `id`, `conref`, `class`, `outputclass`
  */
-export const ShortDescFields = [...FiltersFields, ...LocalizationFields, ...ClassFields];
+export const ShortDescFields = [...FiltersFields, ...ReuseFields, ...LocalizationFields, ...ClassFields];
 
 /**
- * Interface ShortDescNodeAttributes defines the attribute types for `shortdesc`: `CDATA`
+ * Interface ShortDescNodeAttributes defines the attribute types for `shortdesc`
  */
-export interface ShortDescNodeAttributes extends FiltersNodeAttributes, LocalizationNodeAttributes, ClassNodeAttributes, BaseNode { }
+export interface ShortDescNodeAttributes extends
+  FiltersNodeAttributes,
+  LocalizationNodeAttributes,
+  ReuseNodeAttributes,
+  ClassNodeAttributes,
+  BaseNode { }
 
 /**
  * Check if the given attributes of the `shortdesc` node are valid
@@ -43,6 +49,7 @@ export interface ShortDescNodeAttributes extends FiltersNodeAttributes, Localiza
  */
 export const isValidShortDescField = (field: string, value: BasicValue): boolean => isValidFiltersField(field, value)
   || isValidLocalizationField(field, value)
+  || isValidReuseField(field, value)
   || isValidClassField(field, value);
 
 /**
@@ -64,7 +71,7 @@ export const isShortDescNode = (value?: unknown): value is ShortDescNodeAttribut
  * @returns An `shortdesc` node
  */
 export function makeShortDesc<T extends Constructor>(constructor: T): T {
-  return makeAll(constructor, makeLocalization, makeFilters, makeClass);
+  return makeAll(constructor, makeLocalization, makeFilters, makeReuse, makeClass);
 }
 
 /**
@@ -75,9 +82,9 @@ export function makeShortDesc<T extends Constructor>(constructor: T): T {
  * @param nodeName - A string containing the node name
  * @param isValidSimpleTableField - A boolean value, if the attribute is valid or not
  * @param fields - A List of valid attributes
- * @param childNodes - An Array of allowed child node `%all-inline*` (`text`, `ph`, `b`, `i`, `u`, `sub`, `sup`, `image`, `xref`, `data`)
+ * @param childNodes - An Array of allowed child node `%inline*` (`text`, `b`, `em`, `i`, `ph`, `strong`, `sub`, `sup`, `tt`, `u`, `image`, `xref`)
  */
-@makeComponent(makeShortDesc, 'shortdesc', isValidShortDescField, ShortDescFields, ['%all-inline*'])
+@makeComponent(makeShortDesc, 'shortdesc', isValidShortDescField, ShortDescFields, ['%inline*'])
 export class ShortDescNode extends AbstractBaseNode implements ShortDescNodeAttributes {
   static domNodeName = 'p'
 
@@ -89,6 +96,10 @@ export class ShortDescNode extends AbstractBaseNode implements ShortDescNodeAttr
   'dir'?: CDATA
   'xml:lang'?: CDATA
   'translate'?: CDATA
+
+  // ReuseNodeAttributes
+  'id'?: NMTOKEN
+  'conref'?: CDATA
 
   // FiltersNodeAttributes
   'props'?: CDATA
