@@ -1,6 +1,6 @@
 {
   "name": "@evolvedbinary/lwdita-xdita",
-  "version": "2.1.2",
+  "version": "3.0.0",
   "description": "An LwDITA XDITA parser and serializer",
   "main": "./dist/index.js",
   "engines": {
