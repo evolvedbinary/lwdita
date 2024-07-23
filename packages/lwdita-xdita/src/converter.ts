@@ -107,11 +107,11 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
       stack.pop();
     });
 
+    // Look for CDATA and add the node to the array
     parser.on("cdata", (cdata) => {
-      try {        
+      try {
         const obj = createCDataSectionNode(cdata);
         stack[stack.length - 1].add(obj, abortOnError);
-
       } catch (e) {
         console.log('invalid:', e);
       }
@@ -148,7 +148,7 @@ export async function xditaToJdita(xml: string, abortOnError = true): Promise<JD
 
 /**
  * Convert the document node to JDita object
- * 
+ *
  * @param document - DocumentNode
  * @returns JDita object
  */
