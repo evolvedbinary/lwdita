@@ -103,7 +103,7 @@ export function makePre<T extends { new(...args: any[]): AbstractBaseNode }>(con
  * @param fields - A List of valid attributes @See {@link PreFields}
  * @param childNodes - An Array of allowed child nodes `text*`, `%ph*`, `xref*`, `%data*`
  */
-@makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*']])
+@makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', 'cdata*']])
 export class PreNode extends AbstractBaseNode implements PreNodeAttributes {
   static domNodeName = 'pre';
 

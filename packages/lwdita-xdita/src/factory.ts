@@ -22,6 +22,7 @@ import { AltNodeAttributes } from "@evolvedbinary/lwdita-ast";
 import { AudioNodeAttributes } from "@evolvedbinary/lwdita-ast";
 import { BodyNodeAttributes } from "@evolvedbinary/lwdita-ast";
 import { BoldNodeAttributes } from "@evolvedbinary/lwdita-ast";
+import { CDataNodeAttributes } from "@evolvedbinary/lwdita-ast";
 import { DescNodeAttributes } from "@evolvedbinary/lwdita-ast";
 import { DivNodeAttributes } from "@evolvedbinary/lwdita-ast";
 import { DdNodeAttributes } from "@evolvedbinary/lwdita-ast";
@@ -39,6 +40,7 @@ import { KeydefNodeAttributes } from "@evolvedbinary/lwdita-ast";
 import { KeytextNodeAttributes } from "@evolvedbinary/lwdita-ast";
 import { LiNodeAttributes } from "@evolvedbinary/lwdita-ast";
 import { MapNodeAttributes } from "@evolvedbinary/lwdita-ast";
+import { CDataNode } from "@evolvedbinary/lwdita-ast";
 import { MediaSourceNodeAttributes } from "@evolvedbinary/lwdita-ast";
 import { MediaTrackNodeAttributes } from "@evolvedbinary/lwdita-ast";
 import { MetadataNodeAttributes } from "@evolvedbinary/lwdita-ast";
@@ -166,4 +168,8 @@ export function createNode<T extends AbstractBaseNode>(node: XMLNode | string): 
     return new classType(node.attributes) as T;
   }
   return nodeObject as T;
+}
+
+export function createCDataSectionNode(cdata: string): CDataNodeAttributes {
+  return new CDataNode(cdata);
 }
