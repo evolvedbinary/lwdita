@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 import { expect } from 'chai';
-import { serializeToXdita, xditaToAst, xditaToJdita } from '../src/converter';
+import { jditaToAst, serializeToXdita, xditaToAst, xditaToJdita } from '../src/converter';
 import { DocumentNode } from "@evolvedbinary/lwdita-ast";
 
 describe('xditaToAst', () => {
@@ -175,5 +175,46 @@ describe('serializeToXdita', () => {
 
     // Assert the serialized XML output
     expect(result).to.equal(expected);
+  });
+});
+
+describe('JditaToAst', () => {
+  it('converts jdita to ast', () => {
+    const jdita = `{
+  "nodeName": "document",
+  "children": [
+    {
+      "nodeName": "topic",
+      "attributes": {},
+      "children": [
+        {
+          "nodeName": "title",
+          "attributes": {},
+          "children": [
+            {
+              "nodeName": "text",
+              "content": "text"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}`;
+
+    const ast = jditaToAst(JSON.parse(jdita));
+
+    // Assert the converted JDITA DocumentNode
+    expect(ast).to.not.be.undefined;
+    expect(ast.children.length).to.equal(1);
+    const topicNode = ast.children[0];
+    expect(topicNode.static.nodeName).to.equal('topic');
+    expect(topicNode.children.length).to.equal(1);
+    const titleNode = topicNode.children[0];
+    expect(titleNode.static.nodeName).to.equal('title');
+    expect(titleNode.children.length).to.equal(1);
+    const textNode = titleNode.children[0];
+    expect(textNode.static.nodeName).to.equal('text');
+    expect(textNode.readProp("content")).to.equal('text');
   });
 });
