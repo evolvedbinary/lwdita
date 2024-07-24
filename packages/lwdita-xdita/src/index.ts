@@ -19,4 +19,3 @@ export * from './classes';
 export * from './utils';
 export * from './converter';
 export * from './xdita-serializer';
-export * from './jdita-serializer';
