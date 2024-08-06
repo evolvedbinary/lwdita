@@ -157,7 +157,8 @@ export function astToJdita(document: DocumentNode): JDita {
 }
 
 /**
- * convert JDita attributes to Saxes attributes
+ * Convert JDita attributes to Saxes attributes.
+ * 
  * @param attr - JDita attributes
  * @returns 
  */
@@ -180,7 +181,6 @@ function jditaAttrToSaxesAttr(attr: Record<string, BasicValue> | undefined): Att
   }
 
   return attributes;
-
 }
 
 /**

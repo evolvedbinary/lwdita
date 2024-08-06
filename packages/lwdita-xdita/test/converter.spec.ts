@@ -22,7 +22,7 @@ import { DocumentNode } from "@evolvedbinary/lwdita-ast";
 
 describe('xditaToAst', () => {
 
-  const expectConvertedJdita = function(jdita: DocumentNode) {
+  const expectConvertedJdita = function (jdita: DocumentNode) {
     const topicNode = jdita.children[0];
     const titleNode = topicNode.children[0];
     const textNode = titleNode.children[0];
@@ -178,29 +178,30 @@ describe('serializeToXdita', () => {
   });
 });
 
-describe('JditaToAst', () => {
+describe('jditaToAst', () => {
   it('converts jdita to ast', () => {
-    const jdita = `{
-  "nodeName": "document",
-  "children": [
-    {
-      "nodeName": "topic",
-      "attributes": {},
-      "children": [
-        {
-          "nodeName": "title",
-          "attributes": {},
-          "children": [
-            {
-              "nodeName": "text",
-              "content": "text"
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}`;
+    const jdita = `
+                  {
+                    "nodeName": "document",
+                    "children": [
+                      {
+                        "nodeName": "topic",
+                        "attributes": {},
+                        "children": [
+                          {
+                            "nodeName": "title",
+                            "attributes": {},
+                            "children": [
+                              {
+                                "nodeName": "text",
+                                "content": "text"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }`;
 
     const ast = jditaToAst(JSON.parse(jdita));
 
@@ -217,4 +218,44 @@ describe('JditaToAst', () => {
     expect(textNode.static.nodeName).to.equal('text');
     expect(textNode.readProp("content")).to.equal('text');
   });
+
+  it('converts jdita to ast including cdata', () => {
+    const jdita = `
+    {
+      "nodeName": "document",
+      "children": [
+        {
+          "nodeName": "topic",
+          "attributes": {},
+          "children": [
+            {
+              "nodeName": "title",
+              "attributes": {},
+              "children": [
+                {
+                  "nodeName": "cdata",
+                  "content": "cdata"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }`;
+
+    const ast = jditaToAst(JSON.parse(jdita));
+
+    // Assert the converted JDITA DocumentNode
+    expect(ast).to.not.be.undefined;
+    expect(ast.children.length).to.equal(1);
+    const topicNode = ast.children[0];
+    expect(topicNode.static.nodeName).to.equal('topic');
+    expect(topicNode.children.length).to.equal(1);
+    const titleNode = topicNode.children[0];
+    expect(titleNode.static.nodeName).to.equal('title');
+    expect(titleNode.children.length).to.equal(1);
+    const textNode = titleNode.children[0];
+    expect(textNode.static.nodeName).to.equal('cdata');
+    expect(textNode.readProp("content")).to.equal('cdata');
+  })
 });
