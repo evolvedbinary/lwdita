@@ -1,4 +1,4 @@
-/*!
+ /*!
 Copyright (C) 2020 Evolved Binary
 
 This program is free software: you can redistribute it and/or modify
@@ -45,121 +45,10 @@ export const AUDIO_NODE_OBJECT = {
 };
 export const XMLNODE_UNKNOWN = `{"name":"unknown","attributes":{},"ns":{},"prefix":"","local":"audio","uri":"","isSelfClosing":true}`;
 
-export const fullXditaExample = `<topic id="fullTopic">
-    <title dir="ltr" translate="no" xml:lang="english">
+export const fullXditaExample = `<topic id="fullTopic"><title dir="ltr" xml:lang="english" translate="no">
         <b>bold</b> and <em>emphasized</em> and <i>italic</i> and <ph>Phrase content</ph> and <strong>strong</strong>
-        and <sub>subscript</sub> and <sup>superscipt</sup> and <tt>tele type</tt> and <u>underline</u>
-        <image></image>
-    </title>
-    <shortdesc>Short description of the full topic.</shortdesc>
-    <prolog props="metadata">
-        <metadata>
-            <othermeta name="test" content="test"/>
-        </metadata>
-    </prolog>
-    <body outputclass="outputclass">
-        <!--
-            ((%list-blocks;)*, section*, div?)
-            list-blocks = p|ul|ol|dl|pre|audio|video|example|simpletable|fig|note
-        -->
-            <p>Paragraph content</p>
-            <ul>
-                <li><p>Unordered list item</p></li>
-            </ul>
-            <ol>
-                <li><p>Ordered list item</p></li>
-            </ol>
-            <dl>
-              <dlentry>
-                <dt>Definition term</dt>
-                <dd><p>Definition description</p></dd>
-              </dlentry>
-            </dl>
-            <pre>Preformatted content</pre>
-            <audio autoplay="false"
-              controls="true"
-              loop="false"
-              muted="false">
-                <!--
-                    ((desc)?,(fallback)?,(media-source)*,(media-track)*)*
-                -->
-              <desc>Theme song for the LwDITA podcast</desc>
-              <fallback><p>The theme song is not available.</p></fallback>
-              <media-source href="theme-song.mp3"/>
-              <media-track srclang="en" href="theme-song.vtt"/>
-            </audio>
-            <video height="300px" width="400px" loop="false"
-                muted="false">
-                <!--
-                    ((desc)?,(fallback)?,(video-poster)?,(media-source)*,(media-track)*)*       >
-                -->
-              <desc>Video about the Sensei Sushi promise.</desc>
-              <fallback>
-                <image href="video-not-available.png">
-                  <alt>This video cannot be displayed.</alt>
-                </image>
-              </fallback>
-              <video-poster href="sensei-video.jpg"/>
-              <media-source href="sensei-video.mp4"/>
-              <media-source href="sensei-video.ogg"/>
-              <media-source href="sensei-video.webm"/>
-              <media-track srclang="en" href="sensei-video.vtt"/> 
-            </video>
-            <example>
-                <title>title</title>
-                <!--
-                    p|ul|ol|dl|pre|audio|video|simpletable|fig|note
-                -->
-                
-            </example>
-            <simpletable>
-                <title>Table title</title>
-                <sthead>
-                    <stentry><p>Header 1</p></stentry>
-                    <stentry><p>Header 2</p></stentry>
-                </sthead>
-                <strow>
-                    <stentry><p>Row 1, Cell 1</p></stentry>
-                    <stentry><p>Row 1, Cell 2</p></stentry>
-                </strow>
-                <strow>
-                    <stentry><p>Row 2, Cell 1</p></stentry>
-                    <stentry><p>Row 2, Cell 2</p></stentry>
-                </strow>
-            </simpletable>
-            <fig>
-            <!--
-                (title?, desc?, (%fig-blocks;|image|xref)*) 
-             -->
-                <title>Figure title</title>
-                <desc>Figure description</desc>
-                <image href="images/image.png"><alt>alt text</alt></image>
-            </fig>
-            <note>
-            <!--
-                <!ENTITY % simple-blocks  "p|ul|ol|dl|pre|audio|video|example|note">
-             -->
-              <p>Note content</p>
-            </note>
-            <section>
-                <title>Section title</title>
-                <!--
-                    p|ul|ol|dl|pre|audio|video|example|simpletable|fig|note
-                -->
-                <p>Section content</p>
-            </section>
-            <div>
-                <!--
-                    p|ul|ol|dl|pre|audio|video|example|simpletable|fig|note
-                -->
-                <fn id="footnote">
-                    <!--
-                        "p|ul|ol|dl"
-                    -->
-                </fn>
-            </div>
-    </body>
-</topic>`
+        and <sub>subscript</sub> and <sup>superscipt</sup> and <tt>tele type</tt> and <u>underline</u><image/>
+        </title><shortdesc>Short description of the full topic.</shortdesc><prolog props="metadata"><metadata><othermeta name="test" content="test"/></metadata></prolog><body outputclass="outputclass"><p>Paragraph content</p><ul><li><p>Unordered list item</p></li></ul><ol><li><p>Ordered list item</p></li></ol><dl><dlentry><dt>Definition term</dt><dd><p>Definition description</p></dd></dlentry></dl><pre>Preformatted content</pre><audio autoplay="false" controls="true" loop="false" muted="false"><desc>Theme song for the LwDITA podcast</desc><fallback><p>The theme song is not available.</p></fallback><media-source href="theme-song.mp3"/><media-track href="theme-song.vtt" srclang="en"/></audio><video width="400px" height="300px" loop="false" muted="false"><desc>Video about the Sensei Sushi promise.</desc><fallback><image href="video-not-available.png"><alt>This video cannot be displayed.</alt></image></fallback><video-poster href="sensei-video.jpg"/><media-source href="sensei-video.mp4"/><media-source href="sensei-video.ogg"/><media-source href="sensei-video.webm"/><media-track href="sensei-video.vtt" srclang="en"/></video><example><title>title</title></example><simpletable><title>Table title</title><sthead><stentry><p>Header 1</p></stentry><stentry><p>Header 2</p></stentry></sthead><strow><stentry><p>Row 1, Cell 1</p></stentry><stentry><p>Row 1, Cell 2</p></stentry></strow><strow><stentry><p>Row 2, Cell 1</p></stentry><stentry><p>Row 2, Cell 2</p></stentry></strow></simpletable><fig><title>Figure title</title><desc>Figure description</desc><image href="images/image.png"><alt>alt text</alt></image></fig><note type="note"><p>Note content</p></note><section><title>Section title</title><p>Section content</p></section><div><fn id="footnote"/></div></body></topic>`
 
 export const fullAstObject = {
   _children: [
@@ -386,11 +275,6 @@ export const fullAstObject = {
             },
             {
               _props: {
-                content: "\n        ",
-              },
-            },
-            {
-              _props: {
                 dir: undefined,
                 "xml:lang": undefined,
                 translate: undefined,
@@ -406,7 +290,7 @@ export const fullAstObject = {
             },
             {
               _props: {
-                content: "\n    ",
+                content: "\n        ",
               },
             },
           ],
@@ -1468,7 +1352,7 @@ export const fullAstObject = {
       ],
     },
   ],
-}
+};
 
 export const fullJditaObject = {
   nodeName: "document",
@@ -1689,10 +1573,6 @@ export const fullJditaObject = {
               ],
             },
             {
-              nodeName: "text",
-              content: "\n        ",
-            },
-            {
               nodeName: "image",
               attributes: {
                 dir: undefined,
@@ -1711,7 +1591,7 @@ export const fullJditaObject = {
             },
             {
               nodeName: "text",
-              content: "\n    ",
+              content: "\n        ",
             },
           ],
         },
@@ -2821,4 +2701,4 @@ export const fullJditaObject = {
       ],
     },
   ],
-}
+};

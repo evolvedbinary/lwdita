@@ -17,8 +17,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { describe } from "mocha";
 import { fullAstObject, fullJditaObject, fullXditaExample } from "./test-utils";
-import { astToJdita, xditaToAst } from "../src/converter";
+import { astToJdita, jditaToAst, xditaToAst } from "../src/converter";
 import { expect } from "chai";
+import { XditaSerializer } from "../src/xdita-serializer";
+import { InMemoryTextSimpleOutputStreamCollector } from "../src/stream";
 
 describe('round trip', () => {
   /**
@@ -44,7 +46,33 @@ describe('round trip', () => {
   it('jdita to ast', async () => {
     const xdita = fullXditaExample;
     const ast = await xditaToAst(xdita);
+    // assert that the ast is as expected
+    expect(ast).to.deep.equal(fullAstObject);
 
     const jdita = astToJdita(ast);
+
+    const newAst = jditaToAst(jdita);
+    // assert that the new ast is as expected
+    expect(newAst).to.deep.equal(fullAstObject);
   });
+
+  it('ast to xdita', async () => {
+    const xdita = fullXditaExample;
+    const ast = await xditaToAst(xdita);
+
+    const jdita = astToJdita(ast);
+
+    const newAst = jditaToAst(jdita);
+
+    const outStream = new InMemoryTextSimpleOutputStreamCollector();
+    const serializer = new XditaSerializer(outStream);
+
+    serializer.serialize(newAst);
+
+    const newXdita = outStream.getText();
+
+    // assert that the new xdita is as expected
+    expect(newXdita).to.equal(xdita);
+  });
+
 });

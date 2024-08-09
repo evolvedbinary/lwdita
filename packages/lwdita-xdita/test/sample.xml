@@ -90,7 +90,7 @@
                 <desc>Figure description</desc>
                 <image href="images/image.png"><alt>alt text</alt></image>
             </fig>
-            <note>
+            <note type="note">
             <!--
                 <!ENTITY % simple-blocks  "p|ul|ol|dl|pre|audio|video|example|note">
              -->
