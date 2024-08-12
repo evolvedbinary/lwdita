@@ -17,8 +17,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 import { expect } from 'chai';
-import { jditaToAst, serializeToXdita, xditaToAst, xditaToJdita } from '../src/converter';
+import { astToJdita, jditaToAst, serializeToXdita, xditaToAst, xditaToJdita } from '../src/converter';
 import { DocumentNode } from "@evolvedbinary/lwdita-ast";
+import { fullAstObject, fullJditaObject, fullXditaExample } from './test-utils';
+import { InMemoryTextSimpleOutputStreamCollector } from '../src/stream';
+import { XditaSerializer } from '../src/xdita-serializer';
 
 describe('xditaToAst', () => {
 
@@ -258,4 +261,40 @@ describe('jditaToAst', () => {
     expect(textNode.static.nodeName).to.equal('cdata');
     expect(textNode.readProp("content")).to.equal('cdata');
   })
+});
+
+
+describe('A round trip conversion between xdita, ast, and jdita', () => {
+  // This test ensures that the conversion between the three formats is lossless and reversible.
+
+  const xdita = fullXditaExample;
+
+  it('converts xdita to ast', async () => {
+    const ast = await xditaToAst(xdita);
+    expect(ast).to.deep.equal(fullAstObject);
+  });
+
+  it('converts ast to jdita', async () => {
+    const ast = await xditaToAst(xdita);
+    const jdita = astToJdita(ast);
+    expect(jdita).to.deep.equal(fullJditaObject);
+  });
+
+  it('converts jdita to ast', async () => {
+    const ast = await xditaToAst(xdita);
+    const jdita = astToJdita(ast);
+    const newAst = jditaToAst(jdita);
+    expect(newAst).to.deep.equal(fullAstObject);
+  });
+
+  it('converts ast to xdita', async () => {
+    const ast = await xditaToAst(xdita);
+    const jdita = astToJdita(ast);
+    const newAst = jditaToAst(jdita);
+    const outStream = new InMemoryTextSimpleOutputStreamCollector();
+    const serializer = new XditaSerializer(outStream);
+    serializer.serialize(newAst);
+    const newXdita = outStream.getText();
+    expect(newXdita).to.equal(xdita);
+  });
 });

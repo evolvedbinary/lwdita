@@ -21,8 +21,6 @@ import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, Docume
 import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
 import { XditaSerializer } from "./xdita-serializer";
 
-/** TODO: Add tests for this module */
-
 /**
  * Converts XML to an AST document tree
  *
