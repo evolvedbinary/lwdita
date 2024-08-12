@@ -264,57 +264,37 @@ describe('jditaToAst', () => {
 });
 
 
-describe('round trip', () => {
-  /**
-   * xdita -> ast -> jdita -> ast -> xdita
-   */
+describe('A round trip conversion between xdita, ast, and jdita', () => {
+  // This test ensures that the conversion between the three formats is lossless and reversible.
 
-  it('xdita to ast', async () => {
-    const xdita = fullXditaExample;
+  const xdita = fullXditaExample;
+
+  it('converts xdita to ast', async () => {
     const ast = await xditaToAst(xdita);
-    // assert that the ast is as expected
     expect(ast).to.deep.equal(fullAstObject);
-  })
+  });
 
-  it('ast to jdita', async () => {
-    const xdita = fullXditaExample;
+  it('converts ast to jdita', async () => {
     const ast = await xditaToAst(xdita);
-
     const jdita = astToJdita(ast);
-    // assert that the lwdita is as expected
     expect(jdita).to.deep.equal(fullJditaObject);
-  })
+  });
 
-  it('jdita to ast', async () => {
-    const xdita = fullXditaExample;
+  it('converts jdita to ast', async () => {
     const ast = await xditaToAst(xdita);
-    // assert that the ast is as expected
-    expect(ast).to.deep.equal(fullAstObject);
-
     const jdita = astToJdita(ast);
-
     const newAst = jditaToAst(jdita);
-    // assert that the new ast is as expected
     expect(newAst).to.deep.equal(fullAstObject);
   });
 
-  it('ast to xdita', async () => {
-    const xdita = fullXditaExample;
+  it('converts ast to xdita', async () => {
     const ast = await xditaToAst(xdita);
-
     const jdita = astToJdita(ast);
-
     const newAst = jditaToAst(jdita);
-
     const outStream = new InMemoryTextSimpleOutputStreamCollector();
     const serializer = new XditaSerializer(outStream);
-
     serializer.serialize(newAst);
-
     const newXdita = outStream.getText();
-
-    // assert that the new xdita is as expected
     expect(newXdita).to.equal(xdita);
   });
-
 });
