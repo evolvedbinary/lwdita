@@ -352,7 +352,7 @@ __metadata:
   dependencies:
     "@tsconfig/recommended": "npm:^1.0.7"
     "@types/chai": "npm:^4.3.11"
-    "@types/mocha": "npm:^10.0.7"
+    "@types/mocha": "npm:^10.0.9"
     "@typescript-eslint/eslint-plugin": "npm:^7.16.0"
     "@typescript-eslint/parser": "npm:^8.8.1"
     chai: "npm:^4.3.10"
@@ -360,7 +360,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-plugin-notice: "npm:^1.0.0"
     eslint-plugin-tsdoc: "npm:^0.3.0"
-    mocha: "npm:^10.7.0"
+    mocha: "npm:^10.7.3"
     nodemon: "npm:^3.1.7"
     nyc: "npm:^17.1.0"
     rimraf: "npm:^6.0.1"
@@ -605,10 +605,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mocha@npm:^10.0.7":
-  version: 10.0.7
-  resolution: "@types/mocha@npm:10.0.7"
-  checksum: 10c0/48a2df4dd02b6e66a11129dca6a23cf0cc3995faf8525286eb851043685bd8b7444780f4bb29a1c42df7559ed63294e5308bfce3a6b862ad2e0359cb21c21329
+"@types/mocha@npm:^10.0.9":
+  version: 10.0.9
+  resolution: "@types/mocha@npm:10.0.9"
+  checksum: 10c0/76dd782ac7e971ea159d4a7fd40c929afa051e040be3f41187ff03a2d7b3279e19828ddaa498ba1757b3e6b91316263bb7640db0e906938275b97a06e087b989
   languageName: node
   linkType: hard
 
@@ -3006,9 +3006,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mocha@npm:^10.7.0":
-  version: 10.7.0
-  resolution: "mocha@npm:10.7.0"
+"mocha@npm:^10.7.3":
+  version: 10.7.3
+  resolution: "mocha@npm:10.7.3"
   dependencies:
     ansi-colors: "npm:^4.1.3"
     browser-stdout: "npm:^1.3.1"
@@ -3033,7 +3033,7 @@ __metadata:
   bin:
     _mocha: bin/_mocha
     mocha: bin/mocha.js
-  checksum: 10c0/4d9e04fffa66e147e6250561077fcae1d7220bebba98e5649742e2e11b1c432ce9ab3c20fc27fb7cbd2be533b9a2843d47130aa54570047be698e157add02961
+  checksum: 10c0/76a205905ec626262d903954daca31ba8e0dd4347092f627b98b8508dcdb5b30be62ec8f7a405fab3b2e691bdc099721c3291b330c3ee85b8ec40d3d179f8728
   languageName: node
   linkType: hard
 
