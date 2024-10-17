@@ -67,14 +67,20 @@ describe('XditaSerializer', () => {
     document.add(topic);
     const title = new TitleNode();
     topic.add(title);
-    const text = new TextNode('Hello World');
-    title.add(text);
+    const titleText = new TextNode('Hello World');
+    title.add(titleText);
+    const body = new BodyNode();
+    const para = new PNode();
+    const paraText = new TextNode('Good Morning');
+    para.add(paraText);
+    body.add(para);
+    topic.add(body);
 
     // perform serialization
     serializer.serialize(document);
 
     // expect the output stream to contain the correct XML with text content
-    expect(outStream.getText()).equal("<topic><title>Hello World</title></topic>");
+    expect(outStream.getText()).equal("<topic><title>Hello World</title><body><p>Good Morning</p></body></topic>");
   });
 
   it('serialize a document with attributes', () => {
