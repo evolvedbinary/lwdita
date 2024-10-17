@@ -20,17 +20,13 @@ import { XditaSerializer } from '../src/xdita-serializer';
 import { InMemoryTextSimpleOutputStreamCollector } from '../src/stream';
 import { CDataNode, DocumentNode, TextNode, TitleNode, TopicNode, BodyNode, PNode, PhNode } from "@evolvedbinary/lwdita-ast"
 import { xditaToAst } from '../src/converter';
+import { newSerializer } from './test-utils';
 
 describe('XditaSerializer', () => {
-  let outStream: InMemoryTextSimpleOutputStreamCollector;
-  let serializer: XditaSerializer;
-
-  beforeEach(() => {
-    outStream = new InMemoryTextSimpleOutputStreamCollector();
-    serializer = new XditaSerializer(outStream);
-  });
 
   it('skip the document node', () => {
+    const {serializer, outStream} = newSerializer();
+
     // test setup
     const document = new DocumentNode();
     const topic = new TopicNode();
@@ -46,15 +42,14 @@ describe('XditaSerializer', () => {
   });
 
   it('serialize a document with indentation', () => {
+    const {serializer, outStream} = newSerializer(true);
+
     // test setup
     const document = new DocumentNode();
     const topic = new TopicNode();
     document.add(topic);
     const title = new TitleNode();
     topic.add(title);
-
-    // configure serializer with indentation
-    serializer = new XditaSerializer(outStream, true, ' ', 4);
 
     // perform serialization
     serializer.serialize(document);
@@ -64,6 +59,8 @@ describe('XditaSerializer', () => {
   });
 
   it('serialize a document with text content', () => {
+    const {serializer, outStream} = newSerializer();
+
     // test setup
     const document = new DocumentNode();
     const topic = new TopicNode();
@@ -81,6 +78,8 @@ describe('XditaSerializer', () => {
   });
 
   it('serialize a document with attributes', () => {
+    const {serializer, outStream} = newSerializer();
+
     // test setup
     const document = new DocumentNode();
     const topic = new TopicNode();
@@ -96,6 +95,8 @@ describe('XditaSerializer', () => {
   });
 
   it('serialize a document with cdata', () => {
+    const {serializer, outStream} = newSerializer();
+
     // test setup
     const document = new DocumentNode();
     const topic = new TopicNode();
@@ -113,15 +114,14 @@ describe('XditaSerializer', () => {
   });
 
   it('serialize a document without adding significant white space', () => {
+    const {serializer, outStream} = newSerializer(true);
+
     // test setup
     const document = new DocumentNode();
     const topic = new TopicNode();
     document.add(topic);
     const title = new TitleNode();
     topic.add(title);
-
-    // configure serializer with indentation
-    serializer = new XditaSerializer(outStream, true, ' ', 4);
 
     // perform serialization
     serializer.serialize(document);
@@ -131,6 +131,8 @@ describe('XditaSerializer', () => {
   });
 
   it('serialize a document containing body element without adding significant white space', () => {
+    const {serializer, outStream} = newSerializer(true);
+
     // test setup
     const document = new DocumentNode();
     const topic = new TopicNode();
@@ -143,10 +145,6 @@ describe('XditaSerializer', () => {
     body.add(p);
     topic.add(body);
 
-
-    // configure serializer with indentation
-    serializer = new XditaSerializer(outStream, true, ' ', 4);
-
     // perform serialization
     serializer.serialize(document);
 
@@ -155,6 +153,8 @@ describe('XditaSerializer', () => {
   });
 
   it('serialize a document containing text without adding significant white space', () => {
+    const {serializer, outStream} = newSerializer(true);
+
     // test setup
     const document = new DocumentNode();
     const topic = new TopicNode();
@@ -164,9 +164,6 @@ describe('XditaSerializer', () => {
     title.add(text);
     topic.add(title);
 
-    // configure serializer with indentation
-    serializer = new XditaSerializer(outStream, true, ' ', 4);
-
     // perform serialization
     serializer.serialize(document);
 
@@ -175,6 +172,8 @@ describe('XditaSerializer', () => {
   });
 
   it('serialize a document containing inline element without adding significant white space', () => {
+    const {serializer, outStream} = newSerializer(true);
+
     // test setup
     const document = new DocumentNode();
     const topic = new TopicNode();
@@ -184,9 +183,6 @@ describe('XditaSerializer', () => {
     title.add(ph);
     topic.add(title);
 
-    // configure serializer with indentation
-    serializer = new XditaSerializer(outStream, true, ' ', 4);
-
     // perform serialization
     serializer.serialize(document);
 
@@ -195,6 +191,8 @@ describe('XditaSerializer', () => {
   });
 
   it('should preserve significant white space, indent off', () => {
+    const {serializer, outStream} = newSerializer();
+
     // test setup
     const document = new DocumentNode();
     const topic = new TopicNode();
@@ -203,9 +201,6 @@ describe('XditaSerializer', () => {
     const text = new TextNode('Hello \n World');
     title.add(text);
     topic.add(title);
-
-    // configure serializer with indentation
-    serializer = new XditaSerializer(outStream, false);
 
     // perform serialization
     serializer.serialize(document);
@@ -215,6 +210,8 @@ describe('XditaSerializer', () => {
   });
 
   it('should preserve significant white space, indent on', () => {
+    const {serializer, outStream} = newSerializer(true);
+
     // test setup
     const document = new DocumentNode();
     const topic = new TopicNode();
@@ -223,9 +220,6 @@ describe('XditaSerializer', () => {
     const text = new TextNode('Hello \n World');
     title.add(text);
     topic.add(title);
-
-    // configure serializer with indentation
-    serializer = new XditaSerializer(outStream, true, ' ', 4);
 
     // perform serialization
     serializer.serialize(document);
@@ -237,6 +231,8 @@ describe('XditaSerializer', () => {
   });
 
   it('indent text content after new lines', () => {
+    const {serializer, outStream} = newSerializer(true);
+
     // test setup
     const document = new DocumentNode();
     const topic = new TopicNode();
@@ -245,9 +241,6 @@ describe('XditaSerializer', () => {
     const text = new TextNode('Septate\nLine 1\nLine 2');
     title.add(text);
     topic.add(title);
-
-    // configure serializer with indentation
-    serializer = new XditaSerializer(outStream, true, ' ', 4);
 
     // perform serialization
     serializer.serialize(document);
@@ -267,8 +260,7 @@ describe('complete round trip using xdita serializer', () => {
     
     const orginalAst = await xditaToAst(orginalXdita);
     // perform serialization
-    const outStream = new InMemoryTextSimpleOutputStreamCollector();
-    const serializer = new XditaSerializer(outStream);
+    const {serializer, outStream} = newSerializer();
     serializer.serialize(orginalAst);
 
     const xdita = `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">` + outStream.getText();
@@ -281,8 +273,7 @@ describe('complete round trip using xdita serializer', () => {
     
     const orginalAst = await xditaToAst(orginalXdita);
     // perform serialization
-    const outStream = new InMemoryTextSimpleOutputStreamCollector();
-    const serializer = new XditaSerializer(outStream);
+    const {serializer, outStream} = newSerializer();
     serializer.serialize(orginalAst);
 
     const xdita = `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">` + outStream.getText();
@@ -295,8 +286,7 @@ describe('complete round trip using xdita serializer', () => {
     
     const orginalAst = await xditaToAst(orginalXdita);
     // perform serialization
-    const outStream = new InMemoryTextSimpleOutputStreamCollector();
-    const serializer = new XditaSerializer(outStream, true, ' ', 4);
+    const {serializer, outStream} = newSerializer(true);
     serializer.serialize(orginalAst);
 
     const xdita = `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">` + outStream.getText();

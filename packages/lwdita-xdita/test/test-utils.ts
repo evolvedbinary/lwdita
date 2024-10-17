@@ -15,10 +15,13 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import { XditaSerializer } from '../src/xdita-serializer';
+import { InMemoryTextSimpleOutputStreamCollector } from '../src/stream';
+
 /**
  * test-utils.ts
  *
- * Provides objects and strings to mock test data
+ * Provides objects and strings to mock test data, and some utility functions.
  */
 
 export const XMLNODE_AUDIO = `{"name":"audio","attributes":{},"ns":{},"prefix":"","local":"audio","uri":"","isSelfClosing":true}`;
@@ -2702,3 +2705,18 @@ export const fullJditaObject = {
     },
   ],
 };
+
+/**
+ * Construct a new Serializer and OutputStream for testing.
+ *
+ * @param indent - enable indentation
+ * @param indentation - the character (or string) to use as the indent
+ * @param tabSize - size of the tab, only used when the `indentation` is not a `\t` character.
+ *
+ * @return serializer and output stream.
+ */
+export function newSerializer(indent = false, indentation = " ", tabSize = 4): {serializer: XditaSerializer, outStream: InMemoryTextSimpleOutputStreamCollector} {
+  const outStream = new InMemoryTextSimpleOutputStreamCollector();
+  const serializer = new XditaSerializer(outStream, indent, indentation, tabSize);
+  return {serializer, outStream};
+}
