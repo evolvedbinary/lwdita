@@ -174,7 +174,7 @@ describe('serializeToXdita', () => {
 
     const result = serializeToXdita(ast, ' ', 2);
 
-    const expected = `<topic id="topicID">\n  <title>\n    text content\n  </title>\n</topic>\n`;
+    const expected = `<topic id="topicID">\n  <title>text content</title>\n</topic>\n`;
 
     // Assert the serialized XML output
     expect(result).to.equal(expected);
