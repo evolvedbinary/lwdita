@@ -52,19 +52,21 @@ export class XditaSerializer {
   /**
    * Serialize the indentation to the output stream
    */
-  private serializeIndentation(): void {
-    if (this.indent) {
-      this.outputStream.emit(this.indentation.repeat(this.depth * this.tabSize));
-    }
+  private serializeIndentation(node?: AbstractBaseNode): void {
+    if (!this.indent || !node) return;
+    const textTestNode = new TextNode("");
+    if(node.canAdd(textTestNode)) return;
+    this.outputStream.emit(this.indentation.repeat(this.depth * this.tabSize));
   }
 
   /**
    * Serialize the End of Line character to the output stream
    */
-  private serializeEOL(): void {
-    if (this.indent) {
-      this.outputStream.emit(this.EOL);
-    }
+  private serializeEOL(node?: AbstractBaseNode): void {
+    if (!this.indent || !node) return;
+    const textTestNode = new TextNode("");
+    if(node.canAdd(textTestNode)) return;
+    this.outputStream.emit(this.EOL);
   }
 
   /**
@@ -73,8 +75,16 @@ export class XditaSerializer {
    * @param node - the document node to serialize
    */
   private serializeDocument(node: DocumentNode): void {
+    // emit the XML declaration and doctype declaration
+    const xmlDeclaration = `<?xml version="1.0" encoding="UTF-8"?>`;
+    const docTypeDeclaration = `<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">`;
+
+    this.outputStream.emit(xmlDeclaration);
+    this.outputStream.emit(this.EOL);
+    this.outputStream.emit(docTypeDeclaration);
+    this.outputStream.emit(this.EOL);
     // a document node has no string representation, so move on to its children
-    node.children.forEach(child => this.serialize(child));
+    node.children.forEach(child => this.serialize(child, node));
   }
 
   /**
@@ -90,14 +100,14 @@ export class XditaSerializer {
     if (node.children?.length) {
       // as the element has children or attributes, serialize the remainder of the element start tag
       this.outputStream.emit(`>`);
-      this.serializeEOL();
+      this.serializeEOL(node);
       // increment the depth after starting an element
       this.depth++;
       // visit the element's children
-      node.children.forEach(child => this.serialize(child));
+      node.children.forEach(child => this.serialize(child, node));
       // decrement the depth after serializing the elements children
       this.depth--;
-      this.serializeIndentation();
+      this.serializeIndentation(node);
       this.outputStream.emit(`</${node.static.nodeName}>`);
     } else {
       // element has no attributes or children, so the remainder of the element start tag as a self-closing element
@@ -154,7 +164,7 @@ export class XditaSerializer {
    *
    * @param node - the node to serialize
    */
-  serialize(node: AbstractBaseNode): void {
+  serialize(node: AbstractBaseNode, parent?: AbstractBaseNode): void {
     if (node instanceof DocumentNode) {
       this.serializeDocument(node);
       // close the output stream as we have now serialized the document
@@ -162,7 +172,7 @@ export class XditaSerializer {
 
     } else {
       // serialize any indentation
-      this.serializeIndentation();
+      this.serializeIndentation(parent);
 
       if (node instanceof TextNode) {
         // if the node is a text node, serialize its text content
@@ -178,7 +188,7 @@ export class XditaSerializer {
       }
 
       // serialize any EOL
-      this.serializeEOL();
+      this.serializeEOL(parent);
     }
   }
 }
