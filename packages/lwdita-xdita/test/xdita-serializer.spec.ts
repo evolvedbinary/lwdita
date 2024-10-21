@@ -16,7 +16,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { expect } from 'chai';
-import { CDataNode, DocumentNode, TextNode, TitleNode, TopicNode, BodyNode, PNode, PhNode, BoldNode, ItalicNode } from "@evolvedbinary/lwdita-ast"
+import { CDataNode, DocumentNode, TextNode, TitleNode, TopicNode, BodyNode, PNode, ItalicNode } from "@evolvedbinary/lwdita-ast"
 import { xditaToAst } from '../src/converter';
 import { newSerializer } from './test-utils';
 
@@ -149,7 +149,6 @@ describe('XditaSerializer', () => {
         const topic = new TopicNode();
         document.add(topic);
         const title = new TitleNode();
-        const ph = new PhNode();
         const helloText = new TextNode("Hello ");
         title.add(helloText);
         const i = new ItalicNode();
