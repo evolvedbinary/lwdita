@@ -34,9 +34,12 @@ describe('XditaSerializer', () => {
 
     // perform serialization
     serializer.serialize(document);
+    const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
+    const xdita = "<topic><title/></topic>";
+    const expected = declaration + xdita;
 
     // expect the output stream to contain the correct XML
-    expect(outStream.getText()).equal("<topic><title/></topic>");
+    expect(outStream.getText()).equal(expected);
   });
 
   [
@@ -55,9 +58,10 @@ describe('XditaSerializer', () => {
 
         // perform serialization
         serializer.serialize(document);
+        const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
 
         // expect the output stream to contain the correct XML with indentation
-        expect(outStream.getText()).equal(param.expected);
+        expect(outStream.getText()).equal(declaration + param.expected);
       });
   });
 
@@ -85,9 +89,10 @@ describe('XditaSerializer', () => {
 
         // perform serialization
         serializer.serialize(document);
+        const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
 
         // expect the output stream to contain the correct XML with text content
-        expect(outStream.getText()).equal(param.expected);
+        expect(outStream.getText()).equal(declaration + param.expected);
       });
   });
 
@@ -107,9 +112,10 @@ describe('XditaSerializer', () => {
 
         // perform serialization
         serializer.serialize(document);
+        const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
 
         // expect the output stream to contain the correct XML with attributes
-        expect(outStream.getText()).equal(param.expected);
+        expect(outStream.getText()).equal(declaration + param.expected);
       });
   });
 
@@ -131,9 +137,10 @@ describe('XditaSerializer', () => {
 
         // perform serialization
         serializer.serialize(document);
+        const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
 
         // expect the output stream to contain the correct XML with attributes
-        expect(outStream.getText()).equal(param.expected);
+        expect(outStream.getText()).equal(declaration + param.expected);
       });
   });
 
@@ -159,9 +166,10 @@ describe('XditaSerializer', () => {
 
         // perform serialization
         serializer.serialize(document);
+        const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
 
         // expect the output stream to contain the correct XML with attributes
-        expect(outStream.getText()).equal(param.expected);
+        expect(outStream.getText()).equal(declaration + param.expected);
       });
   });
 
@@ -183,9 +191,11 @@ describe('XditaSerializer', () => {
 
         // perform serialization
         serializer.serialize(document);
+        const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
+
 
         // expect the output stream to contain the correct XML with attributes
-        expect(outStream.getText()).equal(param.expected);
+        expect(outStream.getText()).equal(declaration + param.expected);
       });
   });
 
@@ -207,9 +217,10 @@ describe('XditaSerializer', () => {
 
         // perform serialization
         serializer.serialize(document);
+        const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
 
         // expect the output stream to contain the correct XML with attributes
-        expect(outStream.getText()).equal(param.expected);
+        expect(outStream.getText()).equal(declaration + param.expected);
       });
   });
 

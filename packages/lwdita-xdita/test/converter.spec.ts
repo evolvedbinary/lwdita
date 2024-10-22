@@ -159,7 +159,8 @@ describe('jditaToXdita', () => {
 
 describe('serializeToXdita', () => {
   it('serializes the root node to XML', async () => {
-    const xdita = `<topic id="topicID"><title>text content</title></topic>`;
+    const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
+    const xdita = declaration + `<topic id="topicID"><title>text content</title></topic>`;
     const ast = await xditaToAst(xdita);
 
     const result = serializeToXdita(ast);
@@ -169,13 +170,13 @@ describe('serializeToXdita', () => {
   });
 
   it('serializes the root node to XML with indentation', async () => {
-    const xdita = `<topic id="topicID"><title>text content</title></topic>`;
+    const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
+    const xdita = `<topic id="topicID">\n  <title>text content</title>\n</topic>\n`;
     const ast = await xditaToAst(xdita);
 
     const result = serializeToXdita(ast, ' ', 2);
 
-    const expected = `<topic id="topicID">\n  <title>text content</title>\n</topic>\n`;
-
+    const expected = declaration + xdita;
     // Assert the serialized XML output
     expect(result).to.equal(expected);
   });
@@ -295,6 +296,8 @@ describe('A round trip conversion between xdita, ast, and jdita', () => {
     const serializer = new XditaSerializer(outStream);
     serializer.serialize(newAst);
     const newXdita = outStream.getText();
-    expect(newXdita).to.equal(xdita);
+    const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
+    const expected = declaration + xdita;
+    expect(newXdita).to.equal(expected);
   });
 });
