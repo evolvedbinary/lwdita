@@ -50,7 +50,9 @@ export class XditaSerializer {
   }
 
   /**
-   * Serialize the indentation to the output stream
+   * Emit the indentation to the output stream
+   * 
+   * @param node - the node to check if indentation can be added
    */
   private serializeIndentation(node?: AbstractBaseNode): void {
     if (!this.indent || !node) return;
@@ -60,7 +62,9 @@ export class XditaSerializer {
   }
 
   /**
-   * Serialize the End of Line character to the output stream
+   * Emit the End of Line (EOL) character to the output stream
+   * 
+   * @param node - the node to check if EOL can be added
    */
   private serializeEOL(node?: AbstractBaseNode): void {
     if (!this.indent || !node) return;
@@ -161,8 +165,9 @@ export class XditaSerializer {
 
   /**
    * Visit a node and serialize it to the output stream
-   *
+   * 
    * @param node - the node to serialize
+   * @param parent - the parent node of the node being serialized
    */
   serialize(node: AbstractBaseNode, parent?: AbstractBaseNode): void {
     if (node instanceof DocumentNode) {
