@@ -80,8 +80,7 @@ console.log(xdita);
 
 * You can replace `InMemoryTextSimpleOutputStreamCollector` with your own OutputStream implementation by implementing the interface `SimpleOutputStream`.
 
-* The serialized XML will faithfully contain all XML node types apart from `CDATA` nodes which are currently unsupported.
-
+* The serialized XML will faithfully contain all XML node types.
 
 ## Development
 
