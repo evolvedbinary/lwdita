@@ -61,7 +61,7 @@ export interface BaseNode {
    * @param child - BaseNode node to be added
    * @returns true if the node can be added as a child
    */
-  canAdd(child: BaseNode): boolean;
+  canAddNode(child: BaseNode): boolean;
 
   /**
    * Add a child node to the document tree.
@@ -109,6 +109,13 @@ export interface BaseNode {
    * @returns A record of all attributes
    */
   getProps(): Record<string, BasicValue>;
+
+  /**
+   * Checks if the node allows mixed content.
+   *
+   * @returns true if the node allows mixed content
+   */
+  allowsMixedContent(): boolean;
 }
 
 /**
@@ -182,65 +189,68 @@ export abstract class AbstractBaseNode implements BaseNode {
     };
   }
 
-  canAdd(child: AbstractBaseNode): boolean {
-      // we are e.g. in a `<body>` node and we are trying to add an `<audio`> node
+  canAddNode(child: AbstractBaseNode): boolean {
       const childNodeName = child.static.nodeName;
-      let childType: ChildType | undefined;
-      let iChild = -1;
+      return this.canAdd(childNodeName);
+  }
 
-      // loop through all of the allowed child types and check if the child node name is accepted
-      // `this.static.childTypes`, e.g. allowed children: `['%list-blocks*', 'section*', 'fn*']`
-      this.static.childTypes.some((type, i) => {
-        childType = acceptsNodeName(childNodeName, type, nodeGroups);
-        if (childType) {
+  private canAdd(childNodeName: string): boolean {
+    let childType: ChildType | undefined;
+    let iChild = -1;
 
-          iChild = i;
-          return true;
-        }
-      });
+    // loop through all of the allowed child types and check if the child node name is accepted
+    // `this.static.childTypes`, e.g. allowed children: `['%list-blocks*', 'section*', 'fn*']`
+    this.static.childTypes.some((type, i) => {
+      childType = acceptsNodeName(childNodeName, type, nodeGroups);
+      if (childType) {
 
-      // If the child is not contained in the list `childTypes` it will be rejected
-      if (!childType) {
+        iChild = i;
+        return true;
+      }
+    });
+
+    // If the child is not contained in the list `childTypes` it will be rejected
+    if (!childType) {
+      return false;
+    }
+
+    // get the last child of the parent nodename
+    const last = this.children?.length ? this.children[this.children.length - 1].static.nodeName : '';
+    let iLast = -1;
+
+    // if we do have a last child
+    if (last) {
+      // get the index of the last child in the list of allowed children
+      iLast = this.static.childTypes.findIndex(type => acceptsNodeName(last, type, nodeGroups));
+      // if the child index is less than the last index, it can't be added
+      // this ensures the correct and valid outline
+      if (iLast > iChild) {
         return false;
       }
 
-      // get the last child of the parent nodename
-      const last = this.children?.length ? this.children[this.children.length - 1].static.nodeName : '';
-      let iLast = -1;
-
-      // if we do have a last child
-      if (last) {
-        // get the index of the last child in the list of allowed children
-        iLast = this.static.childTypes.findIndex(type => acceptsNodeName(last, type, nodeGroups));
-        // if the child index is less than the last index, it can't be added
-        // this ensures the correct and valid outline
-        if (iLast > iChild) {
+      // if the child index is equal to the last index, it can't be added if the child type is single
+      // this ensure that there will be no duplication in an invalid manner
+      if (iLast === iChild) {
+        // if we have two of the same elements they can't be added
+        // e.g. `<body>` and `<body>` within parent `<topic>`
+        // you can tell if the element is single by checking the allowed children list `childNodes` and look for ? symbol
+        if (isChildTypeSingle(this.static.childTypes[iChild])) {
           return false;
         }
-
-        // if the child index is equal to the last index, it can't be added if the child type is single
-        // this ensure that there will be no duplication in an invalid manner
-        if (iLast === iChild) {
-          // if we have two of the same elements they can't be added
-          // e.g. `<body>` and `<body>` within parent `<topic>`
-          // you can tell if the element is single by checking the allowed children list `childNodes` and look for ? symbol
-          if (isChildTypeSingle(this.static.childTypes[iChild])) {
-            return false;
-          }
-          return true;
-        }
+        return true;
       }
-      // if the child index is greater than last index,
-      // it can't be added if there are required child types between them
-      const typesBetween = this.static.childTypes.slice(iLast + 1, iChild);
+    }
+    // if the child index is greater than last index,
+    // it can't be added if there are required child types between them
+    const typesBetween = this.static.childTypes.slice(iLast + 1, iChild);
 
-      // to check if a child type is required, check the allowed children list `childNodes`
-      // and look for a child without `?` symbols at the end
-      // e.g. `'title'` in this list: `['title', 'shortdesc?', 'prolog?', 'body?']`
-      if (typesBetween.find(isChildTypeRequired)) {
-        return false;
-      }
-      return true;
+    // to check if a child type is required, check the allowed children list `childNodes`
+    // and look for a child without `?` symbols at the end
+    // e.g. `'title'` in this list: `['title', 'shortdesc?', 'prolog?', 'body?']`
+    if (typesBetween.find(isChildTypeRequired)) {
+      return false;
+    }
+    return true;
   }
 
   add(child: AbstractBaseNode, breakOnError = true): void {
@@ -250,7 +260,7 @@ export abstract class AbstractBaseNode implements BaseNode {
     }
 
     // If there is a child that cannot be added, throw a new error
-    if (!this.canAdd(child)) {
+    if (!this.canAddNode(child)) {
       if (breakOnError) {
         throw new NonAcceptedChildError(`"${child.static.nodeName}" node can't be a child of "${this.static.nodeName}" node`);
       }
@@ -282,6 +292,10 @@ export abstract class AbstractBaseNode implements BaseNode {
 
   getProps(): Record<string, BasicValue> {
     return this._props;
+  }
+
+  allowsMixedContent(): boolean {
+    return this.canAdd("text");
   }
 }
 

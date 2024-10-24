@@ -56,8 +56,7 @@ export class XditaSerializer {
    */
   private serializeIndentation(node?: AbstractBaseNode): void {
     if (!this.indent || !node) return;
-    const textTestNode = new TextNode("");
-    if(node.canAdd(textTestNode)) return;
+    if (node.allowsMixedContent()) return;
     this.outputStream.emit(this.indentation.repeat(this.depth * this.tabSize));
   }
 
@@ -68,8 +67,7 @@ export class XditaSerializer {
    */
   private serializeEOL(node?: AbstractBaseNode): void {
     if (!this.indent || !node) return;
-    const textTestNode = new TextNode("");
-    if(node.canAdd(textTestNode)) return;
+    if (node.allowsMixedContent()) return;
     this.outputStream.emit(this.EOL);
   }
 
