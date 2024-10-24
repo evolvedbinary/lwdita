@@ -16,21 +16,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { expect } from 'chai';
-import { XditaSerializer } from '../src/xdita-serializer';
-import { InMemoryTextSimpleOutputStreamCollector } from '../src/stream';
-import { CDataNode, DocumentNode, TextNode, TitleNode, TopicNode } from "@evolvedbinary/lwdita-ast"
+import { CDataNode, DocumentNode, TextNode, TitleNode, TopicNode, BodyNode, PNode, ItalicNode } from "@evolvedbinary/lwdita-ast"
 import { xditaToAst } from '../src/converter';
+import { newSerializer } from './test-utils';
 
 describe('XditaSerializer', () => {
-  let outStream: InMemoryTextSimpleOutputStreamCollector;
-  let serializer: XditaSerializer;
-
-  beforeEach(() => {
-    outStream = new InMemoryTextSimpleOutputStreamCollector();
-    serializer = new XditaSerializer(outStream);
-  });
 
   it('skip the document node', () => {
+    const {serializer, outStream} = newSerializer();
+
     // test setup
     const document = new DocumentNode();
     const topic = new TopicNode();
@@ -40,92 +34,227 @@ describe('XditaSerializer', () => {
 
     // perform serialization
     serializer.serialize(document);
+    const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
+    const xdita = "<topic><title/></topic>";
+    const expected = declaration + xdita;
 
     // expect the output stream to contain the correct XML
-    expect(outStream.getText()).equal("<topic><title/></topic>");
+    expect(outStream.getText()).equal(expected);
   });
 
-  it('serialize a document with indentation', () => {
-    // test setup
-    const document = new DocumentNode();
-    const topic = new TopicNode();
-    document.add(topic);
-    const title = new TitleNode();
-    topic.add(title);
+  [
+    {indent: false, expected: '<topic><title/></topic>'},
+    {indent: true,  expected: '<topic>\n    <title/>\n</topic>\n'}
+  ].forEach(param => {
+      it('serialize a document, indent: ' + param.indent, () => {
+        const {serializer, outStream} = newSerializer(param.indent);
 
-    // configure serializer with indentation
-    serializer = new XditaSerializer(outStream, true, ' ', 4);
+        // test setup
+        const document = new DocumentNode();
+        const topic = new TopicNode();
+        document.add(topic);
+        const title = new TitleNode();
+        topic.add(title);
 
-    // perform serialization
-    serializer.serialize(document);
+        // perform serialization
+        serializer.serialize(document);
+        const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
 
-    // expect the output stream to contain the correct XML with indentation
-    expect(outStream.getText()).equal("<topic>\n    <title/>\n</topic>\n");
+        // expect the output stream to contain the correct XML with indentation
+        expect(outStream.getText()).equal(declaration + param.expected);
+      });
   });
 
-  it('serialize a document with text content', () => {
-    // test setup
-    const document = new DocumentNode();
-    const topic = new TopicNode();
-    document.add(topic);
-    const title = new TitleNode();
-    topic.add(title);
-    const text = new TextNode('Hello World');
-    title.add(text);
+  [
+    {indent: false, expected: '<topic><title>Hello World</title><body><p>Good Morning</p></body></topic>'},
+    {indent: true,  expected: '<topic>\n    <title>Hello World</title>\n    <body>\n        <p>Good Morning</p>\n    </body>\n</topic>\n'}
+  ].forEach(param => {
+      it('serialize a document with text content, indent: ' + param.indent, () => {
+        const {serializer, outStream} = newSerializer(param.indent);
 
-    // perform serialization
-    serializer.serialize(document);
+        // test setup
+        const document = new DocumentNode();
+        const topic = new TopicNode();
+        document.add(topic);
+        const title = new TitleNode();
+        topic.add(title);
+        const titleText = new TextNode('Hello World');
+        title.add(titleText);
+        const body = new BodyNode();
+        const para = new PNode();
+        const paraText = new TextNode('Good Morning');
+        para.add(paraText);
+        body.add(para);
+        topic.add(body);
 
-    // expect the output stream to contain the correct XML with text content
-    expect(outStream.getText()).equal("<topic><title>Hello World</title></topic>");
+        // perform serialization
+        serializer.serialize(document);
+        const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
+
+        // expect the output stream to contain the correct XML with text content
+        expect(outStream.getText()).equal(declaration + param.expected);
+      });
   });
 
-  it('serialize a document with attributes', () => {
-    // test setup
-    const document = new DocumentNode();
-    const topic = new TopicNode();
-    document.add(topic);
-    const title = new TitleNode({ dir: 'ltr', class: 'title' });
-    topic.add(title);
+  [
+    {indent: false, expected: '<topic><title dir="ltr" class="title"/></topic>'},
+    {indent: true,  expected: '<topic>\n    <title dir="ltr" class="title"/>\n</topic>\n'}
+  ].forEach(param => {
+      it('serialize a document with attributes, indent: ' + param.indent, () => {
+        const {serializer, outStream} = newSerializer(param.indent);
 
-    // perform serialization
-    serializer.serialize(document);
+        // test setup
+        const document = new DocumentNode();
+        const topic = new TopicNode();
+        document.add(topic);
+        const title = new TitleNode({ dir: 'ltr', class: 'title' });
+        topic.add(title);
 
-    // expect the output stream to contain the correct XML with attributes
-    expect(outStream.getText()).equal('<topic><title dir="ltr" class="title"/></topic>');
+        // perform serialization
+        serializer.serialize(document);
+        const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
+
+        // expect the output stream to contain the correct XML with attributes
+        expect(outStream.getText()).equal(declaration + param.expected);
+      });
   });
 
-  it('serialize a document with cdata', () => {
-    // test setup
-    const document = new DocumentNode();
-    const topic = new TopicNode();
-    document.add(topic);
-    const title = new TitleNode();
-    const cdata = new CDataNode('cdata');
-    title.add(cdata);
-    topic.add(title);
+  [
+    {indent: false, expected: '<topic><title><![CDATA[cdata]]></title></topic>'},
+    {indent: true,  expected: '<topic>\n    <title><![CDATA[cdata]]></title>\n</topic>\n'}
+  ].forEach(param => {
+      it('serialize a document with cdata, indent: ' + param.indent, () => {
+        const {serializer, outStream} = newSerializer(param.indent);
 
-    // perform serialization
-    serializer.serialize(document);
+        // test setup
+        const document = new DocumentNode();
+        const topic = new TopicNode();
+        document.add(topic);
+        const title = new TitleNode();
+        const cdata = new CDataNode('cdata');
+        title.add(cdata);
+        topic.add(title);
 
-    // expect the output stream to contain the correct XML with attributes
-    expect(outStream.getText()).equal('<topic><title><![CDATA[cdata]]></title></topic>');
+        // perform serialization
+        serializer.serialize(document);
+        const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
+
+        // expect the output stream to contain the correct XML with attributes
+        expect(outStream.getText()).equal(declaration + param.expected);
+      });
   });
+
+  [
+    {indent: false, expected: '<topic><title>Hello <i>World</i></title></topic>'},
+    {indent: true,  expected: '<topic>\n    <title>Hello <i>World</i></title>\n</topic>\n'}
+  ].forEach(param => {
+      it('serialize a document containing inline element without introducing significant whitespace, indent: ' + param.indent, () => {
+        const {serializer, outStream} = newSerializer(param.indent);
+
+        // test setup
+        const document = new DocumentNode();
+        const topic = new TopicNode();
+        document.add(topic);
+        const title = new TitleNode();
+        const helloText = new TextNode("Hello ");
+        title.add(helloText);
+        const i = new ItalicNode();
+        const worldText = new TextNode("World");
+        i.add(worldText);
+        title.add(i);
+        topic.add(title);
+
+        // perform serialization
+        serializer.serialize(document);
+        const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
+
+        // expect the output stream to contain the correct XML with attributes
+        expect(outStream.getText()).equal(declaration + param.expected);
+      });
+  });
+
+  [
+    {indent: false, expected: '<topic><title>Hello \n World</title></topic>'},
+    {indent: true,  expected: '<topic>\n    <title>Hello \n World</title>\n</topic>\n'}
+  ].forEach(param => {
+      it('should preserve significant white space, indent: ' + param.indent, () => {
+        const {serializer, outStream} = newSerializer(param.indent);
+
+        // test setup
+        const document = new DocumentNode();
+        const topic = new TopicNode();
+        document.add(topic);
+        const title = new TitleNode();
+        const text = new TextNode('Hello \n World');
+        title.add(text);
+        topic.add(title);
+
+        // perform serialization
+        serializer.serialize(document);
+        const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
+
+
+        // expect the output stream to contain the correct XML with attributes
+        expect(outStream.getText()).equal(declaration + param.expected);
+      });
+  });
+
+  [
+    {indent: false, expected: '<topic><title>Separate\nLine 1\nLine 2</title></topic>'},
+    {indent: true,  expected: '<topic>\n    <title>Separate\nLine 1\nLine 2</title>\n</topic>\n'}
+  ].forEach(param => {
+      it('indent text content after new lines, indent: ' + param.indent, () => {
+        const {serializer, outStream} = newSerializer(param.indent);
+
+        // test setup
+        const document = new DocumentNode();
+        const topic = new TopicNode();
+        document.add(topic);
+        const title = new TitleNode();
+        const text = new TextNode('Separate\nLine 1\nLine 2');
+        title.add(text);
+        topic.add(title);
+
+        // perform serialization
+        serializer.serialize(document);
+        const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
+
+        // expect the output stream to contain the correct XML with attributes
+        expect(outStream.getText()).equal(declaration + param.expected);
+      });
+  });
+
 });
 
 describe('complete round trip using xdita serializer', () => {
-  it('round trip from xdita and back with cdata', async () => {
 
-    const orginalXdita = `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd"><topic><title><![CDATA[cdata]]></title></topic>`
-    
-    const orginalAst = await xditaToAst(orginalXdita);
-    // perform serialization
-    const outStream = new InMemoryTextSimpleOutputStreamCollector();
-    const serializer = new XditaSerializer(outStream);
-    serializer.serialize(orginalAst);
+  [
+    {indent: false, expected: '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n<topic><title><![CDATA[cdata]]></title></topic>'},
+    {indent: true,  expected: '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n<topic>\n    <title><![CDATA[cdata]]></title>\n</topic>\n'}
+  ].forEach(param => {
+      it('round trip from xdita and back with cdata, indent: ' + param.indent, async () => {
+        const {serializer, outStream} = newSerializer(param.indent);
 
-    const xdita = `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">` + outStream.getText();
+        const input = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n<topic><title><![CDATA[cdata]]></title></topic>'        
+        const orginalAst = await xditaToAst(input);
+        serializer.serialize(orginalAst);
 
-    expect(orginalXdita).deep.equal(xdita);
+        expect(outStream.getText()).equal(param.expected);
+      });
+  });
+
+  [
+    {indent: false, expected: '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n<topic><title>Hello World</title><body><p>Good\nMorning</p></body></topic>'},
+    {indent: true,  expected: '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n<topic>\n    <title>Hello World</title>\n    <body>\n        <p>Good\nMorning</p>\n    </body>\n</topic>\n'}
+  ].forEach(param => {
+      it('round trip from xdita and back with text content. indent: ' + param.indent, async () => {
+        const {serializer, outStream} = newSerializer(param.indent);
+        
+        const input = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n<topic><title>Hello World</title><body><p>Good\nMorning</p></body></topic>'
+        const orginalAst = await xditaToAst(input);
+        serializer.serialize(orginalAst);
+
+        expect(outStream.getText()).equal(param.expected);
+      });
   });
 });

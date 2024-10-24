@@ -33,8 +33,6 @@ import fs from 'fs';
 export function storeOutputXML(xml: string, path: string): void {
     // This is a static & generic XML & DOCTYPE Declaration for the output XML,
     // see above's TODO for a future implementation
-    const header = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`
-    xml = header + xml;
     fs.writeFileSync(path,xml)
 }
 
