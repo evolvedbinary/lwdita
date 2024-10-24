@@ -57,7 +57,7 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
       // and the parent node cannot accept a text node (i.e. it does not support #PCDATA),
       // then the whitespace is non-significant as far as the DTD is concerned... so just discard it!
       // see: https://github.com/evolvedbinary/lwdita/issues/129#issuecomment-2150243338
-      if (wsRegEx.test(text) && !parentNode.canAdd(node)) {
+      if (wsRegEx.test(text) && !parentNode.allowsMixedContent()) {
         return;
       }
       // add the text node to the parent
