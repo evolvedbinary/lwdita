@@ -36,7 +36,7 @@ export interface LocalizationNodeAttributes {
 
 /**
  * Check if the given attributes of the `localization` node are valid and match this list:
- * @See {@link LocalizationFields}
+ * @see {@link LocalizationFields}
  *
  * @param field - A string containing the name of the attribute
  * @param value - A BasicValue-typed value containing the attribute value

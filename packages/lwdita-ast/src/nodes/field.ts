@@ -36,7 +36,7 @@ export interface FieldNodeAttributes<T = CDATA> {
 /**
  * `isValidFieldField` - Check if the attributes `name`, `value` are valid.
  *
- * @See {@link FieldFields}
+ * @see {@link FieldFields}
  *
  * @param validator - a function that takes a BasicValue and returns a boolean
  * @returns function - The return function takes two parameters `name`, `value` and returns a boolean

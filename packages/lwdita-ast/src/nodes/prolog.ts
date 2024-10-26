@@ -81,7 +81,7 @@ export function makeProlog<T extends Constructor>(constructor: T): T {
  * @param makeProlog - The `prolog` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidPrologField - A boolean value, if the field is valid or not
- * @param fields - A List of valid attributes @See {@link PrologFields}
+ * @param fields - A List of valid attributes @see {@link PrologFields}
  * @param childNodes - An Array of allowed child node `metadata*`
  */
 @makeComponent(makeProlog, 'prolog', isValidPrologField, PrologFields, ['metadata*'])

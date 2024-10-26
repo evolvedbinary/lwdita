@@ -37,7 +37,7 @@ export interface LiNodeAttributes extends FiltersNodeAttributes, LocalizationNod
 
 /**
  * Check if the given attributes of the `li` node are valid and match this list:
- * @See {@link LiFields}
+ * @see {@link LiFields}
  *
  * @param field - A string containing the name of the attribute
  * @param value - A BasicValue-typed value containing the attribute value

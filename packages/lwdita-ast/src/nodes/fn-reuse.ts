@@ -34,7 +34,7 @@ export interface FnReuseNodeAttributes {
 
 /**
  * Check if the given attributes of the `fn-reuse` node are valid and match this list:
- * @See {@link FnReuseFields}
+ * @see {@link FnReuseFields}
  *
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value

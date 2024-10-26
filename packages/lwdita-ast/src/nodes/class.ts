@@ -36,7 +36,7 @@ export interface ClassNodeAttributes {
 /**
  * Check if the attributes `outputclass`, `class` are valid
  *
- * @See {@link ClassFields}
+ * @see {@link ClassFields}
  *
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value

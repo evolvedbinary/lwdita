@@ -76,7 +76,7 @@ export function makePh<T extends Constructor>(constructor: T): T {
  * @param makePh - The `ph` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidPhField - A boolean value, if the attribute is valid or not
- * @param fields - A List of valid attributes @See {@link PhFields}
+ * @param fields - A List of valid attributes @see {@link PhFields}
  * @param childNodes - An Array of allowed child node `%inline*` (`text`, `b`, `em`, `i`, `ph`, `strong`, `sub`, `sup`, `tt`, `u`, `image`, `xref`)
  */
 @makeComponent(makePh, 'ph', isValidPhField, PhFields, ['%inline*'])

@@ -74,7 +74,7 @@ export function makeUnderlined<T extends Constructor>(constructor: T): T {
  * @param makeUnderlined - The `underlined` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidUnderlinedField - A boolean value, if the attributes is valid or not
- * @param fields - A List of valid attributes @See {@link UnderlinedFields}
+ * @param fields - A List of valid attributes @see {@link UnderlinedFields}
  * @param childNodes - An Array of allowed child nodes (`text`, `b`, `em`, `i`, `ph`, `strong`, `sub`, `sup`, `tt`, `u`, `xref`)
  */
 @makeComponent(makeUnderlined, 'u', isValidUnderlinedField, UnderlinedFields, ['%inline.noimage*'])

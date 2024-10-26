@@ -36,7 +36,7 @@ export interface FiltersNodeAttributes extends FiltersAddsNodeAttributes {
 
 /**
  * Check if the given fields of the `filter` node are valid and matches this list:
- * @See {@link FiltersFields}
+ * @see {@link FiltersFields}
  *
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value

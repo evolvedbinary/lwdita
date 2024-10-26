@@ -37,7 +37,7 @@ export interface DtNodeAttributes extends FiltersNodeAttributes, LocalizationNod
 
 /**
  * Check if the given attributes of the `dt` node are valid and match this list:
- * @See {@link DtFields}
+ * @see {@link DtFields}
  *
  * @param field - A string containing the name of the attribute
  * @param value - A BasicValue-typed value containing the attribute value
@@ -77,7 +77,7 @@ export function makeDt<T extends Constructor>(constructor: T): T {
  * @param makeDt - The `dt` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidDtField - A boolean value, if the attribute is valid or not
- * @param DtFields - An array containing all valid attribute names @See {@link DtFields}
+ * @param DtFields - An array containing all valid attribute names @see {@link DtFields}
  * @param childNodes - An array containing all valid child node names: `%inline*` (`text`, `b`, `em`, `i`, `ph`, `strong`, `sub`, `sup`, `tt`, `u`, `image`, `xref`)
  * @returns A `dt` node
  */

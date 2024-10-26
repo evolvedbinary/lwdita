@@ -124,7 +124,7 @@ export function makeMediaTrack<T extends { new(...args: any[]): AbstractBaseNode
  * @param makeMediaTrack - The `media-track` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidMediaTrackField - A boolean value, if the attribute is valid or not
- * @param fields - A List of valid attributes @See {@link MediaTrackFields}
+ * @param fields - A List of valid attributes @see {@link MediaTrackFields}
  * @param childNodes - An array containing all valid child node names: `text`
  */
 @makeComponent(makeMediaTrack, 'media-track', isValidMediaTrackField, MediaTrackFields, ['text'])

@@ -86,7 +86,7 @@ export function makeText<T extends { new(...args: any[]): AbstractBaseNode }>(co
  * @param makeText - The `text` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidTextField - A boolean value, if the attribute is valid or not
- * @param fields - The valid attribute `content` of type string See {@link TextFields}
+ * @param fields - The valid attribute `content` of type string
  */
 @makeComponent(makeText, 'text', isValidTextField, TextFields)
 export class TextNode extends AbstractBaseNode implements TextNodeAttributes {

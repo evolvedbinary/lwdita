@@ -77,7 +77,7 @@ export function makeStRow<T extends Constructor>(constructor: T): T {
  * @param makeStRow - The `strow` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidStRowField - A boolean value, if the attribute is valid or not
- * @param fields - A List of valid attributes @See {@link StRowFields}
+ * @param fields - A List of valid attributes @see {@link StRowFields}
  * @param childNodes - An Array of allowed child node `stentry*`
  */
 @makeComponent(makeStRow, 'strow', isValidStRowField, StRowFields, ['stentry*'])

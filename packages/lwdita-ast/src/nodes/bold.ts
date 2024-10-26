@@ -36,7 +36,7 @@ export interface BoldNodeAttributes extends LocalizationNodeAttributes, Variable
 
 /**
  * Check if the given attributes of the `bold` node are valid and match this list:
- * @See {@link BoldFields}
+ * @see {@link BoldFields}
  *
  * @param field - A string containing the name of the attribute
  * @param value - A BasicValue-typed value containing the attribute value

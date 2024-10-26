@@ -160,7 +160,7 @@ export function makeVideo<T extends { new(...args: any[]): AbstractBaseNode }>(c
  * @param makeVideo - The `video` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidVideoField - A boolean value, if the field is valid or not
- * @param fields - A List of valid attributes @See {@link VideoFields}
+ * @param fields - A List of valid attributes @see {@link VideoFields}
  * @param childNodes - An Array of allowed child nodes: `desc?`, `fallback`, `video-poster?`, `media-source*`, `media-track*`
  */
 @makeComponent(makeVideo, 'video', isValidVideoField, VideoFields, ['desc?', 'fallback?', 'video-poster?', 'media-source*', 'media-track*'])
