@@ -1,7 +1,7 @@
 {
   "$schema": "https://typedoc.org/schema.json",
   "entryPoints": ["./src/index.ts"],
-  "exclude": ["generated-docs/**/*.ts", "dist/**/*.ts"],
+  "exclude": ["generated-docs/**/*.ts", "dist/**/*.ts", "node_modules/**"],
   "out": "generated-docs",
   "treatWarningsAsErrors": true,
   "highlightLanguages": [
