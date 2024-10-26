@@ -3,5 +3,18 @@
   "entryPoints": ["./src/index.ts"],
   "out": "generated-docs",
   "treatWarningsAsErrors": true,
+  "highlightLanguages": [
+      "bash",
+      "console",
+      "css",
+      "html",
+      "javascript",
+      "json",
+      "jsonc",
+      "json5",
+      "tsx",
+      "typescript",
+      "xml"
+  ],
   "plugin": ["typedoc-plugin-missing-exports"],
 }
