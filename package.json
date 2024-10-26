@@ -12,8 +12,8 @@
     "packages/lwdita-ast"
   ],
   "scripts": {
-    "lint": "eslint packages/* --ext .ts",
-    "lint:fix": "eslint packages/* --ext .ts --fix",
+    "lint": "eslint packages/*",
+    "lint:fix": "eslint packages/* --fix",
     "start:dev": "nodemon",
     "clean": "yarn workspaces foreach --parallel --recursive --from '@evolvedbinary/lwdita-*' run clean",
     "build": "yarn clean && yarn workspaces foreach --recursive --from '@evolvedbinary/lwdita-*' run build",
@@ -56,7 +56,7 @@
     "@typescript-eslint/parser": "^8.10.0",
     "chai": "^4.3.10",
     "coveralls": "^3.1.1",
-    "eslint": "^8.57.0",
+    "eslint": "^9.13.0",
     "eslint-plugin-notice": "^1.0.0",
     "eslint-plugin-tsdoc": "^0.3.0",
     "mocha": "^10.7.3",

@@ -98,7 +98,6 @@ describe('areFieldsValid', () => {
       field2: 'value2',
     };
     const validations = [
-      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
       (field: string, value: BasicValue) => typeof value === 'string',
     ];
     const result = areFieldsValid(fields, value, ...validations);
@@ -112,7 +111,6 @@ describe('areFieldsValid', () => {
       field2: 'value2',
     };
     const validations = [
-      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
       (field: string, value: BasicValue) => value === 'value1',
     ];
     const result = areFieldsValid(fields, value, ...validations);
