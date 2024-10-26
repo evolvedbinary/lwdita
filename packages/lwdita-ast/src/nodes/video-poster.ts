@@ -103,7 +103,7 @@ export function makeVideoPoster<T extends Constructor>(constructor: T): T {
  * @param makeVideoPoster - The `video-poster` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidVideoPosterField - A boolean value, if the field is valid or not
- * @param fields - A List of valid attributes @See {@link VideoPosterFields}
+ * @param fields - A List of valid attributes @see {@link VideoPosterFields}
  */
 @makeComponent(makeVideoPoster, 'video-poster', isValidVideoPosterField, VideoPosterFields)
 export class VideoPosterNode extends AbstractBaseNode implements VideoPosterNodeAttributes {

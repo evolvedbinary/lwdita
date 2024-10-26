@@ -44,7 +44,7 @@ export interface FigNodeAttributes extends
 
 /**
  * Check if the given attributes of the `fig` node are valid and match this list:
- * @See {@link FigFields}
+ * @see {@link FigFields}
  *
  * @param field - A string containing the name of the attribute
  * @param value - A BasicValue-typed value containing the attribute value

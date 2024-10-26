@@ -37,7 +37,7 @@ export interface DdNodeAttributes extends FiltersNodeAttributes, LocalizationNod
 
 /**
  * Check if the given attributes of the `dd` node are valid and match this list:
- * @See {@link DdFields}
+ * @see {@link DdFields}
  *
  * @param field - A string containing the name of the attribute
  * @param value - A BasicValue-typed value containing the attribute value

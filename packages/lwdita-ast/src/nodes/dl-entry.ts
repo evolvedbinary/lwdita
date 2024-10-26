@@ -37,7 +37,7 @@ export interface DlEntryNodeAttributes extends FiltersNodeAttributes, Localizati
 
 /**
  * Check if the given attributes of the `dlentry` node are valid and match this list:
- * @See {@link DlEntryFields}
+ * @see {@link DlEntryFields}
  *
  * @param field - A string containing the name of the attribute
  * @param value - A BasicValue-typed value containing the attribute value

@@ -36,7 +36,7 @@ export interface ItalicNodeAttributes extends LocalizationNodeAttributes, Variab
 
 /**
  * Check if the given attributes of the `italic` node are valid and match this list:
- * @See {@link ItalicFields}
+ * @see {@link ItalicFields}
  *
  * @param field - A string containing the name of the field
  * @param value - A BasicValue-typed value containing the field value

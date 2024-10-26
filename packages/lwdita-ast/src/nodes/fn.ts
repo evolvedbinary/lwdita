@@ -48,7 +48,7 @@ export interface FnNodeAttributes extends
 
 /**
  * Check if the given attributes of the `fn` node are valid and match this list:
- * @See {@link FnFields}
+ * @see {@link FnFields}
  *
  * @param field - A string containing the name of the attribute
  * @param value - A BasicValue-typed value containing the attribute value
@@ -107,7 +107,7 @@ export function makeFn<T extends { new(...args: any[]): AbstractBaseNode }>(cons
  * @param makeFn - The `Fn` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidFnField - A boolean value, if the field is valid or not
- * @param FnFields - An array containing all valid attributes @See {@link FnFields}
+ * @param FnFields - An array containing all valid attributes @see {@link FnFields}
  * @param FnContent - An array containing all valid child nodes: '%fn-blocks*' (`p`, `ul`, `ol`, `dl`)
  * @returns A `fn` node
  */

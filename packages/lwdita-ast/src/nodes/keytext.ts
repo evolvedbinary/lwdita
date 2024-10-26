@@ -73,7 +73,7 @@ export function makeKeytext<T extends Constructor>(constructor: T): T {
  * @param makeKeytext - The `keytext` node constructor
  * @param nodeName - A string containing the node name
  * @param isValidKeytextField - A boolean value, if the attribute is valid or not
- * @param fields - A List of valid attributes @See {@link KeytextFields}
+ * @param fields - A List of valid attributes @see {@link KeytextFields}
  * @param childNodes - An Array of allowed child node (`text` or `ph`)
  */
 @makeComponent(makeKeytext, 'keytext', isValidKeytextField, KeytextFields, [['text*', '%ph*']])

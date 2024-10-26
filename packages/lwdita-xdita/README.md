@@ -53,7 +53,7 @@ xditaToAst(xdita, abortOnError)
 
 ### XDITA Serialization Example
 
-A full example with an additional option for serializing the AST object back into XML can be found in the file [example.ts](packages/lwdita-xdita/example.ts).
+A full example with an additional option for serializing the AST object back into XML can be found in the file [example.ts](example.ts).
 
 ```javascript
 import { InMemoryTextSimpleOutputStreamCollector, XditaSerializer } from "@evolvedbinary/lwdita-xdita/xdita-serializer";

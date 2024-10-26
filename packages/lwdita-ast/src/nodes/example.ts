@@ -56,7 +56,7 @@ export const isExampleNodes = (value?: unknown): value is ExampleNodeAttributes 
 
 /**
  * Check if the given attributes of the `example` node are valid and match this list:
- * @See {@link ExampleFields}
+ * @see {@link ExampleFields}
  *
  * @param field - A string containing the name of the attribute
  * @param value - A BasicValue-typed value containing the field attribute

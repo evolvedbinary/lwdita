@@ -60,7 +60,7 @@ export const isImageNodes = (value?: unknown): value is ImageNodeAttributes =>
 
 /**
  * Check if the given attributes of the `image` node are valid and match this list:
- * @See {@link ImageFields}
+ * @see {@link ImageFields}
  *
  * @param field - A string containing the name of the attribute
  * @param value - A BasicValue-typed value containing the field attribute
