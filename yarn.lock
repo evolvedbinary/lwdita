@@ -378,7 +378,7 @@ __metadata:
   dependencies:
     "@evolvedbinary/lwdita-ast": "workspace:^"
     "@rubensworks/saxes": "npm:6.0.1"
-    "@types/node": "npm:^22.8.0"
+    "@types/node": "npm:^22.8.5"
     rimraf: "npm:^6.0.1"
     ts-node: "npm:^10.9.2"
     typedoc: "npm:^0.26.10"
@@ -743,12 +743,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.8.0":
-  version: 22.8.0
-  resolution: "@types/node@npm:22.8.0"
+"@types/node@npm:^22.8.5":
+  version: 22.8.5
+  resolution: "@types/node@npm:22.8.5"
   dependencies:
     undici-types: "npm:~6.19.8"
-  checksum: 10c0/21eb10cee768d32e965d095415a4c6a7752f26bfcc34a8c1d7ab3989a6ab13a51761cc245909570d59c6bdacbdfd055d307dc6b201ac04305c57e65c1e7bf5be
+  checksum: 10c0/5e43553026c83f18bfa381d35c8fd608e69d12d0f0fe4601e8bb98b651a3b240be9d66c1f2f4decdbebb41d55b18e89238b02f3992d820d89801b9b3625ba8ab
   languageName: node
   linkType: hard
 
