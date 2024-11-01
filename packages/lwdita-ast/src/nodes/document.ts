@@ -22,6 +22,15 @@ import { stringToChildTypes } from "../utils";
  * Interface DocumentNode defines the attribute types for a document node.
  */
 export interface DocumentNodeAttributes {}
+// XML declaration interface
+export interface XMLDecl {
+  /** The version specified by the XML declaration. */
+  version?: string;
+  /** The encoding specified by the XML declaration. */
+  encoding?: string;
+  /** The value of the standalone parameter */
+  standalone?: string;
+}
 
 /**
  * The `document` node is the root node of the document tree and the entry point for the parser
@@ -39,5 +48,7 @@ export class DocumentNode extends AbstractBaseNode implements DocumentNodeAttrib
   static childTypes = stringToChildTypes(['topic']);
   static fields = [];
   static isValidField = (): boolean => true;
+  xmlDecl: XMLDecl | undefined;
+  doctype: string | undefined;
 
 }

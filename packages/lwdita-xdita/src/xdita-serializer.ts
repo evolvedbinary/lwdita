@@ -78,8 +78,8 @@ export class XditaSerializer {
    */
   private serializeDocument(node: DocumentNode): void {
     // emit the XML declaration and doctype declaration
-    const xmlDeclaration = `<?xml version="1.0" encoding="UTF-8"?>`;
-    const docTypeDeclaration = `<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">`;
+    const xmlDeclaration = `<?xml version="${node.xmlDecl?.version || "1.0"}" encoding="${node.xmlDecl?.encoding || "UTF-8"}"?>`;
+    const docTypeDeclaration = `<!DOCTYPE${node.doctype || ' topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd"'}>`;
 
     this.outputStream.emit(xmlDeclaration);
     this.outputStream.emit(this.EOL);

@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import * as saxes from "@rubensworks/saxes";
 import { createCDataSectionNode, createNode } from "./factory";
-import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, CDataNode } from "@evolvedbinary/lwdita-ast";
+import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, CDataNode, AbstractBaseNode } from "@evolvedbinary/lwdita-ast";
 import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
 import { XditaSerializer } from "./xdita-serializer";
 
@@ -46,6 +46,15 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
 
     // Create an array of Document nodes (type BaseNode)
     const stack: BaseNode[] = [doc];
+
+    // Look for the XML declaration and the DOCTYPE declaration
+    parser.on("xmldecl", function (xmlDecl) {
+
+      doc.xmlDecl = xmlDecl;
+    });
+    parser.on("doctype", function (doctype) {
+      doc.doctype = doctype;
+    });
 
     // Parse the text and add a new node item to the node-array
     // `text` is the content of any text node in the parsed xml document
@@ -187,7 +196,7 @@ function jditaAttrToSaxesAttr(attr: Record<string, BasicValue> | undefined): Att
  * @param jdita - JDita object
  * @returns DocumentNode
  */
-export function jditaToAst(jdita: JDita): DocumentNode {
+export function jditaToAst(jdita: JDita): AbstractBaseNode {
   if(jdita.nodeName === 'document') {
     const doc = new DocumentNode();
     jdita.children?.forEach(child => {
