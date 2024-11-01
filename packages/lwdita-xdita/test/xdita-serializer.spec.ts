@@ -258,3 +258,53 @@ describe('complete round trip using xdita serializer', () => {
       });
   });
 });
+
+describe('handles custom xml declaration and doctype', () => {
+  it('should read and output custom xml version', async () => {
+    const { serializer, outStream } = newSerializer(false);
+
+    const input = '<?xml version="1.6" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n<topic><title>Hello World</title><body><p>Good\nMorning</p></body></topic>'
+    const orginalAst = await xditaToAst(input);
+    serializer.serialize(orginalAst);
+
+
+    const declaration = `<?xml version="1.6" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
+    const expected = declaration + "<topic><title>Hello World</title><body><p>Good\nMorning</p></body></topic>"
+
+    const actual = outStream.getText()
+    // expect the output stream to contain the correct XML with attributes
+    expect(actual).equal(expected);
+  })
+
+  it('should read and output custom doctype', async () => {
+    const { serializer, outStream } = newSerializer(false);
+
+    const input = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE Some random declaration for testing>\n<topic><title>Hello World</title><body><p>Good\nMorning</p></body></topic>'
+    const orginalAst = await xditaToAst(input);
+    serializer.serialize(orginalAst);
+
+
+    const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE Some random declaration for testing>\n`;
+    const expected = declaration + "<topic><title>Hello World</title><body><p>Good\nMorning</p></body></topic>"
+
+    const actual = outStream.getText()
+    // expect the output stream to contain the correct XML with attributes
+    expect(actual).equal(expected);
+  })
+
+  it('should output the default if nothing was provided', async () => {
+    const { serializer, outStream } = newSerializer(false);
+
+    const input = '<topic><title>Hello World</title><body><p>Good\nMorning</p></body></topic>'
+    const orginalAst = await xditaToAst(input);
+    serializer.serialize(orginalAst);
+
+
+    const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
+    const expected = declaration + "<topic><title>Hello World</title><body><p>Good\nMorning</p></body></topic>"
+
+    const actual = outStream.getText()
+    // expect the output stream to contain the correct XML with attributes
+    expect(actual).equal(expected);
+  })
+})
