@@ -199,6 +199,10 @@ function jditaAttrToSaxesAttr(attr: Record<string, BasicValue> | undefined): Att
 export function jditaToAst(jdita: JDita): AbstractBaseNode {
   if(jdita.nodeName === 'document') {
     const doc = new DocumentNode();
+    // set docytype and xmlDecl
+    doc.doctype = jdita.attributes?.doctype as string;
+    doc.xmlDecl = jdita.attributes?.xmlDecl as saxes.XMLDecl;
+
     jdita.children?.forEach(child => {
       doc.add(jditaToAst(child));
     });

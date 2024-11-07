@@ -1359,7 +1359,10 @@ export const fullAstObject = {
 
 export const fullJditaObject = {
   nodeName: "document",
-  attributes: undefined,
+  attributes: {
+    xmlDecl: undefined,
+    doctype: undefined
+  },
   children: [
     {
       nodeName: "topic",

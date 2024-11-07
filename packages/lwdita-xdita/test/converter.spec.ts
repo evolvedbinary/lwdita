@@ -115,7 +115,10 @@ describe('jditaToXdita', () => {
     const xditaJson = await xditaToJdita(xdita);
     const json = {
       "nodeName": "document",
-      "attributes": undefined,
+      "attributes": {
+        "xmlDecl": undefined,
+        "doctype": undefined
+      },
       "children": [
         {
           "nodeName": "topic",
