@@ -17,6 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { AbstractBaseNode } from "./base";
 import { stringToChildTypes } from "../utils";
+import { JDita } from "../ast-classes";
 
 /**
  * Interface DocumentNode defines the attribute types for a document node.
@@ -46,9 +47,20 @@ export class DocumentNode extends AbstractBaseNode implements DocumentNodeAttrib
   // TODO rename this to undefined
   static nodeName = 'document';
   static childTypes = stringToChildTypes(['topic']);
-  static fields = [];
+  static fields = ['xmlDecl', 'doctype'];
   static isValidField = (): boolean => true;
   xmlDecl: XMLDecl | undefined;
   doctype: string | undefined;
+
+  get json(): JDita {
+    return {
+      nodeName: this.static.nodeName,
+      attributes: {
+        xmlDecl: this.xmlDecl,
+        doctype: this.doctype,
+      },
+      children: this._children?.map(child => child.json),
+    };
+  }
 
 }

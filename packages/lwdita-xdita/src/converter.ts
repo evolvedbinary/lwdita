@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import * as saxes from "@rubensworks/saxes";
 import { createCDataSectionNode, createNode } from "./factory";
-import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, CDataNode, AbstractBaseNode } from "@evolvedbinary/lwdita-ast";
+import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, CDataNode, AbstractBaseNode, XMLDecl } from "@evolvedbinary/lwdita-ast";
 import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
 import { XditaSerializer } from "./xdita-serializer";
 
@@ -199,6 +199,10 @@ function jditaAttrToSaxesAttr(attr: Record<string, BasicValue> | undefined): Att
 export function jditaToAst(jdita: JDita): AbstractBaseNode {
   if(jdita.nodeName === 'document') {
     const doc = new DocumentNode();
+    // set docytype and xmlDecl
+    doc.doctype = jdita.attributes?.doctype as string;
+    doc.xmlDecl = jdita.attributes?.xmlDecl as XMLDecl;
+
     jdita.children?.forEach(child => {
       doc.add(jditaToAst(child));
     });
