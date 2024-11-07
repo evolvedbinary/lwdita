@@ -295,9 +295,7 @@ export abstract class AbstractBaseNode implements BaseNode {
   }
 
   allowsMixedContent(): boolean {
-    //This is a temporary solution REMOVE the alt node as it's not mixed content
-    // by YB, signed-off by AR.
-    return this.canAdd("text") || this.canAdd("alt");
+    return this.canAdd("text");
   }
 }
 

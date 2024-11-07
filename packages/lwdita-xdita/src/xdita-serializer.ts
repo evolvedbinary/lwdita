@@ -15,7 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { AbstractBaseNode, CDataNode, DocumentNode, TextNode } from "@evolvedbinary/lwdita-ast";
+import { AbstractBaseNode, AltNode, CDataNode, DocumentNode, TextNode } from "@evolvedbinary/lwdita-ast";
 import { TextSimpleOutputStream } from "./stream";
 
 /**
@@ -49,6 +49,15 @@ export class XditaSerializer {
     this.EOL = '\n';
   }
 
+  // Temporary fix for the serializer of images and fallback nodes see:
+  // https://evolvedbinaryltd.kanbanize.com/ctrl_board/16/cards/3516/details/
+  private serializeMixedContent(node: AbstractBaseNode) {
+    //This is a temporary solution REMOVE the alt node as it's not mixed content
+    // by YB, signed-off by AR.
+    const alt = new AltNode();
+    return node.allowsMixedContent() || node.canAddNode(alt);
+  }
+
   /**
    * Emit the indentation to the output stream
    * 
@@ -56,7 +65,7 @@ export class XditaSerializer {
    */
   private serializeIndentation(node?: AbstractBaseNode): void {
     if (!this.indent || !node) return;
-    if (node.allowsMixedContent()) return;
+    if (this.serializeMixedContent(node)) return;
     this.outputStream.emit(this.indentation.repeat(this.depth * this.tabSize));
   }
 
@@ -67,7 +76,7 @@ export class XditaSerializer {
    */
   private serializeEOL(node?: AbstractBaseNode): void {
     if (!this.indent || !node) return;
-    if (node.allowsMixedContent()) return;
+    if (this.serializeMixedContent(node)) return;
     this.outputStream.emit(this.EOL);
   }
 
