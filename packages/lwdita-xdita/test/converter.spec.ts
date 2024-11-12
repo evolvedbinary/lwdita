@@ -299,8 +299,6 @@ describe('A round trip conversion between xdita, ast, and jdita', () => {
     const serializer = new XditaSerializer(outStream);
     serializer.serialize(newAst);
     const newXdita = outStream.getText();
-    const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`;
-    const expected = declaration + xdita;
-    expect(newXdita).to.equal(expected);
+    expect(newXdita).to.equal(xdita);
   });
 });
