@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { assert, expect } from 'chai';
 import { ChildType, ChildTypes } from "../src/ast-classes";
-import { acceptsNodeName, areFieldsValid, has, isChildTypeRequired, isChildTypeSingle, isOrUndefined, splitTypenames, stringToChildTypes } from "../src/utils";
+import { acceptsNodeName, areFieldsValid, deconstructDoctype, has, isChildTypeRequired, isChildTypeSingle, isOrUndefined, splitTypenames, stringToChildTypes } from "../src/utils";
 import { BasicValue } from "../src/classes";
 
 describe('acceptsNodeName', () => {
@@ -556,3 +556,38 @@ describe('Childtype from string', () => {
 //     expect(result).to.deep.equal([childType]);
 //   });
 // });
+
+describe('Doctype deconstruction', () => {
+  [
+    {
+      doctype: `greeting`,
+      parts: {
+        name: 'greeting',
+        publicId: '',
+        systemId: '',
+      }
+    },
+    {
+      doctype: `note SYSTEM "note.dtd"`,
+      parts: {
+        name: 'note',
+        publicId: '',
+        systemId: 'note.dtd',
+      }
+    },
+    {
+      doctype: `html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"`,
+      parts: {
+        name: 'html',
+        publicId: '-//W3C//DTD XHTML 1.0 Strict//EN',
+        systemId: 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd',
+      }
+    },
+  ].forEach(({ doctype, parts }) => {
+    it('should return the correct doctype object', () => {
+      const result = deconstructDoctype(doctype);
+      expect(result).to.deep.equal(parts);
+    });
+  });
+
+});

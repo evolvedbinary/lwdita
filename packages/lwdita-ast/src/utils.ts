@@ -18,6 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { ChildType, ChildTypes} from "./ast-classes";
 import { OrArray } from "./classes";
 import { BasicValue } from "./classes";
+import { Doctype } from "./nodes";
 
 /**
  * acceptsNodeName - Check whether a child type accepts a node name
@@ -280,3 +281,30 @@ export function stringToChildTypes(value: OrArray<string>, topLevel = true): Chi
 // export function childTypesArray(childTypes: ChildTypes): ChildTypes[] {
 //     return Array.isArray(childTypes) ? childTypes : [childTypes];
 // }
+
+/**
+ * Deconstruct a doctype string to an object
+ *
+ * @param doctype - Doctype string
+ * @returns - Doctype object
+ */
+export function deconstructDoctype(doctype: string | undefined): Doctype | undefined {
+    if(!doctype) return;
+    
+    const regex = new RegExp(/^([^"']+)(?:\s+(?:(?:SYSTEM\s+(?:["']([^"']+)["']))|(?:PUBLIC(?:\s+["']([^"']+)["']\s+["']([^"']+)["']))))?$/);
+    const result = regex.exec(doctype);
+    const name = result?.[1].trim() || "";
+    const systemId = result?.[2] || result?.[4] || "";
+    const publicId = result?.[3] || "";
+    
+    // test if the doctype has the internal subset defined
+    if(doctype.includes('[')) {
+        throw new Error('Internal subset is not supported');
+    }
+
+    return {
+        name,
+        systemId,
+        publicId,
+    };
+}

@@ -16,7 +16,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { AbstractBaseNode } from "./base";
-import { stringToChildTypes } from "../utils";
+import { deconstructDoctype, stringToChildTypes } from "../utils";
 import { JDita } from "../ast-classes";
 
 /**
@@ -31,6 +31,14 @@ export interface XMLDecl {
   encoding?: string;
   /** The value of the standalone parameter */
   standalone?: string;
+}
+
+// Doctype declaration interface
+export interface Doctype {
+  /** The doctype declaration */
+  name: string;
+  systemId?: string;
+  publicId?: string;
 }
 
 /**
@@ -50,7 +58,7 @@ export class DocumentNode extends AbstractBaseNode implements DocumentNodeAttrib
   static fields = ['xmlDecl', 'doctype'];
   static isValidField = (): boolean => true;
   xmlDecl: XMLDecl | undefined;
-  doctype: string | undefined;
+  doctype: Doctype | undefined;
 
   get json(): JDita {
     return {
@@ -61,6 +69,10 @@ export class DocumentNode extends AbstractBaseNode implements DocumentNodeAttrib
       },
       children: this._children?.map(child => child.json),
     };
+  }
+
+  setDoctype(doctype: string | undefined) {
+    this.doctype = deconstructDoctype(doctype);
   }
 
 }

@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import * as saxes from "@rubensworks/saxes";
 import { createCDataSectionNode, createNode } from "./factory";
-import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, CDataNode, AbstractBaseNode, XMLDecl } from "@evolvedbinary/lwdita-ast";
+import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, Doctype, CDataNode, AbstractBaseNode, XMLDecl } from "@evolvedbinary/lwdita-ast";
 import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
 import { XditaSerializer } from "./xdita-serializer";
 
@@ -49,11 +49,10 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
 
     // Look for the XML declaration and the DOCTYPE declaration
     parser.on("xmldecl", function (xmlDecl) {
-
       doc.xmlDecl = xmlDecl;
     });
     parser.on("doctype", function (doctype) {
-      doc.doctype = doctype;
+      doc.setDoctype(doctype);
     });
 
     // Parse the text and add a new node item to the node-array
@@ -200,7 +199,7 @@ export function jditaToAst(jdita: JDita): AbstractBaseNode {
   if(jdita.nodeName === 'document') {
     const doc = new DocumentNode();
     // set docytype and xmlDecl
-    doc.doctype = jdita.attributes?.doctype as string;
+    doc.doctype = jdita.attributes?.doctype as Doctype;
     doc.xmlDecl = jdita.attributes?.xmlDecl as XMLDecl;
 
     jdita.children?.forEach(child => {

@@ -279,12 +279,13 @@ describe('handles custom xml declaration and doctype', () => {
   it('should read and output custom doctype', async () => {
     const { serializer, outStream } = newSerializer(false);
 
-    const input = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE Some random declaration for testing>\n<topic><title>Hello World</title><body><p>Good\nMorning</p></body></topic>'
+    const input = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE test PUBLIC "TEST" "TEST">\n<topic><title>Hello World</title><body><p>Good\nMorning</p></body></topic>'
+    
     const orginalAst = await xditaToAst(input);
     serializer.serialize(orginalAst);
 
 
-    const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE Some random declaration for testing>\n`;
+    const declaration = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE test PUBLIC "TEST" "TEST">\n`;
     const expected = declaration + "<topic><title>Hello World</title><body><p>Good\nMorning</p></body></topic>"
 
     const actual = outStream.getText()
