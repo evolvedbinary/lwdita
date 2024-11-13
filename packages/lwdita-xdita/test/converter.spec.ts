@@ -302,3 +302,32 @@ describe('A round trip conversion between xdita, ast, and jdita', () => {
     expect(newXdita).to.equal(xdita);
   });
 });
+
+describe('Round trip with custom doctype', () => {
+  [
+    {test:"custom doctype", header: `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD Custom Topic//EN" "lw-topic.dtd">\n`},
+    {test:"custom XML declaration", header: `<?xml version="1.6" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`},
+    {test:"default XML declaration", header: `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`},
+  ].forEach(({test, header}) => {
+    it(`round trip with ${test}`, async () => {
+      const xdita = `<topic id="topicID"><title>text content</title></topic>`;
+
+      // xdita -> ast
+      const ast = await xditaToAst(header + xdita);
+      
+      // ast -> jdita
+      const jdita = astToJdita(ast);
+
+      // jdita -> ast
+      const newAst = jditaToAst(jdita);
+
+      // ast -> xdita
+      const outStream = new InMemoryTextSimpleOutputStreamCollector();
+      const serializer = new XditaSerializer(outStream);
+      serializer.serialize(newAst);
+      const newXdita = outStream.getText();
+
+      expect(newXdita).to.equal(header + xdita);
+    });
+  });
+});
