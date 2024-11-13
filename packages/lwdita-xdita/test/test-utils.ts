@@ -61,7 +61,11 @@ export const fullAstObject = {
     encoding: "UTF-8",
     standalone: undefined,
   },
-  doctype: " topic PUBLIC \"-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN\" \"lw-topic.dtd\"",
+  doctype: {
+    name: "topic",
+    publicId: "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN",
+    systemId: "lw-topic.dtd",
+  },
   _children: [
     {
       _props: {
@@ -1373,7 +1377,11 @@ export const fullJditaObject = {
       encoding: "UTF-8",
       standalone: undefined,
     },
-    doctype: " topic PUBLIC \"-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN\" \"lw-topic.dtd\"",
+    doctype: {
+      name: "topic",
+      publicId: "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN",
+      systemId: "lw-topic.dtd",
+    },
   },
   children: [
     {
