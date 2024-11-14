@@ -303,10 +303,10 @@ describe('A round trip conversion between xdita, ast, and jdita', () => {
   });
 });
 
-describe('Round trip with custom doctype', () => {
+describe('Round trip with custom doctype and xml declaration', () => {
   [
-    {test:"custom doctype", header: `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD Custom Topic//EN" "lw-topic.dtd">\n`},
-    {test:"custom XML declaration", header: `<?xml version="1.6" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`},
+    {test:"custom doctype", header: `<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD Custom Topic//EN" "lw-topic.dtd">\n`},
+    {test:"custom XML declaration", header: `<?xml version="1.6" encoding="UTF-8" standalone="yes"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`},
     {test:"default XML declaration", header: `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`},
   ].forEach(({test, header}) => {
     it(`round trip with ${test}`, async () => {

@@ -30,7 +30,7 @@ export interface XMLDecl {
   /** The encoding specified by the XML declaration. */
   encoding?: string;
   /** The value of the standalone parameter */
-  standalone?: string;
+  standalone?: boolean;
 }
 
 // docTypeDecl declaration interface

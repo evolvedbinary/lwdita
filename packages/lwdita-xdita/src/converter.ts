@@ -52,7 +52,7 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
       doc.xmlDecl = {
         version: version || "1.0",
         encoding,
-        standalone
+        standalone: standalone? standalone === 'yes' : undefined,
       };
     });
     parser.on("doctype", function (docTypeDecl) {
@@ -202,7 +202,7 @@ function jditaAttrToSaxesAttr(attr: Record<string, BasicValue> | undefined): Att
 export function jditaToAst(jdita: JDita): AbstractBaseNode {
   if(jdita.nodeName === 'document') {
     const doc = new DocumentNode();
-    // set docytype and xmlDecl
+    // set docTypeDecl and xmlDecl
     doc.docTypeDecl = jdita.attributes?.docTypeDecl as DocTypeDecl;
     doc.xmlDecl = jdita.attributes?.xmlDecl as XMLDecl;
 
