@@ -61,7 +61,7 @@ export const fullAstObject = {
     encoding: "UTF-8",
     standalone: undefined,
   },
-  doctype: {
+  docTypeDecl: {
     name: "topic",
     publicId: "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN",
     systemId: "lw-topic.dtd",
@@ -1377,7 +1377,7 @@ export const fullJditaObject = {
       encoding: "UTF-8",
       standalone: undefined,
     },
-    doctype: {
+    docTypeDecl: {
       name: "topic",
       publicId: "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN",
       systemId: "lw-topic.dtd",

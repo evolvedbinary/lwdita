@@ -117,7 +117,7 @@ describe('jditaToXdita', () => {
       "nodeName": "document",
       "attributes": {
         "xmlDecl": undefined,
-        "doctype": undefined
+        "docTypeDecl": undefined
       },
       "children": [
         {

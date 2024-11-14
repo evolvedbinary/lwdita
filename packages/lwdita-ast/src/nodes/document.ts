@@ -16,7 +16,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { AbstractBaseNode } from "./base";
-import { deconstructDoctype, stringToChildTypes } from "../utils";
+import { parseDocTypeDecl, stringToChildTypes } from "../utils";
 import { JDita } from "../ast-classes";
 
 /**
@@ -33,9 +33,9 @@ export interface XMLDecl {
   standalone?: string;
 }
 
-// Doctype declaration interface
-export interface Doctype {
-  /** The doctype declaration */
+// docTypeDecl declaration interface
+export interface DocTypeDecl {
+  /** The docTypeDecl declaration */
   name: string;
   systemId?: string;
   publicId?: string;
@@ -55,24 +55,24 @@ export class DocumentNode extends AbstractBaseNode implements DocumentNodeAttrib
   // TODO rename this to undefined
   static nodeName = 'document';
   static childTypes = stringToChildTypes(['topic']);
-  static fields = ['xmlDecl', 'doctype'];
+  static fields = ['xmlDecl', 'docTypeDecl'];
   static isValidField = (): boolean => true;
   xmlDecl: XMLDecl | undefined;
-  doctype: Doctype | undefined;
+  docTypeDecl: DocTypeDecl | undefined;
 
   get json(): JDita {
     return {
       nodeName: this.static.nodeName,
       attributes: {
         xmlDecl: this.xmlDecl,
-        doctype: this.doctype,
+        docTypeDecl: this.docTypeDecl,
       },
       children: this._children?.map(child => child.json),
     };
   }
 
-  setDoctype(doctype: string | undefined) {
-    this.doctype = deconstructDoctype(doctype);
+  setDocTypeDecl(docTypeDecl: string | undefined) {
+    this.docTypeDecl = parseDocTypeDecl(docTypeDecl);
   }
 
 }
