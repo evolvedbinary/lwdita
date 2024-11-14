@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { assert, expect } from 'chai';
 import { ChildType, ChildTypes } from "../src/ast-classes";
-import { acceptsNodeName, areFieldsValid, deconstructDoctype, has, isChildTypeRequired, isChildTypeSingle, isOrUndefined, splitTypenames, stringToChildTypes } from "../src/utils";
+import { acceptsNodeName, areFieldsValid, has, isChildTypeRequired, isChildTypeSingle, isOrUndefined, parseDocTypeDecl, splitTypenames, stringToChildTypes } from "../src/utils";
 import { BasicValue } from "../src/classes";
 
 describe('acceptsNodeName', () => {
@@ -557,35 +557,35 @@ describe('Childtype from string', () => {
 //   });
 // });
 
-describe('Doctype deconstruction', () => {
+describe('DocTypeDecl parsing', () => {
   [
     {
-      doctype: `greeting`,
+      docTypeDecl: `greeting`,
       parts: {
         name: 'greeting',
-        publicId: '',
-        systemId: '',
+        publicId: undefined,
+        systemId: undefined,
       }
     },
     {
-      doctype: `note SYSTEM "note.dtd"`,
+      docTypeDecl: `note SYSTEM "note.dtd"`,
       parts: {
         name: 'note',
-        publicId: '',
+        publicId: undefined,
         systemId: 'note.dtd',
       }
     },
     {
-      doctype: `html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"`,
+      docTypeDecl: `html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"`,
       parts: {
         name: 'html',
         publicId: '-//W3C//DTD XHTML 1.0 Strict//EN',
         systemId: 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd',
       }
     },
-  ].forEach(({ doctype, parts }) => {
+  ].forEach(({ docTypeDecl, parts }) => {
     it('should return the correct doctype object', () => {
-      const result = deconstructDoctype(doctype);
+      const result = parseDocTypeDecl(docTypeDecl);
       expect(result).to.deep.equal(parts);
     });
   });
