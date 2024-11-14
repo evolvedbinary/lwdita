@@ -48,8 +48,12 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
     const stack: BaseNode[] = [doc];
 
     // Look for the XML declaration and the DOCTYPE declaration
-    parser.on("xmldecl", function (xmlDecl) {
-      doc.xmlDecl = xmlDecl;
+    parser.on("xmldecl", function ({ version, encoding, standalone }) {
+      doc.xmlDecl = {
+        version: version || "1.0",
+        encoding,
+        standalone
+      };
     });
     parser.on("doctype", function (docTypeDecl) {
       doc.setDocTypeDecl(docTypeDecl);

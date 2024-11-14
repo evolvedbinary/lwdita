@@ -26,7 +26,7 @@ export interface DocumentNodeAttributes {}
 // XML declaration interface
 export interface XMLDecl {
   /** The version specified by the XML declaration. */
-  version?: string;
+  version: string;
   /** The encoding specified by the XML declaration. */
   encoding?: string;
   /** The value of the standalone parameter */
