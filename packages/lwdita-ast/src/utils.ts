@@ -18,6 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { ChildType, ChildTypes} from "./ast-classes";
 import { OrArray } from "./classes";
 import { BasicValue } from "./classes";
+import { DocTypeDecl } from "./nodes";
 
 /**
  * acceptsNodeName - Check whether a child type accepts a node name
@@ -280,3 +281,29 @@ export function stringToChildTypes(value: OrArray<string>, topLevel = true): Chi
 // export function childTypesArray(childTypes: ChildTypes): ChildTypes[] {
 //     return Array.isArray(childTypes) ? childTypes : [childTypes];
 // }
+
+/**
+ * Deconstruct a doctype string to an object
+ *
+ * @param docTypeDecl - DocTypeDecl string
+ * @returns - Doctype object
+ */
+export function parseDocTypeDecl(docTypeDecl: string | undefined): DocTypeDecl | undefined {
+    if(!docTypeDecl) return;
+    // test if the doctype has the internal subset defined
+    if(docTypeDecl.includes('[')) {
+        throw new Error('Internal subset is not supported');
+    }
+    
+    const regex = new RegExp(/^([^"']+)(?:\s+(?:(?:SYSTEM\s+(?:["']([^"']+)["']))|(?:PUBLIC(?:\s+["']([^"']+)["']\s+["']([^"']+)["']))))?$/);
+    const result = regex.exec(docTypeDecl);
+    const name = result?.[1].trim() as string; // the name is not optional in doctype
+    const systemId = result?.[2] || result?.[4]; // systemId can be in the second or fourth group based on the publicId
+    const publicId = result?.[3]; // publicId can only be in the third group
+    
+    return {
+        name,
+        systemId,
+        publicId,
+    };
+}

@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import * as saxes from "@rubensworks/saxes";
 import { createCDataSectionNode, createNode } from "./factory";
-import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, CDataNode, AbstractBaseNode } from "@evolvedbinary/lwdita-ast";
+import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, DocTypeDecl, CDataNode, AbstractBaseNode, XMLDecl } from "@evolvedbinary/lwdita-ast";
 import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
 import { XditaSerializer } from "./xdita-serializer";
 
@@ -48,12 +48,15 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
     const stack: BaseNode[] = [doc];
 
     // Look for the XML declaration and the DOCTYPE declaration
-    parser.on("xmldecl", function (xmlDecl) {
-
-      doc.xmlDecl = xmlDecl;
+    parser.on("xmldecl", function ({ version, encoding, standalone }) {
+      doc.xmlDecl = {
+        version: version || "1.0",
+        encoding,
+        standalone: standalone? standalone === 'yes' : undefined,
+      };
     });
-    parser.on("doctype", function (doctype) {
-      doc.doctype = doctype;
+    parser.on("doctype", function (docTypeDecl) {
+      doc.setDocTypeDecl(docTypeDecl);
     });
 
     // Parse the text and add a new node item to the node-array
@@ -199,6 +202,10 @@ function jditaAttrToSaxesAttr(attr: Record<string, BasicValue> | undefined): Att
 export function jditaToAst(jdita: JDita): AbstractBaseNode {
   if(jdita.nodeName === 'document') {
     const doc = new DocumentNode();
+    // set docTypeDecl and xmlDecl
+    doc.docTypeDecl = jdita.attributes?.docTypeDecl as DocTypeDecl;
+    doc.xmlDecl = jdita.attributes?.xmlDecl as XMLDecl;
+
     jdita.children?.forEach(child => {
       doc.add(jditaToAst(child));
     });

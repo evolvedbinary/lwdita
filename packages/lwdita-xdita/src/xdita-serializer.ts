@@ -75,19 +75,60 @@ export class XditaSerializer {
    * Serialize a document node to the output stream.
    *
    * @param node - the document node to serialize
-   */
+   */  
   private serializeDocument(node: DocumentNode): void {
     // emit the XML declaration and doctype declaration
-    const xmlDeclaration = `<?xml version="${node.xmlDecl?.version || "1.0"}" encoding="${node.xmlDecl?.encoding || "UTF-8"}"?>`;
-    const docTypeDeclaration = `<!DOCTYPE${node.doctype || ' topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd"'}>`;
-
-    this.outputStream.emit(xmlDeclaration);
+    this.outputStream.emit(this.xmlDeclString(node));
     this.outputStream.emit(this.EOL);
-    this.outputStream.emit(docTypeDeclaration);
+    this.outputStream.emit(this.docTypeDeclString(node));
     this.outputStream.emit(this.EOL);
     // a document node has no string representation, so move on to its children
     node.children.forEach(child => this.serialize(child, node));
   }
+
+  /**
+   * Construct the doctype declaration string
+   * @param node - the document node to serialize
+   * @returns doctype declaration string
+   */
+  private docTypeDeclString(node: DocumentNode): string {
+    if (!node.docTypeDecl) {
+      return "<!DOCTYPE topic PUBLIC \"-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN\" \"lw-topic.dtd\">";
+    }
+
+    let docTypeDeclaration = `<!DOCTYPE ${node.docTypeDecl.name}`;
+    if (node.docTypeDecl.publicId) {
+      docTypeDeclaration += ` PUBLIC "${node.docTypeDecl.publicId}" "${node.docTypeDecl.systemId}"`;
+    } else if (node.docTypeDecl.systemId) {
+      docTypeDeclaration += ` SYSTEM "${node.docTypeDecl.systemId}"`;
+    }
+    docTypeDeclaration += ">";
+    return docTypeDeclaration;
+  }
+
+  /**
+   * Construct the XML declaration string
+   * @param node - the document node to serialize
+   * @returns XML declaration string
+   */
+  private xmlDeclString(node: DocumentNode): string {
+    let xmlDeclaration = "<?xml ";
+
+    if (node.xmlDecl) {
+        xmlDeclaration += `version="${node.xmlDecl.version}"`;
+        xmlDeclaration += ` encoding="${node.xmlDecl.encoding || "UTF-8"}"`;
+        if (node.xmlDecl.standalone !== undefined) {
+            xmlDeclaration += ` standalone="${node.xmlDecl.standalone? "yes" : "no"}"`;
+        }
+    } else {
+        xmlDeclaration += "version=\"1.0\"";
+        xmlDeclaration += " encoding=\"UTF-8\"";
+    }
+
+    xmlDeclaration += "?>";
+
+    return xmlDeclaration;
+  };
 
   /**
    * Serialize an element node to the output stream.
