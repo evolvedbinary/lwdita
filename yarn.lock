@@ -367,7 +367,7 @@ __metadata:
   dependencies:
     rimraf: "npm:^6.0.1"
     typedoc: "npm:^0.26.10"
-    typedoc-plugin-missing-exports: "npm:^3.0.0"
+    typedoc-plugin-missing-exports: "npm:^3.0.2"
     typescript: "npm:5.6.3"
   languageName: unknown
   linkType: soft
@@ -382,7 +382,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     ts-node: "npm:^10.9.2"
     typedoc: "npm:^0.26.10"
-    typedoc-plugin-missing-exports: "npm:^3.0.0"
+    typedoc-plugin-missing-exports: "npm:^3.0.2"
     typescript: "npm:5.6.3"
   languageName: unknown
   linkType: soft
@@ -4429,12 +4429,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc-plugin-missing-exports@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "typedoc-plugin-missing-exports@npm:3.0.0"
+"typedoc-plugin-missing-exports@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "typedoc-plugin-missing-exports@npm:3.0.2"
   peerDependencies:
     typedoc: 0.26.x
-  checksum: 10c0/d6eada4e10198641ae70db70fdd2e48f74d2d57b61e0e3096cc83542c95f842a70b0c604cb3bad223b447a650a875507ad51189a5adbb87ff1dfb9e318d7dd48
+  checksum: 10c0/215a59dcccb6679718bcaf0965d20514db3c4fd4983a633d1e5483dfc0d0f3f5d51088840de2bd7d70d05560fd4af4916713cd4fc311d1fac33ce054cb298c97
   languageName: node
   linkType: hard
 
