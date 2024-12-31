@@ -52,7 +52,7 @@
     "@tsconfig/recommended": "^1.0.7",
     "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.9",
-    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/eslint-plugin": "^8.19.0",
     "@typescript-eslint/parser": "^8.11.0",
     "chai": "^4.3.10",
     "coveralls": "^3.1.1",
