@@ -51,3 +51,43 @@ describe('Class TopicNode', () => {
     expect(topic.specializations).to.equal("&included-domains;");
   });
 });
+
+
+describe('followingSiblings', () => {
+  it('get the followingSiblings of title in the topic element', () => {
+    const topic = new TopicNode({});
+    const childTypes = topic.followingSiblings("title");
+    
+    expect(childTypes).to.deep.equal([
+      { name: 'shortdesc', single: true, required: false, isGroup: false },
+      { name: 'prolog', single: true, required: false, isGroup: false },
+      { name: 'body', single: true, required: false, isGroup: false }
+    ]);
+  });
+
+  it('get the followingSiblings of body in the topic element', () => {
+    const topic = new TopicNode({});
+    const childTypes = topic.followingSiblings("body");
+    
+    expect(childTypes).to.deep.equal([]);
+  });
+
+  it('get the followingSiblings of empty entry in the topic element', () => {
+    const topic = new TopicNode({});
+    const childTypes = topic.followingSiblings();
+    
+    expect(childTypes).to.deep.equal([
+      { name: 'title', single: true, required: true, isGroup: false },
+      { name: 'shortdesc', single: true, required: false, isGroup: false },
+      { name: 'prolog', single: true, required: false, isGroup: false },
+      { name: 'body', single: true, required: false, isGroup: false }
+    ]);
+  });
+
+  it('get the followingSiblings of wrong entry in the topic element', () => {
+    const topic = new TopicNode({});
+    const childTypes = topic.followingSiblings("p");
+    
+    expect(childTypes).to.deep.equal(undefined);
+  });
+});

@@ -18,6 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { doNodeTest } from "./tests";
 import { UlNode, isUlNode } from "../src/nodes/ul";
 import { expect } from "chai";
+import { LiNode } from "../src";
 
 doNodeTest(
   UlNode,
@@ -48,5 +49,18 @@ describe('Class UlNode', () => {
     expect(ul.conref).to.equal("conref");
     expect(ul.outputclass).to.equal("outputclass");
     expect(ul.class).to.equal("class");
+  });
+});
+
+
+describe('followingSiblings', () => {
+  it('get the followingSiblings of li in the ul element', () => {
+    const ul = new UlNode({});
+
+    const childTypes = ul.followingSiblings("li");
+    
+    expect(childTypes).to.deep.equal([
+      { name: 'li', single: false, required: true, isGroup: false }
+    ]);
   });
 });
