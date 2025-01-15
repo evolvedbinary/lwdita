@@ -116,6 +116,14 @@ export interface BaseNode {
    * @returns true if the node allows mixed content
    */
   allowsMixedContent(): boolean;
+
+  /**
+   * Get the following siblings of a child node.
+   * 
+   * @param child - The child node
+   * @returns An array of allowed child nodes
+   */
+  followingSiblings(child?: string): ChildTypes[] | undefined;
 }
 
 /**
@@ -304,6 +312,35 @@ export abstract class AbstractBaseNode implements BaseNode {
     //This is a temporary solution REMOVE the alt node as it's not mixed content
     // by YB, signed-off by AR.
     return this.canAdd("text") || this.canAdd("alt");
+  }
+
+  followingSiblings(child?: string): ChildTypes[] | undefined {
+    const childTypes  = this.static.childTypes;
+    if(!child) {
+      return childTypes;
+    }
+    
+    let targetChildType = null;
+    // check where the child is in the list of allowed childTypes
+    for(const childType of childTypes) {
+      if(acceptsNodeName(child, childType, nodeGroups)) {
+        targetChildType = childType;
+        break;
+      }
+    }
+    // if the child is not in the list of allowed children, return undefined
+    if(!targetChildType) {
+      return undefined;
+    }
+    // get the index of the child in the list of allowed children and return the following siblings
+    const index = childTypes.indexOf(targetChildType);
+    
+    // if the child is a group or not single, include it in the list
+    if((targetChildType as ChildType).isGroup || !(targetChildType as ChildType).single) {
+      return childTypes.slice(index);
+    }
+
+    return childTypes.slice(index+1);
   }
 }
 
