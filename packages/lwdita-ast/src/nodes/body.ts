@@ -79,12 +79,14 @@ export function makeBody<T extends Constructor>(constructor: T): T {
 export class BodyNode extends AbstractBaseNode implements BodyNodeAttributes {
   static domNodeName = 'div';
 
-    // ClassNodeAttributes
-    'outputclass'?: CDATA
-    'class'?: CDATA
+  static label = 'Body';
 
-    // LocalizationNodeAttributes
-    'dir'?: CDATA
-    'xml:lang'?: CDATA
-    'translate'?: CDATA
+  // ClassNodeAttributes
+  'outputclass'?: CDATA
+  'class'?: CDATA
+
+  // LocalizationNodeAttributes
+  'dir'?: CDATA
+  'xml:lang'?: CDATA
+  'translate'?: CDATA
 }

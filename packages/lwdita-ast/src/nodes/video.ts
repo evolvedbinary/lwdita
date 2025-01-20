@@ -165,6 +165,7 @@ export function makeVideo<T extends { new(...args: any[]): AbstractBaseNode }>(c
  */
 @makeComponent(makeVideo, 'video', isValidVideoField, VideoFields, ['desc?', 'fallback?', 'video-poster?', 'media-source*', 'media-track*'])
 export class VideoNode extends AbstractBaseNode implements VideoNodeAttributes {
+  static label = "Video";
 
   // LocalizationNodeAttributes
   'dir'?: CDATA

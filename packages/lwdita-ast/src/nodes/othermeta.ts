@@ -108,6 +108,7 @@ export function makeOthermeta<T extends { new(...args: any[]): AbstractBaseNode 
  */
 @makeComponent(makeOthermeta, 'othermeta', isValidOthermetaField, OthermetaFields)
 export class OthermetaNode extends AbstractBaseNode implements OthermetaNodeAttributes {
+  static label = "Other Metadata";
 
   // LocalizationNodeAttributes
   'dir'?: CDATA

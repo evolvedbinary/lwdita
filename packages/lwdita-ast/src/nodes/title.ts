@@ -79,7 +79,8 @@ export function makeTitle<T extends Constructor>(constructor: T): T  {
 @makeComponent(makeTitle, 'title', isValidTitleField, TitleFields, ['%inline.noxref*'])
 export class TitleNode extends AbstractBaseNode implements TitleNodeAttributes {
   static domNodeName = 'h1';
-
+  static label = "Title";
+  
   // ClassNodeAttributes
   'outputclass'?: CDATA
   'class'?: CDATA

@@ -85,8 +85,9 @@ export function makeXRef<T extends Constructor>(constructor: T): T {
 @makeComponent(makeXRef, 'xref', isValidXRefField, XRefFields, ['%inline.noxref*'])
 export class XRefNode extends AbstractBaseNode implements XRefNodeAttributes {
   static domNodeName = 'a';
-
- // ClassNodeAttributes
+  static label = "Reference";
+  
+  // ClassNodeAttributes
  'outputclass'?: CDATA
  'class'?: CDATA
 

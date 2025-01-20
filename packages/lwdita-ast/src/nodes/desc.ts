@@ -84,7 +84,8 @@ export function makeDesc<T extends Constructor>(constructor: T): T {
 @makeComponent(makeDesc, 'desc', isValidDescField, DescFields, ['%inline.noxref*'])
 export class DescNode extends AbstractBaseNode implements DescNodeAttributes {
   static domNodeName = 'caption';
-
+  static label = 'Description';
+  
   // ClassNodeAttributes
   'outputclass'?: CDATA
   'class'?: CDATA

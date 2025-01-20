@@ -83,6 +83,7 @@ export function makeOl<T extends Constructor>(constructor: T): T {
 @makeComponent(makeOl, 'ol', isValidOlField, OlFields, ['li+'])
 export class OlNode extends AbstractBaseNode implements OlNodeAttributes {
   static domNodeName = 'ol';
+  static label = "Ordered list";
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

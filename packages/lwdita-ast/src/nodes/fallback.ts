@@ -89,7 +89,8 @@ export function makeFallback<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeFallback, 'fallback', isValidFallbackField, FallbackFields, ['%fallback-blocks*'])
 export class FallbackNode extends AbstractBaseNode implements FallbackNodeAttributes {
-
+  static label = "Fallback";
+  
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA

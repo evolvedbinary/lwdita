@@ -86,7 +86,8 @@ export function makeProlog<T extends Constructor>(constructor: T): T {
 @makeComponent(makeProlog, 'prolog', isValidPrologField, PrologFields, ['metadata*'])
 export class PrologNode extends AbstractBaseNode implements PrologNodeAttributes {
   static domNodeName = '';
-
+  static label = "Prolog";
+  
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA

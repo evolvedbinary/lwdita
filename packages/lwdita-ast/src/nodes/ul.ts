@@ -83,7 +83,8 @@ export function makeUl<T extends Constructor>(constructor: T): T {
 @makeComponent(makeUl, 'ul', isValidUlField, UlFields, ['li+'])
 export class UlNode extends AbstractBaseNode implements UlNodeAttributes {
   static domNodeName = 'ul'
-
+  static label = "Unordered list";
+  
   // ClassNodeAttributes
   'outputclass'?: CDATA
   'class'?: CDATA

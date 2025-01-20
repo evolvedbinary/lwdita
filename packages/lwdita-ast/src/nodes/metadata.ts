@@ -93,7 +93,8 @@ export function makeMetadata<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeMetadata, 'metadata', isValidMetadataField, MetadataFields, ['othermeta*'])
 export class MetadataNode extends AbstractBaseNode implements MetadataNodeAttributes {
-
+  static label = "Metadata";
+  
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA

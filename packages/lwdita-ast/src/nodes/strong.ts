@@ -80,7 +80,8 @@ export function makeStrong<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeStrong, 'strong', isValidStrongField, StrongFields, ['%inline.noimage*'])
 export class StrongNode extends AbstractBaseNode implements StrongNodeAttributes {
-
+  static label = "Strong text";
+  
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA

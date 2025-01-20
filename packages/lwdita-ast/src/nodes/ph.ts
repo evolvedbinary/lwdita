@@ -82,6 +82,7 @@ export function makePh<T extends Constructor>(constructor: T): T {
 @makeComponent(makePh, 'ph', isValidPhField, PhFields, ['%inline*'])
 export class PhNode extends AbstractBaseNode implements PhNodeAttributes {
   static domNodeName = 'span';
+  static label = "Phrase content";
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

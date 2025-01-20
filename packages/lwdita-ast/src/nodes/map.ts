@@ -129,7 +129,8 @@ export function makeMap<T extends { new(...args: any[]): AbstractBaseNode }>(con
  */
 @makeComponent(makeMap, 'map', isValidMapField, MapFields, ['topicmeta?', ['topicref*', 'keydef*']])
 export class MapNode extends AbstractBaseNode implements MapNodeAttributes {
-
+  static label = "Map";
+  
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA

@@ -86,7 +86,7 @@ export function makeP<T extends Constructor>(constructor: T): T {
 @makeComponent(makeP, 'p', isValidPField, PFields, ['%inline*'])
 export class PNode extends AbstractBaseNode implements PNodeAttributes {
   static domNodeName = 'p';
-
+  static label = "Paragraph";
   // ClassNodeAttributes
   'outputclass'?: CDATA
   'class'?: CDATA

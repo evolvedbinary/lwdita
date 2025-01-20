@@ -84,6 +84,7 @@ export function makeDt<T extends Constructor>(constructor: T): T {
 @makeComponent(makeDt, 'dt', isValidDtField, DtFields, ['%inline*'])
 export class DtNode extends AbstractBaseNode implements DtNodeAttributes {
   static domNodeName = 'dt';
+  static label = 'Description term';
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

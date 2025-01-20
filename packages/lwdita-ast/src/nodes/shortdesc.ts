@@ -87,7 +87,8 @@ export function makeShortDesc<T extends Constructor>(constructor: T): T {
 @makeComponent(makeShortDesc, 'shortdesc', isValidShortDescField, ShortDescFields, ['%inline*'])
 export class ShortDescNode extends AbstractBaseNode implements ShortDescNodeAttributes {
   static domNodeName = 'p'
-
+  static label = "Short description";
+  
   // ClassNodeAttributes
   'outputclass'?: CDATA
   'class'?: CDATA

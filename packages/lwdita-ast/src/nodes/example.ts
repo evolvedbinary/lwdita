@@ -103,6 +103,7 @@ export function makeExample<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeExample, 'example', isValidExampleField, ExampleFields, ['title?', '%example-blocks'])
 export class ExampleNode extends AbstractBaseNode implements ExampleNodeAttributes {
+  static label = 'Example';
 
   // DisplayNodeAttributes
   'scale'?: DisplayScale;

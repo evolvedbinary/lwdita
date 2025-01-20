@@ -80,7 +80,8 @@ export function makeEm<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeEm, 'em', isValidEmField, EmFields, ['%inline.noimage*'])
 export class EmNode extends AbstractBaseNode implements EmNodeAttributes {
-
+  static label = 'Emphasized text';
+  
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA

@@ -111,7 +111,8 @@ export function makeImage<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeImage, 'image', isValidImageField, ImageFields, ['alt?'])
 export class ImageNode extends AbstractBaseNode implements ImageNodeAttributes {
-
+  static label = "Image";
+  
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA

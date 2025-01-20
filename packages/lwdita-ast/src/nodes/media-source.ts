@@ -91,6 +91,7 @@ export function makeMediaSource<T extends Constructor>(constructor: T): T {
 @makeComponent(makeMediaSource, 'media-source', isValidMediaSourceField, MediaSourceFields)
 export class MediaSourceNode extends AbstractBaseNode implements MediaSourceNodeAttributes {
   static domNodeName = 'source';
+  static label = "Media source";
 
   // LocalizationNodeAttributes
   'dir'?: CDATA

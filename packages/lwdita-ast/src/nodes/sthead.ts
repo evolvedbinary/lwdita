@@ -83,6 +83,7 @@ export function makeStHead<T extends Constructor>(constructor: T): T {
 @makeComponent(makeStHead, 'sthead', isValidStHeadField, StHeadFields, ['stentry+'])
 export class StHeadNode extends AbstractBaseNode implements StHeadNodeAttributes {
   static domNodeName = 'thead'
+  static label = "Table header row";
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

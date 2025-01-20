@@ -84,6 +84,7 @@ export function makeDd<T extends Constructor>(constructor: T): T {
 @makeComponent(makeDd, 'dd', isValidDdField, DdFields, ['%list-blocks*'])
 export class DdNode extends AbstractBaseNode implements DdNodeAttributes {
   static domNodeName = 'dd';
+  static label = 'Description';
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

@@ -81,6 +81,7 @@ export function makeBold<T extends Constructor>(constructor: T): T {
 @makeComponent(makeBold, 'b', isValidBoldField, BoldFields, ['%inline.noimage*'])
 export class BoldNode extends AbstractBaseNode implements BoldNodeAttributes {
   static domNodeName = 'b';
+  static label = 'Bold';
 
   // LocalizationNodeAttributes
   'dir'?: CDATA

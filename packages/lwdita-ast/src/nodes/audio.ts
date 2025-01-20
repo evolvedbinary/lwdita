@@ -165,6 +165,7 @@ export function makeAudio<T extends { new(...args: any[]): AbstractBaseNode }>(c
  */
 @makeComponent(makeAudio, 'audio', isValidAudioField, AudioFields, ['desc?', 'fallback?', 'media-source*', 'media-track*'])
 export class AudioNode extends AbstractBaseNode implements AudioNodeAttributes {
+  static label = 'Audio';
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

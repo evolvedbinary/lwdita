@@ -92,7 +92,7 @@ export function makeFig<T extends Constructor>(constructor: T): T {
 @makeComponent(makeFig, 'fig', isValidFigField, FigFields, ['title?', 'desc?', ['%fig-blocks*', 'image*', 'xref*']])
 export class FigNode extends AbstractBaseNode implements FigNodeAttributes {
   static domNodeName = 'figure';
-
+  static label = "Figure";
   // DisplayNodeAttributes
   'scale'?: DisplayScale;
   'frame'?: DisplayFrame;
