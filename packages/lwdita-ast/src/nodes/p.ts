@@ -87,6 +87,9 @@ export function makeP<T extends Constructor>(constructor: T): T {
 export class PNode extends AbstractBaseNode implements PNodeAttributes {
   static domNodeName = 'p';
   static label = "Paragraph";
+
+  static rank = 10; // standard rank for a paragraph
+
   // ClassNodeAttributes
   'outputclass'?: CDATA
   'class'?: CDATA
