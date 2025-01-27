@@ -80,6 +80,7 @@ export function makeDiv<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeDiv, 'div', isValidDivField, DivFields, ['fn+'])
 export class DivNode extends AbstractBaseNode implements DivNodeAttributes {
+  static label = 'Division';
 
   // LocalizationNodeAttributes
   'dir'?: CDATA

@@ -77,7 +77,8 @@ export function makeTopicmeta<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeTopicmeta, 'topicmeta', isValidTopicmetaField, TopicmetaFields, ['navtitle?', 'keytext?', 'othermeta*'])
 export class TopicmetaNode extends AbstractBaseNode implements TopicmetaNodeAttributes {
-
+  static label = "Metadata";
+  
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA

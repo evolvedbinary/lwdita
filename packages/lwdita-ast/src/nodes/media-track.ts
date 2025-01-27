@@ -129,7 +129,8 @@ export function makeMediaTrack<T extends { new(...args: any[]): AbstractBaseNode
  */
 @makeComponent(makeMediaTrack, 'media-track', isValidMediaTrackField, MediaTrackFields, ['text'])
 export class MediaTrackNode extends AbstractBaseNode implements MediaTrackNodeAttributes {
-
+  static label = "Track for captions";
+  
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA

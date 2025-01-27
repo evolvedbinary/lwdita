@@ -78,6 +78,7 @@ export function makeNavtitle<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeNavtitle, 'navtitle', isValidNavtitleField, NavtitleFields, [['text*', '%ph*']])
 export class NavtitleNode extends AbstractBaseNode implements NavtitleNodeAttributes {
+  static label = "Navigation title";
 
   // LocalizationNodeAttributes
   'dir'?: CDATA

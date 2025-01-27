@@ -83,6 +83,7 @@ export function makeStRow<T extends Constructor>(constructor: T): T {
 @makeComponent(makeStRow, 'strow', isValidStRowField, StRowFields, ['stentry*'])
 export class StRowNode extends AbstractBaseNode implements StRowNodeAttributes {
   static domNodeName = 'tr'
+  static label = "Table row";
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

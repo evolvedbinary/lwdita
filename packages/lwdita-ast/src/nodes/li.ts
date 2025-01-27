@@ -83,7 +83,8 @@ export function makeLi<T extends Constructor>(constructor: T): T {
 @makeComponent(makeLi, 'li', isValidLiField, LiFields, ['%list-blocks*'])
 export class LiNode extends AbstractBaseNode implements LiNodeAttributes {
   static domNodeName = 'li';
-
+  static label = "List item";
+  
   // ClassNodeAttributes
   'outputclass'?: CDATA
   'class'?: CDATA

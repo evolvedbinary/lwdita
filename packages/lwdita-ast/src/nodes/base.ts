@@ -124,6 +124,9 @@ export interface BaseNode {
 export abstract class AbstractBaseNode implements BaseNode {
   // `nodeName` means node type (e.g. "image", "alt", "body", etc.)
   static nodeName = 'node';
+  
+  // human readable label for the node
+  static label?: string;
 
   static inline?: boolean;
   // `fields` are attributes of the node eg <node field="value" />

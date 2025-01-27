@@ -84,6 +84,7 @@ export function makeDlEntry<T extends Constructor>(constructor: T): T {
 @makeComponent(makeDlEntry, 'dlentry', isValidDlEntryField, DlEntryFields, ['dt', 'dd'])
 export class DlEntryNode extends AbstractBaseNode implements DlEntryNodeAttributes {
   static domNodeName = '';
+  static label = 'Description entry';
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

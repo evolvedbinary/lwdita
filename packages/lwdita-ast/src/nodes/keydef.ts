@@ -124,7 +124,8 @@ export function makeKeydef<T extends { new(...args: any[]): AbstractBaseNode }>(
  */
 @makeComponent(makeKeydef, 'keydef', isValidKeydefField, KeydefFields, ['topicmeta?'])
 export class KeydefNode extends AbstractBaseNode implements KeydefNodeAttributes {
-
+  static label = "Key Definition";
+  
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA

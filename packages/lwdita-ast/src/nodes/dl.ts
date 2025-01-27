@@ -84,6 +84,7 @@ export function makeDl<T extends Constructor>(constructor: T): T {
 @makeComponent(makeDl, 'dl', isValidDlField, DlFields, ['dlentry+'])
 export class DlNode extends AbstractBaseNode implements DlNodeAttributes {
   static domNodeName = 'dl';
+  static label = 'Description list';
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

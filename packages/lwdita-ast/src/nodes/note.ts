@@ -109,6 +109,7 @@ export function makeNote<T extends { new(...args: any[]): AbstractBaseNode }>(co
 @makeComponent(makeNote, 'note', isValidNoteField, NoteFields, ['%simple-blocks*'])
 export class NoteNode extends AbstractBaseNode implements NoteNodeAttributes {
   static domNodeName = 'div'
+  static label = "Note";
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

@@ -114,7 +114,8 @@ export function makeFn<T extends { new(...args: any[]): AbstractBaseNode }>(cons
 @makeComponent(makeFn, 'fn', isValidFnField, FnFields, ['%fn-blocks*'])
 export class FnNode extends AbstractBaseNode implements FnNodeAttributes {
   static domNodeName = 'span';
-
+  static label = "Footnote";
+  
   // ClassNodeAttributes
   'outputclass'?: CDATA
   'class'?: CDATA

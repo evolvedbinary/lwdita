@@ -83,7 +83,8 @@ export function makeSimpleTable<T extends Constructor>(constructor: T): T {
 @makeComponent(makeSimpleTable, 'simpletable', isValidSimpleTableField, SimpleTableFields, ['title?', 'sthead?', 'strow+'])
 export class SimpleTableNode extends AbstractBaseNode implements SimpleTableNodeAttributes {
   static domNodeName = 'table'
-
+  static label = "Table";
+  
   // ClassNodeAttributes
   'outputclass'?: CDATA
   'class'?: CDATA

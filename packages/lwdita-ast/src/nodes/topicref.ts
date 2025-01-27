@@ -123,6 +123,7 @@ export function makeTopicref<T extends { new(...args: any[]): AbstractBaseNode }
  */
 @makeComponent(makeTopicref, 'topicref', isValidTopicrefField, TopicrefFields, ['topicmeta?', 'topicref?'])
 export class TopicrefNode extends AbstractBaseNode implements TopicrefNodeAttributes {
+  static label = "Topic or Map Reference";
 
   // LocalizationNodeAttributes
   'dir'?: CDATA

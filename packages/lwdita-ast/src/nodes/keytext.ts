@@ -78,6 +78,8 @@ export function makeKeytext<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeKeytext, 'keytext', isValidKeytextField, KeytextFields, [['text*', '%ph*']])
 export class KeytextNode extends AbstractBaseNode implements KeytextNodeAttributes {
+  static label = "Key text";
+  
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA

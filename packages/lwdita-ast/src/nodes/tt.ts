@@ -80,7 +80,8 @@ export function makeTt<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeTt, 'tt', isValidTtField, TtFields, ['%inline.noimage*'])
 export class TtNode extends AbstractBaseNode implements TtNodeAttributes {
-
+  static label = "Teletype content";
+  
   // LocalizationNodeAttributes
   'dir'?: CDATA
   'xml:lang'?: CDATA

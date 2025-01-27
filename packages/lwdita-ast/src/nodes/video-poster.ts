@@ -107,6 +107,7 @@ export function makeVideoPoster<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeVideoPoster, 'video-poster', isValidVideoPosterField, VideoPosterFields)
 export class VideoPosterNode extends AbstractBaseNode implements VideoPosterNodeAttributes {
+  static label = "Video poster";
 
   // LocalizationNodeAttributes
   'dir'?: CDATA

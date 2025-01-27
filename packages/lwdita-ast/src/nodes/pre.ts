@@ -106,7 +106,8 @@ export function makePre<T extends { new(...args: any[]): AbstractBaseNode }>(con
 @makeComponent(makePre, 'pre', isValidPreField, PreFields, [['text*', '%ph*', 'xref*', 'cdata*']])
 export class PreNode extends AbstractBaseNode implements PreNodeAttributes {
   static domNodeName = 'pre';
-
+  static label = "Preformatted content";
+  
   // ClassNodeAttributes
   'outputclass'?: CDATA
   'class'?: CDATA

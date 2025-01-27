@@ -80,6 +80,7 @@ export function makeAlt<T extends Constructor>(constructor: T): T {
  */
 @makeComponent(makeAlt, 'alt', isValidAltField, AltFields, [['text*', '%ph*']])
 export class AltNode extends AbstractBaseNode implements AltNodeAttributes {
+  static label = 'Alternative content';
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

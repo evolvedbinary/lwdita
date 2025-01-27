@@ -150,6 +150,7 @@ export function makeStEntry<T extends { new(...args: any[]): AbstractBaseNode }>
 @makeComponent(makeStEntry, 'stentry', isValidStEntryField, StEntryFields, ['%simple-blocks*'])
 export class StEntryNode extends AbstractBaseNode implements StEntryNodeAttributes {
   static domNodeName = 'td'
+  static label = "Table cell";
 
   // ClassNodeAttributes
   'outputclass'?: CDATA

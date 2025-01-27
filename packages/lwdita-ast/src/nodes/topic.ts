@@ -131,7 +131,8 @@ export function makeTopic<T extends { new(...args: any[]): AbstractBaseNode }>(c
 @makeComponent(makeTopic, 'topic', isValidTopicField, TopicFields, ['title', 'shortdesc?', 'prolog?', 'body?'])
 export class TopicNode extends AbstractBaseNode implements TopicNodeAttributes {
   static domNodeName = 'article';
-
+  static label = "Topic";
+  
   // ClassNodeAttributes
   'outputclass'?: CDATA
   'class'?: CDATA
