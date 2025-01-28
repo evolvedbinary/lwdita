@@ -50,3 +50,15 @@ describe('Class DlNode', () => {
     expect(dl.class).to.equal("class");
   });
 });
+
+describe('followingSiblings', () => {
+  it('get the followingSiblings of dlentry in the dl element', () => {
+    const dl = new DlNode({});
+
+    const childTypes = dl.followingSiblings("dlentry");
+    
+    expect(childTypes).to.deep.equal([
+      { name: 'dlentry', single: false, required: true, isGroup: false }
+    ]);
+  });
+});

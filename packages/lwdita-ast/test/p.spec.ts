@@ -49,10 +49,31 @@ describe('Class PNode', () => {
   });
 });
 
+
 describe("Get rank for special node p",() => {
   it("The rank should be 10 for special node p", () => {
     const rank = PNode.rank;
     
     expect(rank).to.eq(10);
+  });
+});
+
+describe('followingSiblings', () => {
+  it('get the followingSiblings of strong in the p element', () => {
+    const p = new PNode({});
+    const childTypes = p.followingSiblings("strong");
+    
+    expect(childTypes).to.deep.equal([
+      { name: 'inline', single: false, required: false, isGroup: true },
+    ]);
+  });
+
+  it('get the followingSiblings of image in the p element', () => {
+    const p = new PNode({});
+    const childTypes = p.followingSiblings("image");
+    
+    expect(childTypes).to.deep.equal([
+      { name: 'inline', single: false, required: false, isGroup: true },
+    ]);
   });
 });

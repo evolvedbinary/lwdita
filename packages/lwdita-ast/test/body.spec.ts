@@ -44,3 +44,22 @@ describe('Class BodyNode', () => {
     expect(body.class).to.equal("class");
   });
 });
+
+describe('followingSiblings', () => {
+  it('get the followingSiblings of section in the body element', () => {
+    const body = new BodyNode({});
+    const childTypes = body.followingSiblings("section");
+    
+    expect(childTypes).to.deep.equal([
+      { name: 'section', single: false, required: false, isGroup: false },
+      { name: 'div', single: true, required: false, isGroup: false }
+    ]);
+  });
+
+  it('get the followingSiblings of div in the body element', () => {
+    const body = new BodyNode({});
+    const childTypes = body.followingSiblings("div");
+    
+    expect(childTypes).to.deep.equal([]);
+  });
+});

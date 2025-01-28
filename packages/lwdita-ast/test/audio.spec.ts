@@ -71,3 +71,49 @@ describe('Class AudioNode', () => {
     expect(audio.tabindex).to.equal("1");
   });
 });
+
+describe('followingSiblings', () => {
+  it('get the followingSiblings of desc in the audio element', () => {
+    const audio = new AudioNode({});
+
+    const childTypes = audio.followingSiblings("desc");
+    
+    expect(childTypes).to.deep.equal([
+      { name: 'fallback', single: true, required: false, isGroup: false },
+      { name: 'media-source', single: false, required: false, isGroup: false },
+      { name: 'media-track', single: false, required: false, isGroup: false }
+    ]);
+  });
+
+  it('get the followingSiblings of fallback in the audio element', () => {
+    const audio = new AudioNode({});
+
+    const childTypes = audio.followingSiblings("fallback");
+    
+    expect(childTypes).to.deep.equal([
+      { name: 'media-source', single: false, required: false, isGroup: false },
+      { name: 'media-track', single: false, required: false, isGroup: false }
+    ]);
+  });
+
+  it('get the followingSiblings of media-source in the audio element', () => {
+    const audio = new AudioNode({});
+
+    const childTypes = audio.followingSiblings("media-source");
+    
+    expect(childTypes).to.deep.equal([
+      { name: 'media-source', single: false, required: false, isGroup: false },
+      { name: 'media-track', single: false, required: false, isGroup: false }
+    ]);
+  });
+
+  it('get the followingSiblings of media-track in the audio element', () => {
+    const audio = new AudioNode({});
+
+    const childTypes = audio.followingSiblings("media-track");
+    
+    expect(childTypes).to.deep.equal([
+      { name: 'media-track', single: false, required: false, isGroup: false }
+    ]);
+  });
+});
