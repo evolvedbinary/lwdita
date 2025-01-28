@@ -50,3 +50,11 @@ describe('Class LiNode', () => {
     expect(li.class).to.equal("class");
   });
 });
+
+describe("Get rank for special node li",() => {
+  it("The rank should be 100 for special node li", () => {
+    const rank = LiNode.rank;
+
+    expect(rank).to.eq(100);
+  });
+});
