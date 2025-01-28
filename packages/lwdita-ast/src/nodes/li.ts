@@ -84,6 +84,8 @@ export function makeLi<T extends Constructor>(constructor: T): T {
 export class LiNode extends AbstractBaseNode implements LiNodeAttributes {
   static domNodeName = 'li';
   static label = "List item";
+
+  static rank = 100; // highest rank
   
   // ClassNodeAttributes
   'outputclass'?: CDATA

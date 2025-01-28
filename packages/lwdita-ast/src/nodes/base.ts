@@ -128,6 +128,9 @@ export abstract class AbstractBaseNode implements BaseNode {
   // human readable label for the node
   static label?: string;
 
+  // `rank` is for display purposes
+  static rank = 1; // base rank for all nodes
+
   static inline?: boolean;
   // `fields` are attributes of the node eg <node field="value" />
   static fields: Array<string>;

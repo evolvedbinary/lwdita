@@ -46,3 +46,11 @@ describe('Class SectionNode', () => {
     expect(section.class).to.equal("class");
   });
 });
+
+describe("Get rank for generic node",() => {
+  it("The rank should be 1 for generic node", () => {
+    const rank = SectionNode.rank;
+  
+    expect(rank).to.eq(1);
+  });
+});

@@ -48,3 +48,11 @@ describe('Class PNode', () => {
     expect(p.class).to.equal("class");
   });
 });
+
+describe("Get rank for special node p",() => {
+  it("The rank should be 10 for special node p", () => {
+    const rank = PNode.rank;
+    
+    expect(rank).to.eq(10);
+  });
+});
