@@ -123,7 +123,7 @@ export interface BaseNode {
    * @param child - The child node
    * @returns An array of allowed child nodes
    */
-  followingSiblings(child?: string): ChildTypes[] | undefined;
+  followingSiblings(child: string): ChildTypes[] | undefined;
 }
 
 /**
@@ -314,12 +314,9 @@ export abstract class AbstractBaseNode implements BaseNode {
     return this.canAdd("text") || this.canAdd("alt");
   }
 
-  followingSiblings(child?: string): ChildTypes[] | undefined {
+  followingSiblings(child: string): ChildTypes[] | undefined {
     const childTypes  = this.static.childTypes;
-    if(!child) {
-      return childTypes;
-    }
-    
+
     let targetChildType = null;
     // check where the child is in the list of allowed childTypes
     for(const childType of childTypes) {
