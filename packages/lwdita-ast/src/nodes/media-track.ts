@@ -127,7 +127,7 @@ export function makeMediaTrack<T extends { new(...args: any[]): AbstractBaseNode
  * @param fields - A List of valid attributes @see {@link MediaTrackFields}
  * @param childNodes - An array containing all valid child node names: `text`
  */
-@makeComponent(makeMediaTrack, 'media-track', isValidMediaTrackField, MediaTrackFields, ['text'])
+@makeComponent(makeMediaTrack, 'media-track', isValidMediaTrackField, MediaTrackFields, ['text*'])
 export class MediaTrackNode extends AbstractBaseNode implements MediaTrackNodeAttributes {
   static label = "Track for captions";
   
