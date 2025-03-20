@@ -24,7 +24,7 @@ doNodeTest(
   'media-track',
   isMediaTrackNode,
   ['dir', 'xml:lang', 'translate', 'href', 'format', 'scope', 'keyref', 'kind', 'srclang', 'outputclass', 'class'],
-  ['text']
+  ['text*']
 );
 
 describe('Class MediaSourceNode', () => {
