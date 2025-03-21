@@ -17,6 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { AbstractBaseNode, CDataNode, DocumentNode, TextNode } from "@evolvedbinary/lwdita-ast";
 import { TextSimpleOutputStream } from "./stream";
+import { escapeXMLAttributeCharacters, escapeXMLCharacters } from "./utils";
 
 /**
  * Serializer for XDITA.
@@ -168,7 +169,7 @@ export class XditaSerializer {
     const props = node.getProps();
     if (props) {
       const attr = props as Record<string, string>;
-      attrsStr = Object.keys(props).filter(key => attr[key]).map(key => `${key}="${attr[key]}"`).join(' ');
+      attrsStr = Object.keys(props).filter(key => attr[key]).map(key => `${key}="${escapeXMLAttributeCharacters(attr[key])}"`).join(' ');
     }
     if (attrsStr.length) {
       attrsStr = ` ${attrsStr}`;
@@ -184,7 +185,9 @@ export class XditaSerializer {
   private serializeText(node: TextNode): void {
     const props = node.getProps();
     if (props['content']) {
-      this.outputStream.emit(String(props['content']));
+      let textContent = String(props['content']);
+      textContent = escapeXMLCharacters(textContent);
+      this.outputStream.emit(textContent);
     }
   }
 

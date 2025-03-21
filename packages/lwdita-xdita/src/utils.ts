@@ -36,3 +36,32 @@ export function storeOutputXML(xml: string, path: string): void {
     fs.writeFileSync(path,xml)
 }
 
+/**
+ * Escape XML characters in a string
+ * 
+ * @param text - The text to escape
+ * @returns - The escaped text
+ */
+export function escapeXMLCharacters(text: string): string {
+    return text.replace(/[&<>]/g, (match) => {
+        switch (match) {
+            case "&": return "&amp;";
+            case "<": return "&lt;";
+            case ">": return "&gt;";
+            default: return match;
+        }
+    })
+}
+
+/**
+ * Escape characters for attribute values
+*/
+export function escapeXMLAttributeCharacters(text: string): string {
+    return text.replace(/[&"]/g, (match) => {
+        switch (match) {
+            case '"': return "&quot;";
+            case "&": return "&amp;";
+            default: return match;
+        }
+    })
+}
