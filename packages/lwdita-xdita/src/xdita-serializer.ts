@@ -15,7 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { AbstractBaseNode, CDataNode, DocumentNode, TextNode } from "@evolvedbinary/lwdita-ast";
+import { AbstractBaseNode, CDataNode, DocumentNode, ImageNode, phGroup, PNode, TextNode } from "@evolvedbinary/lwdita-ast";
 import { TextSimpleOutputStream } from "./stream";
 import { escapeXMLAttributeCharacters, escapeXMLCharacters } from "./utils";
 
@@ -57,7 +57,9 @@ export class XditaSerializer {
    */
   private serializeIndentation(node?: AbstractBaseNode): void {
     if (!this.indent || !node) return;
-    if (node.allowsMixedContent()) return;
+    if (phGroup.includes(node.static.nodeName)) {
+      return;
+    };
     this.outputStream.emit(this.indentation.repeat(this.depth * this.tabSize));
   }
 
@@ -68,7 +70,9 @@ export class XditaSerializer {
    */
   private serializeEOL(node?: AbstractBaseNode): void {
     if (!this.indent || !node) return;
-    if (node.allowsMixedContent()) return;
+    if (phGroup.includes(node.static.nodeName)) {
+      return;
+    };
     this.outputStream.emit(this.EOL);
   }
 
@@ -154,7 +158,7 @@ export class XditaSerializer {
       this.serializeIndentation(node);
       this.outputStream.emit(`</${node.static.nodeName}>`);
     } else {
-      // element has no attributes or children, so the remainder of the element start tag as a self-closing element
+      // element has no children, so the remainder of the element start tag as a self-closing element
       this.outputStream.emit(`/>`);
     }
   }
