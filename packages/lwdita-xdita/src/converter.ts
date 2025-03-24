@@ -20,6 +20,7 @@ import { createCDataSectionNode, createNode } from "./factory";
 import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, DocTypeDecl, CDataNode, AbstractBaseNode, XMLDecl } from "@evolvedbinary/lwdita-ast";
 import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
 import { XditaSerializer } from "./xdita-serializer";
+import { escapeXMLCharacters } from "./utils";
 
 /**
  * Converts XML to an AST document tree
@@ -63,8 +64,7 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
     // `text` is the content of any text node in the parsed xml document
     parser.on("text", function (text) {
       const parentNode = stack[stack.length - 1];
-      const node: BaseNode = createNode(text);
-
+      
       // if the 'text' string is only whitespace characters,
       // and the parent node cannot accept a text node (i.e. it does not support #PCDATA),
       // then the whitespace is non-significant as far as the DTD is concerned... so just discard it!
@@ -72,6 +72,8 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
       if (wsRegEx.test(text) && !parentNode.allowsMixedContent()) {
         return;
       }
+
+      const node: BaseNode = createNode(text);
       // add the text node to the parent
       stack[stack.length - 1].add(node, abortOnError);
     });

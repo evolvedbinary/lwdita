@@ -331,3 +331,52 @@ describe('Round trip with custom doctype and xml declaration', () => {
     });
   });
 });
+
+
+
+describe('Round trip with special chars', () => {
+    it(`round trip with paragapth with special chars`, async () => {
+      const header = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`
+      const xdita = `<topic id="topicID"><title>t</title><body><p>Escape &lt;special&gt; characters &amp;, &lt;, &gt;.</p></body></topic>`;
+
+      // xdita -> ast
+      const ast = await xditaToAst(header + xdita);
+      
+      // ast -> jdita
+      const jdita = astToJdita(ast);
+
+      // jdita -> ast
+      const newAst = jditaToAst(jdita);
+
+      // ast -> xdita
+      const outStream = new InMemoryTextSimpleOutputStreamCollector();
+      const serializer = new XditaSerializer(outStream);
+      serializer.serialize(newAst);
+      const newXdita = outStream.getText();
+
+      expect(newXdita).to.equal(header + xdita);
+    });
+
+
+    it(`round trip with attributes with special chars`, async () => {
+      const header = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n`
+      const xdita = `<topic id="topicID"><title outputclass="test&amp;test&quot;s">t</title></topic>`;
+
+      // xdita -> ast
+      const ast = await xditaToAst(header + xdita);
+      
+      // ast -> jdita
+      const jdita = astToJdita(ast);
+
+      // jdita -> ast
+      const newAst = jditaToAst(jdita);
+
+      // ast -> xdita
+      const outStream = new InMemoryTextSimpleOutputStreamCollector();
+      const serializer = new XditaSerializer(outStream);
+      serializer.serialize(newAst);
+      const newXdita = outStream.getText();
+
+      expect(newXdita).to.equal(header + xdita);
+    });
+});
