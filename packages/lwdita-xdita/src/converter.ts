@@ -73,7 +73,11 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
         return;
       }
 
-      const node: BaseNode = createNode(text);
+      if(!text.trim()) {
+        return;
+      }
+
+      const node: BaseNode = createNode(text.trim());
       // add the text node to the parent
       stack[stack.length - 1].add(node, abortOnError);
     });

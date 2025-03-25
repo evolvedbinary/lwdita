@@ -1,0 +1,107 @@
+// expected output
+
+<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE topic PUBLIC \"-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN\" \"lw-topic.dtd\">
+<topic>
+    <title>Hello World</title>
+    <body>
+        <p>
+            <image href=\"test\">
+                <alt>
+                    no image
+                </alt>
+            </image>
+            and
+            <image href=\"test\">
+                <alt>no image</alt>
+            </image>
+        </p>
+    </body>
+</topic>
+
+
+// actual
+
+""<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE topic PUBLIC \"-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN\" \"lw-topic.dtd\">
+<topic>
+    <title>
+        Hello World
+    </title>
+    <body>
+        <p>
+            initial <b>first</b>text<image href=\"test\">
+                <alt>
+                    no image
+                </alt>
+            </image>
+            and
+            <image href=\"test\">
+                <alt>
+                    no image
+                </alt>
+            </image>
+            trailing text
+        </p>
+    </body>
+</topic>
+"
+
+
+// new output
+
+"<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE topic PUBLIC \"-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN\" \"lw-topic.dtd\">
+<topic>
+    <title>
+        Hello World
+    </title>
+    <body>
+        <p>
+            initial
+            <b>first</b>
+            text
+            <image href=\"test\">
+                <alt>
+                    no image
+                </alt>
+            </image>
+            and
+            <image href=\"test\">
+                <alt>
+                    no image
+                </alt>
+            </image>
+            trailing text
+        </p>
+    </body>
+</topic>
+"
+
+
+
+
+"<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE topic PUBLIC \"-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN\" \"lw-topic.dtd\">
+<topic>
+    <title>
+        Hello World
+    </title>
+    <body>
+        <p>
+initial            <b>first
+</b>            text            <image href=\"test\">
+                                <alt>
+                    no image
+                </alt>
+
+            </image>            and            <image href=\"test\">
+                                <alt>
+                    no image
+                </alt>
+
+            </image>            trailing text
+        </p>
+    </body>
+</topic>
+"

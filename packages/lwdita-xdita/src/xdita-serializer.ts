@@ -57,7 +57,7 @@ export class XditaSerializer {
    */
   private serializeIndentation(node?: AbstractBaseNode): void {
     if (!this.indent || !node) return;
-    if (phGroup.includes(node.static.nodeName)) {
+    if (node.allowsMixedContent()) {
       return;
     };
     this.outputStream.emit(this.indentation.repeat(this.depth * this.tabSize));
@@ -70,7 +70,7 @@ export class XditaSerializer {
    */
   private serializeEOL(node?: AbstractBaseNode): void {
     if (!this.indent || !node) return;
-    if (phGroup.includes(node.static.nodeName)) {
+    if (node.allowsMixedContent()) {
       return;
     };
     this.outputStream.emit(this.EOL);
@@ -164,6 +164,49 @@ export class XditaSerializer {
   }
 
   /**
+   * Serialize an inline element node to the output stream.
+   *
+   * @param node - the element node to serialize
+   */
+  private serializeInlineElement(node: AbstractBaseNode, parent?: AbstractBaseNode): void {
+    // serialize the start of the element start tag
+    this.outputStream.emit(`<${node.static.nodeName}`);
+    // serialize the attributes
+    this.serializeAttributes(node);
+    if (node.children?.length) {
+      // as the element has children or attributes, serialize the remainder of the element start tag
+      this.outputStream.emit(`>`);
+      if(!phGroup.includes(node.static.nodeName)) {
+        this.outputStream.emit('\n');
+      }
+      this.depth++;
+      // visit the element's children
+      node.children.forEach((child, idx) => {
+        // check if the next child is phrase group
+        const nextChild = node.children[idx + 1] || new PNode();
+        if(!phGroup.includes(node.static.nodeName)) {
+          if(!phGroup.includes(nextChild.static.nodeName)) {
+            this.outputStream.emit(this.indentation.repeat(this.depth * this.tabSize));
+          }
+        }
+        this.serialize(child, node)
+        if(idx === node.children.length - 1) {
+          this.outputStream.emit('\n');
+        }
+      });
+      this.depth--;
+      if(!phGroup.includes(node.static.nodeName)) {
+        this.outputStream.emit(this.indentation.repeat(this.depth * this.tabSize));
+      }
+
+      this.outputStream.emit(`</${node.static.nodeName}>`);
+    } else {
+      // element has no children, so the remainder of the element start tag as a self-closing element
+      this.outputStream.emit(`/>`);
+    }
+  }
+
+  /**
    * Serialize the attributes to the output stream
    *
    * @param node - the node to serialize the attributes of
@@ -233,6 +276,8 @@ export class XditaSerializer {
         // if the node is a text node, serialize its text content
         this.serializeCData(node);
 
+      } else if (node.allowsMixedContent() || parent?.allowsMixedContent()) {
+        this.serializeInlineElement(node, parent);
       } else {
         // TODO(AR) ideally we should have `node instanceof ElementNode` type guard here
         this.serializeElement(node);

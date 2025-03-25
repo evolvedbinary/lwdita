@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * @see {@link https://github.com/oasis-tcs/dita-lwdita/blob/b2985f254746b2614c1b9d6a5e6043f82335506f/org.oasis.xdita/dtd/lw-topic.dtd#L50}
  */
-const phGroup = ['b', 'em', 'i', 'ph', 'strong', 'sub', 'sup', 'tt', 'u'];
+export const phGroup = ['b', 'em', 'i', 'ph', 'strong', 'sub', 'sup', 'tt', 'u'];
 
 /**
  * Content groups
