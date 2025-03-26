@@ -50,21 +50,19 @@ export const XMLNODE_UNKNOWN = `{"name":"unknown","attributes":{},"ns":{},"prefi
 
 export const fullXditaExample = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">
-<topic id="fullTopic"><title dir="ltr" xml:lang="english" translate="no">
-        <b>bold</b> and <em>emphasized</em> and <i>italic</i> and <ph>Phrase content</ph> and <strong>strong</strong>
-        and <sub>subscript</sub> and <sup>superscipt</sup> and <tt>tele type</tt> and <u>underline</u><image/>
-        </title><shortdesc>Short description of the full topic.</shortdesc><prolog props="metadata"><metadata><othermeta name="test" content="test"/></metadata></prolog><body outputclass="outputclass"><p>Paragraph content</p><ul><li><p>Unordered list item</p></li></ul><ol><li><p>Ordered list item</p></li></ol><dl><dlentry><dt>Definition term</dt><dd><p>Definition description</p></dd></dlentry></dl><pre>Preformatted content</pre><audio autoplay="false" controls="true" loop="false" muted="false"><desc>Theme song for the LwDITA podcast</desc><fallback><p>The theme song is not available.</p></fallback><media-source href="theme-song.mp3"/><media-track href="theme-song.vtt" srclang="en"/></audio><video width="400px" height="300px" loop="false" muted="false"><desc>Video about the Sensei Sushi promise.</desc><fallback><image href="video-not-available.png"><alt>This video cannot be displayed.</alt></image></fallback><video-poster href="sensei-video.jpg"/><media-source href="sensei-video.mp4"/><media-source href="sensei-video.ogg"/><media-source href="sensei-video.webm"/><media-track href="sensei-video.vtt" srclang="en"/></video><example><title>title</title></example><simpletable><title>Table title</title><sthead><stentry><p>Header 1</p></stentry><stentry><p>Header 2</p></stentry></sthead><strow><stentry><p>Row 1, Cell 1</p></stentry><stentry><p>Row 1, Cell 2</p></stentry></strow><strow><stentry><p>Row 2, Cell 1</p></stentry><stentry><p>Row 2, Cell 2</p></stentry></strow></simpletable><fig><title>Figure title</title><desc>Figure description</desc><image href="images/image.png"><alt>alt text</alt></image></fig><note type="note"><p>Note content</p></note><section><title>Section title</title><p>Section content</p></section><div><fn id="footnote"/></div></body></topic>`
+<topic id="fullTopic"><title dir="ltr" xml:lang="english" translate="no"><b>bold</b> and <em>emphasized</em> and <i>italic</i> and <ph>Phrase content</ph> and <strong>strong</strong>
+        and <sub>subscript</sub> and <sup>superscipt</sup> and <tt>tele type</tt> and <u>underline</u><image/></title><shortdesc>Short description of the full topic.</shortdesc><prolog props="metadata"><metadata><othermeta name="test" content="test"/></metadata></prolog><body outputclass="outputclass"><p>Paragraph content</p><ul><li><p>Unordered list item</p></li></ul><ol><li><p>Ordered list item</p></li></ol><dl><dlentry><dt>Definition term</dt><dd><p>Definition description</p></dd></dlentry></dl><pre>Preformatted content</pre><audio autoplay="false" controls="true" loop="false" muted="false"><desc>Theme song for the LwDITA podcast</desc><fallback><p>The theme song is not available.</p></fallback><media-source href="theme-song.mp3"/><media-track href="theme-song.vtt" srclang="en"/></audio><video width="400px" height="300px" loop="false" muted="false"><desc>Video about the Sensei Sushi promise.</desc><fallback><image href="video-not-available.png"><alt>This video cannot be displayed.</alt></image></fallback><video-poster href="sensei-video.jpg"/><media-source href="sensei-video.mp4"/><media-source href="sensei-video.ogg"/><media-source href="sensei-video.webm"/><media-track href="sensei-video.vtt" srclang="en"/></video><example><title>title</title></example><simpletable><title>Table title</title><sthead><stentry><p>Header 1</p></stentry><stentry><p>Header 2</p></stentry></sthead><strow><stentry><p>Row 1, Cell 1</p></stentry><stentry><p>Row 1, Cell 2</p></stentry></strow><strow><stentry><p>Row 2, Cell 1</p></stentry><stentry><p>Row 2, Cell 2</p></stentry></strow></simpletable><fig><title>Figure title</title><desc>Figure description</desc><image href="images/image.png"><alt>alt text</alt></image></fig><note type="note"><p>Note content</p></note><section><title>Section title</title><p>Section content</p></section><div><fn id="footnote"/></div></body></topic>`
 
 export const fullAstObject = {
-  xmlDecl: {
-    version: "1.0",
-    encoding: "UTF-8",
-    standalone: undefined,
-  },
   docTypeDecl: {
     name: "topic",
     publicId: "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN",
     systemId: "lw-topic.dtd",
+  },
+  xmlDecl: {
+    version: "1.0",
+    encoding: "UTF-8",
+    standalone: undefined,
   },
   _children: [
     {
@@ -89,11 +87,6 @@ export const fullAstObject = {
             class: undefined,
           },
           _children: [
-            {
-              _props: {
-                content: "\n        ",
-              },
-            },
             {
               _props: {
                 dir: undefined,
@@ -301,11 +294,6 @@ export const fullAstObject = {
                 keyref: undefined,
                 outputclass: undefined,
                 class: undefined,
-              },
-            },
-            {
-              _props: {
-                content: "\n        ",
               },
             },
           ],
@@ -1409,10 +1397,6 @@ export const fullJditaObject = {
           },
           children: [
             {
-              nodeName: "text",
-              content: "\n        ",
-            },
-            {
               nodeName: "b",
               attributes: {
                 dir: undefined,
@@ -1614,10 +1598,6 @@ export const fullJditaObject = {
                 class: undefined,
               },
               children: undefined,
-            },
-            {
-              nodeName: "text",
-              content: "\n        ",
             },
           ],
         },
