@@ -20,7 +20,6 @@ import { createCDataSectionNode, createNode } from "./factory";
 import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, DocTypeDecl, CDataNode, AbstractBaseNode, XMLDecl } from "@evolvedbinary/lwdita-ast";
 import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
 import { XditaSerializer } from "./xdita-serializer";
-import { escapeXMLCharacters } from "./utils";
 
 /**
  * Converts XML to an AST document tree
@@ -70,6 +69,11 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
       // then the whitespace is non-significant as far as the DTD is concerned... so just discard it!
       // see: https://github.com/evolvedbinary/lwdita/issues/129#issuecomment-2150243338
       if (wsRegEx.test(text) && !parentNode.allowsMixedContent()) {
+        return;
+      }
+
+      // ignore leading/trailing whitespace
+      if(!text.trim()) {
         return;
       }
 

@@ -15,7 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { AbstractBaseNode, CDataNode, DocumentNode, TextNode } from "@evolvedbinary/lwdita-ast";
+import { AbstractBaseNode, CDataNode, DocumentNode, phGroup, TextNode } from "@evolvedbinary/lwdita-ast";
 import { TextSimpleOutputStream } from "./stream";
 import { escapeXMLAttributeCharacters, escapeXMLCharacters } from "./utils";
 
@@ -131,6 +131,63 @@ export class XditaSerializer {
     return xmlDeclaration;
   };
 
+  private serializeInlineElement(node: AbstractBaseNode): void {
+    // print the start of the tag
+    this.outputStream.emit(`<${node.static.nodeName}`);
+    // serialize the attributes
+    this.serializeAttributes(node);
+
+    if (node.children.length) { 
+      this.outputStream.emit(`>`);
+
+      // check if element has any text children or phrasing elements
+      const inlineContent = node.children.filter(child => child instanceof TextNode || phGroup.includes(child.static.nodeName) || child instanceof CDataNode);
+      
+      if(inlineContent.length) {
+        // increment the depth after starting an element
+        this.depth++;
+        // visit the element's children
+        node.children.forEach((child) => {
+          this.serialize(child, node)
+        });
+        // decrement the depth after serializing the elements children
+        this.depth--;
+      } else {
+        // if the element has no text children or phrasing elements, indent the children
+        if(this.indent) {
+          // print a new line
+          this.outputStream.emit(this.EOL);
+          // indent the children
+          this.outputStream.emit(this.indentation.repeat((this.depth + 1) * this.tabSize));
+        }
+        
+        // increment the depth after starting an element
+        this.depth++;
+        // visit the element's children
+        node.children.forEach((child, idx) => {
+          this.serialize(child, node)
+  
+          if(this.indent && idx < node.children.length - 1) {
+            this.outputStream.emit(this.EOL);
+            this.outputStream.emit(this.indentation.repeat(this.depth * this.tabSize));
+          }
+        });
+        // decrement the depth after serializing the elements children
+        this.depth--;
+  
+        if(this.indent) {  
+          this.outputStream.emit(this.EOL);
+          this.outputStream.emit(this.indentation.repeat(this.depth * this.tabSize));
+        }
+      }
+
+      this.outputStream.emit(`</${node.static.nodeName}>`);
+    } else {
+      // element has no children, so the remainder of the element start tag as a self-closing element
+      this.outputStream.emit(`/>`);
+    }
+  }
+
   /**
    * Serialize an element node to the output stream.
    *
@@ -154,7 +211,7 @@ export class XditaSerializer {
       this.serializeIndentation(node);
       this.outputStream.emit(`</${node.static.nodeName}>`);
     } else {
-      // element has no attributes or children, so the remainder of the element start tag as a self-closing element
+      // element has no children, so the remainder of the element start tag as a self-closing element
       this.outputStream.emit(`/>`);
     }
   }
@@ -229,6 +286,9 @@ export class XditaSerializer {
         // if the node is a text node, serialize its text content
         this.serializeCData(node);
 
+      } else if (node.allowsMixedContent()) {
+        // if the node is a inline node
+        this.serializeInlineElement(node);
       } else {
         // TODO(AR) ideally we should have `node instanceof ElementNode` type guard here
         this.serializeElement(node);

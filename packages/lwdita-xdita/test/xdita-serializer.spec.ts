@@ -309,3 +309,152 @@ describe('handles custom xml declaration and doctype', () => {
     expect(actual).equal(expected);
   })
 })
+
+describe('Full round trip with Paragraph', () => {
+  it('should round trip with paragraph', async () => {
+    const { serializer, outStream } = newSerializer(false);
+    const header = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n'
+    const input = '<topic><title>Hello World</title><body><p>Good\nMorning</p></body></topic>'
+    const orginalAst = await xditaToAst(input);
+    serializer.serialize(orginalAst);
+
+    // the input and output should be identical
+    const expected =  header + input
+
+    const actual = outStream.getText()
+
+    expect(actual).equal(expected);
+  })
+
+  it('should round trip with paragraph with empty text', async () => {
+    const { serializer, outStream } = newSerializer(false);
+    const header = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n'
+    const input = '<topic><title>Hello World</title><body><p> </p></body></topic>'
+    const orginalAst = await xditaToAst(input);
+    serializer.serialize(orginalAst);
+
+    // the paragraph will be serialized as <p/>
+    const expected =  header + '<topic><title>Hello World</title><body><p/></body></topic>'
+
+    const actual = outStream.getText()
+
+    expect(actual).equal(expected);
+  })
+
+  it('should round trip with paragraph with image and indent off', async () => {
+    const { serializer, outStream } = newSerializer(false);
+    const header = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n'
+    const input = '<topic><title>Hello World</title><body><p><image href="test"><alt>no image</alt></image></p></body></topic>'
+    const orginalAst = await xditaToAst(input);
+    serializer.serialize(orginalAst);
+
+    // the input and output should be identical
+    const expected =  header + input
+
+    const actual = outStream.getText()
+
+    expect(actual).equal(expected);
+  })
+
+  it('should round trip with paragraph with one image', async () => {
+    const { serializer, outStream } = newSerializer(true);
+    const header = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n'
+    const input = '<topic><title>Hello World</title><body><p><image href="test"><alt>no image</alt></image></p></body></topic>'
+    const orginalAst = await xditaToAst(input);
+    serializer.serialize(orginalAst);
+
+    // the input and output should be identical
+    const expected =  header + `<topic>
+    <title>Hello World</title>
+    <body>
+        <p>
+            <image href="test">
+                <alt>no image</alt>
+            </image>
+        </p>
+    </body>
+</topic>\n`
+
+    const actual = outStream.getText()
+
+    expect(actual).equal(expected);
+  })
+
+
+  it('should round trip with paragraph with one image and wrong indentation', async () => {
+    const { serializer, outStream } = newSerializer(true);
+    const header = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n'
+    const input = `<topic><title>Hello World</title><body><p>
+       <image href="test"><alt>no image</alt></image>    </p></body></topic>`
+    const orginalAst = await xditaToAst(input);
+    serializer.serialize(orginalAst);
+
+    // the input and output should be identical
+    const expected =  header + `<topic>
+    <title>Hello World</title>
+    <body>
+        <p>
+            <image href="test">
+                <alt>no image</alt>
+            </image>
+        </p>
+    </body>
+</topic>\n`
+
+    const actual = outStream.getText()
+
+    expect(actual).equal(expected);
+  })
+
+
+  it('should round trip with paragraph with more then one image', async () => {
+    const { serializer, outStream } = newSerializer(true);
+    const header = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n'
+    const input = `<topic><title>Hello World</title><body><p><image href="test"><alt>no image</alt></image><image href="test"><alt>no image</alt></image></p></body></topic>`
+    const orginalAst = await xditaToAst(input);
+    serializer.serialize(orginalAst);
+
+    // the input and output should be identical
+    const expected =  header + `<topic>
+    <title>Hello World</title>
+    <body>
+        <p>
+            <image href="test">
+                <alt>no image</alt>
+            </image>
+            <image href="test">
+                <alt>no image</alt>
+            </image>
+        </p>
+    </body>
+</topic>\n`
+
+    const actual = outStream.getText()
+
+    expect(actual).equal(expected);
+  })
+
+  it('should round trip with paragraph with more then one image', async () => {
+    const { serializer, outStream } = newSerializer(true);
+    const header = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE topic PUBLIC "-//OASIS//DTD LIGHTWEIGHT DITA Topic//EN" "lw-topic.dtd">\n'
+    const input = `<topic><title>Hello World</title><body><p>initial text<image href="test"><alt>no image</alt></image>and<image href="test"><alt>no image</alt></image>trailing text</p></body></topic>`
+    const orginalAst = await xditaToAst(input);
+    serializer.serialize(orginalAst);
+
+    // the input and output should be identical
+    const expected =  header + `<topic>
+    <title>Hello World</title>
+    <body>
+        <p>initial text<image href="test">
+                <alt>no image</alt>
+            </image>and<image href="test">
+                <alt>no image</alt>
+            </image>trailing text</p>
+    </body>
+</topic>\n`
+
+    const actual = outStream.getText()
+
+    expect(actual).equal(expected);
+  })
+})
