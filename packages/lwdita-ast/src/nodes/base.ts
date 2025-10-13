@@ -164,7 +164,14 @@ export abstract class AbstractBaseNode implements BaseNode {
    * @param attributes - Attributes of the node
    * @returns An object with the record of properties
    */
-  static attributesToProps<T extends Record<string, BasicValue>>(attributes: Attributes = {}): T {
+  static attributesToProps<T extends Record<string, BasicValue>>(
+    attributes: Attributes = {},
+  ): T {
+    Object.keys(attributes).forEach((attrName) => {
+      if (!this.fields.includes(attrName)) {
+        throw new UnknownAttributeError(`Unknown attribute: "${attrName}"`);
+      }
+    });
     const result: Record<string, BasicValue> = {};
     // loop through all node attributes and get their values
     this.fields.forEach(field => {
