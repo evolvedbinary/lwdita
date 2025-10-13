@@ -79,14 +79,17 @@ export function getPathFromStack(stack: BaseNode[]): string {
 }
 
 
-export function craftParsingError(msg: string, stack: BaseNode[], line: number, column: number, nodeName: string) {
+export function formatErrorMessage(msg: string, stack: BaseNode[], line: number, column: number, nodeName?: string) {
     let error = msg
-    if(nodeName === "text") {
-      error += ` in node ${nodeName}\n`
-    } else {
-      error += ` in node "${nodeName}"\n`
+    if(nodeName) {
+      error += ` in node ${nodeName}`
     }
-    error += `Path: /${getPathFromStack(stack)}/${nodeName}\n`
+    error += `\n`;
+    if(nodeName) {
+        error += `Path: /${getPathFromStack(stack)}/${nodeName}\n`
+    } else {
+        error += `Path: /${getPathFromStack(stack)}\n`
+    }
     error += `Parsing Error at line ${line}, column ${column} \n`
 
     return error;

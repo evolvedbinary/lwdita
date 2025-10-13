@@ -20,7 +20,7 @@ import { createCDataSectionNode, createNode } from "./factory";
 import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, DocTypeDecl, CDataNode, AbstractBaseNode, XMLDecl, NonAcceptedChildError, UnknownAttributeError } from "@evolvedbinary/lwdita-ast";
 import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
 import { XditaSerializer } from "./xdita-serializer";
-import { craftParsingError } from "./utils";
+import { formatErrorMessage } from "./utils";
 
 /**
  * Converts XML to an AST document tree
@@ -84,10 +84,9 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
         stack[stack.length - 1].add(node, abortOnError);
       } catch (e) {
         if(e instanceof NonAcceptedChildError) {
-          e.message = craftParsingError(String(e), stack, parser.line, parser.column, "text")
           errorHandler(e);
         } else {
-          throw new Error(`Unexpected error: ${e}`)
+          throw e
         }
       }
     });
@@ -120,15 +119,14 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
      */
     parser.on("opentag", function (node: saxes.SaxesTagNS) {
       try {
-        const obj = createNode(node);
-        stack[stack.length - 1].add(obj, abortOnError);
-        stack.push(obj);
+      const obj = createNode(node);
+      stack[stack.length - 1].add(obj, abortOnError);
+      stack.push(obj);
       } catch (e) {
         if(e instanceof NonAcceptedChildError || e instanceof UnknownAttributeError) {
-          e.message = craftParsingError(String(e), stack, parser.line, parser.column, node.name)
-          errorHandler(e);
+          errorHandler(e, node.name);
         } else {
-          throw new Error(`Unexpected error: ${e}`)
+          throw e
         }
       }
     });
@@ -145,10 +143,9 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
         stack[stack.length - 1].add(obj, abortOnError);
       } catch (e) {
         if(e instanceof NonAcceptedChildError) {
-          e.message = craftParsingError(String(e), stack, parser.line, parser.column, "CADATA")
-          errorHandler(e);
+          errorHandler(e, "CDATA");
         } else {
-          throw new Error(`Unexpected error: ${e}`)
+          throw e
         }
       }
     })
@@ -162,11 +159,12 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
       }
     });
 
-    function errorHandler(e: Error) {
+    function errorHandler(e: Error, nodeName?: string) {
+      e.message = formatErrorMessage(e.message, stack, parser.line, parser.column,nodeName)
       if(abortOnError) {
         reject(e.message)
         // This is necessary to stop the parsing
-        throw new Error()
+        throw e;
       }
       errors.push(e);
     }
