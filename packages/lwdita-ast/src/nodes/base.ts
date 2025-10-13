@@ -283,7 +283,11 @@ export abstract class AbstractBaseNode implements BaseNode {
     // If there is a child that cannot be added, throw a new error
     if (!this.canAddNode(child)) {
       if (breakOnError) {
-        throw new NonAcceptedChildError(`"${child.static.nodeName}" node can't be a child of "${this.static.nodeName}" node`);
+        if(child.static.nodeName === "text") {
+          throw new NonAcceptedChildError(`${child.static.nodeName} node can't be a child of "${this.static.nodeName}" node`);
+        } else {
+          throw new NonAcceptedChildError(`"${child.static.nodeName}" node can't be a child of "${this.static.nodeName}" node`);
+        }
       }
       return;
     }

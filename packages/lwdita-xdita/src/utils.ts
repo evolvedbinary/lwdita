@@ -15,6 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import { BaseNode } from '@evolvedbinary/lwdita-ast';
 import fs from 'fs';
 
 /**
@@ -64,4 +65,29 @@ export function escapeXMLAttributeCharacters(text: string): string {
             default: return match;
         }
     })
+}
+/**
+ * Get the current node path from the stack
+ * e.g. "topic/section/paragraph/text"
+ */
+export function getPathFromStack(stack: BaseNode[]): string {
+  // Don't mutate the original stack
+  const path = stack.map(node => node.static.nodeName);
+  // remove the document node
+  path.shift();
+  return path.join("/");
+}
+
+
+export function craftParsingError(msg: string, stack: BaseNode[], line: number, column: number, nodeName: string) {
+    let error = msg
+    if(nodeName === "text") {
+      error += ` in node ${nodeName}\n`
+    } else {
+      error += ` in node "${nodeName}"\n`
+    }
+    error += `Path: /${getPathFromStack(stack)}/${nodeName}\n`
+    error += `Parsing Error at line ${line}, column ${column} \n`
+
+    return error;
 }

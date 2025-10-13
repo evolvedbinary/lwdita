@@ -17,9 +17,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import * as saxes from "@rubensworks/saxes";
 import { createCDataSectionNode, createNode } from "./factory";
-import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, DocTypeDecl, CDataNode, AbstractBaseNode, XMLDecl } from "@evolvedbinary/lwdita-ast";
+import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, DocTypeDecl, CDataNode, AbstractBaseNode, XMLDecl, NonAcceptedChildError, UnknownAttributeError } from "@evolvedbinary/lwdita-ast";
 import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
 import { XditaSerializer } from "./xdita-serializer";
+import { craftParsingError } from "./utils";
 
 /**
  * Converts XML to an AST document tree
@@ -79,7 +80,16 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
 
       const node: BaseNode = createNode(text);
       // add the text node to the parent
-      stack[stack.length - 1].add(node, abortOnError);
+      try {
+        stack[stack.length - 1].add(node, abortOnError);
+      } catch (e) {
+        if(e instanceof NonAcceptedChildError) {
+          e.message = craftParsingError(String(e), stack, parser.line, parser.column, "text")
+          errorHandler(e);
+        } else {
+          throw new Error(`Unexpected error: ${e}`)
+        }
+      }
     });
 
     // Look for the first open tag `<` and add the node to the array
@@ -114,7 +124,12 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
         stack[stack.length - 1].add(obj, abortOnError);
         stack.push(obj);
       } catch (e) {
-        console.log('invalid:', e);
+        if(e instanceof NonAcceptedChildError || e instanceof UnknownAttributeError) {
+          e.message = craftParsingError(String(e), stack, parser.line, parser.column, node.name)
+          errorHandler(e);
+        } else {
+          throw new Error(`Unexpected error: ${e}`)
+        }
       }
     });
 
@@ -129,7 +144,12 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
         const obj = createCDataSectionNode(cdata);
         stack[stack.length - 1].add(obj, abortOnError);
       } catch (e) {
-        console.log('invalid:', e);
+        if(e instanceof NonAcceptedChildError) {
+          e.message = craftParsingError(String(e), stack, parser.line, parser.column, "CADATA")
+          errorHandler(e);
+        } else {
+          throw new Error(`Unexpected error: ${e}`)
+        }
       }
     })
 
@@ -142,9 +162,17 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
       }
     });
 
-    parser.on("error", function (e) {
+    function errorHandler(e: Error) {
+      if(abortOnError) {
+        reject(e.message)
+        // This is necessary to stop the parsing
+        throw new Error()
+      }
       errors.push(e);
-    });
+    }
+
+    // Error handler for XML
+    parser.on("error", errorHandler);
 
     // process the xml using the parser
     parser.write(xml).close();
