@@ -17,18 +17,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import * as saxes from "@rubensworks/saxes";
 import { createCDataSectionNode, createNode } from "./factory";
-import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, DocTypeDecl, CDataNode, AbstractBaseNode, XMLDecl } from "@evolvedbinary/lwdita-ast";
+import { Attributes, BasicValue, TextNode, getNodeClass, JDita, BaseNode, DocumentNode, DocTypeDecl, CDataNode, AbstractBaseNode, XMLDecl, NonAcceptedChildError, UnknownAttributeError } from "@evolvedbinary/lwdita-ast";
 import { InMemoryTextSimpleOutputStreamCollector } from "./stream";
 import { XditaSerializer } from "./xdita-serializer";
+import { formatErrorMessage } from "./utils";
 
 /**
  * Converts XML to an AST document tree
  *
  * @param xml - XML string
- * @param abortOnError - If true, abort on error
+ * @param abortOnFirstError - If true, abort on first error
  * @returns - Promise of a DocumentNode
  */
-export async function xditaToAst(xml: string, abortOnError = true): Promise<DocumentNode> {
+export async function xditaToAst(xml: string, abortOnFirstError = true): Promise<DocumentNode> {
   return new Promise((resolve, reject) => {
     const errors: Error[] = [];
     // Create a Parser Object
@@ -79,7 +80,15 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
 
       const node: BaseNode = createNode(text);
       // add the text node to the parent
-      stack[stack.length - 1].add(node, abortOnError);
+      try {
+        stack[stack.length - 1].add(node, abortOnFirstError);
+      } catch (e) {
+        if(e instanceof NonAcceptedChildError) {
+          errorHandler(e);
+        } else {
+          throw e
+        }
+      }
     });
 
     // Look for the first open tag `<` and add the node to the array
@@ -110,11 +119,15 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
      */
     parser.on("opentag", function (node: saxes.SaxesTagNS) {
       try {
-        const obj = createNode(node);
-        stack[stack.length - 1].add(obj, abortOnError);
-        stack.push(obj);
+      const obj = createNode(node);
+      stack[stack.length - 1].add(obj, abortOnFirstError);
+      stack.push(obj);
       } catch (e) {
-        console.log('invalid:', e);
+        if(e instanceof NonAcceptedChildError || e instanceof UnknownAttributeError) {
+          errorHandler(e, node.name);
+        } else {
+          throw e
+        }
       }
     });
 
@@ -127,24 +140,37 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
     parser.on("cdata", (cdata) => {
       try {
         const obj = createCDataSectionNode(cdata);
-        stack[stack.length - 1].add(obj, abortOnError);
+        stack[stack.length - 1].add(obj, abortOnFirstError);
       } catch (e) {
-        console.log('invalid:', e);
+        if(e instanceof NonAcceptedChildError) {
+          errorHandler(e, "CDATA");
+        } else {
+          throw e
+        }
       }
     })
 
     // return the document tree if run without errors
     parser.on("end", function () {
-      if (errors.length && abortOnError) {
+      if (errors.length) {
         reject(errors);
       } else {
         resolve(doc);
       }
     });
 
-    parser.on("error", function (e) {
+    function errorHandler(e: Error, nodeName?: string) {
+      e.message = formatErrorMessage(e.message, stack, parser.line, parser.column,nodeName)
+      if(abortOnFirstError) {
+        reject(e.message)
+        // This is necessary to stop the parsing
+        throw e;
+      }
       errors.push(e);
-    });
+    }
+
+    // Error handler for XML
+    parser.on("error", errorHandler);
 
     // process the xml using the parser
     parser.write(xml).close();
@@ -155,11 +181,11 @@ export async function xditaToAst(xml: string, abortOnError = true): Promise<Docu
  * Convert the document tree to JDita object
  *
  * @param xml - The XML input as string
- * @param abortOnError - Boolean, if true, stop execution and report errors
+ * @param abortOnFirstError - Boolean, if true, stop execution and report errors
  * @returns JDita object
  */
-export async function xditaToJdita(xml: string, abortOnError = true): Promise<JDita> {
-  return xditaToAst(xml, abortOnError).then(astToJdita);
+export async function xditaToJdita(xml: string, abortOnFirstError = true): Promise<JDita> {
+  return xditaToAst(xml, abortOnFirstError).then(astToJdita);
 }
 
 /**

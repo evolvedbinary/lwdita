@@ -164,7 +164,14 @@ export abstract class AbstractBaseNode implements BaseNode {
    * @param attributes - Attributes of the node
    * @returns An object with the record of properties
    */
-  static attributesToProps<T extends Record<string, BasicValue>>(attributes: Attributes = {}): T {
+  static attributesToProps<T extends Record<string, BasicValue>>(
+    attributes: Attributes = {},
+  ): T {
+    Object.keys(attributes).forEach((attrName) => {
+      if (!this.fields.includes(attrName)) {
+        throw new UnknownAttributeError(`Unknown attribute: "${attrName}"`);
+      }
+    });
     const result: Record<string, BasicValue> = {};
     // loop through all node attributes and get their values
     this.fields.forEach(field => {
@@ -276,7 +283,11 @@ export abstract class AbstractBaseNode implements BaseNode {
     // If there is a child that cannot be added, throw a new error
     if (!this.canAddNode(child)) {
       if (breakOnError) {
-        throw new NonAcceptedChildError(`"${child.static.nodeName}" node can't be a child of "${this.static.nodeName}" node`);
+        if(child.static.nodeName === "text") {
+          throw new NonAcceptedChildError(`${child.static.nodeName} node can't be a child of "${this.static.nodeName}" node`);
+        } else {
+          throw new NonAcceptedChildError(`"${child.static.nodeName}" node can't be a child of "${this.static.nodeName}" node`);
+        }
       }
       return;
     }

@@ -541,6 +541,21 @@ describe('Base Node children (groups)', () => {
   });
 });
 
+describe('Node attributes', () => {
+  class SampleNode extends AbstractBaseNode {
+    static nodeName = 'child';
+    static fields: string[] = ["foo", "bar", "baz"];
+  }
+  it("Throws when a wrong attribute is set", () => {
+    expect(() => {
+      new SampleNode({
+        "foo": "bar",
+        "wrong-attr": "wrong"
+      })
+    }).to.throw('Unknown attribute: "wrong-attr"');
+  })
+});
+
 describe('JDita', () => {
   it('Empty node', () => {
     class Node extends AbstractBaseNode {
