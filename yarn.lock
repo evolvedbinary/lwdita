@@ -368,7 +368,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     typedoc: "npm:^0.26.10"
     typedoc-plugin-missing-exports: "npm:^3.0.0"
-    typescript: "npm:5.6.3"
+    typescript: "npm:5.9.3"
   languageName: unknown
   linkType: soft
 
@@ -383,7 +383,7 @@ __metadata:
     ts-node: "npm:^10.9.2"
     typedoc: "npm:^0.26.10"
     typedoc-plugin-missing-exports: "npm:^3.0.0"
-    typescript: "npm:5.6.3"
+    typescript: "npm:5.9.3"
   languageName: unknown
   linkType: soft
 
@@ -405,7 +405,7 @@ __metadata:
     nodemon: "npm:^3.1.7"
     nyc: "npm:^17.1.0"
     rimraf: "npm:^6.0.1"
-    typescript: "npm:5.6.3"
+    typescript: "npm:5.9.3"
   languageName: unknown
   linkType: soft
 
@@ -4455,23 +4455,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.6.3":
-  version: 5.6.3
-  resolution: "typescript@npm:5.6.3"
+"typescript@npm:5.9.3":
+  version: 5.9.3
+  resolution: "typescript@npm:5.9.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/44f61d3fb15c35359bc60399cb8127c30bae554cd555b8e2b46d68fa79d680354b83320ad419ff1b81a0bdf324197b29affe6cc28988cd6a74d4ac60c94f9799
+  checksum: 10c0/6bd7552ce39f97e711db5aa048f6f9995b53f1c52f7d8667c1abdc1700c68a76a308f579cd309ce6b53646deb4e9a1be7c813a93baaf0a28ccd536a30270e1c5
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>":
-  version: 5.6.3
-  resolution: "typescript@patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=b45daf"
+"typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>":
+  version: 5.9.3
+  resolution: "typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=b45daf"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/ac8307bb06bbfd08ae7137da740769b7d8c3ee5943188743bb622c621f8ad61d244767480f90fbd840277fbf152d8932aa20c33f867dea1bb5e79b187ca1a92f
+  checksum: 10c0/6f7e53bf0d9702350deeb6f35e08b69cbc8b958c33e0ec77bdc0ad6a6c8e280f3959dcbfde6f5b0848bece57810696489deaaa53d75de3578ff255d168c1efbd
   languageName: node
   linkType: hard
 
