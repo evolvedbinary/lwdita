@@ -4,9 +4,10 @@
       "rootDir": "src",
       "outDir": "dist",
     },
-
     "exclude": [
-      "test/*",
+      "test/**/*",
+      "generated-docs/**/*",
+      "node_modules",
       "example.ts"
     ]
 }
