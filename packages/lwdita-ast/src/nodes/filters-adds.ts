@@ -19,6 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * FiltersAddsNode are empty
  */
 export const FiltersAddsFields = [];
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface FiltersAddsNodeAttributes {}
 export const isFiltersAddsNode = (value?: unknown): value is FiltersAddsNodeAttributes =>
   typeof value === 'object' && !!value

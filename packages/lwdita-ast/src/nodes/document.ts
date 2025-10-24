@@ -19,10 +19,6 @@ import { AbstractBaseNode } from "./base";
 import { parseDocTypeDecl, stringToChildTypes } from "../utils";
 import { JDita } from "../ast-classes";
 
-/**
- * Interface DocumentNode defines the attribute types for a document node.
- */
-export interface DocumentNodeAttributes {}
 // XML declaration interface
 export interface XMLDecl {
   /** The version specified by the XML declaration. */
@@ -51,7 +47,7 @@ export interface DocTypeDecl {
  * </document>
  * ```
  */
-export class DocumentNode extends AbstractBaseNode implements DocumentNodeAttributes {
+export class DocumentNode extends AbstractBaseNode {
   // TODO rename this to undefined
   static nodeName = 'document';
   static childTypes = stringToChildTypes(['topic']);

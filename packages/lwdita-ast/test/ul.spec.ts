@@ -18,7 +18,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { doNodeTest } from "./tests";
 import { UlNode, isUlNode } from "../src/nodes/ul";
 import { expect } from "chai";
-import { LiNode } from "../src";
 
 doNodeTest(
   UlNode,
