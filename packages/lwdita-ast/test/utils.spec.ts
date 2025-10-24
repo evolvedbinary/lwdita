@@ -98,7 +98,7 @@ describe('areFieldsValid', () => {
       field2: 'value2',
     };
     const validations = [
-      (field: string, value: BasicValue) => typeof value === 'string',
+      (_field: string, value: BasicValue) => typeof value === 'string',
     ];
     const result = areFieldsValid(fields, value, ...validations);
     expect(result).to.be.true;
@@ -111,7 +111,7 @@ describe('areFieldsValid', () => {
       field2: 'value2',
     };
     const validations = [
-      (field: string, value: BasicValue) => value === 'value1',
+      (_field: string, value: BasicValue) => value === 'value1',
     ];
     const result = areFieldsValid(fields, value, ...validations);
     expect(result).to.be.false;

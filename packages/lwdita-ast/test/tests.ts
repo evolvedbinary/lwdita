@@ -42,7 +42,7 @@ export function doNodeTest(
     });
     it('should be a correct node', () => {
       const node = new (classType as unknown as Constructor)({});
-      expect(validator(node)).to.be.true;
+      expect(validator(node)).to.be.equal(true);
     });
     it('should be accept correct children', () => {
       assert.deepEqual(stringToChildTypes(children), classType.childTypes);
