@@ -18,4 +18,5 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 export * from './classes';
 export * from './utils';
 export * from './converter';
+export * from './stream';
 export * from './xdita-serializer';
