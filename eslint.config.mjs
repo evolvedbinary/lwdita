@@ -36,7 +36,7 @@ export default [{
 
     rules: {
         "@typescript-eslint/no-empty-interface": 0,
-        "tsdoc/syntax": "warn",
+        "tsdoc/syntax": "off",
 
         "notice/notice": ["error", {
             templateFile: "config/notice.js",
