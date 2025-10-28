@@ -4,7 +4,7 @@
   "description": "An Abstract Syntax Tree Model of the LwDITA elements",
   "main": "./dist/index.js",
   "engines": {
-    "node": ">=22.11.0 <23",
+    "node": ">=22.16.0 <23",
     "yarn": ">=4.2.2"
   },
   "scripts": {

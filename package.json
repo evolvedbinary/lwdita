@@ -3,7 +3,7 @@
   "version": "3.3.2",
   "description": "Tools and libraries for working with LwDITA",
   "engines": {
-    "node": ">=22.11.0 <23",
+    "node": ">=22.16.0 <23",
     "yarn": ">=4.2.2"
   },
   "private": true,
