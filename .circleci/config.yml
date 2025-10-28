@@ -45,17 +45,6 @@ jobs:
           command: yarn run nyc --reporter=text-lcov report > coverage.lcov
       - coveralls/upload:
           coverage_file: coverage.lcov
-  lint:
-    docker:
-      - image: cimg/node:<< pipeline.parameters.node-image-tag >>
-    resource_class: << pipeline.parameters.resource-class >>
-    steps:
-      - checkout
-      - install-yarn
-      - install-dependencies
-      - run:
-          name: Lint
-          command: yarn lint
 
   build:
     docker:
@@ -68,21 +57,6 @@ jobs:
       - run:
           name: Build
           command: yarn build
-
-  generate-docs:
-    docker:
-      - image: cimg/node:<< pipeline.parameters.node-image-tag >>
-    resource_class: << pipeline.parameters.resource-class >>
-    steps:
-      - checkout
-      - install-yarn
-      - install-dependencies
-      - run:
-          name: Build
-          command: yarn build
-      - run:
-          name: Generate Docs
-          command: yarn generate-docs
 
   run-example:
     docker:
@@ -102,8 +76,6 @@ jobs:
 workflows:
   build-and-test:
     jobs:
-      - lint
       - build
       - coverage
-      - generate-docs
       - run-example

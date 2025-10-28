@@ -11,8 +11,7 @@
     "build": "tsc",
     "clean": "rimraf dist",
     "prepack": "yarn run build",
-    "example": "ts-node ./example.ts",
-    "generate-docs": "typedoc"
+    "example": "ts-node ./example.ts"
   },
   "keywords": [
     "LwDITA",
@@ -41,8 +40,6 @@
     "@types/node": "^24.9.1",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
-    "typedoc": "^0.28.14",
-    "typedoc-plugin-missing-exports": "^4.1.2",
     "typescript": "5.9.3"
   },
   "packageManager": "yarn@4.2.2"

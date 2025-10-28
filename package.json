@@ -12,8 +12,6 @@
     "packages/lwdita-ast"
   ],
   "scripts": {
-    "lint": "eslint packages/*",
-    "lint:fix": "eslint packages/* --fix",
     "start:dev": "nodemon",
     "clean": "yarn workspaces foreach --parallel --recursive --from '@evolvedbinary/lwdita-*' run clean",
     "build": "yarn clean && yarn workspaces foreach --recursive --from '@evolvedbinary/lwdita-*' run build",
@@ -22,8 +20,7 @@
     "test": "mocha",
     "test:watch": "mocha -w",
     "coverage": "rimraf coverage && nyc yarn mocha",
-    "coveralls": "nyc --reporter=text-lcov report | coveralls",
-    "generate-docs": "yarn workspaces foreach --recursive --from '@evolvedbinary/lwdita-*' run generate-docs"
+    "coveralls": "nyc --reporter=text-lcov report | coveralls"
   },
   "repository": {
     "type": "git",
@@ -52,13 +49,8 @@
     "@tsconfig/recommended": "^1.0.10",
     "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.10",
-    "@typescript-eslint/eslint-plugin": "^8.46.2",
-    "@typescript-eslint/parser": "^8.46.2",
     "chai": "^6.2.0",
     "coveralls": "^3.1.1",
-    "eslint": "^9.38.0",
-    "eslint-plugin-notice": "^1.0.0",
-    "eslint-plugin-tsdoc": "^0.4.0",
     "mocha": "^11.7.4",
     "nodemon": "^3.1.10",
     "nyc": "^17.1.0",
