@@ -11,7 +11,8 @@
     "build": "tsc",
     "clean": "rimraf dist",
     "prepack": "yarn run build",
-    "example": "ts-node ./example.ts"
+    "example": "ts-node ./example.ts",
+    "api-extractor": "api-extractor run --local"
   },
   "keywords": [
     "LwDITA",

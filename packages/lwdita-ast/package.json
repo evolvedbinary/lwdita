@@ -10,7 +10,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist",
-    "prepack": "yarn run build"
+    "prepack": "yarn run build",
+    "api-extractor": "api-extractor run --local"
   },
   "keywords": [
     "LwDITA",

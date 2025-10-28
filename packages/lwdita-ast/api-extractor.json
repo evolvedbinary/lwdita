@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
+  "mainEntryPointFilePath": "./dist/index.d.ts",
+  "dtsRollup": {
+    "enabled": true,
+    "untrimmedFilePath": "./dist/lwdita-ast.d.ts"
+  },
+  "docModel": { 
+    "enabled": true,
+    "apiJsonFilePath": "../../generated-docs/lwdita-ast.api.json"
+  },
+  "apiReport": { "enabled": false }
+}
