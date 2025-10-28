@@ -20,6 +20,7 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
 import notice from "eslint-plugin-notice";
+import tsdoc from "eslint-plugin-tsdoc";
 
 
 export default defineConfig([
@@ -27,7 +28,10 @@ export default defineConfig([
   tseslint.configs.recommended,
   {
     ignores: ["**/dist/**", "**/node_modules/**", "**/coverage/**"],
-    plugins: { notice },
+    plugins: { 
+      notice,
+      tsdoc
+    },
     rules: {
       "@typescript-eslint/no-unused-vars": [
         "error",
@@ -43,6 +47,9 @@ export default defineConfig([
       ],
       // notice
       "notice/notice": ["error", { templateFile: "./config/notice.js" }],
+
+      // tsdoc
+      "tsdoc/syntax": "warn"
     }
   },
   {
