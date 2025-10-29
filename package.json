@@ -20,7 +20,6 @@
     "test": "mocha",
     "test:watch": "mocha -w",
     "lint": "eslint",
-    "extract-docs": "yarn workspace @evolvedbinary/lwdita-xdita api-extractor && yarn workspace @evolvedbinary/lwdita-ast api-extractor",
     "generate-docs": "yarn run extract-docs && api-documenter markdown --input ./generated-docs --output ./generated-docs/api",
     "coverage": "rimraf coverage && nyc yarn mocha",
     "coveralls": "nyc --reporter=text-lcov report | coveralls"
@@ -50,8 +49,6 @@
   ],
   "devDependencies": {
     "@eslint/js": "^9.38.0",
-    "@microsoft/api-documenter": "^7.27.3",
-    "@microsoft/api-extractor": "^7.53.3",
     "@tsconfig/recommended": "^1.0.10",
     "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.10",
