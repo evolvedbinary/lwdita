@@ -20,7 +20,7 @@
     "test": "mocha",
     "test:watch": "mocha -w",
     "lint": "eslint",
-    "generate-docs": "yarn run extract-docs && api-documenter markdown --input ./generated-docs --output ./generated-docs/api",
+    "generate-docs": "typedoc",
     "coverage": "rimraf coverage && nyc yarn mocha",
     "coveralls": "nyc --reporter=text-lcov report | coveralls"
   },

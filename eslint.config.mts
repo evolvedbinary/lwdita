@@ -24,38 +24,53 @@ import tsdoc from "eslint-plugin-tsdoc";
 
 
 export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs,ts,mts,cts}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: { ...globals.browser, ...globals.node } } },
-  tseslint.configs.recommended,
+  // Global ignore rules
   {
-    ignores: ["**/dist/**", "**/node_modules/**", "**/coverage/**"],
-    plugins: { 
-      notice,
-      tsdoc
-    },
+    ignores: [
+      "**/dist/**",
+      "**/node_modules/**",
+      "**/coverage/**"
+    ]
+  },
+
+  // JS base config
+  {
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
+    plugins: { js },
+    extends: ["js/recommended"],
+    languageOptions: {
+      globals: { ...globals.browser, ...globals.node }
+    }
+  },
+
+  tseslint.configs.recommended,
+
+  // Custom rules
+  {
+    plugins: { notice, tsdoc },
     rules: {
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
-          "args": "all",
-          "argsIgnorePattern": "^_",
-          "caughtErrors": "all",
-          "caughtErrorsIgnorePattern": "^_",
-          "destructuredArrayIgnorePattern": "^_",
-          "varsIgnorePattern": "^_",
-          "ignoreRestSiblings": true
+          args: "all",
+          argsIgnorePattern: "^_",
+          caughtErrors: "all",
+          caughtErrorsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          ignoreRestSiblings: true
         }
       ],
-      // notice
       "notice/notice": ["error", { templateFile: "./config/notice.js" }],
-
-      // tsdoc
       "tsdoc/syntax": "warn"
     }
   },
+
+  // Test overrides
   {
     files: ["**/*.spec.ts"],
     rules: {
-      "@typescript-eslint/no-unused-expressions": "off",
-    },
+      "@typescript-eslint/no-unused-expressions": "off"
+    }
   }
 ]);

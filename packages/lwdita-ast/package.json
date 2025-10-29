@@ -10,7 +10,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist",
-    "prepack": "yarn run build"
+    "prepack": "yarn run build",
+    "generate-docs": "typedoc --options typedoc.json"
   },
   "keywords": [
     "LwDITA",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "rimraf": "^6.0.1",
+    "typedoc": "^0.28.14",
     "typescript": "5.9.3"
   },
   "packageManager": "yarn@4.2.2"
