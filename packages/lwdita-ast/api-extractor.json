@@ -9,5 +9,12 @@
     "enabled": true,
     "apiJsonFilePath": "../../generated-docs/lwdita-ast.api.json"
   },
-  "apiReport": { "enabled": false }
+  "apiReport": { "enabled": false },
+  "messages": {
+    "extractorMessageReporting": {
+      "ae-missing-release-tag": {
+        "logLevel": "none"
+      }
+    }
+  }
 }

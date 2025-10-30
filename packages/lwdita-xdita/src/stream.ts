@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 /**
  * A simple output stream interface.
  */
-interface SimpleOutputStream<T> {
+export interface SimpleOutputStream<T> {
   /**
    * Emit an item to the output stream.
    * 

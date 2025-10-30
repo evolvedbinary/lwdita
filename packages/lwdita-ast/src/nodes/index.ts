@@ -64,6 +64,7 @@ export * from './section';
 export * from './shortdesc';
 export * from './simple-table';
 export * from './size';
+export * from './specializations-type';
 export * from './stentry';
 export * from './sthead';
 export * from './strong';
