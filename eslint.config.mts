@@ -24,10 +24,26 @@ import tsdoc from "eslint-plugin-tsdoc";
 
 
 export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs,ts,mts,cts}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: { ...globals.browser, ...globals.node } } },
+  {
+    ignores: [
+      "**/dist/**",
+      "**/node_modules/**",
+      "**/coverage/**"
+    ]
+  },
+
+  // JS base config
+  {
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
+    plugins: { js },
+    extends: ["js/recommended"],
+    languageOptions: {
+      globals: { ...globals.browser, ...globals.node }
+    }
+  },
+
   tseslint.configs.recommended,
   {
-    ignores: ["**/dist/**", "**/node_modules/**", "**/coverage/**"],
     plugins: { 
       notice,
       tsdoc
