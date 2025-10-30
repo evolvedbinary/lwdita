@@ -29,3 +29,6 @@ package-lock.json
 !.yarn/versions
 #!.yarn/cache
 .pnp.*
+
+# tsdoc log files
+tsdoc-metadata.json
