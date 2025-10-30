@@ -2716,7 +2716,7 @@ export const fullJditaObject = {
  * @param indentation - the character (or string) to use as the indent
  * @param tabSize - size of the tab, only used when the `indentation` is not a `\t` character.
  *
- * @return serializer and output stream.
+ * @returns serializer and output stream.
  */
 export function newSerializer(indent = false, indentation = " ", tabSize = 4): {serializer: XditaSerializer, outStream: InMemoryTextSimpleOutputStreamCollector} {
   const outStream = new InMemoryTextSimpleOutputStreamCollector();
