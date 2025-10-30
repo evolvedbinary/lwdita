@@ -4,8 +4,6 @@ coverage
 coverage.lcov
 dist/
 out/
-generated-docs/
-
 package-lock.json
 
 # TypeScript cache

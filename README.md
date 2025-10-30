@@ -153,17 +153,6 @@ yarn run build
 
 This will create a `./dist` folder in the root of each sub-module, which contains binaries that can be copied to your own project.
 
-### Generate the TSDoc Documentation
-
-You can generate the documentation by running
-
-```shell
-yarn run generate-docs
-```
-
-This will generate a new folder `docs` containing an HTML file with the entire TSDoc lwdita documentation.
-Open this file in a browser to navigate through the documentation.
-
 ### Test
 
 This project also has tests which are written using the Mocha framework.
