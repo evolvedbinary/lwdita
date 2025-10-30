@@ -16,7 +16,7 @@ const compat = new FlatCompat({
 });
 
 export default [{
-    ignores: ["packages/lwdita-xdita/example.ts", "**/node_modules", "**/dist", "**/generated-docs"],
+    ignores: ["packages/lwdita-xdita/example.ts", "**/node_modules", "**/dist"],
 }, ...compat.extends(
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",

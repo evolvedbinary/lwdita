@@ -7,7 +7,6 @@
 
     "exclude": [
       "test/**/*",
-      "generated-docs/**/*",
       "node_modules",
     ]
 }

@@ -6,7 +6,6 @@
     },
     "exclude": [
       "test/**/*",
-      "generated-docs/**/*",
       "node_modules",
       "example.ts"
     ]

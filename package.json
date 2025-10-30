@@ -23,7 +23,6 @@
     "test:watch": "mocha -w",
     "coverage": "rimraf coverage && nyc yarn mocha",
     "coveralls": "nyc --reporter=text-lcov report | coveralls",
-    "generate-docs": "yarn workspaces foreach --recursive --from '@evolvedbinary/lwdita-*' run generate-docs"
   },
   "repository": {
     "type": "git",
