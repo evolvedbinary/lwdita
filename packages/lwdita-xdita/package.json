@@ -37,7 +37,7 @@
     "(AR) Previously we were using `\"saxes\": \"^6.0.0\"`, see: https://github.com/lddubeau/saxes/pull/120"
   ],
   "devDependencies": {
-    "@types/node": "^24.9.1",
+    "@types/node": "^24.9.2",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "5.9.3"
