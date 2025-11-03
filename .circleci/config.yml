@@ -69,6 +69,21 @@ jobs:
           name: Build
           command: yarn build
 
+  generate-docs:
+    docker:
+      - image: cimg/node:<< pipeline.parameters.node-image-tag >>
+    resource_class: << pipeline.parameters.resource-class >>
+    steps:
+      - checkout
+      - install-yarn
+      - install-dependencies
+      - run:
+          name: Build
+          command: yarn build
+      - run:
+          name: Generate Docs
+          command: yarn docs:all
+
   run-example:
     docker:
       - image: cimg/node:<< pipeline.parameters.node-image-tag >>
@@ -90,4 +105,5 @@ workflows:
       - lint
       - build
       - coverage
+      - generate-docs
       - run-example

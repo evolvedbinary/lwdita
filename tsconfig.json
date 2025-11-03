@@ -1,6 +1,6 @@
 {
   "extends": "@tsconfig/recommended/tsconfig.json",
-
+  "exclude": ["**/test/**", "**/dist/**", "node_modules", "eslint.config.mts"],
   // overrides recommended
   "compilerOptions": {
     "skipLibCheck": false,                    /* Do NOT skip type checking of declaration files. */
@@ -9,7 +9,6 @@
     "sourceMap": true,                        /* Generates corresponding '.map' file. */
     "noEmit": false,                          /* NOTE(AR) just making it explicit that we are using tsc (and not another tool) to emit compiled JavaScript */
     "moduleResolution": "node10",             /* NOTE(AR) just making it explicit that this is the tsc compilation strategy for module resolution that we are currently using */
-    "rootDir": "src",
     "outDir": "dist",                         /* Redirect output structure to the `dist/` directory. */
   },
 }
