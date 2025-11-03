@@ -82,7 +82,7 @@ jobs:
           command: yarn build
       - run:
           name: Generate Docs
-          command: yarn docs:all
+          command: yarn generate-docs
 
   run-example:
     docker:

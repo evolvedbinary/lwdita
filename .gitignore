@@ -27,6 +27,3 @@ package-lock.json
 !.yarn/versions
 #!.yarn/cache
 .pnp.*
-
-# Typedoc output
-doc/

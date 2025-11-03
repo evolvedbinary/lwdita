@@ -19,9 +19,7 @@
     "example": "yarn workspace @evolvedbinary/lwdita-xdita run example",
     "test": "mocha",
     "test:watch": "mocha -w",
-    "docs:ast": "typedoc --options typedoc.config.mjs --entryPoints packages/lwdita-ast/src/index.ts --out doc/ast",
-    "docs:xdita": "typedoc --options typedoc.config.mjs --entryPoints packages/lwdita-xdita/src/index.ts --out doc/xdita",
-    "docs:all": "rimraf doc && yarn docs:ast && yarn docs:xdita",
+    "generate-docs": "yarn workspaces foreach --parallel --recursive --from '@evolvedbinary/lwdita-*' run docs",
     "lint": "eslint",
     "coverage": "rimraf coverage && nyc yarn mocha",
     "coveralls": "nyc --reporter=text-lcov report | coveralls"
@@ -65,7 +63,6 @@
     "nodemon": "^3.1.10",
     "nyc": "^17.1.0",
     "rimraf": "^6.1.0",
-    "typedoc": "^0.28.14",
     "typescript": "5.9.3",
     "typescript-eslint": "^8.46.3"
   },
