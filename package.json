@@ -19,6 +19,7 @@
     "example": "yarn workspace @evolvedbinary/lwdita-xdita run example",
     "test": "mocha",
     "test:watch": "mocha -w",
+    "generate-docs": "yarn workspaces foreach --parallel --recursive --from '@evolvedbinary/lwdita-*' run docs",
     "lint": "eslint",
     "coverage": "rimraf coverage && nyc yarn mocha",
     "coveralls": "nyc --reporter=text-lcov report | coveralls"
