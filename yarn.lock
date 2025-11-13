@@ -402,7 +402,7 @@ __metadata:
   resolution: "@evolvedbinary/lwdita@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.39.1"
-    "@tsconfig/recommended": "npm:^1.0.12"
+    "@tsconfig/recommended": "npm:^1.0.13"
     "@types/chai": "npm:^5.2.3"
     "@types/mocha": "npm:^10.0.10"
     chai: "npm:^6.2.1"
@@ -724,10 +724,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/recommended@npm:^1.0.12":
-  version: 1.0.12
-  resolution: "@tsconfig/recommended@npm:1.0.12"
-  checksum: 10c0/ab548b08d4a58d0ea6e8a7532c786dccc319f82366b41e487dca3a2e0c01522857698ca32ca3a7bba428e21b0ce52842910c50faab666b4b0e9743b62a5c7d73
+"@tsconfig/recommended@npm:^1.0.13":
+  version: 1.0.13
+  resolution: "@tsconfig/recommended@npm:1.0.13"
+  checksum: 10c0/b0fae7ff8243621da68cd7a259499e1fd536e1aa3b3e3be233d30ab8d5bf046ec3dcc4ff68fc640435f421575e41e56bc735f61a1fe8a47b4475f3f2bf5ed882
   languageName: node
   linkType: hard
 
