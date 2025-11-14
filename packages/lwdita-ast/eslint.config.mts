@@ -15,14 +15,16 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { OptionDefaults } from "typedoc";
+import rootConfig from "../../eslint.config.mjs";
+import { defineConfig } from "eslint/config";
+import globals from "globals";
 
-const config = {
-  tsconfig: "./tsconfig.json",
-  modifierTags: [...OptionDefaults.modifierTags, "@decorator"],
-  highlightLanguages: ["ts", "js", "xml", "json", "bash"],
-  treatWarningsAsErrors: true,
-  treatValidationWarningsAsErrors: true,
-};
-
-export default config;
+export default defineConfig([
+  ...rootConfig,
+  {
+    files: ["src/**/*.ts"],
+    languageOptions: {
+      globals: { ...globals.browser }
+    }
+  },
+]);

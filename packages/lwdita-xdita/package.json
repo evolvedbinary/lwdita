@@ -9,10 +9,11 @@
   },
   "scripts": {
     "build": "tsc",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
     "prepack": "yarn run build",
     "docs": "typedoc --options typedoc.config.mjs --entryPoints src/index.ts --out dist/doc",
-    "example": "ts-node ./example.ts"
+    "example": "ts-node ./example.ts",
+    "lint": "eslint"
   },
   "keywords": [
     "LwDITA",
@@ -39,6 +40,7 @@
   ],
   "devDependencies": {
     "@types/node": "^24.10.1",
+    "eslint": "^9.38.0",
     "rimraf": "^6.1.0",
     "ts-node": "^10.9.2",
     "typedoc": "^0.28.14",
