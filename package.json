@@ -20,7 +20,7 @@
     "test": "mocha",
     "test:watch": "mocha -w",
     "generate-docs": "yarn workspaces foreach --parallel --recursive --from '@evolvedbinary/lwdita-*' run docs",
-    "lint": "yarn workspaces foreach --parallel --recursive --from '@evolvedbinary/lwdita-*' run lint",
+    "lint": "yarn workspaces foreach --recursive --from '@evolvedbinary/lwdita-*' run lint",
     "coverage": "rimraf coverage && nyc yarn mocha",
     "coveralls": "nyc --reporter=text-lcov report | coveralls"
   },
