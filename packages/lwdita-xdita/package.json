@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
     "prepack": "yarn run build",
     "docs": "typedoc --options typedoc.config.mjs --entryPoints src/index.ts --out dist/doc",
     "example": "ts-node ./example.ts"

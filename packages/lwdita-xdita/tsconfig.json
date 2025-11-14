@@ -1,12 +1,19 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-      "rootDir": "src",
-      "outDir": "dist",
-    },
-    "exclude": [
-      "test/**/*",
-      "node_modules",
-      "example.ts"
-    ]
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "example.ts"
+  ],
+  "references": [
+    { "path": "../lwdita-ast" }
+  ]
 }
