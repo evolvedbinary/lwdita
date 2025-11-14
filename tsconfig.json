@@ -3,6 +3,7 @@
 
   // overrides recommended
   "compilerOptions": {
+    "target": "es6",                          /* Set the JavaScript language version for emitted JavaScript*/
     "skipLibCheck": false,                    /* Do NOT skip type checking of declaration files. */
     "experimentalDecorators": true,           /* Enables experimental support for ES7 decorators. */
     "declaration": true,                      /* Generates corresponding '.d.ts' file. */
