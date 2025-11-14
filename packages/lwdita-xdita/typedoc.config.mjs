@@ -17,7 +17,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { OptionDefaults } from "typedoc";
 
-/** @type {Partial<import('typedoc').TypeDocOptions>} */
 const config = {
   tsconfig: "./tsconfig.json",
   modifierTags: [...OptionDefaults.modifierTags, "@decorator"],
