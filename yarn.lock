@@ -377,6 +377,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@evolvedbinary/lwdita-ast@workspace:packages/lwdita-ast"
   dependencies:
+    eslint: "npm:^9.38.0"
     rimraf: "npm:^6.1.0"
     typedoc: "npm:^0.28.14"
     typescript: "npm:5.9.3"
@@ -390,6 +391,7 @@ __metadata:
     "@evolvedbinary/lwdita-ast": "workspace:^"
     "@rubensworks/saxes": "npm:6.0.1"
     "@types/node": "npm:^24.10.1"
+    eslint: "npm:^9.38.0"
     rimraf: "npm:^6.1.0"
     ts-node: "npm:^10.9.2"
     typedoc: "npm:^0.28.14"
@@ -409,8 +411,8 @@ __metadata:
     coveralls: "npm:^3.1.1"
     eslint: "npm:^9.39.1"
     eslint-plugin-notice: "npm:^1.0.0"
-    eslint-plugin-tsdoc: "npm:^0.5.0"
-    globals: "npm:^16.5.0"
+    eslint-plugin-tsdoc: "npm:^0.4.0"
+    globals: "npm:^16.4.0"
     jiti: "npm:^2.6.1"
     mocha: "npm:^11.7.5"
     nodemon: "npm:^3.1.11"
@@ -567,22 +569,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/tsdoc-config@npm:0.18.0":
-  version: 0.18.0
-  resolution: "@microsoft/tsdoc-config@npm:0.18.0"
+"@microsoft/tsdoc-config@npm:0.17.1":
+  version: 0.17.1
+  resolution: "@microsoft/tsdoc-config@npm:0.17.1"
   dependencies:
-    "@microsoft/tsdoc": "npm:0.16.0"
+    "@microsoft/tsdoc": "npm:0.15.1"
     ajv: "npm:~8.12.0"
     jju: "npm:~1.4.0"
     resolve: "npm:~1.22.2"
-  checksum: 10c0/6e2c3bfde3e5fa4c0360127c86fe016dcf1b09d0091d767c06ce916284d3f6aeea3617a33b855c5bb2615ab0f2840eeebd4c7f4a1f879f951828d213bf306cfd
+  checksum: 10c0/a686355796f492f27af17e2a17d615221309caf4d9f9047a5a8f17f8625c467c4c81e2a7923ddafd71b892631d5e5013c4b8cc49c5867d3cc1d260fd90c1413d
   languageName: node
   linkType: hard
 
-"@microsoft/tsdoc@npm:0.16.0":
-  version: 0.16.0
-  resolution: "@microsoft/tsdoc@npm:0.16.0"
-  checksum: 10c0/8883bb0ed22753af7360e9222687fda4eb448f0a574ea34b4596c11e320148b3ae0d24e00f8923df8ba7bc62a46a6f53b9343243a348640d923dfd55d52cd6bb
+"@microsoft/tsdoc@npm:0.15.1":
+  version: 0.15.1
+  resolution: "@microsoft/tsdoc@npm:0.15.1"
+  checksum: 10c0/09948691fac56c45a0d1920de478d66a30371a325bd81addc92eea5654d95106ce173c440fea1a1bd5bb95b3a544b6d4def7bb0b5a846c05d043575d8369a20c
   languageName: node
   linkType: hard
 
@@ -906,7 +908,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:8.46.4, @typescript-eslint/utils@npm:~8.46.0":
+"@typescript-eslint/utils@npm:8.46.4":
   version: 8.46.4
   resolution: "@typescript-eslint/utils@npm:8.46.4"
   dependencies:
@@ -1700,14 +1702,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-tsdoc@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "eslint-plugin-tsdoc@npm:0.5.0"
+"eslint-plugin-tsdoc@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "eslint-plugin-tsdoc@npm:0.4.0"
   dependencies:
-    "@microsoft/tsdoc": "npm:0.16.0"
-    "@microsoft/tsdoc-config": "npm:0.18.0"
-    "@typescript-eslint/utils": "npm:~8.46.0"
-  checksum: 10c0/f810ed29740da2f0ea32c07de386b56a8e26533d768a056defed2a9de26246b98272991ad55e3169cffa5f391562ad4849ecda0245e3029821ff3289ddda8169
+    "@microsoft/tsdoc": "npm:0.15.1"
+    "@microsoft/tsdoc-config": "npm:0.17.1"
+  checksum: 10c0/c65b67b789597683456cd346414451618b9a2ed40f4d6b02223426914ba83c37083c8d330d15808ff5e448c755bdb254ff0ffb1971688304168ed8d22dbcc7d3
   languageName: node
   linkType: hard
 
@@ -1742,7 +1743,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.39.1":
+"eslint@npm:^9.38.0, eslint@npm:^9.39.1":
   version: 9.39.1
   resolution: "eslint@npm:9.39.1"
   dependencies:
@@ -2247,7 +2248,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:^16.5.0":
+"globals@npm:^16.4.0":
   version: 16.5.0
   resolution: "globals@npm:16.5.0"
   checksum: 10c0/615241dae7851c8012f5aa0223005b1ed6607713d6813de0741768bd4ddc39353117648f1a7086b4b0fa45eae733f1c0a0fe369aa4e543bb63f8de8990178ea9
@@ -2309,7 +2310,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hasown@npm:^2.0.0":
+"hasown@npm:^2.0.2":
   version: 2.0.2
   resolution: "hasown@npm:2.0.2"
   dependencies:
@@ -2462,12 +2463,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-core-module@npm:^2.13.0":
-  version: 2.13.1
-  resolution: "is-core-module@npm:2.13.1"
+"is-core-module@npm:^2.16.1":
+  version: 2.16.1
+  resolution: "is-core-module@npm:2.16.1"
   dependencies:
-    hasown: "npm:^2.0.0"
-  checksum: 10c0/2cba9903aaa52718f11c4896dabc189bab980870aae86a62dc0d5cedb546896770ee946fb14c84b7adf0735f5eaea4277243f1b95f5cefa90054f92fbcac2518
+    hasown: "npm:^2.0.2"
+  checksum: 10c0/898443c14780a577e807618aaae2b6f745c8538eca5c7bc11388a3f2dc6de82b9902bcc7eb74f07be672b11bbe82dd6a6edded44a00cb3d8f933d0459905eedd
   languageName: node
   linkType: hard
 
@@ -3729,28 +3730,28 @@ __metadata:
   linkType: hard
 
 "resolve@npm:~1.22.2":
-  version: 1.22.8
-  resolution: "resolve@npm:1.22.8"
+  version: 1.22.11
+  resolution: "resolve@npm:1.22.11"
   dependencies:
-    is-core-module: "npm:^2.13.0"
+    is-core-module: "npm:^2.16.1"
     path-parse: "npm:^1.0.7"
     supports-preserve-symlinks-flag: "npm:^1.0.0"
   bin:
     resolve: bin/resolve
-  checksum: 10c0/07e179f4375e1fd072cfb72ad66d78547f86e6196c4014b31cb0b8bb1db5f7ca871f922d08da0fbc05b94e9fd42206f819648fa3b5b873ebbc8e1dc68fec433a
+  checksum: 10c0/f657191507530f2cbecb5815b1ee99b20741ea6ee02a59c57028e9ec4c2c8d7681afcc35febbd554ac0ded459db6f2d8153382c53a2f266cee2575e512674409
   languageName: node
   linkType: hard
 
 "resolve@patch:resolve@npm%3A~1.22.2#optional!builtin<compat/resolve>":
-  version: 1.22.8
-  resolution: "resolve@patch:resolve@npm%3A1.22.8#optional!builtin<compat/resolve>::version=1.22.8&hash=c3c19d"
+  version: 1.22.11
+  resolution: "resolve@patch:resolve@npm%3A1.22.11#optional!builtin<compat/resolve>::version=1.22.11&hash=c3c19d"
   dependencies:
-    is-core-module: "npm:^2.13.0"
+    is-core-module: "npm:^2.16.1"
     path-parse: "npm:^1.0.7"
     supports-preserve-symlinks-flag: "npm:^1.0.0"
   bin:
     resolve: bin/resolve
-  checksum: 10c0/0446f024439cd2e50c6c8fa8ba77eaa8370b4180f401a96abf3d1ebc770ac51c1955e12764cde449fde3fff480a61f84388e3505ecdbab778f4bef5f8212c729
+  checksum: 10c0/ee5b182f2e37cb1165465e58c6abc797fec0a80b5ba3231607beb4677db0c9291ac010c47cf092b6daa2b7f518d69a0e21888e7e2b633f68d501a874212a8c63
   languageName: node
   linkType: hard
 

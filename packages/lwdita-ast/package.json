@@ -9,9 +9,10 @@
   },
   "scripts": {
     "build": "tsc",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
     "prepack": "yarn run build",
-    "docs": "typedoc --options typedoc.config.mjs --entryPoints src/index.ts --out dist/doc"
+    "docs": "typedoc --options typedoc.config.mjs --entryPoints src/index.ts --out dist/doc",
+    "lint": "eslint"
   },
   "keywords": [
     "LwDITA",
@@ -30,6 +31,7 @@
     "url": "https://github.com/evolvedbinary/lwdita/issues"
   },
   "devDependencies": {
+    "eslint": "^9.38.0",
     "rimraf": "^6.1.0",
     "typedoc": "^0.28.14",
     "typescript": "5.9.3"

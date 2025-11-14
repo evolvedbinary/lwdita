@@ -21,7 +21,7 @@ import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
 import notice from "eslint-plugin-notice";
 import tsdoc from "eslint-plugin-tsdoc";
-
+import path from "path";
 
 export default defineConfig([
   {
@@ -62,7 +62,10 @@ export default defineConfig([
         }
       ],
       // notice
-      "notice/notice": ["error", { templateFile: "./config/notice.js" }],
+      "notice/notice": [
+        "error", 
+        { templateFile: path.resolve(__dirname, "./config/notice.js") }
+      ],
 
       // tsdoc
       "tsdoc/syntax": "warn"
